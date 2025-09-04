@@ -3700,3 +3700,22 @@ Import trace for requested module:
  ✓ Compiled in 247ms (523 modules)
  ✓ Compiled in 230ms (432 modules)
  ✓ Compiled in 112ms (432 modules)
+ ✓ Compiled in 568ms (523 modules)
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.2
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.4:3000
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ✓ middlewareEnabled
+
+ ✓ Starting...
+ ✓ Ready in 1844ms
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.2
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.4:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1657ms
