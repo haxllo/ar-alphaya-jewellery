@@ -179,9 +179,9 @@ This ensures all collection URLs work even before products are added to those ca
 
 3. **Advanced Order Summary**
    - Detailed price breakdown (subtotal, shipping, tax)
-   - Smart shipping calculator (free over Rs 500,000)
-   - Progress bar for free shipping threshold
-   - Visual shipping notifications with emojis
+   - Sri Lankan shipping policy: FREE delivery within SL
+   - Clear shipping information and delivery times
+   - Visual shipping notifications with truck emoji
    - Tax estimation (2% of subtotal)
    - Security and trust badges
    - Payment method icons

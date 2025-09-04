@@ -167,7 +167,8 @@ NPM_FLAGS=--prefix=/opt/buildhome/repo
 - ✅ **Homepage loads** with brand logo and styling
 - ✅ **Navigation works** - all collection pages load
 - ✅ **Product pages** display correctly
-- ✅ **Shopping cart** functions properly
+- ✅ **Shopping cart** functions properly with Sri Lankan shipping
+- ✅ **Free delivery shown** for Sri Lankan customers
 - ✅ **Cart persistence** works across page refreshes
 - ✅ **Responsive design** on mobile devices
 - ✅ **CMS admin** accessible at `/admin`

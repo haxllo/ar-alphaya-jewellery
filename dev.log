@@ -328,3 +328,146 @@ Require stack:
  GET /_next/static/chunks/fallback/react-refresh.js 404 in 55ms
  GET /_next/static/chunks/fallback/pages/_error.js 404 in 57ms
  GET /_next/static/chunks/fallback/pages/_app.js 404 in 59ms
+ ✓ Compiled in 347ms (886 modules)
+ ✓ Compiled /_not-found in 106ms (875 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/utils.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1383:15)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16)
+    at __webpack_require__.f.require (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:198:28)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:162:22)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js:1:2921
+    at Object.<anonymous> (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js:1:2970)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16)
+    at requirePage (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require.js:109:84)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/base-server.js:2097:30)
+    at async pipe.req.req (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/base-server.js:920:25)
+    at async /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/utils.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ ✓ Compiled /_error in 92ms (877 modules)
+ GET /_next/static/css/app/layout.css?v=1756974871776 500 in 230ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/utils.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js
+- /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1383:15)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16)
+    at __webpack_require__.f.require (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:198:28)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js:162:22)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js:1:2921
+    at Object.<anonymous> (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js:1:2970)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16)
+    at requirePage (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require.js:109:84)
+    at /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/base-server.js:2097:30)
+    at async pipe.req.req (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/base-server.js:920:25)
+    at async /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/webpack-runtime.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/server/app/_not-found/page.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/require.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/load-components.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/utils.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/router-server.js',
+    '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/lib/start-server.js'
+  ]
+}
+ GET /_next/static/css/app/layout.css?v=1756974871776 500 in 8ms
+ ✓ Compiled in 258ms (891 modules)
+ HEAD /cart/ 200 in 65ms

@@ -17,7 +17,7 @@ export default function CartSummary({
   total, 
   itemCount 
 }: CartSummaryProps) {
-  const freeShippingThreshold = 500000
+  // Sri Lankan shipping policy: Free delivery within SL, charges for international
 
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sticky top-6">
@@ -31,43 +31,35 @@ export default function CartSummary({
         
         <div className="flex justify-between text-gray-600">
           <span className="flex items-center">
-            Shipping
+            Shipping (Sri Lanka)
             <svg className="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </span>
-          <span>{shippingEstimate === 0 ? 'FREE' : `Rs ${shippingEstimate.toLocaleString()}`}</span>
+          <span className="text-green-600 font-medium">FREE</span>
         </div>
         
-        {/* Shipping Notifications */}
-        {shippingEstimate === 0 && (
-          <div className="text-sm text-green-600 bg-green-50 p-3 rounded-lg flex items-center">
-            <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            🎉 You qualified for FREE shipping!
-          </div>
-        )}
+        {/* Sri Lankan Shipping Information */}
+        <div className="text-sm text-green-600 bg-green-50 p-3 rounded-lg flex items-center">
+          <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          🚚 Free delivery anywhere in Sri Lanka!
+        </div>
         
-        {shippingEstimate > 0 && (
-          <div className="text-sm text-blue-600 bg-blue-50 p-3 rounded-lg">
-            <div className="flex items-center mb-2">
-              <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Add Rs {(freeShippingThreshold - subtotal).toLocaleString()} more for FREE shipping
-            </div>
-            <div className="w-full bg-blue-200 rounded-full h-2">
-              <div 
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
-                style={{ width: `${Math.min((subtotal / freeShippingThreshold) * 100, 100)}%` }}
-              ></div>
-            </div>
-            <div className="text-xs mt-1">
-              {Math.round((subtotal / freeShippingThreshold) * 100)}% towards free shipping
+        <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded-lg">
+          <div className="flex items-start">
+            <svg className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+            </svg>
+            <div>
+              <div className="font-medium text-gray-700 mb-1">Shipping Information:</div>
+              <div>• Free delivery within Sri Lanka</div>
+              <div>• International shipping charges apply</div>
+              <div>• Delivery time: 2-5 working days (local)</div>
             </div>
           </div>
-        )}
+        </div>
         
         <div className="flex justify-between text-gray-600">
           <span className="flex items-center">

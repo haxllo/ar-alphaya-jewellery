@@ -14,8 +14,9 @@ export default function CartPage() {
   const [removingItem, setRemovingItem] = useState<string | null>(null)
   
   const subtotal = items.reduce((acc, i) => acc + i.price * i.quantity, 0)
-  const shippingEstimate = subtotal > 500000 ? 0 : 5000 // Free shipping over Rs 500,000
-  const taxEstimate = Math.round(subtotal * 0.02) // 2% tax estimate
+  // Free delivery within Sri Lanka, international shipping charges apply
+  const shippingEstimate = 0 // Default: Free shipping within Sri Lanka
+  const taxEstimate = Math.round(subtotal * 0.02) // 2% tax estimate  
   const total = subtotal + shippingEstimate + taxEstimate
 
   // Suggested products (hardcoded for now - can be made dynamic later)
