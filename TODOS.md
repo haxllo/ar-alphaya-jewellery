@@ -27,11 +27,55 @@
 ## Medium Priority
 - [ ] Implement product reviews system
 - [ ] Add product recommendations/related items
-- [ ] Create size guide modal
-- [ ] Add currency converter
+- [ ] Create size guide modal : {PROMPT - Include step-by-step measurement instructions for both rings and bracelets.
+                                          Add visual diagrams if possible to improve clarity.
+                                          Make the guide clear, concise, and visually appealing for e-commerce customers.
+                                 
+                                CONTENT - 📏 Ring Size Conversion Table
+                                           
+                                           | US Size | UK Size | EU Size | Inner Diameter (mm) | Circumference (mm) |
+                                           | ------- | ------- | ------- | ------------------- | ------------------ |
+                                           | 3       | F       | 44      | 14.0                | 44                 |
+                                           | 4       | H       | 46      | 14.8                | 46                 |
+                                           | 5       | J       | 49      | 15.6                | 49                 |
+                                           | 6       | L       | 51      | 16.4                | 51                 |
+                                           | 7       | N       | 54      | 17.2                | 54                 |
+                                           | 8       | P       | 57      | 18.0                | 57                 |
+                                           | 9       | R       | 59      | 18.8                | 59                 |
+                                           | 10      | T       | 62      | 19.6                | 62                 |
+                                           | 11      | V       | 64      | 20.0                | 64                 |
+                                           | 12      | X       | 66      | 20.6                | 66                 |
+                                           | 13      | Z       | 69      | 21.4                | 69                 |
+                                            Note: Sizes may vary slightly by manufacturer. Always refer to the specific brand’s size guide when available.
+
+                                            📐 How to Measure Your Finger for Rings
+
+                                            1.Wrap a string or paper strip around the base of your finger.
+                                            2.Mark the point where it overlaps.
+                                            3.Measure the length with a ruler (circumference in mm).
+                                            4.Find the matching ring size in the table above.
+                                            Tip: Measure your finger at the end of the day when it is largest.
+
+                                            📏 Bracelet Size Guide
+
+                                            | Wrist Circumference (cm) | Bracelet Size    |
+                                            | ------------------------ | ---------------- |
+                                            | 14.0 – 15.5              | Small (S)        |
+                                            | 15.6 – 17.0              | Medium (M)       |
+                                            | 17.1 – 18.5              | Large (L)        |
+                                            | 18.6 – 20.0              | Extra Large (XL) |
+                                            Note: Fit preference varies. Some like snug, some loose. Choose the most comfortable size.
+                                        
+                                            📐 How to Measure Your Wrist for Bracelets
+
+                                            1.Wrap a flexible measuring tape around your wrist just below the wrist bone.
+                                            2.Record the measurement in centimeters.
+                                            3.Match the measurement to the bracelet size chart above.}
+
+- [ ] Create customer account pages : {this page should show content if logged in, it should contain space to fill there personal details, and it should auto fill the checkout page and contact page}
+- [ ] Add currency converter : {the default currency should be Srilankan rupees. It can CHANGE according to the country chosen by the use in checkout or filled in user account page}
 - [ ] Implement newsletter signup
 - [ ] Add back-in-stock notifications
-- [ ] Create customer account pages
 
 ## Low Priority
 - [ ] Add dark mode support

@@ -5,9 +5,13 @@ import { useState } from 'react'
 import { useCartStore } from '@/lib/store/cart'
 import CartItemComponent from '@/components/cart/cart-item'
 import CartSummary from '@/components/cart/cart-summary'
+import ProductRecommendations from '@/components/recommendations/ProductRecommendations'
+import type { CartItem } from '@/types/product'
+import { RecommendationService } from '@/lib/recommendations'
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items)
+  const addItem = useCartStore((state) => state.addItem)
   const removeItem = useCartStore((state) => state.removeItem)
   const setQuantity = useCartStore((state) => state.setQuantity)
   const clear = useCartStore((state) => state.clear)
@@ -19,12 +23,10 @@ export default function CartPage() {
   const taxEstimate = Math.round(subtotal * 0.02) // 2% tax estimate  
   const total = subtotal + shippingEstimate + taxEstimate
 
-  // Suggested products (hardcoded for now - can be made dynamic later)
-  const suggestedProducts = [
-    { id: 'demo-001', slug: 'sample-blue-sapphire-ring', name: 'Sample Blue Sapphire Ring', price: 250000 },
-    { id: 'demo-002', slug: 'sample-diamond-earrings', name: 'Sample Diamond Stud Earrings', price: 150000 },
-    { id: 'demo-003', slug: 'sample-ruby-pendant', name: 'Sample Ruby Heart Pendant', price: 180000 },
-  ]
+  // Smart product recommendations based on cart contents
+  const suggestedProducts = items.length > 0 
+    ? RecommendationService.getFrequentlyBoughtTogether(items, 3)
+    : RecommendationService.getTrendingProducts(3)
 
   const handleQuantityChange = (productId: string, newQuantity: number, size?: string) => {
     if (newQuantity <= 0) {
@@ -41,6 +43,7 @@ export default function CartPage() {
       setRemovingItem(null)
     }, 300)
   }
+
 
   if (items.length === 0) {
     return (
@@ -65,22 +68,12 @@ export default function CartPage() {
         </div>
         
         {/* Suggested Products for Empty Cart */}
-        <div className="mt-16">
-          <h2 className="text-xl font-semibold mb-6 text-black text-center">You might like these</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {suggestedProducts.map((product) => (
-              <Link 
-                key={product.id} 
-                href={`/products/${product.slug}`}
-                className="group border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all"
-              >
-                <div className="aspect-square bg-gray-100 rounded-lg mb-3" />
-                <h3 className="font-medium text-black group-hover:text-gray-600 transition-colors">{product.name}</h3>
-                <p className="text-gray-600 text-sm">Rs {product.price.toLocaleString()}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <ProductRecommendations 
+          products={suggestedProducts}
+          title="You might like these"
+          showQuickAdd={false}
+          className="mt-16 text-center"
+        />
       </main>
     )
   }
@@ -134,26 +127,12 @@ export default function CartPage() {
         </div>
       </div>
       
-      {/* Recently Viewed / Recommended */}
-      <div className="mt-16">
-        <h2 className="text-2xl font-semibold mb-6 text-black">You might also like</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {suggestedProducts.map((product) => (
-            <Link 
-              key={product.id} 
-              href={`/products/${product.slug}`}
-              className="group border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all"
-            >
-              <div className="aspect-square bg-gray-100 rounded-lg mb-3" />
-              <h3 className="font-medium text-black group-hover:text-gray-600 transition-colors">{product.name}</h3>
-              <p className="text-gray-600 text-sm">Rs {product.price.toLocaleString()}</p>
-              <button className="mt-3 w-full bg-gray-100 text-black py-2 px-4 rounded hover:bg-gray-200 transition-colors text-sm">
-                Quick Add
-              </button>
-            </Link>
-          ))}
-        </div>
-      </div>
+      {/* Smart Recommendations */}
+      <ProductRecommendations 
+        products={suggestedProducts}
+        title={items.length > 0 ? "Frequently bought together" : "Trending now"}
+        className="mt-16"
+      />
     </main>
   )
 }

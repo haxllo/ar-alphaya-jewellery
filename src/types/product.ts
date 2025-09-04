@@ -39,3 +39,28 @@ export type Collection = {
   image?: string;
 };
 
+export type Review = {
+  id: string;
+  productId: string;
+  customerName: string;
+  customerEmail?: string;
+  rating: number; // 1-5 stars
+  title: string;
+  content: string;
+  createdAt: string;
+  verified?: boolean; // verified purchase
+  helpful?: number; // helpful votes count
+};
+
+export type ReviewSummary = {
+  totalReviews: number;
+  averageRating: number;
+  ratingDistribution: {
+    5: number;
+    4: number;
+    3: number;
+    2: number;
+    1: number;
+  };
+};
+
