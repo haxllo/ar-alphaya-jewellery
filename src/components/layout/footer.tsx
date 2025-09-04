@@ -69,21 +69,41 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold mb-4 text-gray-100">Contact</h3>
             <div className="space-y-2 text-sm text-gray-300">
-              <p>Email: info@aralphayajewellery.com</p>
-              <p>Phone: +94 XX XXX XXXX</p>
-              <p>Address: Colombo, Sri Lanka</p>
+              <p>Email: aralphayajewellery@gmail.com</p>
+              <p>Phone: +94 77 429 3406</p>
+              <p>Address: 143/5 Rainbow park, Temple road, Kengalla - 20186</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-400">
-            © 2025 AR Alphaya Jewellery. All rights reserved.
-          </p>
-          <div className="mt-4 md:mt-0">
-            <p className="text-xs text-gray-500">
-              Crafted with ❤️ for fine jewelry lovers
+        <div className="border-t border-gray-700 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+            <p className="text-sm text-gray-400">
+              © 2025 AR Alphaya Jewellery. All rights reserved.
             </p>
+            <div className="mt-4 md:mt-0">
+              <p className="text-xs text-gray-500">
+                Crafted with ❤️ for fine jewelry lovers
+              </p>
+            </div>
+          </div>
+          
+          {/* Legal Links */}
+          <div className="border-t border-gray-800 pt-6">
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="/shipping" className="text-gray-400 hover:text-white transition-colors">
+                Shipping Policy
+              </Link>
+              <Link href="/returns" className="text-gray-400 hover:text-white transition-colors">
+                Return Policy
+              </Link>
+            </div>
           </div>
         </div>
       </div>
