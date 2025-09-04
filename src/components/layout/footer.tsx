@@ -1,7 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState } from 'react'
+import SizeGuideModal from '@/components/product/SizeGuideModal'
 
 export default function Footer() {
+  const [showSizeGuide, setShowSizeGuide] = useState(false)
+  
   return (
     <footer className="bg-black text-white">
       <div className="mx-auto max-w-7xl px-6 py-12">
@@ -49,6 +55,14 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link></li>
               <li><Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link></li>
+              <li>
+                <button
+                  onClick={() => setShowSizeGuide(true)}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
+                  Size Guide
+                </button>
+              </li>
               <li><Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link></li>
               <li><Link href="/cart" className="text-gray-300 hover:text-white transition-colors">Cart</Link></li>
             </ul>
@@ -101,6 +115,11 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      
+      <SizeGuideModal
+        isOpen={showSizeGuide}
+        onClose={() => setShowSizeGuide(false)}
+      />
     </footer>
   )
 }

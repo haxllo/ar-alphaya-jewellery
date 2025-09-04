@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
+import SizeGuideModal from '@/components/product/SizeGuideModal'
 import CurrencySelector from '@/components/ui/CurrencySelector'
 
 const collections = [
@@ -18,6 +19,7 @@ const collections = [
 export default function Header() {
   const { user, error, isLoading } = useUser()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showSizeGuide, setShowSizeGuide] = useState(false)
   const items = useCartStore((state) => state.items)
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0)
   const wishlistCount = useWishlistStore((state) => state.getItemCount())
@@ -61,6 +63,12 @@ export default function Header() {
               </div>
             </div>
             <Link href="/about" className="text-sm text-gray-700 hover:text-black transition-colors">About</Link>
+            <button
+              onClick={() => setShowSizeGuide(true)}
+              className="text-sm text-gray-700 hover:text-black transition-colors"
+            >
+              Size Guide
+            </button>
             <Link href="/contact" className="text-sm text-gray-700 hover:text-black transition-colors">Contact</Link>
           </nav>
 
@@ -188,6 +196,12 @@ export default function Header() {
                 </div>
               </div>
               <Link href="/about" className="block text-sm text-gray-700 hover:text-black transition-colors">About</Link>
+              <button
+                onClick={() => setShowSizeGuide(true)}
+                className="block text-sm text-gray-700 hover:text-black transition-colors text-left"
+              >
+                Size Guide
+              </button>
               <Link href="/contact" className="block text-sm text-gray-700 hover:text-black transition-colors">Contact</Link>
               <Link href="/wishlist" className="block text-sm text-gray-700 hover:text-black transition-colors">
                 Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
@@ -243,6 +257,11 @@ export default function Header() {
           </div>
         )}
       </div>
+      
+      <SizeGuideModal
+        isOpen={showSizeGuide}
+        onClose={() => setShowSizeGuide(false)}
+      />
     </header>
   )
 }

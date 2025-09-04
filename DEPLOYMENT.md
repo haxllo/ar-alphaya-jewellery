@@ -53,9 +53,20 @@ In your Netlify dashboard, go to Site Settings → Environment Variables and add
 
 ### Required Variables
 
-```
+```bash
+# Site Configuration
 NEXT_PUBLIC_SITE_URL=https://your-site-name.netlify.app
 NEXT_PUBLIC_SITE_NAME=AR Alphaya Jewellery
+
+# Auth0 Authentication (REQUIRED)
+AUTH0_SECRET="your-generated-secret-key"
+AUTH0_BASE_URL="https://your-site-name.netlify.app"
+AUTH0_ISSUER_BASE_URL="https://your-tenant.auth0.com"
+AUTH0_CLIENT_ID="your-auth0-client-id"
+AUTH0_CLIENT_SECRET="your-auth0-client-secret"
+AUTH0_SCOPE="openid profile email"
+AUTH0_LOGIN_RETURN_TO="/profile"
+AUTH0_LOGOUT_RETURN_TO="/"
 ```
 
 ### PayHere Configuration
@@ -95,7 +106,28 @@ SMTP_PASSWORD=your_app_password
    - The site already includes Netlify Identity widget
    - Test login at `/admin` after deployment
 
-## Step 4: Configure PayHere
+## Step 4: Configure Auth0
+
+1. **Create Auth0 Account:**
+   - Sign up at [Auth0](https://auth0.com/)
+   - Create a new application (Single Page Application)
+   - Note your Domain, Client ID, and Client Secret
+
+2. **Configure Auth0 Application:**
+   - **Allowed Callback URLs**: `http://localhost:3001/api/auth/callback,https://your-site-name.netlify.app/api/auth/callback`
+   - **Allowed Logout URLs**: `http://localhost:3001,https://your-site-name.netlify.app`
+   - **Allowed Web Origins**: `http://localhost:3001,https://your-site-name.netlify.app`
+
+3. **Generate Secret Key:**
+   ```bash
+   openssl rand -hex 32
+   ```
+
+4. **Add Auth0 Environment Variables:**
+   - Add all Auth0 variables to Netlify environment variables
+   - Ensure URLs match your deployment domain
+
+## Step 5: Configure PayHere
 
 1. **Get PayHere Credentials:**
    - Sign up at [PayHere](https://www.payhere.lk/)

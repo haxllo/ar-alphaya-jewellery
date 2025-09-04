@@ -4,23 +4,30 @@ A modern, customizable jewelry e-commerce website built with Next.js, TypeScript
 
 ## 🚀 Features
 
-- **Modern Tech Stack**: Next.js 14 with App Router, TypeScript, Tailwind CSS
+- **Modern Tech Stack**: Next.js 15 with App Router, TypeScript, Tailwind CSS
 - **Content Management**: Decap CMS (formerly Netlify CMS) for easy product management
-- **Shopping Cart**: Global cart functionality with size selection across all pages
+- **Authentication**: Complete Auth0 integration with user profiles and protected pages
+- **Shopping Cart**: Advanced cart functionality with recommendations and size selection
+- **Payment Integration**: PayHere payment gateway for Sri Lankan customers
+- **User Reviews**: Complete review and rating system with verified purchases
+- **Multi-Currency**: Support for 9 international currencies with live conversion
+- **Product Recommendations**: Smart AI-powered product suggestions
+- **Newsletter System**: Advanced email subscription with preferences
+- **Size Guide**: Professional jewelry sizing guide with international standards
 - **Responsive Design**: Mobile-first design optimized for all devices
-- **SEO Optimized**: Next.js SEO with meta tags and structured data
-- **Authentication Ready**: Prepared for Netlify Identity integration
-- **Payment Ready**: Structure prepared for PayHere integration
-- **Analytics Ready**: Built-in hooks for tracking user activities
+- **SEO Optimized**: Complete SEO with meta tags and structured data
 
 ## 📁 Project Structure
 
 ```
 src/
 ├── app/                    # Next.js App Router pages
+│   ├── api/auth/[auth0]/   # Auth0 authentication routes
 │   ├── collections/        # Product collections pages
 │   ├── products/           # Individual product pages
-│   ├── cart/              # Shopping cart page
+│   ├── profile/           # User profile page (protected)
+│   ├── cart/              # Advanced shopping cart
+│   ├── checkout/          # PayHere checkout integration
 │   ├── about/             # About page
 │   ├── contact/           # Contact page
 │   └── globals.css        # Global styles
@@ -28,10 +35,17 @@ src/
 │   ├── ui/               # Basic UI components
 │   ├── layout/           # Layout components (Header, Footer)
 │   ├── product/          # Product-related components
-│   └── cart/             # Cart-related components
+│   ├── cart/             # Cart-related components
+│   ├── reviews/          # Review and rating components
+│   ├── recommendations/  # Product recommendation components
+│   └── marketing/        # Newsletter and marketing components
 ├── lib/                  # Utility functions and configurations
 │   ├── store/            # Zustand store for state management
 │   ├── cms/              # CMS utility functions
+│   ├── recommendations.ts# Smart product recommendations
+│   ├── reviews.ts        # Review system service
+│   ├── newsletter.ts     # Newsletter management
+│   ├── currency.ts       # Multi-currency support
 │   └── utils.ts          # General utilities
 ├── types/                # TypeScript type definitions
 ├── data/                 # Sample data and CMS content
@@ -62,7 +76,8 @@ npm install
 
 3. Create environment variables:
 ```bash
-cp .env.example .env.local
+# Create .env.local with Auth0 credentials
+touch .env.local
 ```
 
 4. Run the development server:
@@ -150,9 +165,23 @@ Custom fonts can be added in `app/layout.tsx` and configured in the Tailwind con
 
 ### Environment Variables
 
-```
-NEXT_PUBLIC_SITE_URL=https://yoursite.com
+```bash
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=https://aralphaya.netlify.app
+NEXT_PUBLIC_SITE_NAME="AR Alphaya Jewellery"
+
+# Auth0 Authentication
+AUTH0_SECRET="your-secret-key"
+AUTH0_BASE_URL="https://aralphaya.netlify.app"
+AUTH0_ISSUER_BASE_URL="https://your-tenant.auth0.com"
+AUTH0_CLIENT_ID="your-client-id"
+AUTH0_CLIENT_SECRET="your-client-secret"
+AUTH0_SCOPE="openid profile email"
+
+# PayHere Payment Gateway
 NEXT_PUBLIC_PAYHERE_MERCHANT_ID=your-merchant-id
+PAYHERE_MERCHANT_SECRET=your-merchant-secret
+NEXT_PUBLIC_PAYHERE_SANDBOX=true
 ```
 
 ## 🔧 Development Scripts
@@ -180,17 +209,23 @@ NEXT_PUBLIC_PAYHERE_MERCHANT_ID=your-merchant-id
 
 ## 📋 Project Status
 
-**Current Version:** Production Ready  
+**Current Version:** Production Ready with Auth0  
 **Last Updated:** September 4, 2025  
-**Development Status:** ✅ Complete with brand integration  
+**Development Status:** ✅ Complete with full authentication  
+**Live Site:** https://aralphaya.netlify.app  
 **GitHub Repository:** https://github.com/haxllo/ar-alphaya-jewellery
 
 ### Recent Updates:
-- ✅ Complete color scheme overhaul (black/white theme)
-- ✅ Brand logo integration (BRAND.svg, LOGO1.png, LOGO2.png)
-- ✅ Responsive logo sizing across all devices
-- ✅ Bug fixes for collection route generation
-- ✅ Professional favicon and metadata setup
+- ✅ Complete Auth0 authentication integration
+- ✅ Protected user profiles and checkout pages
+- ✅ Advanced shopping cart with recommendations
+- ✅ Multi-currency support system
+- ✅ Professional review and rating system
+- ✅ Newsletter subscription system
+- ✅ Comprehensive size guide modal
+- ✅ PayHere payment gateway integration
+- ✅ Professional black/white design theme
+- ✅ Complete brand integration and optimization
 
 ## 📄 License
 
