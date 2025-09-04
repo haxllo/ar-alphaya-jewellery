@@ -32,7 +32,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold mb-4">Custom Design</h2>
           <p className="text-neutral-600 mb-4">
             We specialize in custom jewelry design, working with you to create one-of-a-kind pieces 
-            that reflect your personal style and commemorate life's most precious moments. Our design 
+            that reflect your personal style and commemorate life&apos;s most precious moments. Our design
             process is collaborative, ensuring that the final piece exceeds your expectations.
           </p>
         </div>
@@ -40,7 +40,7 @@ export default function AboutPage() {
         <div className="bg-neutral-50 p-8 rounded-lg">
           <h3 className="text-xl font-semibold mb-4">Get in Touch</h3>
           <p className="text-neutral-600 mb-4">
-            We'd love to help you find or create the perfect piece. Contact us to schedule a 
+            We&apos;d love to help you find or create the perfect piece. Contact us to schedule a
             consultation or to learn more about our custom design services.
           </p>
           <p className="text-neutral-600">

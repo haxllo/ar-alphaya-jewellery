@@ -1,6 +1,11 @@
-import { getProductBySlug } from '@/lib/cms/content'
+import { getProductBySlug, getAllProducts } from '@/lib/cms/content'
 import { notFound } from 'next/navigation'
 import AddToCart from '@/components/cart/add-to-cart'
+
+export async function generateStaticParams() {
+  const products = getAllProducts()
+  return products.map((product) => ({ slug: product.slug }))
+}
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const product = getProductBySlug(params.slug)

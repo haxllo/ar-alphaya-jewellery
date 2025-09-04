@@ -30,8 +30,8 @@ export default function ContactPage() {
         <div>
           <h1 className="text-4xl font-serif mb-6">Get in Touch</h1>
           <p className="text-neutral-600 mb-8">
-            We'd love to hear from you. Whether you're interested in our existing pieces or 
-            want to discuss a custom design, we're here to help.
+            We&apos;d love to hear from you. Whether you&apos;re interested in our existing pieces or 
+            want to discuss a custom design, we&apos;re here to help.
           </p>
 
           <div className="space-y-6">

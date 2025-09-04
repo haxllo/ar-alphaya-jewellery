@@ -1,5 +1,11 @@
-import { getProductsByCollection } from '@/lib/cms/content'
+import { getProductsByCollection, getAllProducts } from '@/lib/cms/content'
 import Link from 'next/link'
+
+export async function generateStaticParams() {
+  const products = getAllProducts()
+  const uniqueCategories = Array.from(new Set(products.map(p => p.category)))
+  return uniqueCategories.map((handle) => ({ handle }))
+}
 
 export default function CollectionPage({ params }: { params: { handle: string } }) {
   const products = getProductsByCollection(params.handle)
