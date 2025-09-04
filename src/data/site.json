@@ -1,0 +1,11 @@
+{
+  "title": "AR Alphaya Jewellery",
+  "description": "Fine jewelry and custom pieces.",
+  "collections": [
+    { "handle": "rings", "title": "Rings", "description": "Explore our rings" },
+    { "handle": "earrings", "title": "Earrings", "description": "Explore our earrings" },
+    { "handle": "pendants", "title": "Pendants", "description": "Explore our pendants" },
+    { "handle": "bracelets-bangles", "title": "Bracelets & Bangles", "description": "Explore our bracelets & bangles" }
+  ]
+}
+
