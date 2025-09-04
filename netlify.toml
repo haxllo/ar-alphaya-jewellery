@@ -9,23 +9,8 @@
   NODE_VERSION = "18"
   NPM_VERSION = "9"
 
-# Auth0 API routes
-[[redirects]]
-  from = "/api/auth/*"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-
-# User API routes
-[[redirects]]
-  from = "/api/user/*"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-
-# PayHere API routes  
-[[redirects]]
-  from = "/api/checkout/*"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
+# API routes are handled automatically by @netlify/plugin-nextjs
+# No manual redirects needed
 
 # Security headers
 [[headers]]
