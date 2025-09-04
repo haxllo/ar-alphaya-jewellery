@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
 
 export default function RootLayout({
   children,
@@ -24,11 +25,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} h-full flex flex-col`}>
+        <UserProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   )

@@ -3368,3 +3368,335 @@ Import trace for requested module:
 ./node_modules/next/dist/client/page-bootstrap.js
 ./node_modules/next/dist/client/next-dev.js
  GET /cart/ 500 in 106ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/future'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving 'next/dist/server/future/helpers/interception-routes' in /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build for build dependencies doesn't lead to expected result '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/server/future/helpers/interception-routes.js', but to 'Error: Can't resolve 'next/dist/server/future/helpers/interception-routes' in '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build'' instead. Resolving dependencies are ignored for this path.
+<w>  at unknown 4 next/dist/server/future/helpers/interception-routes
+<w>  at file dependencies /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/utils.js
+<w>  at file /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/utils.js
+<w>  at file dependencies /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js
+<w>  at file /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js
+<w>  at resolve commonjs /home/ciqada/Projects/project 2/ar-alphaya-jewellery/node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+ ⨯ ./node_modules/next/dist/lib/require-instrumentation-client.js:11:1
+Module not found: Can't resolve 'private-next-instrumentation-client'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/next/dist/client/page-bootstrap.js
+./node_modules/next/dist/client/next-dev.js
+   Reload env: .env.local
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.2
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.4:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1784ms
+   Reload env: .env.local
+   Reload env: .env.local
+   Reload env: .env.local
+   Reload env: .env.local
+   Reload env: .env.local
+   Reload env: .env.local
+ ○ Compiling / ...
+ ✓ Compiled / in 4s (781 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json',
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.2s (1098 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+ GET / 500 in 7462ms
+[Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+ GET / 500 in 470ms
+ GET / 500 in 209ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ciqada/Projects/project 2/ar-alphaya-jewellery/.next/routes-manifest.json'
+}
+ GET / 500 in 419ms
+ GET / 500 in 205ms
+ ✓ Compiled in 242ms (432 modules)
+ ✓ Compiled in 247ms (523 modules)
+ ✓ Compiled in 230ms (432 modules)
+ ✓ Compiled in 112ms (432 modules)

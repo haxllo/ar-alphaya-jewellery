@@ -45,6 +45,10 @@ export function getProductBySlug(slug: string): Product | null {
   return getAllProducts().find((p) => p.slug === slug) || null
 }
 
+export function getProductById(id: string): Product | null {
+  return getAllProducts().find((p) => p.id === id) || null
+}
+
 export function getProductsByCollection(handle: string): Product[] {
   return getAllProducts().filter((p) => p.category === handle)
 }

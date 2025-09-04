@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePriceFormatter } from '@/hooks/useCurrency'
 
 interface CartSummaryProps {
   subtotal: number
@@ -17,6 +18,7 @@ export default function CartSummary({
   total, 
   itemCount 
 }: CartSummaryProps) {
+  const { formatPrice } = usePriceFormatter()
   // Sri Lankan shipping policy: Free delivery within SL, charges for international
 
   return (
@@ -26,7 +28,7 @@ export default function CartSummary({
       <div className="space-y-4">
         <div className="flex justify-between text-gray-600">
           <span>Subtotal ({itemCount} {itemCount === 1 ? 'item' : 'items'})</span>
-          <span>Rs {subtotal.toLocaleString()}</span>
+          <span>{formatPrice(subtotal)}</span>
         </div>
         
         <div className="flex justify-between text-gray-600">
@@ -68,14 +70,14 @@ export default function CartSummary({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </span>
-          <span>Rs {taxEstimate.toLocaleString()}</span>
+          <span>{formatPrice(taxEstimate)}</span>
         </div>
         
         {/* Total */}
         <div className="border-t border-gray-300 pt-4">
           <div className="flex justify-between text-lg font-semibold text-black">
             <span>Total</span>
-            <span>Rs {total.toLocaleString()}</span>
+            <span>{formatPrice(total)}</span>
           </div>
           <p className="text-xs text-gray-500 mt-1">Including all taxes and fees</p>
         </div>

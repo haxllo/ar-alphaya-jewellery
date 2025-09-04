@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from 'next/link'
 import { getAllProducts } from '@/lib/cms/content'
+import FeaturedProducts from './FeaturedProducts'
 
 export default function Home() {
   const products = getAllProducts().slice(0, 8)
@@ -28,21 +29,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-12">
-        <h2 className="text-2xl font-semibold mb-6 text-black">Featured</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
-            <Link key={p.id} href={`/products/${p.slug}`} className="group border border-gray-200 rounded p-3 hover:shadow-sm hover:border-gray-300 transition-all">
-              <div className="aspect-square bg-gray-100 rounded mb-3" />
-              <div className="flex items-center justify-between">
-                <h3 className="font-medium text-black group-hover:underline">{p.name}</h3>
-                <span className="text-sm text-gray-600">Rs {p.price.toLocaleString()}</span>
-              </div>
-              <p className="text-xs text-gray-500 capitalize">{p.category.replace('-', ' ')}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <FeaturedProducts products={products} />
     </div>
   )
 }

@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import Link from 'next/link'
 
 type PaymentMethod = 'payhere' | 'bank_transfer'
 
-export default function CheckoutPage() {
+function CheckoutPage() {
+  const { user, error, isLoading } = useUser()
   const items = useCartStore((state) => state.items)
   const clear = useCartStore((state) => state.clear)
   
@@ -23,9 +25,41 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('payhere')
   const [isProcessing, setIsProcessing] = useState(false)
   
+  // Pre-fill form with user data
+  useEffect(() => {
+    if (user) {
+      const nameParts = user.name?.split(' ') || []
+      setCustomerInfo(prev => ({
+        ...prev,
+        firstName: nameParts[0] || '',
+        lastName: nameParts.slice(1).join(' ') || '',
+        email: user.email || '',
+      }))
+    }
+  }, [user])
+  
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
   const shipping = 1000 // Fixed shipping cost
   const total = subtotal + shipping
+  
+  if (isLoading) {
+    return (
+      <div className="mx-auto max-w-2xl px-6 py-12 text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading checkout...</p>
+      </div>
+    )
+  }
+  
+  if (error) {
+    return (
+      <div className="mx-auto max-w-2xl px-6 py-12 text-center">
+        <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
+        <p className="text-gray-600 mb-6">{error.message}</p>
+        <Link href="/" className="bg-black text-white px-6 py-2 rounded">Go Home</Link>
+      </div>
+    )
+  }
   
   if (items.length === 0) {
     return (
@@ -285,3 +319,5 @@ export default function CheckoutPage() {
     </div>
   )
 }
+
+export default withPageAuthRequired(CheckoutPage)

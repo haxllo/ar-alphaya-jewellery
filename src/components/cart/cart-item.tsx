@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import type { CartItem } from '@/types/product'
+import { usePriceFormatter } from '@/hooks/useCurrency'
 
 interface CartItemProps {
   item: CartItem
@@ -17,6 +18,7 @@ export default function CartItemComponent({
   onQuantityChange, 
   onRemove 
 }: CartItemProps) {
+  const { formatPrice } = usePriceFormatter()
   const [quantity, setQuantity] = useState(item.quantity)
 
   const handleQuantityChange = (newQuantity: number) => {
@@ -61,7 +63,7 @@ export default function CartItemComponent({
               <p className="text-sm text-gray-600 mt-1">Size: {item.size}</p>
             )}
             <p className="text-lg font-semibold text-black mt-2">
-              Rs {item.price.toLocaleString()}
+              {formatPrice(item.price)}
             </p>
             
             {/* Stock Status */}
@@ -147,7 +149,7 @@ export default function CartItemComponent({
           <div className="flex flex-col sm:items-end">
             <span className="text-sm text-gray-600">Item total:</span>
             <span className="text-lg font-semibold text-black">
-              Rs {(item.price * quantity).toLocaleString()}
+              {formatPrice(item.price * quantity)}
             </span>
           </div>
         </div>

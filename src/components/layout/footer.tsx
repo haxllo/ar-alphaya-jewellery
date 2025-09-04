@@ -76,35 +76,29 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Legal Links */}
         <div className="border-t border-gray-700 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-            <p className="text-sm text-gray-400">
-              © 2025 AR Alphaya Jewellery. All rights reserved.
-            </p>
-            <div className="mt-4 md:mt-0">
-              <p className="text-xs text-gray-500">
-                Crafted with ❤️ for fine jewelry lovers
-              </p>
-            </div>
+          <div className="flex flex-wrap justify-center gap-6 text-sm">
+            <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="/shipping" className="text-gray-400 hover:text-white transition-colors">
+              Shipping Policy
+            </Link>
+            <Link href="/returns" className="text-gray-400 hover:text-white transition-colors">
+              Return Policy
+            </Link>
           </div>
-          
-          {/* Legal Links */}
-          <div className="border-t border-gray-800 pt-6">
-            <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/shipping" className="text-gray-400 hover:text-white transition-colors">
-                Shipping Policy
-              </Link>
-              <Link href="/returns" className="text-gray-400 hover:text-white transition-colors">
-                Return Policy
-              </Link>
-            </div>
-          </div>
+        </div>
+        
+        {/* Copyright at very bottom */}
+        <div className="border-t border-gray-800 mt-6 pt-4 text-center">
+          <p className="text-xs text-gray-500">
+            © 2025 AR Alphaya Jewellery. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

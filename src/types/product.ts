@@ -64,3 +64,24 @@ export type ReviewSummary = {
   };
 };
 
+// Wishlist types
+export type WishlistItem = {
+  productId: string;
+  slug: string;
+  name: string;
+  price: number;
+  category: string;
+  materials?: string[];
+  image?: string;
+  addedAt: string;
+};
+
+export type WishlistState = {
+  items: WishlistItem[];
+  addItem: (product: Product) => void;
+  removeItem: (productId: string) => void;
+  isInWishlist: (productId: string) => boolean;
+  clearWishlist: () => void;
+  getItemCount: () => number;
+};
+
