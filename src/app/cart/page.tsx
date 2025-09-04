@@ -12,33 +12,33 @@ export default function CartPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="text-3xl font-semibold mb-6">Your Cart</h1>
+      <h1 className="text-3xl font-semibold mb-6 text-primary-800">Your Cart</h1>
       {items.length === 0 ? (
         <div>
-          <p>Your cart is empty.</p>
-          <Link href="/" className="text-blue-600 underline">Continue shopping</Link>
+          <p className="text-primary-600">Your cart is empty.</p>
+          <Link href="/" className="text-primary-700 underline hover:text-primary-800">Continue shopping</Link>
         </div>
       ) : (
         <div className="space-y-6">
-          <ul className="divide-y">
+          <ul className="divide-y divide-border">
             {items.map((i) => (
               <li key={`${i.productId}-${i.size}`} className="py-4 flex items-center justify-between">
                 <div>
-                  <div className="font-medium">{i.name}</div>
-                  {i.size && <div className="text-sm text-neutral-500">Size: {i.size}</div>}
-                  <div className="text-sm">Qty: {i.quantity}</div>
+                  <div className="font-medium text-primary-800">{i.name}</div>
+                  {i.size && <div className="text-sm text-primary-500">Size: {i.size}</div>}
+                  <div className="text-sm text-primary-600">Qty: {i.quantity}</div>
                 </div>
-                <div>Rs {(i.price * i.quantity).toLocaleString()}</div>
+                <div className="text-primary-700">Rs {(i.price * i.quantity).toLocaleString()}</div>
               </li>
             ))}
           </ul>
-          <div className="flex items-center justify-between border-t pt-4">
-            <span className="text-lg font-medium">Total</span>
-            <span className="text-lg font-semibold">Rs {total.toLocaleString()}</span>
+          <div className="flex items-center justify-between border-t border-border pt-4">
+            <span className="text-lg font-medium text-primary-800">Total</span>
+            <span className="text-lg font-semibold text-primary-800">Rs {total.toLocaleString()}</span>
           </div>
           <div className="flex gap-3">
-            <Link href="/checkout" className="bg-black text-white px-4 py-2 rounded">Checkout</Link>
-            <Link href="/" className="border px-4 py-2 rounded">Continue shopping</Link>
+            <Link href="/checkout" className="bg-primary-800 text-primary-50 px-4 py-2 rounded hover:bg-primary-700 transition-colors">Checkout</Link>
+            <Link href="/" className="border border-border px-4 py-2 rounded text-primary-700 hover:bg-primary-100 transition-colors">Continue shopping</Link>
           </div>
         </div>
       )}

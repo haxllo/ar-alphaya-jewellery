@@ -105,17 +105,28 @@ The cart functionality includes:
 
 ### Colors and Themes
 
-Update the Tailwind CSS configuration in `tailwind.config.js`:
+The website uses an elegant grayscale color palette:
 
-```javascript
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#your-primary-color',
-        secondary: '#your-secondary-color',
-      }
-    }
+**AR Alphaya Brand Colors:**
+- `primary-50`: #f8f9fa (Lightest gray)
+- `primary-100`: #e9ecef (Very light gray)
+- `primary-200`: #dee2e6 (Light gray)
+- `primary-300`: #ced4da (Medium light gray)
+- `primary-400`: #adb5bd (Medium gray)
+- `primary-500`: #6c757d (Base gray)
+- `primary-600`: #495057 (Dark gray)
+- `primary-700`: #343a40 (Very dark gray)
+- `primary-800`: #212529 (Almost black)
+- `primary-900`: #000000 (Pure black)
+
+To customize colors, update `tailwind.config.ts`:
+
+```typescript
+colors: {
+  primary: {
+    50: "#your-lightest-color",
+    // ... update other shades
+    800: "#your-darkest-color",
   }
 }
 ```

@@ -29,14 +29,14 @@ export default function AddToCart({ product }: AddToCartProps) {
     <div className="space-y-4">
       {product.sizes && product.sizes.length > 0 && (
         <div>
-          <label htmlFor="size" className="block text-sm font-medium mb-2">
+          <label htmlFor="size" className="block text-sm font-medium mb-2 text-primary-800">
             Size
           </label>
           <select
             id="size"
             value={selectedSize}
             onChange={(e) => setSelectedSize(e.target.value)}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-border rounded px-3 py-2 text-primary-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           >
             {product.sizes.map((size) => (
               <option key={size.value} value={size.value}>
@@ -48,14 +48,14 @@ export default function AddToCart({ product }: AddToCartProps) {
       )}
       
       <div>
-        <label htmlFor="quantity" className="block text-sm font-medium mb-2">
+        <label htmlFor="quantity" className="block text-sm font-medium mb-2 text-primary-800">
           Quantity
         </label>
         <select
           id="quantity"
           value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border border-border rounded px-3 py-2 text-primary-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
         >
           {[1, 2, 3, 4, 5].map((num) => (
             <option key={num} value={num}>
@@ -67,7 +67,7 @@ export default function AddToCart({ product }: AddToCartProps) {
 
       <button
         onClick={handleAddToCart}
-        className="w-full bg-black text-white py-3 px-6 rounded hover:bg-neutral-800"
+        className="w-full bg-primary-800 text-primary-50 py-3 px-6 rounded hover:bg-primary-700 transition-colors"
       >
         Add to Cart - Rs {product.price.toLocaleString()}
       </button>
