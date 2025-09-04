@@ -14,11 +14,12 @@ export async function generateStaticParams() {
   return uniqueCategories.map((handle) => ({ handle }))
 }
 
-export default function CollectionPage({ params }: { params: { handle: string } }) {
-  const products = getProductsByCollection(params.handle)
+export default async function CollectionPage({ params }: { params: Promise<{ handle: string }> }) {
+  const { handle } = await params
+  const products = getProductsByCollection(handle)
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
-      <h1 className="text-3xl font-semibold mb-6 capitalize text-black">{params.handle.replace('-', ' ')}</h1>
+      <h1 className="text-3xl font-semibold mb-6 capitalize text-black">{handle.replace('-', ' ')}</h1>
       {products.length === 0 ? (
         <p className="text-gray-600">No products found in this collection yet.</p>
       ) : (

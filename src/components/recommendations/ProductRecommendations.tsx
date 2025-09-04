@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import type { Product, CartItem } from '@/types/product'
 import { useCartStore } from '@/lib/store/cart'
@@ -63,12 +64,13 @@ export default function ProductRecommendations({
               className="group border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all bg-white"
             >
               <Link href={`/products/${product.slug}`}>
-                <div className="aspect-square bg-gray-100 rounded-lg mb-3 overflow-hidden">
+                <div className="aspect-square bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
                   {product.images[0] ? (
-                    <img 
+                    <Image 
                       src={product.images[0]} 
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400">
