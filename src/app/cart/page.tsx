@@ -1,8 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import { useCartStore } from '@/lib/store/cart'
 
 export default function CartPage() {
-  const items = useCartStore.getState().items
+  const items = useCartStore((state) => state.items)
+  const removeItem = useCartStore((state) => state.removeItem)
+  const setQuantity = useCartStore((state) => state.setQuantity)
+  const clear = useCartStore((state) => state.clear)
   const total = items.reduce((acc, i) => acc + i.price * i.quantity, 0)
 
   return (

@@ -6,7 +6,7 @@ import { getAllProducts } from '@/lib/cms/content'
 export default function Home() {
   const products = getAllProducts().slice(0, 8)
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       <section className="bg-gradient-to-b from-neutral-50 to-white border-b">
         <div className="mx-auto max-w-7xl px-6 py-16">
           <h1 className="text-4xl font-serif tracking-tight">AR Alphaya Jewellery</h1>
@@ -33,6 +33,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-    </main>
+    </div>
   )
 }
