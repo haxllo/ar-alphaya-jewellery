@@ -9,30 +9,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // AR Alphaya Brand Colors
+        // Clean black and white theme matching original site
         primary: {
-          50: "#f8f9fa",   // Lightest gray
-          100: "#e9ecef",  // Very light gray
-          200: "#dee2e6",  // Light gray
-          300: "#ced4da",  // Medium light gray
-          400: "#adb5bd",  // Medium gray
-          500: "#6c757d",  // Base gray
-          600: "#495057",  // Dark gray
-          700: "#343a40",  // Very dark gray
-          800: "#212529",  // Almost black
-          900: "#000000",  // Pure black for accents
+          50: "#ffffff",   // Pure white
+          100: "#f9fafb",  // Off white
+          200: "#f3f4f6",  // Very light gray
+          300: "#e5e7eb",  // Light gray
+          400: "#9ca3af",  // Medium gray
+          500: "#6b7280",  // Base gray
+          600: "#4b5563",  // Dark gray
+          700: "#374151",  // Very dark gray
+          800: "#1f2937",  // Almost black
+          900: "#121212",  // Pure black
         },
-        // Semantic colors using the palette
-        background: "#f8f9fa",
-        foreground: "#212529",
+        // Semantic colors matching original website
+        background: "#ffffff",
+        foreground: "#121212",
         muted: {
-          DEFAULT: "#6c757d",
-          foreground: "#495057",
+          DEFAULT: "#6b7280",
+          foreground: "#4b5563",
         },
-        border: "#dee2e6",
+        border: "#e5e7eb",
         accent: {
-          DEFAULT: "#343a40",
-          foreground: "#f8f9fa",
+          DEFAULT: "#121212",
+          foreground: "#ffffff",
+        },
+        // Button colors matching original
+        button: {
+          DEFAULT: "#121212",
+          foreground: "#ffffff",
+        },
+        secondary: {
+          DEFAULT: "#ffffff",
+          foreground: "#121212",
         },
       },
     },

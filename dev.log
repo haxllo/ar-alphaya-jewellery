@@ -1,0 +1,58 @@
+
+> ar-alphaya-jewellery@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1679ms
+ ○ Compiling /collections/[handle] ...
+ ✓ Compiled /collections/[handle] in 2.4s (633 modules)
+ ✓ Compiled in 77ms (280 modules)
+ GET /collections/bracelets-bangles/ 200 in 2865ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1727ms (842 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 512ms (846 modules)
+ ✓ Compiled /products/[slug] in 165ms (858 modules)
+ ✓ Compiled /cart in 129ms (864 modules)
+ HEAD /collections/bracelets-bangles/ 200 in 86ms
+ HEAD / 200 in 20ms
+ ⨯ ./src/lib/cms/content.ts:1:1
+Module not found: Can't resolve 'fs'
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m fs [36mfrom[39m [32m'fs'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m path [36mfrom[39m [32m'path'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m matter [36mfrom[39m [32m'gray-matter'[39m[0m
+[0m [90m 4 |[39m [36mimport[39m type { [33mProduct[39m[33m,[39m [33mCollection[39m } [36mfrom[39m [32m'@/types/product'[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./src/app/cart/page.tsx
+ ⨯ ./src/lib/cms/content.ts:1:1
+Module not found: Can't resolve 'fs'
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m fs [36mfrom[39m [32m'fs'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m path [36mfrom[39m [32m'path'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m matter [36mfrom[39m [32m'gray-matter'[39m[0m
+[0m [90m 4 |[39m [36mimport[39m type { [33mProduct[39m[33m,[39m [33mCollection[39m } [36mfrom[39m [32m'@/types/product'[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./src/app/cart/page.tsx
+ HEAD /cart/ 500 in 1131ms
+ ○ Compiling /_error ...
+ GET / 500 in 13ms
+ ✓ Compiled /_not-found in 536ms (864 modules)
+ GET / 200 in 72ms
+ HEAD /cart/ 200 in 19ms
+ ✓ Compiled in 144ms (470 modules)
+ ✓ Compiled in 337ms (875 modules)
+ HEAD /cart/ 200 in 57ms
+ GET / 200 in 19ms
+ ✓ Compiled in 107ms (468 modules)
+ ✓ Compiled in 274ms (877 modules)
+ HEAD /cart/ 200 in 34ms
