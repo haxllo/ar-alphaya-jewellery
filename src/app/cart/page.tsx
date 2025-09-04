@@ -51,7 +51,7 @@ export default function CartPage() {
             </svg>
           </div>
           <h1 className="text-2xl font-semibold mb-4 text-black">Your cart is empty</h1>
-          <p className="text-gray-600 mb-8">Add some beautiful jewelry to your cart and they'll show up here.</p>
+          <p className="text-gray-600 mb-8">Add some beautiful jewelry to your cart and they&apos;ll show up here.</p>
           
           <div className="space-y-4">
             <Link 
