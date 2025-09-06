@@ -38,17 +38,17 @@ export default function ContactPage() {
             <div>
               <h3 className="font-semibold mb-2">Visit Our Studio</h3>
               <p className="text-neutral-600">
-                123 Jewelry Lane<br />
-                Colombo 03, Sri Lanka
+                143/5 Rainbow park, Temple road<br />
+                Kengalla - 20186, Sri Lanka
               </p>
             </div>
 
             <div>
               <h3 className="font-semibold mb-2">Contact Information</h3>
               <p className="text-neutral-600">
-                <strong>Email:</strong> info@aralphayajewellery.com<br />
-                <strong>Phone:</strong> +94 XX XXX XXXX<br />
-                <strong>WhatsApp:</strong> +94 XX XXX XXXX
+                <strong>Email:</strong> aralphayajewellery@gmail.com<br />
+                <strong>Phone:</strong> +94 77 429 3406<br />
+                <strong>WhatsApp:</strong> +94 77 429 3406
               </p>
             </div>
 
@@ -65,8 +65,8 @@ export default function ContactPage() {
               <h3 className="font-semibold mb-2">Follow Us</h3>
               <div className="flex space-x-4">
                 <a href="#" className="text-neutral-600 hover:text-black">Facebook</a>
-                <a href="#" className="text-neutral-600 hover:text-black">Instagram</a>
-                <a href="#" className="text-neutral-600 hover:text-black">WhatsApp</a>
+                <a href="https://www.instagram.com/ar_alphaya_jewellery/" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-black">Instagram</a>
+                <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-black">WhatsApp</a>
               </div>
             </div>
           </div>
