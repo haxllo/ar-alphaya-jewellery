@@ -1,0 +1,142 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "AR Alphaya Jewellery Logo AR Alphaya" [ref=e5]:
+        - /url: /
+        - img "AR Alphaya Jewellery Logo" [ref=e6]
+        - generic [ref=e7]: AR Alphaya
+      - generic [ref=e8]:
+        - link [ref=e9]:
+          - /url: /wishlist/
+          - img [ref=e10]
+        - link "Sign In" [ref=e12]:
+          - /url: /api/auth/login/
+        - link [ref=e13]:
+          - /url: /cart/
+          - img [ref=e14]
+        - button [ref=e16] [cursor=pointer]:
+          - img [ref=e17] [cursor=pointer]
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - img "AR Alphaya Jewellery Brand" [ref=e24]
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: Fine jewelry and custom pieces. Discover rings, earrings, pendants and more.
+          - generic [ref=e27]:
+            - link "Shop Rings" [ref=e28]:
+              - /url: /collections/rings/
+            - link "Shop Earrings" [ref=e29]:
+              - /url: /collections/earrings/
+      - generic [ref=e30]:
+        - heading "Featured" [level=2] [ref=e31]
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - button "Add to wishlist" [ref=e35] [cursor=pointer]:
+              - img [ref=e36] [cursor=pointer]
+            - link "002 LKR 851,000.00 pendants" [ref=e38]:
+              - /url: /products/test-2/
+              - generic [ref=e40]:
+                - heading "002" [level=3] [ref=e41]
+                - generic [ref=e42]: LKR 851,000.00
+              - paragraph [ref=e43]: pendants
+          - generic [ref=e44]:
+            - button "Add to wishlist" [ref=e46] [cursor=pointer]:
+              - img [ref=e47] [cursor=pointer]
+            - link "Sample Diamond Stud Earrings LKR 150,000.00 earrings" [ref=e49]:
+              - /url: /products/sample-diamond-earrings/
+              - generic [ref=e51]:
+                - heading "Sample Diamond Stud Earrings" [level=3] [ref=e52]
+                - generic [ref=e53]: LKR 150,000.00
+              - paragraph [ref=e54]: earrings
+          - generic [ref=e55]:
+            - button "Add to wishlist" [ref=e57] [cursor=pointer]:
+              - img [ref=e58] [cursor=pointer]
+            - link "Sample Ruby Heart Pendant LKR 180,000.00 pendants" [ref=e60]:
+              - /url: /products/sample-ruby-pendant/
+              - generic [ref=e62]:
+                - heading "Sample Ruby Heart Pendant" [level=3] [ref=e63]
+                - generic [ref=e64]: LKR 180,000.00
+              - paragraph [ref=e65]: pendants
+          - generic [ref=e66]:
+            - button "Add to wishlist" [ref=e68] [cursor=pointer]:
+              - img [ref=e69] [cursor=pointer]
+            - link "habibi LKR 75,000.00 pendants" [ref=e71]:
+              - /url: /products/test-gold-necklace/
+              - generic [ref=e73]:
+                - heading "habibi" [level=3] [ref=e74]
+                - generic [ref=e75]: LKR 75,000.00
+              - paragraph [ref=e76]: pendants
+  - contentinfo [ref=e77]:
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - img "AR Alphaya Jewellery Logo" [ref=e82]
+            - generic [ref=e83]: AR Alphaya
+          - paragraph [ref=e84]: Fine jewelry and custom pieces crafted with precision and passion.
+          - generic [ref=e85]:
+            - link "Facebook" [ref=e86]:
+              - /url: "#"
+              - generic [ref=e87]: Facebook
+              - img [ref=e88]
+            - link "Instagram" [ref=e90]:
+              - /url: https://www.instagram.com/ar_alphaya_jewellery/
+              - generic [ref=e91]: Instagram
+              - img [ref=e92]
+            - link "WhatsApp" [ref=e94]:
+              - /url: https://wa.me/94774293406
+              - generic [ref=e95]: WhatsApp
+              - img [ref=e96]
+        - generic [ref=e98]:
+          - heading "Quick Links" [level=3] [ref=e99]
+          - list [ref=e100]:
+            - listitem [ref=e101]:
+              - link "Home" [ref=e102]:
+                - /url: /
+            - listitem [ref=e103]:
+              - link "About" [ref=e104]:
+                - /url: /about/
+            - listitem [ref=e105]:
+              - button "Size Guide" [ref=e106] [cursor=pointer]
+            - listitem [ref=e107]:
+              - link "Contact" [ref=e108]:
+                - /url: /contact/
+            - listitem [ref=e109]:
+              - link "Cart" [ref=e110]:
+                - /url: /cart/
+        - generic [ref=e111]:
+          - heading "Collections" [level=3] [ref=e112]
+          - list [ref=e113]:
+            - listitem [ref=e114]:
+              - link "Rings" [ref=e115]:
+                - /url: /collections/rings/
+            - listitem [ref=e116]:
+              - link "Earrings" [ref=e117]:
+                - /url: /collections/earrings/
+            - listitem [ref=e118]:
+              - link "Pendants" [ref=e119]:
+                - /url: /collections/pendants/
+            - listitem [ref=e120]:
+              - link "Bracelets & Bangles" [ref=e121]:
+                - /url: /collections/bracelets-bangles/
+        - generic [ref=e122]:
+          - heading "Contact" [level=3] [ref=e123]
+          - generic [ref=e124]:
+            - paragraph [ref=e125]: "Email: aralphayajewellery@gmail.com"
+            - paragraph [ref=e126]: "Phone: +94 77 429 3406"
+            - paragraph [ref=e127]: "Address: 143/5 Rainbow park, Temple road, Kengalla - 20186"
+      - generic [ref=e129]:
+        - link "Privacy Policy" [ref=e130]:
+          - /url: /privacy/
+        - link "Terms of Service" [ref=e131]:
+          - /url: /terms/
+        - link "Shipping Policy" [ref=e132]:
+          - /url: /shipping/
+        - link "Return Policy" [ref=e133]:
+          - /url: /returns/
+      - paragraph [ref=e135]: © 2025 AR Alphaya Jewellery. All rights reserved.
+  - alert [ref=e136]
+```

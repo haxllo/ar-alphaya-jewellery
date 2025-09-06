@@ -195,20 +195,14 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 7609,
+                      "duration": 1860,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:13.597Z",
+                      "startTime": "2025-09-06T21:13:02.767Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -235,20 +229,14 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 6815,
+                      "duration": 3096,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:13.576Z",
+                      "startTime": "2025-09-06T21:13:02.752Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-shows-jewelry-dropdown-menu-on-hover-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -275,20 +263,14 @@
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 6240,
+                      "duration": 2701,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:13.553Z",
+                      "startTime": "2025-09-06T21:13:02.753Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -315,20 +297,14 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 2920,
+                      "duration": 1648,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:13.525Z",
+                      "startTime": "2025-09-06T21:13:02.764Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-shows-featured-products-section-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -355,20 +331,14 @@
                       "workerIndex": 4,
                       "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 4326,
+                      "duration": 3366,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:13.517Z",
+                      "startTime": "2025-09-06T21:13:02.844Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -395,20 +365,14 @@
                       "workerIndex": 5,
                       "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 6904,
+                      "duration": 3724,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:13.560Z",
+                      "startTime": "2025-09-06T21:13:02.866Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-fo-c6574-ontains-company-information-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -435,20 +399,14 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 5666,
+                      "duration": 3572,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:17.353Z",
+                      "startTime": "2025-09-06T21:13:04.787Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-page-loads-without-JavaScript-errors-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -472,29 +430,1391 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 4,
-                      "parallelIndex": 4,
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3255,
+                      "duration": 2490,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T20:47:19.048Z",
+                      "startTime": "2025-09-06T21:13:05.026Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-has-proper-SEO-meta-tags-chromium/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
                 }
               ],
               "id": "d925eb325e7ad3d9527a-43b42576de3489985c12",
+              "file": "tests/homepage.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2564,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:08.456Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-97abb879b12f9bb750ae",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 4575,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:08.483Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-25683c6bc82aa4fe06a9",
+              "file": "tests/homepage.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 4695,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:08.605Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-fd57e62e072717f88198",
+              "file": "tests/homepage.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 3057,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:08.666Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-f308856f9af76f3bda30",
+              "file": "tests/homepage.spec.ts",
+              "line": 53,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4409,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:08.782Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-4ed4595c0f082d2a7bc2",
+              "file": "tests/homepage.spec.ts",
+              "line": 62,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 4729,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:09.554Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-003740ab144c3a7906a8",
+              "file": "tests/homepage.spec.ts",
+              "line": 80,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2169,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:12.737Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-a4546b65cd020be685f2",
+              "file": "tests/homepage.spec.ts",
+              "line": 91,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 2042,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:14.108Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-484ef0a20f8d5f93f39a",
+              "file": "tests/homepage.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3511,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:18.062Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-d9bd5761cc8deca55acc",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 3826,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:18.911Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-d467b85d03235f8f7c8f",
+              "file": "tests/homepage.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2381,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:18.979Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-660a24f2c7c7c033ed72",
+              "file": "tests/homepage.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 2104,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:21.047Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-8d86b5e320339d1086d6",
+              "file": "tests/homepage.spec.ts",
+              "line": 53,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 3069,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:24.928Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-286d361d21d8818b35e4",
+              "file": "tests/homepage.spec.ts",
+              "line": 62,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 17,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3075,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:24.920Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-86eb0bd2fe9b4e70992c",
+              "file": "tests/homepage.spec.ts",
+              "line": 80,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2939,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:22.515Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-7c5955e09dd86f12b393",
+              "file": "tests/homepage.spec.ts",
+              "line": 91,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2220,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:22.702Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-bf72ea0b79cf3d22955d",
+              "file": "tests/homepage.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 18,
+                      "parallelIndex": 5,
+                      "status": "failed",
+                      "duration": 11929,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').getByRole('link', { name: 'Home' })\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').getByRole('link', { name: 'Home' })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').getByRole('link', { name: 'Home' })\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').getByRole('link', { name: 'Home' })\u001b[22m\n\n    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:16:78",
+                        "location": {
+                          "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                          "column": 78,
+                          "line": 16
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m     \n \u001b[90m 15 |\u001b[39m     \u001b[90m// Check main navigation links (specify header context to avoid footer conflicts)\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Home'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m'Jewelry'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 18 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'About'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 19 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Contact'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "column": 78,
+                            "line": 16
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').getByRole('link', { name: 'Home' })\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').getByRole('link', { name: 'Home' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 14 |\u001b[39m     \n \u001b[90m 15 |\u001b[39m     \u001b[90m// Check main navigation links (specify header context to avoid footer conflicts)\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Home'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m'Jewelry'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 18 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'About'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 19 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Contact'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m\n\u001b[2m    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:16:78\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:26.334Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-Mobile-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-Mobile-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-Mobile-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "column": 78,
+                        "line": 16
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-424b593a3cc35caae4e1",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Dropdown hover behavior not applicable on mobile",
+                      "location": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "line": 24,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 19,
+                      "parallelIndex": 4,
+                      "status": "skipped",
+                      "duration": 1828,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:26.586Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "Dropdown hover behavior not applicable on mobile",
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "line": 24,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-444d24de372601b071ab",
+              "file": "tests/homepage.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 20,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 11929,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('svg').first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('svg').first()\u001b[22m\n\u001b[2m    14 × locator resolved to <svg fill=\"none\" viewBox=\"0 0 24 24\" class=\"ml-1 h-3 w-3\" stroke=\"currentColor\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('svg').first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('svg').first()\u001b[22m\n\u001b[2m    14 × locator resolved to <svg fill=\"none\" viewBox=\"0 0 24 24\" class=\"ml-1 h-3 w-3\" stroke=\"currentColor\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:50:32",
+                        "location": {
+                          "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                          "column": 32,
+                          "line": 50
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 48 |\u001b[39m     \u001b[90m// Check wishlist icon is visible  \u001b[39m\n \u001b[90m 49 |\u001b[39m     \u001b[36mconst\u001b[39m wishlistIcon \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m     \u001b[36mawait\u001b[39m expect(wishlistIcon)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   })\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   test(\u001b[32m'shows featured products section'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "column": 32,
+                            "line": 50
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('svg').first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('svg').first()\u001b[22m\n\u001b[2m    14 × locator resolved to <svg fill=\"none\" viewBox=\"0 0 24 24\" class=\"ml-1 h-3 w-3\" stroke=\"currentColor\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 48 |\u001b[39m     \u001b[90m// Check wishlist icon is visible  \u001b[39m\n \u001b[90m 49 |\u001b[39m     \u001b[36mconst\u001b[39m wishlistIcon \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m     \u001b[36mawait\u001b[39m expect(wishlistIcon)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   })\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   test(\u001b[32m'shows featured products section'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:50:32\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:27.192Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-Mobile-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-Mobile-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-Mobile-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "column": 32,
+                        "line": 50
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-97d897ee0fff9d5e1bf9",
+              "file": "tests/homepage.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 21,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1153,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:28.781Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-12a5300e457daaecb41a",
+              "file": "tests/homepage.spec.ts",
+              "line": 53,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 23,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11857,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').locator('button').filter({ has: locator('svg') }).first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').locator('button').filter({ has: locator('svg') }).first()\u001b[22m\n\u001b[2m    13 × locator resolved to <button class=\"text-sm text-gray-700 hover:text-black transition-colors flex items-center\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').locator('button').filter({ has: locator('svg') }).first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').locator('button').filter({ has: locator('svg') }).first()\u001b[22m\n\u001b[2m    13 × locator resolved to <button class=\"text-sm text-gray-700 hover:text-black transition-colors flex items-center\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:66:32",
+                        "location": {
+                          "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                          "column": 32,
+                          "line": 66
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 64 |\u001b[39m       \u001b[90m// Check mobile menu button is visible\u001b[39m\n \u001b[90m 65 |\u001b[39m       \u001b[36mconst\u001b[39m menuButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m.\u001b[39mfilter({ has\u001b[33m:\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m) })\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m       \u001b[36mawait\u001b[39m expect(menuButton)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m       \n \u001b[90m 68 |\u001b[39m       \u001b[90m// Click mobile menu\u001b[39m\n \u001b[90m 69 |\u001b[39m       \u001b[36mawait\u001b[39m menuButton\u001b[33m.\u001b[39mclick()\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "column": 32,
+                            "line": 66
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').locator('button').filter({ has: locator('svg') }).first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').locator('button').filter({ has: locator('svg') }).first()\u001b[22m\n\u001b[2m    13 × locator resolved to <button class=\"text-sm text-gray-700 hover:text-black transition-colors flex items-center\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 64 |\u001b[39m       \u001b[90m// Check mobile menu button is visible\u001b[39m\n \u001b[90m 65 |\u001b[39m       \u001b[36mconst\u001b[39m menuButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m.\u001b[39mfilter({ has\u001b[33m:\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m) })\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m       \u001b[36mawait\u001b[39m expect(menuButton)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m       \n \u001b[90m 68 |\u001b[39m       \u001b[90m// Click mobile menu\u001b[39m\n \u001b[90m 69 |\u001b[39m       \u001b[36mawait\u001b[39m menuButton\u001b[33m.\u001b[39mclick()\u001b[0m\n\u001b[2m    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:66:32\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:31.209Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-Mobile-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-Mobile-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-Mobile-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "column": 32,
+                        "line": 66
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-df2e978933ef1a2b83fd",
+              "file": "tests/homepage.spec.ts",
+              "line": 62,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 22,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1050,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:31.212Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-3ed0472a35aa93bc247e",
+              "file": "tests/homepage.spec.ts",
+              "line": 80,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 19,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 1721,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:29.174Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-d25a22498a1c011cf7f3",
+              "file": "tests/homepage.spec.ts",
+              "line": 91,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 21,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 825,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:30.637Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-be2874742edb3a6bf35c",
+              "file": "tests/homepage.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 24,
+                      "parallelIndex": 4,
+                      "status": "failed",
+                      "duration": 11474,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').getByRole('link', { name: 'Home' })\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').getByRole('link', { name: 'Home' })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').getByRole('link', { name: 'Home' })\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').getByRole('link', { name: 'Home' })\u001b[22m\n\n    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:16:78",
+                        "location": {
+                          "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                          "column": 78,
+                          "line": 16
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m     \n \u001b[90m 15 |\u001b[39m     \u001b[90m// Check main navigation links (specify header context to avoid footer conflicts)\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Home'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m'Jewelry'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 18 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'About'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 19 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Contact'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "column": 78,
+                            "line": 16
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').getByRole('link', { name: 'Home' })\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').getByRole('link', { name: 'Home' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 14 |\u001b[39m     \n \u001b[90m 15 |\u001b[39m     \u001b[90m// Check main navigation links (specify header context to avoid footer conflicts)\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Home'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m'Jewelry'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 18 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'About'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 19 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Contact'\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m\n\u001b[2m    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:16:78\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:32.710Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-Mobile-Safari/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-Mobile-Safari/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-di-411dc-he-main-navigation-elements-Mobile-Safari/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "column": 78,
+                        "line": 16
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-00f55125bd7ab520987c",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Dropdown hover behavior not applicable on mobile",
+                      "location": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "line": 24,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 25,
+                      "parallelIndex": 2,
+                      "status": "skipped",
+                      "duration": 1128,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:33.057Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "Dropdown hover behavior not applicable on mobile",
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "line": 24,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-e12008bebd3c09d6f04a",
+              "file": "tests/homepage.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 26,
+                      "parallelIndex": 3,
+                      "status": "failed",
+                      "duration": 11254,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('svg').first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('svg').first()\u001b[22m\n\u001b[2m    13 × locator resolved to <svg fill=\"none\" viewBox=\"0 0 24 24\" class=\"ml-1 h-3 w-3\" stroke=\"currentColor\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('svg').first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('svg').first()\u001b[22m\n\u001b[2m    13 × locator resolved to <svg fill=\"none\" viewBox=\"0 0 24 24\" class=\"ml-1 h-3 w-3\" stroke=\"currentColor\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:50:32",
+                        "location": {
+                          "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                          "column": 32,
+                          "line": 50
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 48 |\u001b[39m     \u001b[90m// Check wishlist icon is visible  \u001b[39m\n \u001b[90m 49 |\u001b[39m     \u001b[36mconst\u001b[39m wishlistIcon \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m     \u001b[36mawait\u001b[39m expect(wishlistIcon)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   })\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   test(\u001b[32m'shows featured products section'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "column": 32,
+                            "line": 50
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('svg').first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('svg').first()\u001b[22m\n\u001b[2m    13 × locator resolved to <svg fill=\"none\" viewBox=\"0 0 24 24\" class=\"ml-1 h-3 w-3\" stroke=\"currentColor\">…</svg>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 48 |\u001b[39m     \u001b[90m// Check wishlist icon is visible  \u001b[39m\n \u001b[90m 49 |\u001b[39m     \u001b[36mconst\u001b[39m wishlistIcon \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m     \u001b[36mawait\u001b[39m expect(wishlistIcon)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   })\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   test(\u001b[32m'shows featured products section'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:50:32\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:33.752Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-Mobile-Safari/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-Mobile-Safari/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-displays-cart-and-wishlist-icons-Mobile-Safari/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "column": 32,
+                        "line": 50
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-68b93af8393e09435c64",
+              "file": "tests/homepage.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 25,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1051,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:34.943Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-3969545ffbfbe22c9f44",
+              "file": "tests/homepage.spec.ts",
+              "line": 53,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 25,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 10696,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').locator('button').filter({ has: locator('svg') }).first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').locator('button').filter({ has: locator('svg') }).first()\u001b[22m\n\u001b[2m    13 × locator resolved to <button class=\"text-sm text-gray-700 hover:text-black transition-colors flex items-center\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').locator('button').filter({ has: locator('svg') }).first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').locator('button').filter({ has: locator('svg') }).first()\u001b[22m\n\u001b[2m    13 × locator resolved to <button class=\"text-sm text-gray-700 hover:text-black transition-colors flex items-center\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:66:32",
+                        "location": {
+                          "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                          "column": 32,
+                          "line": 66
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 64 |\u001b[39m       \u001b[90m// Check mobile menu button is visible\u001b[39m\n \u001b[90m 65 |\u001b[39m       \u001b[36mconst\u001b[39m menuButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m.\u001b[39mfilter({ has\u001b[33m:\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m) })\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m       \u001b[36mawait\u001b[39m expect(menuButton)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m       \n \u001b[90m 68 |\u001b[39m       \u001b[90m// Click mobile menu\u001b[39m\n \u001b[90m 69 |\u001b[39m       \u001b[36mawait\u001b[39m menuButton\u001b[33m.\u001b[39mclick()\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                            "column": 32,
+                            "line": 66
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header').locator('button').filter({ has: locator('svg') }).first()\nExpected: visible\nReceived: hidden\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('header').locator('button').filter({ has: locator('svg') }).first()\u001b[22m\n\u001b[2m    13 × locator resolved to <button class=\"text-sm text-gray-700 hover:text-black transition-colors flex items-center\">…</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 64 |\u001b[39m       \u001b[90m// Check mobile menu button is visible\u001b[39m\n \u001b[90m 65 |\u001b[39m       \u001b[36mconst\u001b[39m menuButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m.\u001b[39mfilter({ has\u001b[33m:\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg'\u001b[39m) })\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m       \u001b[36mawait\u001b[39m expect(menuButton)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m       \n \u001b[90m 68 |\u001b[39m       \u001b[90m// Click mobile menu\u001b[39m\n \u001b[90m 69 |\u001b[39m       \u001b[36mawait\u001b[39m menuButton\u001b[33m.\u001b[39mclick()\u001b[0m\n\u001b[2m    at /Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts:66:32\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:36.021Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-Mobile-Safari/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-Mobile-Safari/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/ciqada/ar-alphaya-jewellery/test-results/tests-homepage-Homepage-is-responsive-on-mobile-devices-Mobile-Safari/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/ciqada/ar-alphaya-jewellery/e2e/tests/homepage.spec.ts",
+                        "column": 32,
+                        "line": 66
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-a16d8f6090d1b3508584",
+              "file": "tests/homepage.spec.ts",
+              "line": 62,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 1819,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:40.532Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-3b723b57bbc7f04d2d45",
+              "file": "tests/homepage.spec.ts",
+              "line": 80,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 28,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2857,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:41.400Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-c0b9eb744683bbc5c2f2",
+              "file": "tests/homepage.spec.ts",
+              "line": 91,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 1530,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:13:43.110Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-725d4085150be61cacc9",
               "file": "tests/homepage.spec.ts",
               "line": 121,
               "column": 7
@@ -506,11 +1826,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-09-06T20:47:11.968Z",
-    "duration": 11274.489000000001,
-    "expected": 8,
-    "skipped": 0,
-    "unexpected": 0,
+    "startTime": "2025-09-06T21:12:31.427Z",
+    "duration": 75432.091,
+    "expected": 32,
+    "skipped": 2,
+    "unexpected": 6,
     "flaky": 0
   }
 }
