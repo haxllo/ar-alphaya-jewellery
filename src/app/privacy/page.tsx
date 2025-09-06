@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
           <strong>Last updated: August 28, 2025</strong>
         </p>
 
-        <p className="text-gray-700 mb-6">
+        <p className="text-gray-700 mb-8">
           This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
         </p>
 
@@ -18,143 +18,203 @@ export default function PrivacyPolicyPage() {
           We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.
         </p>
 
-        <div className="bg-gray-50 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">TABLE OF CONTENTS</h2>
-          <ol className="list-decimal list-inside space-y-2 text-gray-700">
-            <li><a href="#interpretation" className="text-black hover:underline">Interpretation and Definitions</a></li>
-            <li><a href="#collecting" className="text-black hover:underline">Collecting and Using Your Personal Data</a></li>
-            <li><a href="#disclosure" className="text-black hover:underline">Disclosure of Your Personal Data</a></li>
-            <li><a href="#security" className="text-black hover:underline">Security of Your Personal Data</a></li>
-            <li><a href="#children" className="text-black hover:underline">Children&apos;s Privacy</a></li>
-            <li><a href="#links" className="text-black hover:underline">Links to Other Websites</a></li>
-            <li><a href="#changes" className="text-black hover:underline">Changes to this Privacy Policy</a></li>
-            <li><a href="#contact" className="text-black hover:underline">Contact Us</a></li>
-          </ol>
-        </div>
-
-        <section id="interpretation" className="mb-12">
+        <section className="mb-12">
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Interpretation and Definitions</h2>
           
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Interpretation</h3>
-          <p className="text-gray-700 mb-6">
-            The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
-          </p>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Interpretation</h3>
+              <p className="text-gray-700">
+                The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+              </p>
+            </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Definitions</h3>
-          <ul className="space-y-3 text-gray-700">
-            <li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
-            <li><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party...</li>
-            <li><strong>Company</strong> refers to Ar Alphaya Jewellery.</li>
-            <li><strong>Cookies</strong> are small files placed on Your Device...</li>
-            <li><strong>Country</strong> refers to: Sri Lanka</li>
-            <li><strong>Device</strong> means any device that can access the Service...</li>
-            <li><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</li>
-            <li><strong>Service</strong> refers to the Website.</li>
-            <li><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company...</li>
-            <li><strong>Usage Data</strong> refers to data collected automatically...</li>
-            <li><strong>Website</strong> refers to Ar Alphaya Jewellery, accessible at <a href="https://aralphaya.netlify.app/" className="text-black hover:underline">https://aralphaya.netlify.app/</a></li>
-            <li><strong>You</strong> means the individual using the Service, or the company/entity they represent.</li>
-          </ul>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Definitions</h3>
+              <p className="text-gray-700 mb-4">For the purposes of this Privacy Policy:</p>
+              <ul className="space-y-3 text-gray-700">
+                <li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
+                <li><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Ar Alphaya Jewellery.</li>
+                <li><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</li>
+                <li><strong>Country</strong> refers to: Sri Lanka</li>
+                <li><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
+                <li><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</li>
+                <li><strong>Service</strong> refers to the Website.</li>
+                <li><strong>Website</strong> refers to Ar Alphaya Jewellery, accessible from <a href="https://aralphaya.netlify.app/" className="text-black hover:underline">https://aralphaya.netlify.app/</a></li>
+                <li><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
+              </ul>
+            </div>
+          </div>
         </section>
 
-        <section id="collecting" className="mb-12">
+        <section className="mb-12">
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Collecting and Using Your Personal Data</h2>
           
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Types of Data Collected</h3>
-          <ul className="space-y-2 text-gray-700 mb-6">
-            <li><strong>Personal Data:</strong> Email, First/Last name, Phone, Address, Usage Data</li>
-            <li><strong>Usage Data:</strong> Device info, IP, browser, pages visited, etc.</li>
-            <li><strong>Tracking Technologies and Cookies</strong></li>
-          </ul>
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Types of Data Collected</h3>
+              
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-gray-800 mb-3">Personal Data</h4>
+                <p className="text-gray-700 mb-4">
+                  While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Email address</li>
+                  <li>First name and last name</li>
+                  <li>Phone number</li>
+                  <li>Address, State, Province, ZIP/Postal code, City</li>
+                  <li>Usage Data</li>
+                </ul>
+              </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Use of Your Personal Data</h3>
-          <ul className="space-y-2 text-gray-700 mb-6">
-            <li>• To provide and maintain the Service</li>
-            <li>• To manage Your Account</li>
-            <li>• For contract performance</li>
-            <li>• To contact You</li>
-            <li>• To provide news, offers, and updates</li>
-            <li>• To manage requests</li>
-            <li>• For business transfers</li>
-            <li>• For other purposes (analytics, improvements, etc.)</li>
-          </ul>
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-gray-800 mb-3">Usage Data</h4>
+                <p className="text-gray-700 mb-4">
+                  Usage Data is collected automatically when using the Service.
+                </p>
+                <p className="text-gray-700 mb-4">
+                  Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+                </p>
+                <p className="text-gray-700">
+                  When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.
+                </p>
+              </div>
+            </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Data Sharing</h3>
-          <ul className="space-y-2 text-gray-700 mb-6">
-            <li>• With Service Providers</li>
-            <li>• For business transfers</li>
-            <li>• With Affiliates</li>
-            <li>• With business partners</li>
-            <li>• With other users (if shared publicly)</li>
-            <li>• With Your consent</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Retention of Data</h3>
-          <ul className="space-y-2 text-gray-700 mb-6">
-            <li>• <strong>Personal Data:</strong> kept as long as necessary for purposes outlined.</li>
-            <li>• <strong>Usage Data:</strong> kept shorter, unless needed for security or legal compliance.</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Transfer of Data</h3>
-          <p className="text-gray-700 mb-6">
-            • May be stored/processed outside your country. Company ensures secure handling.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Delete Your Data</h3>
-          <p className="text-gray-700 mb-6">
-            • You may request deletion, updates, or corrections of personal data.
-          </p>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Tracking Technologies and Cookies</h3>
+              <p className="text-gray-700 mb-4">
+                We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service.
+              </p>
+              
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h4 className="text-lg font-semibold text-gray-800 mb-3">Types of Cookies We Use:</h4>
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="font-semibold text-gray-700">Necessary / Essential Cookies</h5>
+                    <p className="text-gray-700 text-sm">
+                      Type: Session Cookies<br/>
+                      Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features.
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-700">Cookies Policy / Notice Acceptance Cookies</h5>
+                    <p className="text-gray-700 text-sm">
+                      Type: Persistent Cookies<br/>
+                      Purpose: These Cookies identify if users have accepted the use of cookies on the Website.
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-700">Functionality Cookies</h5>
+                    <p className="text-gray-700 text-sm">
+                      Type: Persistent Cookies<br/>
+                      Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <section id="disclosure" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Disclosure of Your Personal Data</h2>
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Use of Your Personal Data</h2>
+          <p className="text-gray-700 mb-4">The Company may use Personal Data for the following purposes:</p>
           <ul className="space-y-3 text-gray-700">
-            <li><strong>Business Transactions:</strong> May be transferred in case of merger/acquisition.</li>
-            <li><strong>Law Enforcement:</strong> May disclose if required by law.</li>
-            <li><strong>Other Legal Requirements:</strong> To comply with obligations, defend rights, prevent wrongdoing, protect safety, or avoid liability.</li>
+            <li><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</li>
+            <li><strong>To manage Your Account</strong>: to manage Your registration as a user of the Service.</li>
+            <li><strong>For the performance of a contract</strong>: the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased.</li>
+            <li><strong>To contact You</strong>: To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication regarding updates or informative communications related to the functionalities, products or contracted services.</li>
+            <li><strong>To provide You with news, special offers and general information</strong> about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</li>
+            <li><strong>To manage Your requests</strong>: To attend and manage Your requests to Us.</li>
+            <li><strong>For other purposes</strong>: We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</li>
           </ul>
         </section>
 
-        <section id="security" className="mb-12">
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Retention of Your Personal Data</h2>
+          <p className="text-gray-700 mb-4">
+            The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our legal agreements and policies.
+          </p>
+          <p className="text-gray-700">
+            The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.
+          </p>
+        </section>
+
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Transfer of Your Personal Data</h2>
+          <p className="text-gray-700 mb-4">
+            Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.
+          </p>
+          <p className="text-gray-700">
+            The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.
+          </p>
+        </section>
+
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Delete Your Personal Data</h2>
+          <p className="text-gray-700 mb-4">
+            You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Our Service may give You the ability to delete certain information about You from within the Service.
+          </p>
+          <p className="text-gray-700">
+            You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any personal information that You have provided to Us.
+          </p>
+        </section>
+
+        <section className="mb-12">
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Security of Your Personal Data</h2>
           <p className="text-gray-700">
-            • We use commercially acceptable means but cannot guarantee 100% security.
+            The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.
           </p>
         </section>
 
-        <section id="children" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Children&apos;s Privacy</h2>
-          <ul className="space-y-2 text-gray-700">
-            <li>• Service not directed to under 13.</li>
-            <li>• No knowingly collected data from under 13.</li>
-          </ul>
-        </section>
-
-        <section id="links" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Links to Other Websites</h2>
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Children's Privacy</h2>
+          <p className="text-gray-700 mb-4">
+            Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us.
+          </p>
           <p className="text-gray-700">
-            • Not responsible for third-party sites&apos; content/policies.
+            If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.
           </p>
         </section>
 
-        <section id="changes" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Changes to this Privacy Policy</h2>
-          <ul className="space-y-2 text-gray-700">
-            <li>• May update from time to time.</li>
-            <li>• Changes notified on this page with updated &ldquo;Last updated&rdquo; date.</li>
-          </ul>
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Links to Other Websites</h2>
+          <p className="text-gray-700 mb-4">
+            Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.
+          </p>
+          <p className="text-gray-700">
+            We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
+          </p>
         </section>
 
-        <section id="contact" className="mb-12">
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6">Changes to this Privacy Policy</h2>
+          <p className="text-gray-700 mb-4">
+            We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.
+          </p>
+          <p className="text-gray-700 mb-4">
+            We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the "Last updated" date at the top of this Privacy Policy.
+          </p>
+          <p className="text-gray-700">
+            You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+          </p>
+        </section>
+
+        <section className="mb-12">
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Contact Us</h2>
           <p className="text-gray-700 mb-4">
-            If you have any questions, contact us:
+            If you have any questions about this Privacy Policy, You can contact us:
           </p>
           <div className="bg-gray-50 rounded-lg p-6">
             <ul className="space-y-3 text-gray-700">
               <li><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></li>
-              <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></li>
-              <li><strong>Mail:</strong> 143/5 Rainbow park, Temple road, Kengalla - 20186</li>
+              <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">0774293406</a></li>
+              <li><strong>Address:</strong> 143/5 Rainbow park, Temple road, Kengalla - 20186</li>
             </ul>
           </div>
         </section>

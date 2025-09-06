@@ -17,7 +17,7 @@ export default function ShippingPolicyPage() {
         <div className="bg-gray-50 rounded-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">SHIPPING OVERVIEW</h2>
           <ul className="space-y-2 text-gray-700">
-            <li>✓ Free shipping within Colombo for orders over Rs 50,000</li>
+            <li>✓ Free shipping within Sri Lanka for orders over Rs 50,000</li>
             <li>✓ Island-wide delivery available</li>
             <li>✓ International shipping to selected countries</li>
             <li>✓ Express delivery options available</li>
@@ -45,7 +45,7 @@ export default function ShippingPolicyPage() {
               <ul className="space-y-2 text-gray-700">
                 <li><strong>Timeframe:</strong> 1-2 business days</li>
                 <li><strong>Cost:</strong> Rs 1,500</li>
-                <li><strong>Coverage:</strong> Colombo, Kandy, Galle, Negombo</li>
+                <li><strong>Coverage:</strong> Kandy, Colombo, Galle, Negombo</li>
                 <li><strong>Tracking:</strong> Real-time tracking</li>
               </ul>
             </div>
@@ -54,7 +54,7 @@ export default function ShippingPolicyPage() {
           <div className="bg-blue-50 rounded-lg p-6 mb-6">
             <h3 className="text-lg font-semibold text-blue-900 mb-3">Special Delivery Areas</h3>
             <ul className="space-y-2 text-blue-800 text-sm">
-              <li>• <strong>Colombo Metro Area:</strong> Same-day delivery available for orders placed before 2 PM</li>
+              <li>• <strong>Kandy Area:</strong> Same-day delivery available for orders placed before 2 PM</li>
               <li>• <strong>Remote Areas:</strong> Additional 2-3 days may be required</li>
               <li>• <strong>Post Office Box:</strong> Not available for jewelry deliveries (signature required)</li>
             </ul>

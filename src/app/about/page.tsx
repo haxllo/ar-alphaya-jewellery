@@ -44,8 +44,8 @@ export default function AboutPage() {
             consultation or to learn more about our custom design services.
           </p>
           <p className="text-neutral-600">
-            <strong>Email:</strong> info@aralphayajewellery.com<br />
-            <strong>Phone:</strong> +94 XX XXX XXXX
+            <strong>Email:</strong> aralphayajewellery@gmail.com<br />
+            <strong>Phone:</strong> +94 77 429 3406
           </p>
         </div>
       </div>

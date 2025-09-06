@@ -329,9 +329,9 @@ export default function SizeGuideModal({
             </svg>
             <span>
               Still unsure about sizing? Contact our experts at{' '}
-              <a href="mailto:support@ar-alphaya.com" className="text-blue-600 hover:text-blue-700">support@ar-alphaya.com</a>
+              <a href="mailto:aralphayajewellery@gmail.com" className="text-blue-600 hover:text-blue-700">aralphayajewellery@gmail.com</a>
               {' '}or{' '}
-              <a href="tel:+94112345678" className="text-blue-600 hover:text-blue-700">+94 11 234 5678</a>
+              <a href="tel:+94774293406" className="text-blue-600 hover:text-blue-700">+94 77 429 3406</a>
             </span>
           </div>
         </div>
