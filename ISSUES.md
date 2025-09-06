@@ -26,4 +26,9 @@ Use this file to track high-level project issues and decisions.
 - Implement advanced search functionality
 - Add wishlist functionality
 - Connect live email services for newsletter
+- ✅ **Complete CMS setup for client product management**
+- ✅ **Enhanced CMS configuration with user-friendly labels and hints**
+- Test live CMS deployment on Netlify
+- Configure Netlify Identity and Git Gateway
+- Train client on CMS usage
 

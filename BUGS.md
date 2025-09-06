@@ -14,6 +14,12 @@ Track bugs and regressions here.
 - [ ] Size selector resets on route change for some products
 - [ ] CMS media library shows stale thumbnails after image replacement
 
+## CMS-Related Issues (To Monitor)
+- [ ] CMS image uploads may need file size validation
+- [ ] Decap CMS local backend package naming inconsistency (multiple package names tried)
+- [ ] Need to test CMS performance with large number of products
+- [ ] Monitor Git Gateway permissions and access controls
+
 ## Auth0 Related (Resolved)
 - [x] ~~Login redirect loops~~ *(Fixed with proper base URLs)*
 - [x] ~~User session not persisting~~ *(Fixed with UserProvider wrapper)*

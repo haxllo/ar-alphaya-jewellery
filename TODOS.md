@@ -28,6 +28,11 @@
 ## High Priority
 - [x] Complete PayHere payment integration *(API structure complete)*
 - [x] Finalize authentication *(Auth0 fully implemented)*
+- [x] **Complete CMS setup for client product management** *(Decap CMS configured with user-friendly interface)*
+- [x] **Create client documentation for CMS usage** *(CLIENT_CMS_GUIDE.md and CMS_DEPLOYMENT_GUIDE.md created)*
+- [ ] Deploy CMS to production Netlify environment
+- [ ] Configure Netlify Identity and Git Gateway
+- [ ] Test live CMS workflow with client
 - [ ] Implement advanced search functionality
 - [ ] Add product filtering (by price, material, category)
 - [ ] Add wishlist functionality
