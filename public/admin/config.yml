@@ -10,7 +10,7 @@ logo_url: /images/LOGO1.png
 # Media Management
 media_folder: "public/uploads"
 public_folder: "/uploads"
-media_folder_relative: true
+media_folder_relative: false
 max_file_size: 10000000  # 10MB limit
 
 # Professional Features
@@ -25,7 +25,7 @@ collections:
     extension: "md"
     format: "frontmatter"
     fields:
-      - { label: "Product ID", name: "id", widget: "string", hint: "Unique identifier for this product (e.g., RNG-001)" }
+      - { label: "Product ID", name: "id", widget: "string", hint: "Unique identifier for this product (e.g., ruby-001)" }
       - { label: "Product Name", name: "name", widget: "string", hint: "The display name of the product" }
       - { label: "URL Slug", name: "slug", widget: "string", hint: "URL-friendly version of the name (lowercase, no spaces)" }
       - { label: "Price (LKR)", name: "price", widget: "number", value_type: "int", hint: "Price in Sri Lankan Rupees" }
@@ -34,7 +34,7 @@ collections:
         name: "images"
         widget: "list"
         hint: "Upload high-quality product images. First image will be the main display image."
-        field: { label: Image, name: image, widget: image }
+        field: { label: "Image", name: "image", widget: "image", allow_multiple: false }
       - label: "Category"
         name: "category"
         widget: "select"
@@ -44,7 +44,6 @@ collections:
           - { label: "Earrings", value: "earrings" }
           - { label: "Pendants", value: "pendants" }
           - { label: "Bracelets & Bangles", value: "bracelets-bangles" }
-      - { label: "SKU", name: "sku", widget: "string", required: false, hint: "Stock keeping unit (optional)" }
       - label: "Materials"
         name: "materials"
         widget: "list"
@@ -58,6 +57,19 @@ collections:
         fields:
           - { label: "Size Label", name: "label", widget: "string", hint: "Display name (e.g., 'US 7')" }
           - { label: "Size Value", name: "value", widget: "string", hint: "Internal value (e.g., '7')" }
+      - { label: "Weight (grams)", name: "weight", widget: "number", value_type: "float", required: false, hint: "Product weight in grams" }
+      - { label: "Dimensions", name: "dimensions", widget: "string", required: false, hint: "Product dimensions (e.g., 15mm x 12mm)" }
+      - label: "Gemstone Options"
+        name: "gemstones"
+        widget: "list"
+        required: false
+        hint: "Available gemstone choices with pricing"
+        fields:
+          - { label: "Gemstone Name", name: "name", widget: "string", hint: "Display name (e.g., Natural Ruby)" }
+          - { label: "Option Value", name: "value", widget: "string", hint: "Internal identifier (e.g., natural-ruby)" }
+          - { label: "Price Adjustment (LKR)", name: "priceAdjustment", widget: "number", value_type: "int", default: 0, hint: "Price difference from base price (+ for increase, - for decrease)" }
+          - { label: "Description", name: "description", widget: "string", required: false, hint: "Brief description of this gemstone option" }
+          - { label: "Available", name: "available", widget: "boolean", default: true, hint: "Is this option currently available?" }
       - { label: "In Stock", name: "inStock", widget: "boolean", default: true, hint: "Is this product currently available?" }
       - { label: "Featured Product", name: "featured", widget: "boolean", default: false, hint: "Should this appear in featured products?" }
       - label: "Tags"
