@@ -145,9 +145,12 @@ export default function Header() {
             ) : (
               <Link
                 href="/api/auth/login"
-                className="text-sm text-gray-700 hover:text-black transition-colors px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="relative text-gray-700 hover:text-black transition-colors p-2"
+                title="Sign In"
               >
-                Sign In
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
               </Link>
             )}
             
@@ -252,12 +255,17 @@ export default function Header() {
                     </Link>
                   </div>
                 ) : (
-                  <Link
-                    href="/api/auth/login"
-                    className="block text-center bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition-colors"
-                  >
-                    Sign In
-                  </Link>
+                  <div className="flex items-center justify-center">
+                    <Link
+                      href="/api/auth/login"
+                      className="flex items-center gap-2 text-center bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition-colors"
+                    >
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      Sign In
+                    </Link>
+                  </div>
                 )}
               </div>
             </nav>
