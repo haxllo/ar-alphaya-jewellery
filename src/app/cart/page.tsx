@@ -14,7 +14,7 @@ export default function CartPage() {
   const addItem = useCartStore((state) => state.addItem)
   const removeItem = useCartStore((state) => state.removeItem)
   const setQuantity = useCartStore((state) => state.setQuantity)
-  const clear = useCartStore((state) => state.clear)
+  const clearImmediate = useCartStore((state) => state.clearImmediate)
   const [removingItem, setRemovingItem] = useState<string | null>(null)
   
   const subtotal = items.reduce((acc, i) => acc + i.price * i.quantity, 0)
@@ -42,6 +42,12 @@ export default function CartPage() {
       removeItem(productId, size)
       setRemovingItem(null)
     }, 300)
+  }
+
+  const handleClearCart = () => {
+    if (confirm('Are you sure you want to clear all items from your cart? This action cannot be undone.')) {
+      clearImmediate()
+    }
   }
 
 
@@ -83,7 +89,7 @@ export default function CartPage() {
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-semibold text-black">Shopping Cart</h1>
         <button
-          onClick={() => clear()}
+          onClick={handleClearCart}
           className="text-sm text-gray-500 hover:text-red-600 transition-colors"
         >
           Clear all items

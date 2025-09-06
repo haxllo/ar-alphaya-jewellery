@@ -10,6 +10,8 @@ logo_url: /images/LOGO1.png
 # Media Management
 media_folder: "public/uploads"
 public_folder: "/uploads"
+media_folder_relative: true
+max_file_size: 10000000  # 10MB limit
 
 # Professional Features
 show_preview_links: true

@@ -8,8 +8,12 @@ export default function PaymentSuccessPage() {
   const clear = useCartStore((state) => state.clear)
   
   useEffect(() => {
-    // Clear cart on successful payment
-    clear()
+    // Clear cart on successful payment (with small delay to ensure persistence)
+    const timer = setTimeout(() => {
+      clear()
+    }, 500)
+    
+    return () => clearTimeout(timer)
   }, [clear])
   
   return (

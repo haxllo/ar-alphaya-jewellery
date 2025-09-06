@@ -35,6 +35,7 @@ export default function Header() {
               alt="AR Alphaya Jewellery Logo" 
               width={40} 
               height={40}
+              priority
               className="w-8 h-8 md:w-10 md:h-10 object-contain"
             />
             <span className="font-serif text-base md:text-lg font-semibold text-black">AR Alphaya</span>
@@ -104,6 +105,9 @@ export default function Header() {
                         alt={user.name || 'User'} 
                         width={32}
                         height={32}
+                        placeholder="blur"
+                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
+                        loading="lazy"
                         className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
@@ -224,6 +228,9 @@ export default function Header() {
                             alt={user.name || 'User'} 
                             width={32}
                             height={32}
+                            placeholder="blur"
+                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
+                            loading="lazy"
                             className="w-full h-full rounded-full object-cover"
                           />
                         ) : (

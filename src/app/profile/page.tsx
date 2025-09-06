@@ -56,6 +56,9 @@ function ProfilePage() {
                   alt={user.name || 'Profile'}
                   width={96}
                   height={96}
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
+                  loading="lazy"
                   className="h-24 w-24 rounded-full object-cover border-4 border-white shadow-sm"
                 />
               ) : (

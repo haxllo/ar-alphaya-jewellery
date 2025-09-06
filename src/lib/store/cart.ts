@@ -7,6 +7,7 @@ export type CartState = {
   addItem: (item: CartItem) => void
   removeItem: (productId: string, size?: string) => void
   clear: () => void
+  clearImmediate: () => void
   setQuantity: (productId: string, quantity: number, size?: string) => void
 }
 
@@ -28,7 +29,20 @@ export const useCartStore = create<CartState>()(
         }),
       removeItem: (productId, size) =>
         set((state) => ({ items: state.items.filter((i) => !(i.productId === productId && i.size === size)) })),
-      clear: () => set({ items: [] }),
+      clear: () => {
+        // Debounced clear to prevent race conditions
+        setTimeout(() => set({ items: [] }), 100)
+      },
+      clearImmediate: () => {
+        // Force immediate clear with localStorage sync
+        set({ items: [] })
+        // Ensure localStorage is cleared immediately
+        try {
+          localStorage.removeItem('ar-alphaya-cart')
+        } catch (error) {
+          console.warn('Failed to clear cart from localStorage:', error)
+        }
+      },
       setQuantity: (productId, quantity, size) =>
         set((state) => ({
           items: state.items.map((i) =>

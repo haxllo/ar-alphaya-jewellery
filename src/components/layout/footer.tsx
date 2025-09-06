@@ -20,6 +20,7 @@ export default function Footer() {
                 alt="AR Alphaya Jewellery Logo" 
                 width={40} 
                 height={45}
+                loading="lazy"
                 className="w-8 md:w-10 h-auto object-contain filter brightness-0 invert"
               />
               <span className="font-serif text-lg font-semibold text-white">AR Alphaya</span>

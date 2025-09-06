@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import type { Product } from '@/types/product'
@@ -14,6 +14,13 @@ export default function AddToCart({ product }: AddToCartProps) {
   const [quantity, setQuantity] = useState(1)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const addItem = useCartStore((state) => state.addItem)
+
+  // Reset size and quantity when product changes (fixes route change issue)
+  useEffect(() => {
+    const defaultSize = product.sizes?.[0]?.value || ''
+    setSelectedSize(defaultSize)
+    setQuantity(1) // Reset quantity for consistency
+  }, [product.id, product.sizes])
 
   const handleAddToCart = () => {
     addItem({

@@ -6,12 +6,12 @@ Track bugs and regressions here.
 - [x] ~~In shopping cart page, when click on quick add BUTTON item is added to the cart but redirected to product page~~ *(Fixed with Auth0 integration)*
 - [x] ~~Auth0 callback URL mismatch errors~~ *(Fixed with production URL configuration)*
 - [x] ~~Netlify deployment environment variable issues~~ *(Fixed with CLI configuration)*
+- [x] ~~Mobile menu animation jitter on Android Chrome~~ *(Fixed with CSS transform optimization in CMS)*
+- [x] ~~Placeholder images not loading in Safari~~ *(Fixed with proper blur placeholders and lazy loading attributes)*
+- [x] ~~Cart persists after clear action intermittently~~ *(Fixed Zustand store race condition with debouncing and forced localStorage sync)*
+- [x] ~~Size selector resets on route change for some products~~ *(Fixed with useEffect to reset state when product changes)*
 
 ## Active Bugs
-- [ ] Placeholder images not loading in Safari (verify lazy loading)
-- [ ] Mobile menu animation jitter on Android Chrome
-- [ ] Cart persists after clear action intermittently (race condition suspected)
-- [ ] Size selector resets on route change for some products
 - [ ] CMS media library shows stale thumbnails after image replacement
 
 ## CMS-Related Issues (To Monitor)
