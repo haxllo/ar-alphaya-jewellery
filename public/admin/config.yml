@@ -1,6 +1,12 @@
 backend:
   name: git-gateway
   branch: main
+  commit_messages:
+    create: 'Create {{collection}} "{{slug}}"'
+    update: 'Update {{collection}} "{{slug}}"'
+    delete: 'Delete {{collection}} "{{slug}}"'
+    uploadMedia: 'Upload "{{path}}"'
+    deleteMedia: 'Delete "{{path}}"'
 
 # Professional Display Settings
 site_url: https://aralphaya.netlify.app
@@ -8,10 +14,8 @@ display_url: https://aralphaya.netlify.app
 logo_url: /images/LOGO1.png
 
 # Media Management
-media_folder: "public/uploads"
-public_folder: "/uploads"
-media_folder_relative: false
-max_file_size: 10000000  # 10MB limit
+media_folder: "public/images/products"
+public_folder: "/images/products"
 
 # Professional Features
 show_preview_links: true
@@ -34,7 +38,7 @@ collections:
         name: "images"
         widget: "list"
         hint: "Upload high-quality product images. First image will be the main display image."
-        field: { label: "Image", name: "image", widget: "image", allow_multiple: false }
+        field: { label: "Image", name: "image", widget: "image" }
       - label: "Category"
         name: "category"
         widget: "select"
