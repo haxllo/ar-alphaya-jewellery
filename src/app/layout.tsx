@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
+import Script from 'next/script'
 
 export default function RootLayout({
   children,
@@ -27,6 +28,27 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full flex flex-col`}>
+        <Script
+          src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="netlify-identity-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof netlifyIdentity !== "undefined") {
+                netlifyIdentity.on("init", user => {
+                  if (!user) {
+                    netlifyIdentity.on("login", () => {
+                      document.location.href = "/admin/";
+                    });
+                  }
+                });
+              }
+            `,
+          }}
+        />
         <UserProvider>
           <Header />
           <main className="flex-1">{children}</main>
