@@ -2,12 +2,23 @@ backend:
   name: git-gateway
   branch: main
 
-# Display settings
+# Professional Display Settings
+site_url: https://aralphaya.netlify.app
 display_url: https://aralphaya.netlify.app
 logo_url: /images/LOGO1.png
 
+# Media Management
 media_folder: "public/uploads"
 public_folder: "/uploads"
+
+# Professional Features
+show_preview_links: true
+search: true
+sortable_fields: ['name', 'price', 'category', 'featured', 'inStock']
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
 
 collections:
   - name: "products"

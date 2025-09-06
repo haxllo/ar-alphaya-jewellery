@@ -1,6 +1,6 @@
 # Client CMS Guide: Managing Your Jewelry Products
 
-This guide will help you add, edit, and manage products on your AR Alphaya Jewellery website using the Content Management System (CMS).
+This guide will help you add, edit, and manage products on your AR Alphaya Jewellery website using the professional Content Management System (CMS). Your CMS has been custom-designed with your brand colors and professional styling to make product management as easy as possible.
 
 ## 🚀 Getting Started
 
@@ -14,6 +14,15 @@ Your developer will provide you with:
 - CMS admin login credentials
 - Initial training on the interface
 - Contact information for technical support
+
+### Professional CMS Features
+Your CMS includes professional features designed specifically for your business:
+- **Custom Branding:** AR Alphaya logo and colors throughout the interface
+- **Smart Search:** Quickly find products using the search functionality
+- **Live Previews:** See how products will look on the website before publishing
+- **Professional Styling:** Clean, easy-to-use interface that matches your brand
+- **Mobile-Friendly:** Access and edit from tablets and phones
+- **Automatic Backups:** All changes are automatically saved and backed up
 
 ## 📦 Managing Products
 
