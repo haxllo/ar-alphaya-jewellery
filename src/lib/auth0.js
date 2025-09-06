@@ -14,7 +14,7 @@ export const auth0 = initAuth0({
     rollingDuration: 24 * 60 * 60, // 24 hours in seconds
     absoluteDuration: 7 * 24 * 60 * 60, // 7 days in seconds
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production' && process.env.NODE_ENV !== 'test',
       sameSite: 'lax',
       httpOnly: true,
     },
