@@ -188,19 +188,835 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "Mobile Chrome",
-                  "projectName": "Mobile Chrome",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1851,
+                      "duration": 1848,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:57.518Z",
+                      "startTime": "2025-09-06T21:27:12.712Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-3fb189fc2a6712f10fb7",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2830,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:12.753Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-5c2319f15894cb7e2999",
+              "file": "tests/homepage.spec.ts",
+              "line": 38,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3630,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:12.751Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-20d8f99eb01ce85b705c",
+              "file": "tests/homepage.spec.ts",
+              "line": 59,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 3219,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:12.760Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-e1c835ac406df45a0faf",
+              "file": "tests/homepage.spec.ts",
+              "line": 69,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 1616,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:12.660Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-284c497662735607cef5",
+              "file": "tests/homepage.spec.ts",
+              "line": 78,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 3116,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:12.737Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-403ad8e35ef88e01c66c",
+              "file": "tests/homepage.spec.ts",
+              "line": 97,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 3594,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:14.667Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-68402b90d65c4d5f72ed",
+              "file": "tests/homepage.spec.ts",
+              "line": 108,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2384,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:15.075Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-43b42576de3489985c12",
+              "file": "tests/homepage.spec.ts",
+              "line": 140,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2261,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:18.219Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-97abb879b12f9bb750ae",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 4398,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:18.261Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-25683c6bc82aa4fe06a9",
+              "file": "tests/homepage.spec.ts",
+              "line": 38,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 4180,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:18.283Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-fd57e62e072717f88198",
+              "file": "tests/homepage.spec.ts",
+              "line": 59,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3808,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:18.386Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-f308856f9af76f3bda30",
+              "file": "tests/homepage.spec.ts",
+              "line": 69,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2828,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:18.544Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-4ed4595c0f082d2a7bc2",
+              "file": "tests/homepage.spec.ts",
+              "line": 78,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 6092,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:19.347Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-003740ab144c3a7906a8",
+              "file": "tests/homepage.spec.ts",
+              "line": 97,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2138,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:22.230Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-a4546b65cd020be685f2",
+              "file": "tests/homepage.spec.ts",
+              "line": 108,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1730,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:23.674Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-484ef0a20f8d5f93f39a",
+              "file": "tests/homepage.spec.ts",
+              "line": 140,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3231,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:27.309Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-d9bd5761cc8deca55acc",
+              "file": "tests/homepage.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "shows jewelry dropdown menu on hover",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3774,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:27.829Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-d467b85d03235f8f7c8f",
+              "file": "tests/homepage.spec.ts",
+              "line": 38,
+              "column": 7
+            },
+            {
+              "title": "displays cart and wishlist icons",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3492,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:28.001Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-660a24f2c7c7c033ed72",
+              "file": "tests/homepage.spec.ts",
+              "line": 59,
+              "column": 7
+            },
+            {
+              "title": "shows featured products section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 2067,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:30.994Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-8d86b5e320339d1086d6",
+              "file": "tests/homepage.spec.ts",
+              "line": 69,
+              "column": 7
+            },
+            {
+              "title": "is responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1760,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:33.996Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-286d361d21d8818b35e4",
+              "file": "tests/homepage.spec.ts",
+              "line": 78,
+              "column": 7
+            },
+            {
+              "title": "footer is present and contains company information",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2585,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:31.507Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-86eb0bd2fe9b4e70992c",
+              "file": "tests/homepage.spec.ts",
+              "line": 97,
+              "column": 7
+            },
+            {
+              "title": "page loads without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 19,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 4214,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:36.420Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-7c5955e09dd86f12b393",
+              "file": "tests/homepage.spec.ts",
+              "line": 108,
+              "column": 7
+            },
+            {
+              "title": "has proper SEO meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1791,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:32.700Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d925eb325e7ad3d9527a-bf72ea0b79cf3d22955d",
+              "file": "tests/homepage.spec.ts",
+              "line": 140,
+              "column": 7
+            },
+            {
+              "title": "displays the main navigation elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 17,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1641,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-06T21:27:35.394Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -236,15 +1052,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 18,
                       "parallelIndex": 1,
                       "status": "skipped",
-                      "duration": 2477,
+                      "duration": 1720,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:57.586Z",
+                      "startTime": "2025-09-06T21:27:36.096Z",
                       "annotations": [
                         {
                           "type": "skip",
@@ -280,15 +1096,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 2,
+                      "workerIndex": 20,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3828,
+                      "duration": 2003,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:57.573Z",
+                      "startTime": "2025-09-06T21:27:36.509Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -314,15 +1130,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
+                      "workerIndex": 21,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 3068,
+                      "duration": 2171,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:57.583Z",
+                      "startTime": "2025-09-06T21:27:36.659Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -348,15 +1164,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 4,
-                      "parallelIndex": 4,
+                      "workerIndex": 22,
+                      "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 2495,
+                      "duration": 1218,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:57.573Z",
+                      "startTime": "2025-09-06T21:27:41.221Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -382,15 +1198,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 5,
-                      "parallelIndex": 5,
+                      "workerIndex": 17,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3511,
+                      "duration": 2214,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:57.605Z",
+                      "startTime": "2025-09-06T21:27:37.897Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -416,15 +1232,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 18,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 3314,
+                      "duration": 3081,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:25:59.760Z",
+                      "startTime": "2025-09-06T21:27:38.705Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -450,15 +1266,15 @@
                   "projectName": "Mobile Chrome",
                   "results": [
                     {
-                      "workerIndex": 4,
-                      "parallelIndex": 4,
+                      "workerIndex": 20,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 1854,
+                      "duration": 1703,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:00.431Z",
+                      "startTime": "2025-09-06T21:27:39.183Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -484,15 +1300,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 6,
-                      "parallelIndex": 1,
+                      "workerIndex": 23,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 2964,
+                      "duration": 2532,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:03.031Z",
+                      "startTime": "2025-09-06T21:27:42.068Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -528,15 +1344,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 7,
-                      "parallelIndex": 3,
+                      "workerIndex": 24,
+                      "parallelIndex": 0,
                       "status": "skipped",
-                      "duration": 2404,
+                      "duration": 1747,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:03.156Z",
+                      "startTime": "2025-09-06T21:27:42.197Z",
                       "annotations": [
                         {
                           "type": "skip",
@@ -572,15 +1388,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 5,
+                      "workerIndex": 25,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3741,
+                      "duration": 2839,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:03.290Z",
+                      "startTime": "2025-09-06T21:27:42.583Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -606,15 +1422,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 9,
-                      "parallelIndex": 2,
+                      "workerIndex": 26,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 3906,
+                      "duration": 2731,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:03.357Z",
+                      "startTime": "2025-09-06T21:27:43.628Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -640,15 +1456,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 10,
+                      "workerIndex": 27,
                       "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 3393,
+                      "duration": 2840,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:03.512Z",
+                      "startTime": "2025-09-06T21:27:44.102Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -674,15 +1490,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 11,
-                      "parallelIndex": 0,
+                      "workerIndex": 28,
+                      "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 2836,
+                      "duration": 2166,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:04.730Z",
+                      "startTime": "2025-09-06T21:27:44.825Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -708,15 +1524,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 7,
-                      "parallelIndex": 3,
+                      "workerIndex": 24,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3459,
+                      "duration": 3053,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:06.313Z",
+                      "startTime": "2025-09-06T21:27:44.861Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -742,15 +1558,15 @@
                   "projectName": "Mobile Safari",
                   "results": [
                     {
-                      "workerIndex": 6,
-                      "parallelIndex": 1,
+                      "workerIndex": 23,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 2043,
+                      "duration": 2364,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-06T21:26:06.799Z",
+                      "startTime": "2025-09-06T21:27:45.485Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -770,9 +1586,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-09-06T21:25:30.760Z",
-    "duration": 39187.259999999995,
-    "expected": 14,
+    "startTime": "2025-09-06T21:26:46.134Z",
+    "duration": 62858.001000000004,
+    "expected": 38,
     "skipped": 2,
     "unexpected": 0,
     "flaky": 0

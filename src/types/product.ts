@@ -3,6 +3,14 @@ export type SizeOption = {
   value: string;
 };
 
+export type GemstoneOption = {
+  name: string;
+  value: string;
+  priceAdjustment: number; // price difference from base price in LKR cents
+  description?: string;
+  available: boolean;
+};
+
 export type Product = {
   id: string;
   slug: string;
@@ -15,6 +23,9 @@ export type Product = {
   sku?: string;
   materials?: string[];
   sizes?: SizeOption[];
+  gemstones?: GemstoneOption[]; // available gemstone options
+  weight?: number; // weight in grams
+  dimensions?: string; // dimensions description
   inStock?: boolean;
   featured?: boolean;
   tags?: string[];
@@ -29,6 +40,7 @@ export type CartItem = {
   price: number;
   quantity: number;
   size?: string;
+  gemstone?: string;
   image?: string;
 };
 

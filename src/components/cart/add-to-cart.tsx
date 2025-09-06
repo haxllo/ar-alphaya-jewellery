@@ -1,109 +1,119 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useCartStore } from '@/lib/store/cart'
-import SizeGuideModal from '@/components/product/SizeGuideModal'
-import type { Product } from '@/types/product'
+import type { Product, GemstoneOption } from '@/types/product'
+import { ShoppingCart } from 'lucide-react'
 
 interface AddToCartProps {
   product: Product
+  selectedSize?: string
+  selectedGemstone?: GemstoneOption | null
 }
 
-export default function AddToCart({ product }: AddToCartProps) {
-  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0]?.value || '')
+export default function AddToCart({ product, selectedSize = '', selectedGemstone }: AddToCartProps) {
   const [quantity, setQuantity] = useState(1)
-  const [showSizeGuide, setShowSizeGuide] = useState(false)
+  const [isAdding, setIsAdding] = useState(false)
+  const { formatPrice } = usePriceFormatter()
   const addItem = useCartStore((state) => state.addItem)
 
-  // Reset size and quantity when product changes (fixes route change issue)
-  useEffect(() => {
-    const defaultSize = product.sizes?.[0]?.value || ''
-    setSelectedSize(defaultSize)
-    setQuantity(1) // Reset quantity for consistency
-  }, [product.id, product.sizes])
-
-  const handleAddToCart = () => {
-    addItem({
-      productId: product.id,
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      quantity,
-      size: selectedSize,
-      image: product.images[0],
-    })
+  // Calculate final price with gemstone adjustment
+  const getFinalPrice = () => {
+    const basePrice = product.price
+    const adjustment = selectedGemstone?.priceAdjustment || 0
+    return basePrice + adjustment
   }
 
-  // Determine product type for size guide
-  const getProductType = (): 'rings' | 'bracelets' | 'necklaces' | 'earrings' => {
-    const category = product.category?.toLowerCase() || ''
-    if (category.includes('ring')) return 'rings'
-    if (category.includes('bracelet') || category.includes('bangle')) return 'bracelets'
-    if (category.includes('necklace') || category.includes('pendant')) return 'necklaces'
-    return 'earrings'
+  const handleAddToCart = async () => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      alert('Please select a size')
+      return
+    }
+
+    if (product.gemstones && product.gemstones.length > 0 && !selectedGemstone) {
+      alert('Please select a gemstone')
+      return
+    }
+
+    setIsAdding(true)
+    
+    try {
+      addItem({
+        productId: product.id,
+        slug: product.slug,
+        name: product.name,
+        price: getFinalPrice(),
+        quantity,
+        size: selectedSize,
+        image: product.images?.[0],
+        // Store gemstone info in a way the cart can understand
+        gemstone: selectedGemstone?.name,
+      })
+      
+      // Brief loading state for better UX
+      await new Promise(resolve => setTimeout(resolve, 500))
+    } finally {
+      setIsAdding(false)
+    }
+  }
+
+  const canAddToCart = () => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) return false
+    if (product.gemstones && product.gemstones.length > 0 && !selectedGemstone) return false
+    return true
   }
 
   return (
     <div className="space-y-4">
-      {product.sizes && product.sizes.length > 0 && (
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <label htmlFor="size" className="block text-sm font-medium text-black">
-              Size
-            </label>
-            <button
-              type="button"
-              onClick={() => setShowSizeGuide(true)}
-              className="text-sm text-blue-600 hover:text-blue-700 underline"
-            >
-              Size Guide
-            </button>
-          </div>
-          <select
-            id="size"
-            value={selectedSize}
-            onChange={(e) => setSelectedSize(e.target.value)}
-            className="w-full border border-gray-300 rounded px-3 py-2 text-black focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-          >
-            {product.sizes.map((size) => (
-              <option key={size.value} value={size.value}>
-                {size.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      
       <div>
-        <label htmlFor="quantity" className="block text-sm font-medium mb-2 text-black">
+        <label htmlFor="quantity" className="block text-sm font-semibold mb-2 text-primary-800">
           Quantity
         </label>
-        <select
-          id="quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          className="w-full border border-gray-300 rounded px-3 py-2 text-black focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-        >
-          {[1, 2, 3, 4, 5].map((num) => (
-            <option key={num} value={num}>
-              {num}
-            </option>
-          ))}
-        </select>
+        <div className="flex items-center space-x-3">
+          <button
+            type="button"
+            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            className="w-10 h-10 rounded-lg border border-primary-300 flex items-center justify-center text-primary-700 hover:bg-primary-50 transition-colors"
+            disabled={quantity <= 1}
+          >
+            −
+          </button>
+          <span className="text-lg font-medium text-primary-800 min-w-[2rem] text-center">{quantity}</span>
+          <button
+            type="button"
+            onClick={() => setQuantity(Math.min(10, quantity + 1))}
+            className="w-10 h-10 rounded-lg border border-primary-300 flex items-center justify-center text-primary-700 hover:bg-primary-50 transition-colors"
+            disabled={quantity >= 10}
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <button
         onClick={handleAddToCart}
-        className="w-full bg-black text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors"
+        disabled={!canAddToCart() || isAdding}
+        className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
+          canAddToCart() && !isAdding
+            ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-xl'
+            : 'bg-primary-200 text-primary-400 cursor-not-allowed'
+        }`}
       >
-        Add to Cart - Rs {product.price.toLocaleString()}
+        <ShoppingCart className={`h-5 w-5 ${isAdding ? 'animate-bounce' : ''}`} />
+        {isAdding ? (
+          'Adding to Cart...'
+        ) : (
+          `Add to Cart • ${formatPrice(getFinalPrice() * quantity)}`
+        )}
       </button>
 
-      <SizeGuideModal
-        isOpen={showSizeGuide}
-        onClose={() => setShowSizeGuide(false)}
-        productType={getProductType()}
-      />
+      {!canAddToCart() && (
+        <div className="text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-lg p-3">
+          {product.sizes && product.sizes.length > 0 && !selectedSize && 'Please select a size'}
+          {product.gemstones && product.gemstones.length > 0 && !selectedGemstone && 'Please select a gemstone'}
+        </div>
+      )}
     </div>
   )
 }
