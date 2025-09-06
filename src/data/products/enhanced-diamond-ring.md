@@ -9,7 +9,6 @@ images:
   - "/images/placeholders/placeholder-2.jpg"
   - "/images/placeholders/placeholder-3.jpg"
 category: "rings"
-sku: "RNG-DIA-SOL-001"
 materials:
   - "18k White Gold"
   - "Diamond"

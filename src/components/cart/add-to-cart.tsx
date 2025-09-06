@@ -13,9 +13,8 @@ interface AddToCartProps {
 }
 
 export default function AddToCart({ product, selectedSize = '', selectedGemstone }: AddToCartProps) {
-  const [quantity, setQuantity] = useState(1)
+  const quantity = 1 // Fixed quantity of 1
   const [isAdding, setIsAdding] = useState(false)
-  const { formatPrice } = usePriceFormatter()
   const addItem = useCartStore((state) => state.addItem)
 
   // Calculate final price with gemstone adjustment
@@ -66,30 +65,6 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
 
   return (
     <div className="space-y-4">
-      <div>
-        <label htmlFor="quantity" className="block text-sm font-semibold mb-2 text-primary-800">
-          Quantity
-        </label>
-        <div className="flex items-center space-x-3">
-          <button
-            type="button"
-            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-10 h-10 rounded-lg border border-primary-300 flex items-center justify-center text-primary-700 hover:bg-primary-50 transition-colors"
-            disabled={quantity <= 1}
-          >
-            −
-          </button>
-          <span className="text-lg font-medium text-primary-800 min-w-[2rem] text-center">{quantity}</span>
-          <button
-            type="button"
-            onClick={() => setQuantity(Math.min(10, quantity + 1))}
-            className="w-10 h-10 rounded-lg border border-primary-300 flex items-center justify-center text-primary-700 hover:bg-primary-50 transition-colors"
-            disabled={quantity >= 10}
-          >
-            +
-          </button>
-        </div>
-      </div>
 
       <button
         onClick={handleAddToCart}
@@ -104,7 +79,7 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
         {isAdding ? (
           'Adding to Cart...'
         ) : (
-          `Add to Cart • ${formatPrice(getFinalPrice() * quantity)}`
+          'Add to Cart'
         )}
       </button>
 

@@ -10,7 +10,6 @@ images:
   - "/images/placeholders/placeholder-3.jpg"
   - "/images/placeholders/placeholder-4.jpg"
 category: "pendants"
-sku: "PND-RB-ENH-001"
 materials:
   - "18k Rose Gold"
   - "Natural Ruby"

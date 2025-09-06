@@ -29,7 +29,7 @@ export default function ProductContent({ product }: ProductContentProps) {
 
   // WhatsApp link generator
   const getWhatsAppLink = () => {
-    const message = `Hi! I'm interested in the ${product.name} (${product.sku || product.id}). ${selectedSize ? `Size: ${selectedSize}. ` : ''}${selectedGemstone ? `Gemstone: ${selectedGemstone.name}. ` : ''}Please provide more details.`
+    const message = `Hi! I'm interested in the ${product.name}. ${selectedSize ? `Size: ${selectedSize}. ` : ''}${selectedGemstone ? `Gemstone: ${selectedGemstone.name}. ` : ''}Please provide more details.`
     const phoneNumber = '+94774293406'
     return `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
   }
@@ -74,9 +74,6 @@ export default function ProductContent({ product }: ProductContentProps) {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h1 className="text-3xl font-bold text-primary-800 mb-2">{product.name}</h1>
-                  {product.sku && (
-                    <p className="text-sm text-primary-500">SKU: {product.sku}</p>
-                  )}
                 </div>
                 <WishlistButton product={product} size="lg" />
               </div>
