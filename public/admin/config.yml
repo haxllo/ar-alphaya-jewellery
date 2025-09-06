@@ -13,24 +13,15 @@ public_folder: "/uploads"
 
 # Professional Features
 show_preview_links: true
-search: true
-sortable_fields: ['name', 'price', 'category', 'featured', 'inStock']
-slug:
-  encoding: "ascii"
-  clean_accents: true
-  sanitize_replacement: "-"
 
 collections:
   - name: "products"
     label: "Products"
-    label_singular: "Product"
     folder: "src/data/products"
     create: true
     slug: "{{slug}}"
     extension: "md"
     format: "frontmatter"
-    editor:
-      preview: true
     fields:
       - { label: "Product ID", name: "id", widget: "string", hint: "Unique identifier for this product (e.g., RNG-001)" }
       - { label: "Product Name", name: "name", widget: "string", hint: "The display name of the product" }

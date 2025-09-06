@@ -3,95 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AR Alphaya Jewellery - Content Management</title>
-    <meta name="description" content="Professional content management system for AR Alphaya Jewellery" />
-    <link rel="icon" type="image/png" href="/images/LOGO1.png" />
-    <link rel="stylesheet" href="/admin/admin-styles.css" />
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f5f5f5;
-      }
-      .loading {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50vh;
-        flex-direction: column;
-      }
-      .error {
-        background: #ff6b6b;
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        margin: 20px;
-        display: none;
-      }
-    </style>
+    <title>AR Alphaya Jewellery CMS</title>
+    <script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <div class="loading">
-      <h2>Loading AR Alphaya CMS...</h2>
-      <p>Please wait while the content management system loads.</p>
-    </div>
-    <div id="error" class="error">
-      <h3>Error Loading CMS</h3>
-      <p>If this persists, please check:</p>
-      <ul>
-        <li>Netlify Identity is enabled</li>
-        <li>Git Gateway is configured</li>
-        <li>You have been invited to access the CMS</li>
-      </ul>
-    </div>
-    
-    <script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
     <script>
-      // Initialize Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', user => {
-          console.log('Netlify Identity initialized:', user);
           if (!user) {
-            console.log('User not logged in, setting up login redirect');
             window.netlifyIdentity.on('login', () => {
-              console.log('User logged in, redirecting to admin');
               document.location.href = '/admin/';
             });
-          } else {
-            console.log('User already logged in:', user.email);
           }
         });
-      } else {
-        console.error('Netlify Identity widget not loaded');
-        document.getElementById('error').style.display = 'block';
-        document.querySelector('.loading').style.display = 'none';
       }
     </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script>
-      // Initialize Decap CMS
-      window.addEventListener('load', () => {
-        console.log('Page loaded, checking CMS initialization');
-        if (typeof CMS !== 'undefined') {
-          console.log('Decap CMS loaded successfully');
-          document.querySelector('.loading').style.display = 'none';
-        } else {
-          console.error('Decap CMS failed to load');
-          document.getElementById('error').style.display = 'block';
-          document.querySelector('.loading').style.display = 'none';
-        }
-      });
-      
-      // Add timeout fallback
-      setTimeout(() => {
-        if (document.querySelector('.loading').style.display !== 'none') {
-          console.log('CMS loading timeout, showing error');
-          document.getElementById('error').style.display = 'block';
-          document.querySelector('.loading').style.display = 'none';
-        }
-      }, 10000); // 10 second timeout
-    </script>
   </body>
 </html>
 
