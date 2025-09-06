@@ -56,7 +56,7 @@ export default function TermsOfServicePage() {
               <li>13. Services Management</li>
               <li>14. Privacy Policy</li>
             </ol>
-            <ol start="15" className="space-y-1 text-gray-700">
+            <ol start={15} className="space-y-1 text-gray-700">
               <li>15. Digital Millennium Copyright Act</li>
               <li>16. Term and Termination</li>
               <li>17. Modifications and Interruptions</li>
