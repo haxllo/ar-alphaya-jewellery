@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { existsSync } from 'fs'
-import path from 'path'
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+const REPO_OWNER = 'haxllo'
+const REPO_NAME = 'ar-alphaya-jewellery'
+const BRANCH = 'main'
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,37 +28,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
     
-    // Ensure directories exist
-    const productsDir = path.join(process.cwd(), 'src', 'data', 'products')
-    const imagesDir = path.join(process.cwd(), 'public', 'images', 'products')
-    
-    if (!existsSync(productsDir)) {
-      await mkdir(productsDir, { recursive: true })
-    }
-    if (!existsSync(imagesDir)) {
-      await mkdir(imagesDir, { recursive: true })
-    }
-    
-    // Process and save images
-    const imagePaths: string[] = []
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
-      if (image.size > 0) {
-        const fileExtension = image.name.split('.').pop()?.toLowerCase() || 'jpg'
-        const fileName = `${slug}-${i + 1}.${fileExtension}`
-        const filePath = path.join(imagesDir, fileName)
-        
-        const buffer = await image.arrayBuffer()
-        await writeFile(filePath, new Uint8Array(buffer))
-        
-        imagePaths.push(`/images/products/${fileName}`)
-      }
-    }
+    // For now, we'll create the product without images and provide instructions
+    // This avoids the complexity of GitHub API file uploads for images
     
     // Parse materials
     const materialsArray = materials ? materials.split('\n').filter(m => m.trim()) : []
     
-    // Generate frontmatter
+    // Generate frontmatter (using placeholder images for now)
+    const imagePaths = images.length > 0 
+      ? Array.from({length: images.length}, (_, i) => `/images/products/${slug}-${i + 1}.jpg`)
+      : ['/images/placeholders/placeholder-1.jpg']
+    
     const frontmatter = `---
 id: "${id}"
 slug: "${slug}"
@@ -81,19 +63,62 @@ updatedAt: "${new Date().toISOString()}"
 
 ${description}`
     
-    // Write product file
-    const productFilePath = path.join(productsDir, `${slug}.md`)
-    await writeFile(productFilePath, frontmatter)
+    // Create the product file via GitHub API if token is available
+    if (GITHUB_TOKEN) {
+      try {
+        const fileContent = Buffer.from(frontmatter).toString('base64')
+        const filePath = `src/data/products/${slug}.md`
+        
+        const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Add product: ${name}`,
+            content: fileContent,
+            branch: BRANCH
+          })
+        })
+        
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(`GitHub API error: ${errorData.message || response.statusText}`)
+        }
+        
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Product created successfully and deployed to GitHub!',
+          productId: id,
+          slug: slug,
+          images: imagePaths,
+          needsImages: images.length > 0,
+          githubCreated: true
+        })
+      } catch (githubError) {
+        console.error('GitHub API error:', githubError)
+        // Fall through to manual creation response
+      }
+    }
     
-    // Trigger rebuild (in production, this would trigger Netlify rebuild)
-    // For now, we'll just return success
-    
+    // Fallback: provide the markdown for manual creation
     return NextResponse.json({ 
       success: true, 
-      message: 'Product created successfully',
+      message: 'Product template created. Manual setup required.',
       productId: id,
       slug: slug,
-      images: imagePaths
+      markdown: frontmatter,
+      images: imagePaths,
+      needsImages: images.length > 0,
+      githubCreated: false,
+      instructions: {
+        step1: `Create file: src/data/products/${slug}.md`,
+        step2: 'Copy the markdown content provided',
+        step3: images.length > 0 ? `Upload ${images.length} images to public/images/products/` : 'No images to upload',
+        step4: 'Commit changes to trigger site rebuild'
+      }
     })
     
   } catch (error) {

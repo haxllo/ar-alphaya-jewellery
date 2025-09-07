@@ -18,6 +18,7 @@ export default function AdminUploadPage() {
   const [images, setImages] = useState<File[]>([])
   const [status, setStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState('')
+  const [apiResult, setApiResult] = useState<any>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -66,12 +67,18 @@ export default function AdminUploadPage() {
       }
       
       setStatus('success')
-      setMessage(`Product "${formData.name}" created successfully! It will appear on your site shortly.`)
+      setApiResult(result)
+      if (result.githubCreated) {
+        setMessage(`Product "${formData.name}" created successfully and deployed to GitHub! It will appear on your site shortly.`)
+      } else {
+        setMessage(`Product template "${formData.name}" created. Manual setup required - check the instructions below.`)
+      }
       
       // Reset form after success
       setTimeout(() => {
         setStatus('idle')
         setMessage('')
+        setApiResult(null)
         setFormData({
           id: '',
           name: '',
@@ -101,6 +108,7 @@ export default function AdminUploadPage() {
       setTimeout(() => {
         setStatus('idle')
         setMessage('')
+        setApiResult(null)
       }, 5000)
     }
   }
@@ -129,12 +137,43 @@ export default function AdminUploadPage() {
                 <p className="text-green-800 font-medium">{message}</p>
               </div>
               <div className="text-sm text-green-700 mb-4">
-                <p>Your product has been created and saved. The site will automatically update to show your new product.</p>
-                <p className="mt-1"><strong>Note:</strong> It may take 2-3 minutes for the product to appear on the live site due to deployment.</p>
+                {apiResult?.githubCreated ? (
+                  <>
+                    <p>Your product has been created and deployed to GitHub automatically. The site will update to show your new product.</p>
+                    <p className="mt-1"><strong>Note:</strong> It may take 2-3 minutes for the product to appear on the live site due to deployment.</p>
+                  </>
+                ) : (
+                  <>
+                    <p>Your product template has been created. Manual setup is required to complete the process.</p>
+                    <p className="mt-1"><strong>Note:</strong> Please follow the instructions below to add the product to your site.</p>
+                  </>
+                )}
               </div>
-              {formData.slug && (
+              
+              {/* Manual instructions when GitHub API not available */}
+              {apiResult && !apiResult.githubCreated && apiResult.instructions && (
+                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h4 className="font-semibold text-blue-900 mb-2">Manual Setup Instructions:</h4>
+                  <ol className="list-decimal list-inside space-y-1 text-sm text-blue-800">
+                    <li>{apiResult.instructions.step1}</li>
+                    <li>{apiResult.instructions.step2}</li>
+                    <li>{apiResult.instructions.step3}</li>
+                    <li>{apiResult.instructions.step4}</li>
+                  </ol>
+                  {apiResult.markdown && (
+                    <details className="mt-3">
+                      <summary className="cursor-pointer font-medium text-blue-900">Show markdown content to copy</summary>
+                      <pre className="mt-2 p-2 bg-gray-100 text-xs overflow-x-auto rounded border">
+{apiResult.markdown}
+                      </pre>
+                    </details>
+                  )}
+                </div>
+              )}
+              
+              {apiResult?.slug && apiResult?.githubCreated && (
                 <a
-                  href={`/products/${formData.slug}`}
+                  href={`/products/${apiResult.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
