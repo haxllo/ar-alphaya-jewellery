@@ -30,53 +30,48 @@ export default function AdminUploadPage() {
     }
   }
 
-  const generateMarkdown = () => {
-    const imagePaths = images.map((_, index) => 
-      `  - "/images/products/${formData.slug}-${index + 1}.jpg"`
-    ).join('\n')
-
-    return `---
-id: "${formData.id}"
-slug: "${formData.slug}"
-name: "${formData.name}"
-price: ${formData.price}
-currency: "LKR"
-images:
-${imagePaths}
-category: "${formData.category}"
-materials:
-  - "${formData.materials.filter(m => m.trim()).join('"\n  - "')}"
-weight: ${formData.weight || 'null'}
-dimensions: "${formData.dimensions}"
-inStock: true
-featured: false
-tags:
-  - "new"
-createdAt: "${new Date().toISOString()}"
-updatedAt: "${new Date().toISOString()}"
----
-
-${formData.description}
-`
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('uploading')
     
     try {
-      // This would integrate with your backend API to create the product
-      const markdown = generateMarkdown()
+      // Create FormData for API submission
+      const submitData = new FormData()
+      submitData.append('id', formData.id)
+      submitData.append('name', formData.name)
+      submitData.append('slug', formData.slug)
+      submitData.append('price', formData.price)
+      submitData.append('category', formData.category)
+      submitData.append('materials', formData.materials.filter(m => m.trim()).join('\n'))
+      submitData.append('weight', formData.weight)
+      submitData.append('dimensions', formData.dimensions)
+      submitData.append('description', formData.description)
       
-      // For now, show the generated markdown
-      console.log('Generated Markdown:', markdown)
+      // Add images
+      images.forEach((image) => {
+        submitData.append('images', image)
+      })
+      
+      // Submit to API
+      const response = await fetch('/api/products/create', {
+        method: 'POST',
+        body: submitData
+      })
+      
+      const result = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to create product')
+      }
       
       setStatus('success')
-      setMessage('Product created successfully! The markdown has been generated.')
+      setMessage(`Product "${formData.name}" created successfully! It will appear on your site shortly.`)
       
-      // Reset form
+      // Reset form after success
       setTimeout(() => {
         setStatus('idle')
+        setMessage('')
         setFormData({
           id: '',
           name: '',
@@ -89,11 +84,24 @@ ${formData.description}
           description: ''
         })
         setImages([])
-      }, 3000)
+        
+        // Reset file input
+        const fileInput = document.getElementById('image-upload') as HTMLInputElement
+        if (fileInput) {
+          fileInput.value = ''
+        }
+      }, 4000)
       
     } catch (error) {
+      console.error('Upload error:', error)
       setStatus('error')
-      setMessage('Failed to create product. Please try again.')
+      setMessage(error instanceof Error ? error.message : 'Failed to create product. Please try again.')
+      
+      // Clear error after delay
+      setTimeout(() => {
+        setStatus('idle')
+        setMessage('')
+      }, 5000)
     }
   }
 
@@ -115,9 +123,25 @@ ${formData.description}
           </div>
 
           {status === 'success' && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <p className="text-green-800">{message}</p>
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-center gap-3 mb-3">
+                <CheckCircle className="h-5 w-5 text-green-600" />
+                <p className="text-green-800 font-medium">{message}</p>
+              </div>
+              <div className="text-sm text-green-700 mb-4">
+                <p>Your product has been created and saved. The site will automatically update to show your new product.</p>
+                <p className="mt-1"><strong>Note:</strong> It may take 2-3 minutes for the product to appear on the live site due to deployment.</p>
+              </div>
+              {formData.slug && (
+                <a
+                  href={`/products/${formData.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
+                >
+                  View Product (opens in new tab)
+                </a>
+              )}
             </div>
           )}
 
