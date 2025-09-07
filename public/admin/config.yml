@@ -8,6 +8,9 @@ backend:
     uploadMedia: 'Upload "{{path}}"'
     deleteMedia: 'Delete "{{path}}"'
 
+# Local development with proxy server
+local_backend: true
+
 # Professional Display Settings
 site_url: https://aralphaya.netlify.app
 display_url: https://aralphaya.netlify.app
