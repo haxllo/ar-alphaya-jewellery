@@ -15,7 +15,8 @@ export default function AdminInstructionsPage() {
                 🎯 Product Upload System
               </h3>
               <p className="text-primary-700 mb-6 text-lg">
-                Add new products to your AR Alphaya Jewellery collection using our streamlined upload form:
+                Add new products to your AR Alphaya Jewellery collection using our streamlined upload form.
+                Products are automatically deployed to your live site!
               </p>
               <a 
                 href="/admin-upload"
@@ -23,6 +24,21 @@ export default function AdminInstructionsPage() {
               >
                 🔗 Start Adding Products
               </a>
+            </div>
+
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+              <h3 className="text-xl font-semibold text-green-800 mb-3">
+                ✅ Automated Product Creation
+              </h3>
+              <p className="text-green-700 mb-2">
+                Your upload system is configured for automatic product deployment:
+              </p>
+              <ul className="text-green-700 space-y-1 text-sm list-disc list-inside">
+                <li>Upload your product details and images</li>
+                <li>System creates product files automatically</li>
+                <li>Site rebuilds and deploys within 2-3 minutes</li>
+                <li>Product appears live on your website</li>
+              </ul>
             </div>
 
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Product Information Required</h2>
