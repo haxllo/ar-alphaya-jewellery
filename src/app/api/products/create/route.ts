@@ -64,6 +64,14 @@ updatedAt: "${new Date().toISOString()}"
 ${description}`
     
     // Create the product file via GitHub API if token is available
+    console.log('GitHub token check:', {
+      tokenExists: !!GITHUB_TOKEN,
+      tokenLength: GITHUB_TOKEN ? GITHUB_TOKEN.length : 0,
+      tokenPrefix: GITHUB_TOKEN ? GITHUB_TOKEN.substring(0, 4) + '...' : 'none',
+      repoOwner: REPO_OWNER,
+      repoName: REPO_NAME
+    })
+    
     if (GITHUB_TOKEN) {
       try {
         const fileContent = Buffer.from(frontmatter).toString('base64')
@@ -85,10 +93,18 @@ ${description}`
         
         if (!response.ok) {
           const errorData = await response.json()
+          console.error('GitHub API error details:', {
+            status: response.status,
+            statusText: response.statusText,
+            errorData,
+            url: `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`
+          })
           throw new Error(`GitHub API error: ${errorData.message || response.statusText}`)
         }
         
-        return NextResponse.json({ 
+        console.log('GitHub API success:', { slug, filePath })
+        
+        return NextResponse.json({
           success: true, 
           message: 'Product created successfully and deployed to GitHub!',
           productId: id,
@@ -101,6 +117,8 @@ ${description}`
         console.error('GitHub API error:', githubError)
         // Fall through to manual creation response
       }
+    } else {
+      console.log('No GitHub token available, using fallback mode')
     }
     
     // Fallback: provide the markdown for manual creation
