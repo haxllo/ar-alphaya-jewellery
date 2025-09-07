@@ -101,8 +101,18 @@ ${formData.description}
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-2xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Product</h1>
-          <p className="text-gray-600 mb-8">Create a new product for AR Alphaya Jewellery</p>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Product</h1>
+              <p className="text-gray-600">Create a new product for AR Alphaya Jewellery</p>
+            </div>
+            <a 
+              href="/admin-instructions" 
+              className="text-primary-600 hover:text-primary-700 underline text-sm"
+            >
+              ← Back to Instructions
+            </a>
+          </div>
 
           {status === 'success' && (
             <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">

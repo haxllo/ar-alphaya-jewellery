@@ -10,37 +10,19 @@ export default function AdminInstructionsPage() {
           <div className="prose max-w-none">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">How to Add Products</h2>
             
-            <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-semibold text-green-800 mb-2">
-                🎯 Recommended: Custom Upload Form
+            <div className="bg-primary-50 border border-primary-200 rounded-lg p-8 mb-8 text-center">
+              <h3 className="text-2xl font-semibold text-primary-800 mb-3">
+                🎯 Product Upload System
               </h3>
-              <p className="text-green-700 mb-3">
-                Use our custom product upload form for the most reliable experience:
+              <p className="text-primary-700 mb-6 text-lg">
+                Add new products to your AR Alphaya Jewellery collection using our streamlined upload form:
               </p>
               <a 
                 href="/admin-upload"
-                className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+                className="inline-block bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-700 transition-colors shadow-lg"
               >
-                🔗 Go to Product Upload Form
+                🔗 Start Adding Products
               </a>
-            </div>
-
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-semibold text-blue-800 mb-2">
-                📝 Alternative: Traditional CMS
-              </h3>
-              <p className="text-blue-700 mb-3">
-                You can also try the traditional CMS interface:
-              </p>
-              <a 
-                href="/admin"
-                className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
-                🔗 Go to CMS Admin
-              </a>
-              <p className="text-sm text-blue-600 mt-2">
-                Note: If you experience upload issues, please use the Custom Upload Form above.
-              </p>
             </div>
 
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Product Information Required</h2>
