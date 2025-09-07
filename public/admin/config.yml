@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: haxllo/ar-alphaya-jewellery
   branch: main
   commit_messages:
     create: 'Create {{collection}} "{{slug}}"'
@@ -13,9 +14,16 @@ site_url: https://aralphaya.netlify.app
 display_url: https://aralphaya.netlify.app
 logo_url: /images/LOGO1.png
 
-# Media Management
+# Media Management - Multiple options for reliability
 media_folder: "public/images/products"
 public_folder: "/images/products"
+
+# Cloudinary integration for reliable uploads (optional)
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: your-cloud-name
+    api_key: your-api-key
 
 # Professional Features
 show_preview_links: true
