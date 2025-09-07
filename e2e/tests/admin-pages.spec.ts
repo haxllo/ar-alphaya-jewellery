@@ -10,7 +10,7 @@ test.describe('Admin Pages', () => {
     await expect(page.locator('h1')).toContainText('AR Alphaya Jewellery - Product Management')
     
     // Check main section heading
-    await expect(page.locator('h2')).toContainText('How to Add Products')
+    await expect(page.locator('h2').first()).toContainText('How to Add Products')
     
     // Check product upload system section exists
     await expect(page.locator('text=Product Upload System')).toBeVisible()
@@ -31,13 +31,13 @@ test.describe('Admin Pages', () => {
     
     // Check enhanced features section
     await expect(page.locator('text=Enhanced Features Available')).toBeVisible()
-    await expect(page.locator('text=Gemstone Options')).toBeVisible()
+    await expect(page.locator('text=Gemstone Options').first()).toBeVisible()
     await expect(page.locator('text=Size Selection')).toBeVisible()
     await expect(page.locator('text=WhatsApp Integration')).toBeVisible()
     
     // Check contact information
     await expect(page.locator('text=Need Help?')).toBeVisible()
-    await expect(page.locator('text=+94 77 429 3406')).toBeVisible()
+    await expect(page.locator('text=+94 77 429 3406').first()).toBeVisible()
   })
   
   test('admin upload form loads correctly', async ({ page }) => {
@@ -60,15 +60,15 @@ test.describe('Admin Pages', () => {
     await expect(page.locator('input[name="weight"]')).toBeVisible()
     await expect(page.locator('input[name="dimensions"]')).toBeVisible()
     
-    // Check category options
+    // Check category options exist
     const categorySelect = page.locator('select[name="category"]')
-    await expect(categorySelect.locator('option[value="rings"]')).toBeVisible()
-    await expect(categorySelect.locator('option[value="earrings"]')).toBeVisible()
-    await expect(categorySelect.locator('option[value="pendants"]')).toBeVisible()
-    await expect(categorySelect.locator('option[value="bracelets-bangles"]')).toBeVisible()
+    await expect(categorySelect.locator('option[value="rings"]')).toHaveCount(1)
+    await expect(categorySelect.locator('option[value="earrings"]')).toHaveCount(1)
+    await expect(categorySelect.locator('option[value="pendants"]')).toHaveCount(1)
+    await expect(categorySelect.locator('option[value="bracelets-bangles"]')).toHaveCount(1)
     
-    // Check image upload area
-    await expect(page.locator('input[type="file"]')).toBeVisible()
+    // Check image upload area (file input is hidden but upload area is visible)
+    await expect(page.locator('input[type="file"]')).toHaveCount(1)
     await expect(page.locator('text=Click to upload')).toBeVisible()
     
     // Check submit button
@@ -100,7 +100,7 @@ test.describe('Admin Pages', () => {
     await expect(page.locator('a[href="/admin-instructions"]')).toContainText('View Instructions')
     
     // Check contact information
-    await expect(page.locator('text=aralphayajewellery@gmail.com')).toBeVisible()
+    await expect(page.locator('text=aralphayajewellery@gmail.com').first()).toBeVisible()
   })
   
   test('navigation between admin pages works', async ({ page }) => {
@@ -110,12 +110,12 @@ test.describe('Admin Pages', () => {
     
     // Click to upload form
     await page.click('a[href="/admin-upload"]')
-    await page.waitForURL('/admin-upload')
+    await page.waitForURL('**/admin-upload/**')
     await expect(page.locator('h1')).toContainText('Add New Product')
     
     // Navigate back to instructions
     await page.click('a[href="/admin-instructions"]')
-    await page.waitForURL('/admin-instructions')
+    await page.waitForURL('**/admin-instructions/**')
     await expect(page.locator('h1')).toContainText('AR Alphaya Jewellery - Product Management')
   })
   

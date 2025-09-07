@@ -86,7 +86,7 @@ export default defineConfig({
     env: {
       // Load test environment variables
       NODE_ENV: 'test',
-      AUTH0_SECRET: 'playwright-test-secret-key-32-bytes-long',
+      AUTH0_SECRET: 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
       AUTH0_BASE_URL: 'http://localhost:3000',
       AUTH0_ISSUER_BASE_URL: 'https://test.auth0.com',
       AUTH0_CLIENT_ID: 'test-client-id',
