@@ -1,0 +1,17 @@
+{
+  "body": "dwadawdawd",
+  "price": 42342342,
+  "name": "efesfef",
+  "slug": "efsefesf",
+  "featured": false,
+  "currency": "LKR",
+  "inStock": true,
+  "gemstones": [
+    {
+      "available": true,
+      "name": "dawdaw",
+      "value": "32242"
+    }
+  ],
+  "category": "earrings"
+}
