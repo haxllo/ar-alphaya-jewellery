@@ -6,6 +6,9 @@
   "featured": false,
   "currency": "LKR",
   "inStock": true,
+  "images": [
+    "/images/uploads/jewellery-wedding.jpg"
+  ],
   "gemstones": [
     {
       "available": true,
