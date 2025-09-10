@@ -1,11 +1,32 @@
 {
   "title": "AR Alphaya Jewellery",
-  "description": "Fine jewelry and custom pieces.",
+  "description": "Fine jewelry and custom pieces crafted with precision and passion.",
+  "email": "aralphayajewellery@gmail.com",
+  "phone": "+94 77 429 3406",
+  "whatsapp": "+94 77 429 3406",
+  "address": "143/5 Rainbow park, Temple road, Kengalla - 20186",
+  "instagram": "https://www.instagram.com/ar_alphaya_jewellery/",
   "collections": [
-    { "handle": "rings", "title": "Rings", "description": "Explore our rings" },
-    { "handle": "earrings", "title": "Earrings", "description": "Explore our earrings" },
-    { "handle": "pendants", "title": "Pendants", "description": "Explore our pendants" },
-    { "handle": "bracelets-bangles", "title": "Bracelets & Bangles", "description": "Explore our bracelets & bangles" }
+    {
+      "name": "Rings",
+      "handle": "rings",
+      "description": "Discover our exquisite collection of rings, from engagement rings to statement pieces"
+    },
+    {
+      "name": "Earrings",
+      "handle": "earrings",
+      "description": "Elegant earrings to complement any style, from subtle studs to dramatic drops"
+    },
+    {
+      "name": "Pendants",
+      "handle": "pendants",
+      "description": "Beautiful pendants and necklaces that make a statement"
+    },
+    {
+      "name": "Bracelets & Bangles",
+      "handle": "bracelets-bangles",
+      "description": "Stunning bracelets and bangles to adorn your wrists"
+    }
   ]
 }
 

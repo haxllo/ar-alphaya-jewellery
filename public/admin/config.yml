@@ -1,24 +1,22 @@
 backend:
   name: git-gateway
+  repo: haxllo/ar-alphaya-jewellery
   branch: main
-  commit_messages:
-    create: 'Create {{collection}} "{{slug}}"'
-    update: 'Update {{collection}} "{{slug}}"'
-    delete: 'Delete {{collection}} "{{slug}}"'
-    uploadMedia: 'Upload "{{path}}"'
-    deleteMedia: 'Delete "{{path}}"'
 
-# Professional Display Settings
-site_url: https://aralphaya.netlify.app
-display_url: https://aralphaya.netlify.app
-logo_url: /images/LOGO1.png
+# When deploying to Netlify, use this instead:
+# backend:
+#   name: git-gateway
+#   branch: main
 
-# Media Management
+# For local development, uncomment this line:
+# local_backend: true
+
 media_folder: "public/images/products"
 public_folder: "/images/products"
 
-# Professional Features
-show_preview_links: true
+site_url: https://aralphaya.netlify.app
+display_url: https://aralphaya.netlify.app
+logo_url: /images/BRAND.svg
 
 collections:
   - name: "products"
@@ -26,84 +24,65 @@ collections:
     folder: "src/data/products"
     create: true
     slug: "{{slug}}"
-    extension: "md"
-    format: "frontmatter"
     fields:
-      - { label: "Product ID", name: "id", widget: "string", hint: "Unique identifier for this product (e.g., ruby-001)" }
-      - { label: "Product Name", name: "name", widget: "string", hint: "The display name of the product" }
-      - { label: "URL Slug", name: "slug", widget: "string", hint: "URL-friendly version of the name (lowercase, no spaces)" }
-      - { label: "Price (LKR)", name: "price", widget: "number", value_type: "int", hint: "Price in Sri Lankan Rupees" }
-      - { label: "Currency", name: "currency", widget: "string", default: "LKR" }
+      - {label: "Product ID", name: "id", widget: "string", hint: "Unique identifier (e.g., ring-001)"}
+      - {label: "URL Slug", name: "slug", widget: "string", hint: "URL-friendly name"}
+      - {label: "Product Name", name: "name", widget: "string"}
+      - {label: "Price (LKR)", name: "price", widget: "number", value_type: "int", min: 1000}
+      - {label: "Currency", name: "currency", widget: "hidden", default: "LKR"}
       - label: "Product Images"
         name: "images"
         widget: "list"
-        hint: "Upload high-quality product images. First image will be the main display image."
-        field: { label: "Image", name: "image", widget: "image" }
+        min: 1
+        max: 5
+        field: {label: "Image", name: "image", widget: "image"}
       - label: "Category"
         name: "category"
         widget: "select"
-        hint: "Select the main category for this product"
-        options: 
-          - { label: "Rings", value: "rings" }
-          - { label: "Earrings", value: "earrings" }
-          - { label: "Pendants", value: "pendants" }
-          - { label: "Bracelets & Bangles", value: "bracelets-bangles" }
+        options:
+          - {label: "Rings", value: "rings"}
+          - {label: "Earrings", value: "earrings"}
+          - {label: "Pendants", value: "pendants"}
+          - {label: "Bracelets & Bangles", value: "bracelets-bangles"}
+      - {label: "SKU", name: "sku", widget: "string", required: false}
       - label: "Materials"
         name: "materials"
         widget: "list"
         required: false
-        hint: "Materials used in the product (e.g., 14k Gold, Diamond, etc.)"
+        field: {label: "Material", name: "material", widget: "string"}
+      - {label: "Weight (grams)", name: "weight", widget: "number", value_type: "float", required: false}
+      - {label: "Dimensions", name: "dimensions", widget: "string", required: false}
       - label: "Available Sizes"
         name: "sizes"
         widget: "list"
         required: false
-        hint: "Available sizes for this product"
         fields:
-          - { label: "Size Label", name: "label", widget: "string", hint: "Display name (e.g., 'US 7')" }
-          - { label: "Size Value", name: "value", widget: "string", hint: "Internal value (e.g., '7')" }
-      - { label: "Weight (grams)", name: "weight", widget: "number", value_type: "float", required: false, hint: "Product weight in grams" }
-      - { label: "Dimensions", name: "dimensions", widget: "string", required: false, hint: "Product dimensions (e.g., 15mm x 12mm)" }
-      - label: "Gemstone Options"
-        name: "gemstones"
-        widget: "list"
-        required: false
-        hint: "Available gemstone choices with pricing"
-        fields:
-          - { label: "Gemstone Name", name: "name", widget: "string", hint: "Display name (e.g., Natural Ruby)" }
-          - { label: "Option Value", name: "value", widget: "string", hint: "Internal identifier (e.g., natural-ruby)" }
-          - { label: "Price Adjustment (LKR)", name: "priceAdjustment", widget: "number", value_type: "int", default: 0, hint: "Price difference from base price (+ for increase, - for decrease)" }
-          - { label: "Description", name: "description", widget: "string", required: false, hint: "Brief description of this gemstone option" }
-          - { label: "Available", name: "available", widget: "boolean", default: true, hint: "Is this option currently available?" }
-      - { label: "In Stock", name: "inStock", widget: "boolean", default: true, hint: "Is this product currently available?" }
-      - { label: "Featured Product", name: "featured", widget: "boolean", default: false, hint: "Should this appear in featured products?" }
+          - {label: "Size Label", name: "label", widget: "string"}
+          - {label: "Size Value", name: "value", widget: "string"}
+      - {label: "In Stock", name: "inStock", widget: "boolean", default: true}
+      - {label: "Featured Product", name: "featured", widget: "boolean", default: false}
       - label: "Tags"
         name: "tags"
         widget: "list"
         required: false
-        hint: "Keywords for search and filtering (e.g., wedding, vintage, modern)"
-      - { label: "Created Date", name: "createdAt", widget: "datetime", required: false }
-      - { label: "Last Updated", name: "updatedAt", widget: "datetime", required: false }
-      - label: "Product Description"
-        name: "body"
-        widget: "markdown"
-        required: false
-        hint: "Detailed description of the product. Supports rich text formatting."
+        field: {label: "Tag", name: "tag", widget: "string"}
+      - {label: "Product Description", name: "body", widget: "markdown"}
+      - {label: "Created Date", name: "createdAt", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss.SSSZ"}
+      - {label: "Updated Date", name: "updatedAt", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss.SSSZ"}
 
-  - name: "site"
+  - name: "settings"
     label: "Site Settings"
     files:
-      - label: "Site Configuration"
+      - file: "src/data/site.json"
+        label: "General Settings"
         name: "site"
-        file: "src/data/site.json"
         fields:
-          - { label: "Site Title", name: "title", widget: "string" }
-          - { label: "Site Description", name: "description", widget: "string" }
-          - label: "Product Collections"
-            name: "collections"
-            widget: "list"
-            hint: "Manage product categories and collections"
-            fields:
-              - { label: "Collection Handle", name: "handle", widget: "string", hint: "URL slug for this collection" }
-              - { label: "Collection Title", name: "title", widget: "string", hint: "Display name" }
-              - { label: "Description", name: "description", widget: "string", required: false }
-              - { label: "Collection Image", name: "image", widget: "image", required: false }
+          - {label: "Site Title", name: "title", widget: "string"}
+          - {label: "Site Description", name: "description", widget: "text"}
+          - {label: "Contact Email", name: "email", widget: "string"}
+          - {label: "Phone Number", name: "phone", widget: "string"}
+          - {label: "WhatsApp Number", name: "whatsapp", widget: "string"}
+          - {label: "Address", name: "address", widget: "text"}
+          - {label: "Instagram URL", name: "instagram", widget: "string"}
+
+publish_mode: editorial_workflow
