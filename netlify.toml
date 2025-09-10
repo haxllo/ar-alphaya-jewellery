@@ -2,12 +2,6 @@
   command = "npm run build"
   publish = ".next"
 
-# Enable Netlify Large Media for CMS image uploads
-[build.processing]
-  skip_processing = false
-
-[build.processing.images]
-  compress = true
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
@@ -17,11 +11,6 @@
   NPM_VERSION = "9"
 
 # API routes are handled automatically by @netlify/plugin-nextjs
-# Admin redirects
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
 
 # Security headers
 [[headers]]

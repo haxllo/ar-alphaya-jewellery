@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Server-side rendering for Auth0 API routes (no static export)
-  experimental: {
-    // Fix for Auth0 module resolution in Next.js 15
-    esmExternals: 'loose',
-  },
   webpack: (config, { isServer }) => {
     // Fix for Auth0 client module resolution
     if (!isServer) {

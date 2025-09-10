@@ -1,4 +1,4 @@
-import { getProductBySlug, getAllProducts } from '@/lib/cms/content'
+import { getProductBySlug, getAllProducts } from '@/lib/strapi/products'
 import { notFound } from 'next/navigation'
 import ProductContent from './ProductContent'
 

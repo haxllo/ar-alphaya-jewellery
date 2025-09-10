@@ -4,19 +4,19 @@
  * Test Strapi connection and API endpoints
  */
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL
-const STRAPI_TOKEN = process.env.STRAPI_TOKEN
+const STRAPI_URL_TEST = process.env.NEXT_PUBLIC_STRAPI_URL
+const STRAPI_TOKEN_TEST = process.env.STRAPI_TOKEN
 
-if (!STRAPI_URL || !STRAPI_TOKEN) {
+if (!STRAPI_URL_TEST || !STRAPI_TOKEN_TEST) {
   console.error('❌ Missing NEXT_PUBLIC_STRAPI_URL or STRAPI_TOKEN in environment.')
   process.exit(1)
 }
 
 async function testEndpoint(path: string, name: string) {
   try {
-    const res = await fetch(`${STRAPI_URL}/api${path}`, {
+    const res = await fetch(`${STRAPI_URL_TEST}/api${path}`, {
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
+        'Authorization': `Bearer ${STRAPI_TOKEN_TEST}`,
       },
     })
     
@@ -42,8 +42,8 @@ async function testEndpoint(path: string, name: string) {
 
 async function testConnection() {
   console.log('🔍 Testing Strapi connection...')
-  console.log(`📍 URL: ${STRAPI_URL}`)
-  console.log(`🔑 Token: ${STRAPI_TOKEN!.substring(0, 20)}...`)
+  console.log(`📍 URL: ${STRAPI_URL_TEST}`)
+  console.log(`🔑 Token: ${STRAPI_TOKEN_TEST!.substring(0, 20)}...`)
   console.log('')
   
   // Test base API

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from 'next/link'
-import { getAllProducts } from '@/lib/cms/content'
+import { getAllProducts } from '@/lib/strapi/products'
 import FeaturedProducts from './FeaturedProducts'
 
 export default async function Home() {

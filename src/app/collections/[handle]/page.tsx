@@ -1,4 +1,4 @@
-import { getProductsByCollection, getAllProducts } from '@/lib/cms/content'
+import { getProductsByCollection, getAllProducts } from '@/lib/strapi/products'
 import CollectionContent from './CollectionContent'
 
 export async function generateStaticParams() {
