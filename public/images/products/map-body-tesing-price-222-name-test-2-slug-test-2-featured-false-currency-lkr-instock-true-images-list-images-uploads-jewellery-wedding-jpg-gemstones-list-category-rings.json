@@ -1,0 +1,14 @@
+{
+  "body": "tesing",
+  "price": 222,
+  "name": "test 2",
+  "slug": "test-2",
+  "featured": false,
+  "currency": "LKR",
+  "inStock": true,
+  "images": [
+    "/images/uploads/jewellery-wedding.jpg"
+  ],
+  "gemstones": [],
+  "category": "rings"
+}
