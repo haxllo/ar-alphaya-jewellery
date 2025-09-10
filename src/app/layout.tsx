@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
-import { UserProvider } from '@auth0/nextjs-auth0/client'
 import Script from 'next/script'
+import { UserProvider } from '@/lib/auth-fallback'
 
 export default function RootLayout({
   children,

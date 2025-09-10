@@ -1,6 +1,6 @@
 'use client'
 
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
+import { useUser, withPageAuthRequired } from '@/lib/auth-fallback'
 import Link from 'next/link'
 import Image from 'next/image'
 
