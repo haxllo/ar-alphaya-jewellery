@@ -88,9 +88,3 @@ collections:
           - {label: "Instagram URL", name: "instagram", widget: "string"}
 
 publish_mode: editorial_workflow
-
-# Use built-in media library
-media_library:
-  name: image
-  config:
-    max_file_size: 5120000
