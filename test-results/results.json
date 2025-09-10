@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 5
     },
     "preserveOutput": "always",
     "reporter": [
@@ -41,7 +41,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 5
         },
         "id": "chromium",
         "name": "chromium",
@@ -62,7 +62,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 5
         },
         "id": "firefox",
         "name": "firefox",
@@ -83,7 +83,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 5
         },
         "id": "webkit",
         "name": "webkit",
@@ -104,7 +104,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 5
         },
         "id": "Mobile Chrome",
         "name": "Mobile Chrome",
@@ -125,7 +125,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 5
         },
         "id": "Mobile Safari",
         "name": "Mobile Safari",
@@ -167,20 +167,20 @@
   },
   "suites": [
     {
-      "title": "tests/homepage.spec.ts",
-      "file": "tests/homepage.spec.ts",
+      "title": "tests/admin-pages.spec.ts",
+      "file": "tests/admin-pages.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Homepage",
-          "file": "tests/homepage.spec.ts",
+          "title": "Admin Pages",
+          "file": "tests/admin-pages.spec.ts",
           "line": 3,
           "column": 6,
           "specs": [
             {
-              "title": "is responsive on mobile devices",
+              "title": "admin CMS page loads correctly",
               "ok": true,
               "tags": [],
               "tests": [
@@ -188,19 +188,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "Mobile Chrome",
-                  "projectName": "Mobile Chrome",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 485,
+                      "duration": 3324,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-10T16:39:58.726Z",
+                      "startTime": "2025-09-10T17:02:45.442Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -208,8 +208,152 @@
                   "status": "expected"
                 }
               ],
-              "id": "d925eb325e7ad3d9527a-df2e978933ef1a2b83fd",
-              "file": "tests/homepage.spec.ts",
+              "id": "9a384bb85629d44cc1a8-91c03334a7759aa5543c",
+              "file": "tests/admin-pages.spec.ts",
+              "line": 5,
+              "column": 3
+            },
+            {
+              "title": "admin CMS loads without critical JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3281,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-10T17:02:45.436Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9a384bb85629d44cc1a8-715b13800ad8905a4406",
+              "file": "tests/admin-pages.spec.ts",
+              "line": 23,
+              "column": 3
+            },
+            {
+              "title": "admin page is accessible",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3516,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-10T17:02:45.442Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9a384bb85629d44cc1a8-6b20d3e682eb93c9ccf9",
+              "file": "tests/admin-pages.spec.ts",
+              "line": 50,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Admin Page Responsiveness",
+          "file": "tests/admin-pages.spec.ts",
+          "line": 61,
+          "column": 6,
+          "specs": [
+            {
+              "title": "admin CMS responsive on mobile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 4571,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-10T17:02:45.443Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9a384bb85629d44cc1a8-eda140c1d7ba136cef42",
+              "file": "tests/admin-pages.spec.ts",
+              "line": 63,
+              "column": 3
+            },
+            {
+              "title": "admin CMS loads on tablet",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 3415,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-10T17:02:45.434Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9a384bb85629d44cc1a8-b1107f73ffc56f8dce8a",
+              "file": "tests/admin-pages.spec.ts",
               "line": 78,
               "column": 3
             }
@@ -220,9 +364,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-09-10T16:39:35.208Z",
-    "duration": 24134.337,
-    "expected": 1,
+    "startTime": "2025-09-10T17:02:21.891Z",
+    "duration": 28310.531,
+    "expected": 5,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

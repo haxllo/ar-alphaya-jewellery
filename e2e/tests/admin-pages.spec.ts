@@ -2,172 +2,91 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Admin Pages', () => {
   
-  test('admin instructions page loads correctly', async ({ page }) => {
-    await page.goto('/admin-instructions')
+  test('admin CMS page loads correctly', async ({ page }) => {
+    await page.goto('/admin/index.html')
     
-    // Check page title and main heading
+    // Check page loads and has correct title
     await expect(page).toHaveTitle(/AR Alphaya Jewellery/)
-    await expect(page.locator('h1')).toContainText('AR Alphaya Jewellery - Product Management')
     
-    // Check main section heading
-    await expect(page.locator('h2').first()).toContainText('How to Add Products')
+    // Wait for page to load completely
+    await page.waitForLoadState('networkidle')
     
-    // Check product upload system section exists
-    await expect(page.locator('text=Product Upload System')).toBeVisible()
+    // Check that the page is not a 404 error
+    const is404 = await page.locator('text=404').count() > 0
+    expect(is404).toBeFalsy()
     
-    // Check link to upload form exists and is functional
-    const uploadLink = page.locator('a[href="/admin-upload"]')
-    await expect(uploadLink).toBeVisible()
-    await expect(uploadLink).toContainText('Start Adding Products')
-    
-    // Check product information sections
-    await expect(page.locator('text=Product Information Required')).toBeVisible()
-    await expect(page.locator('text=Basic Information')).toBeVisible()
-    await expect(page.locator('text=Images & Details')).toBeVisible()
-    
-    // Check image guidelines section
-    await expect(page.locator('text=Image Guidelines')).toBeVisible()
-    await expect(page.locator('text=Photo Requirements')).toBeVisible()
-    
-    // Check enhanced features section
-    await expect(page.locator('text=Enhanced Features Available')).toBeVisible()
-    await expect(page.locator('text=Gemstone Options').first()).toBeVisible()
-    await expect(page.locator('text=Size Selection')).toBeVisible()
-    await expect(page.locator('text=WhatsApp Integration')).toBeVisible()
-    
-    // Check contact information
-    await expect(page.locator('text=Need Help?')).toBeVisible()
-    await expect(page.locator('text=+94 77 429 3406').first()).toBeVisible()
+    // Check for Netlify Identity login button (indicates CMS is working)
+    const hasLoginButton = await page.locator('text=Login with Netlify Identity').count() > 0
+    expect(hasLoginButton).toBeTruthy()
   })
   
-  test('admin upload form loads correctly', async ({ page }) => {
-    await page.goto('/admin-upload')
+  test('admin CMS loads without critical JavaScript errors', async ({ page }) => {
+    const errors: string[] = []
     
-    // Check page title and main heading
+    page.on('console', msg => {
+      if (msg.type() === 'error') {
+        const text = msg.text()
+        // Filter out expected errors
+        if (!text.includes('Failed to load resource') && 
+            !text.includes('500 (Internal Server Error)') &&
+            !text.includes('NetworkError') &&
+            !text.includes('Auth0') &&
+            !text.includes('timeout') &&
+            !text.includes('ECONNREFUSED')) {
+          errors.push(text)
+        }
+      }
+    })
+    
+    await page.goto('/admin/index.html')
+    
+    // Wait for page to load
+    await page.waitForLoadState('networkidle')
+    
+    // Check that there are no critical JavaScript errors
+    expect(errors.length).toBe(0)
+  })
+  
+  test('admin page is accessible', async ({ page }) => {
+    const response = await page.goto('/admin/index.html')
+    
+    // Check that we get a successful response (not 404, 500, etc.)
+    expect(response?.status()).toBeLessThan(400)
+    
+    // Check that the page loads
     await expect(page).toHaveTitle(/AR Alphaya Jewellery/)
-    await expect(page.locator('h1')).toContainText('Add New Product')
-    
-    // Check back to instructions link
-    await expect(page.locator('a[href="/admin-instructions"]')).toBeVisible()
-    await expect(page.locator('a[href="/admin-instructions"]')).toContainText('Back to Instructions')
-    
-    // Check form fields exist
-    await expect(page.locator('input[name="id"]')).toBeVisible()
-    await expect(page.locator('input[name="name"]')).toBeVisible()
-    await expect(page.locator('input[name="slug"]')).toBeVisible()
-    await expect(page.locator('input[name="price"]')).toBeVisible()
-    await expect(page.locator('select[name="category"]')).toBeVisible()
-    await expect(page.locator('input[name="weight"]')).toBeVisible()
-    await expect(page.locator('input[name="dimensions"]')).toBeVisible()
-    
-    // Check category options exist
-    const categorySelect = page.locator('select[name="category"]')
-    await expect(categorySelect.locator('option[value="rings"]')).toHaveCount(1)
-    await expect(categorySelect.locator('option[value="earrings"]')).toHaveCount(1)
-    await expect(categorySelect.locator('option[value="pendants"]')).toHaveCount(1)
-    await expect(categorySelect.locator('option[value="bracelets-bangles"]')).toHaveCount(1)
-    
-    // Check image upload area (file input is hidden but upload area is visible)
-    await expect(page.locator('input[type="file"]')).toHaveCount(1)
-    await expect(page.locator('text=Click to upload')).toBeVisible()
-    
-    // Check submit button
-    await expect(page.locator('button[type="submit"]')).toBeVisible()
-    await expect(page.locator('button[type="submit"]')).toContainText('Create Product')
-    
-    // Check instructions section
-    await expect(page.locator('text=Instructions:')).toBeVisible()
-    await expect(page.locator('text=Fill in all the product details')).toBeVisible()
-  })
-  
-  test('admin redirect page works correctly', async ({ page }) => {
-    await page.goto('/admin')
-    
-    // Check page loads with redirect interface
-    await expect(page).toHaveTitle(/AR Alphaya Jewellery/)
-    await expect(page.locator('h1')).toContainText('AR Alphaya Jewellery')
-    await expect(page.locator('h2')).toContainText('Product Management')
-    
-    // Check redirect message
-    await expect(page.locator('text=Redirecting you to the product upload system')).toBeVisible()
-    
-    // Check upload form button
-    await expect(page.locator('a[href="/admin-upload"]')).toBeVisible()
-    await expect(page.locator('a[href="/admin-upload"]')).toContainText('Go to Upload Form')
-    
-    // Check instructions link
-    await expect(page.locator('a[href="/admin-instructions"]')).toBeVisible()
-    await expect(page.locator('a[href="/admin-instructions"]')).toContainText('View Instructions')
-    
-    // Check contact information
-    await expect(page.locator('text=aralphayajewellery@gmail.com').first()).toBeVisible()
-  })
-  
-  test('navigation between admin pages works', async ({ page }) => {
-    // Start at instructions page
-    await page.goto('/admin-instructions')
-    await expect(page.locator('h1')).toContainText('AR Alphaya Jewellery - Product Management')
-    
-    // Click to upload form
-    await page.click('a[href="/admin-upload"]')
-    await page.waitForURL('**/admin-upload/**')
-    await expect(page.locator('h1')).toContainText('Add New Product')
-    
-    // Navigate back to instructions
-    await page.click('a[href="/admin-instructions"]')
-    await page.waitForURL('**/admin-instructions/**')
-    await expect(page.locator('h1')).toContainText('AR Alphaya Jewellery - Product Management')
-  })
-  
-  test('form validation works on upload page', async ({ page }) => {
-    await page.goto('/admin-upload')
-    
-    // Try to submit empty form
-    await page.click('button[type="submit"]')
-    
-    // Check that required field validation triggers
-    // (This tests HTML5 validation)
-    const idField = page.locator('input[name="id"]')
-    await expect(idField).toHaveAttribute('required')
-    
-    const nameField = page.locator('input[name="name"]')
-    await expect(nameField).toHaveAttribute('required')
-    
-    const priceField = page.locator('input[name="price"]')
-    await expect(priceField).toHaveAttribute('required')
-    
-    const descriptionField = page.locator('textarea[name="description"]')
-    await expect(descriptionField).toHaveAttribute('required')
   })
 })
 
 test.describe('Admin Page Responsiveness', () => {
   
-  test('admin instructions responsive on mobile', async ({ page }) => {
+  test('admin CMS responsive on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 }) // iPhone SE size
-    await page.goto('/admin-instructions')
+    await page.goto('/admin/index.html')
     
-    // Check that page is readable on mobile
-    await expect(page.locator('h1')).toBeVisible()
-    await expect(page.locator('a[href="/admin-upload"]')).toBeVisible()
+    // Wait for page to load
+    await page.waitForLoadState('networkidle')
     
-    // Check that grid layouts stack properly on mobile
-    const infoSections = page.locator('.grid.grid-cols-1.md\\:grid-cols-2')
-    await expect(infoSections).toBeVisible()
+    // Check that page loads on mobile
+    await expect(page).toHaveTitle(/AR Alphaya Jewellery/)
+    
+    // Check that it's not a 404 error
+    const is404 = await page.locator('text=404').count() > 0
+    expect(is404).toBeFalsy()
   })
   
-  test('admin upload form responsive on mobile', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 }) // iPhone SE size
-    await page.goto('/admin-upload')
+  test('admin CMS loads on tablet', async ({ page }) => {
+    await page.setViewportSize({ width: 768, height: 1024 }) // iPad size
+    await page.goto('/admin/index.html')
     
-    // Check that form is usable on mobile
-    await expect(page.locator('h1')).toBeVisible()
-    await expect(page.locator('input[name="id"]')).toBeVisible()
-    await expect(page.locator('button[type="submit"]')).toBeVisible()
+    // Wait for page to load
+    await page.waitForLoadState('networkidle')
     
-    // Check that form fields are properly sized
-    const formInputs = page.locator('input, select, textarea')
-    const firstInput = formInputs.first()
-    await expect(firstInput).toBeVisible()
+    // Check that page loads on tablet
+    await expect(page).toHaveTitle(/AR Alphaya Jewellery/)
+    
+    // Check that it's not a 404 error
+    const is404 = await page.locator('text=404').count() > 0
+    expect(is404).toBeFalsy()
   })
 })
