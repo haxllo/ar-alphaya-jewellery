@@ -1,11 +1,11 @@
 backend:
   name: git-gateway
-  repo: haxllo/ar-alphaya-jewellery
   branch: main
 
-# When deploying to Netlify, use this instead:
+# For local development with GitHub:
 # backend:
-#   name: git-gateway
+#   name: github
+#   repo: haxllo/ar-alphaya-jewellery
 #   branch: main
 
 # For local development, uncomment this line:
