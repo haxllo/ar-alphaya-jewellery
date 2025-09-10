@@ -1,0 +1,78 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "public/images/products"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    fields:
+      - { name: "name", label: "Name", widget: "string" }
+      - { name: "slug", label: "Slug", widget: "string" }
+      - { name: "price", label: "Price", widget: "number" }
+      - { name: "currency", label: "Currency", widget: "select", options: ["LKR","USD","EUR","GBP","AUD","CAD","SEK","CHF","JPY"], default: "LKR" }
+      - { name: "category", label: "Category", widget: "select", options: ["rings","earrings","pendants","bracelets-bangles"] }
+      - name: "images"
+        label: "Images"
+        widget: "list"
+        summary: "{{fields.image}}"
+        field:
+          name: "image"
+          label: "Image"
+          widget: "image"
+      - { name: "sku", label: "SKU", widget: "string", required: false }
+      - { name: "materials", label: "Materials", widget: "list", required: false }
+      - { name: "weight", label: "Weight", widget: "number", required: false }
+      - { name: "dimensions", label: "Dimensions", widget: "string", required: false }
+      - name: "sizes"
+        label: "Sizes"
+        widget: "list"
+        required: false
+        fields:
+          - { name: "label", label: "Label", widget: "string" }
+          - { name: "value", label: "Value", widget: "string" }
+      - name: "gemstones"
+        label: "Gemstones"
+        widget: "list"
+        required: false
+        fields:
+          - { name: "name", label: "Name", widget: "string" }
+          - { name: "value", label: "Value", widget: "string" }
+          - { name: "priceAdjustment", label: "Price Adjustment", widget: "number", required: false }
+          - { name: "description", label: "Description", widget: "text", required: false }
+          - { name: "available", label: "Available", widget: "boolean", default: true }
+      - { name: "inStock", label: "In Stock", widget: "boolean", default: true }
+      - { name: "featured", label: "Featured", widget: "boolean", default: false }
+      - { name: "tags", label: "Tags", widget: "list", required: false }
+      - { name: "body", label: "Description", widget: "markdown" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "public/admin/site-settings.json"
+        name: "site_settings"
+        label: "Site Settings"
+        format: "json"
+        fields:
+          - { name: "title", label: "Title", widget: "string" }
+          - { name: "description", label: "Description", widget: "text" }
+          - { name: "email", label: "Email", widget: "string" }
+          - { name: "phone", label: "Phone", widget: "string" }
+          - { name: "whatsapp", label: "WhatsApp", widget: "string" }
+          - { name: "address", label: "Address", widget: "text" }
+          - { name: "instagram", label: "Instagram", widget: "string" }
+          - name: "collections"
+            label: "Collections"
+            widget: "list"
+            fields:
+              - { name: "name", label: "Name", widget: "string" }
+              - { name: "handle", label: "Handle", widget: "string" }
+              - { name: "description", label: "Description", widget: "text", required: false }
+
+

@@ -20,7 +20,7 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.auth0.com https://www.payhere.lk https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data: https:; connect-src 'self' https://*.auth0.com https://api.exchangerate-api.com; frame-src 'self' https://*.auth0.com;"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.auth0.com https://www.payhere.lk https://unpkg.com https://identity.netlify.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data: https:; connect-src 'self' https://*.auth0.com https://api.exchangerate-api.com https://identity.netlify.com https://api.netlify.com blob: data:; frame-src 'self' https://*.auth0.com https://identity.netlify.com https://app.netlify.com;"
 
 # Cache static assets
 [[headers]]

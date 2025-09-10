@@ -1,0 +1,17 @@
+{
+  "title": "AR Alphaya Jewellery",
+  "description": "Fine jewellery collections.",
+  "email": "info@example.com",
+  "phone": "+94 000 0000",
+  "whatsapp": "+94 000 0000",
+  "address": "Colombo, Sri Lanka",
+  "instagram": "https://instagram.com/",
+  "collections": [
+    { "name": "Rings", "handle": "rings", "description": "Rings collection" },
+    { "name": "Earrings", "handle": "earrings", "description": "Earrings collection" },
+    { "name": "Pendants", "handle": "pendants", "description": "Pendants collection" },
+    { "name": "Bracelets & Bangles", "handle": "bracelets-bangles", "description": "Bracelets & bangles collection" }
+  ]
+}
+
+

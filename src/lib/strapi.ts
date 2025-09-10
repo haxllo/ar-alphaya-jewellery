@@ -1,4 +1,6 @@
 import { cache } from 'react';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 // Strapi configuration
 export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
@@ -121,6 +123,155 @@ export interface SiteSettings {
   updatedAt: string;
 }
 
+// ------------------------
+// Decap (Git-based) fallback
+// ------------------------
+const DECAP_PRODUCTS_DIR = path.join(process.cwd(), 'public', 'images', 'products');
+const DECAP_SETTINGS_FILE = path.join(process.cwd(), 'public', 'admin', 'site-settings.json');
+
+async function readJsonFile<T>(absoluteFilePath: string): Promise<T | null> {
+  try {
+    const content = await fs.readFile(absoluteFilePath, 'utf8');
+    return JSON.parse(content) as T;
+  } catch {
+    return null;
+  }
+}
+
+async function readDecapProducts(): Promise<Product[]> {
+  try {
+    const entries = await fs.readdir(DECAP_PRODUCTS_DIR, { withFileTypes: true });
+    const productFiles = entries.filter(e => e.isFile() && e.name.toLowerCase().endsWith('.json'));
+    const productsRaw = await Promise.all(
+      productFiles.map(async f => readJsonFile<any>(path.join(DECAP_PRODUCTS_DIR, f.name)))
+    );
+
+    const products: Product[] = (productsRaw.filter(Boolean) as any[]).map((raw, index) => {
+      const imageList: string[] = Array.isArray(raw.images)
+        ? raw.images.map((img: any) => (typeof img === 'string' ? img : img?.image)).filter(Boolean)
+        : [];
+
+      const mediaFiles = imageList.map((url, i) => ({
+        id: i + 1,
+        attributes: {
+          name: path.basename(url || ''),
+          alternativeText: undefined,
+          caption: undefined,
+          width: 0,
+          height: 0,
+          formats: undefined,
+          url,
+          previewUrl: undefined,
+          provider: 'decap',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+      }));
+
+      return {
+        id: index + 1,
+        productId: raw.productId || raw.slug || String(index + 1),
+        name: raw.name || '',
+        slug: raw.slug || (raw.name ? raw.name.toLowerCase().replace(/\s+/g, '-') : `product-${index + 1}`),
+        price: raw.price ? Number(raw.price) : 0,
+        currency: raw.currency || 'LKR',
+        images: mediaFiles,
+        category: raw.category || 'rings',
+        sku: raw.sku,
+        materials: raw.materials,
+        weight: raw.weight !== undefined && raw.weight !== null ? Number(raw.weight) : undefined,
+        dimensions: raw.dimensions,
+        sizes: raw.sizes,
+        gemstones: Array.isArray(raw.gemstones)
+          ? raw.gemstones.map((g: any) => ({
+              name: g?.name ?? '',
+              value: g?.value ?? '',
+              priceAdjustment: g?.priceAdjustment != null ? Number(g.priceAdjustment) : undefined,
+              description: g?.description,
+              available: g?.available,
+            }))
+          : undefined,
+        inStock: Boolean(raw.inStock ?? true),
+        featured: Boolean(raw.featured ?? false),
+        tags: raw.tags,
+        body: raw.body || '',
+        originalCreatedAt: undefined,
+        originalUpdatedAt: undefined,
+        publishedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      } as Product;
+    });
+
+    return products.sort((a, b) => a.name.localeCompare(b.name));
+  } catch {
+    return [];
+  }
+}
+
+async function readDecapSiteSettings(): Promise<SiteSettings | null> {
+  const raw = await readJsonFile<any>(DECAP_SETTINGS_FILE);
+  if (!raw) return null;
+  return {
+    id: 1,
+    title: raw.title || '',
+    description: raw.description || '',
+    email: raw.email || '',
+    phone: raw.phone || '',
+    whatsapp: raw.whatsapp || '',
+    address: raw.address || '',
+    instagram: raw.instagram || '',
+    collections: Array.isArray(raw.collections) ? raw.collections : [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  } as SiteSettings;
+}
+
+/**
+ * Normalize a raw Strapi product attributes object to match the Product interface types.
+ * Strapi decimal fields (e.g., price, weight, priceAdjustment) often arrive as strings —
+ * coerce them to numbers for consistency across the app.
+ */
+function normalizeProductAttributes(raw: any, id?: number): Product {
+  const coercedGemstones = Array.isArray(raw.gemstones)
+    ? raw.gemstones.map((g: any) => ({
+        name: g?.name ?? '',
+        value: g?.value ?? '',
+        priceAdjustment: g?.priceAdjustment !== undefined && g?.priceAdjustment !== null
+          ? Number(g.priceAdjustment)
+          : undefined,
+        description: g?.description,
+        available: g?.available,
+      }))
+    : undefined;
+
+  return {
+    id: id ?? raw.id,
+    productId: raw.productId,
+    name: raw.name,
+    slug: raw.slug,
+    price: raw.price !== undefined && raw.price !== null ? Number(raw.price) : 0,
+    currency: raw.currency,
+    images: raw.images,
+    category: raw.category,
+    sku: raw.sku,
+    materials: raw.materials,
+    weight: raw.weight !== undefined && raw.weight !== null ? Number(raw.weight) : undefined,
+    dimensions: raw.dimensions,
+    sizes: raw.sizes,
+    gemstones: coercedGemstones,
+    inStock: Boolean(raw.inStock),
+    featured: Boolean(raw.featured),
+    tags: raw.tags,
+    body: raw.body,
+    originalCreatedAt: raw.originalCreatedAt,
+    originalUpdatedAt: raw.originalUpdatedAt,
+    publishedAt: raw.publishedAt,
+    createdAt: raw.createdAt,
+    updatedAt: raw.updatedAt,
+  };
+}
+
 /**
  * Generic function to fetch from Strapi API
  */
@@ -170,6 +321,8 @@ export async function strapiFetch(
 export function getMediaUrl(url: string | undefined | null): string {
   if (!url) return '';
   if (url.startsWith('http')) return url;
+  // Allow site-relative URLs (e.g., Decap uploads under /images/uploads/...)
+  if (url.startsWith('/')) return url;
   return `${STRAPI_URL}${url}`;
 }
 
@@ -217,12 +370,17 @@ export const getProducts = cache(async (options?: {
   params.append('sort', 'createdAt:desc');
 
   const path = `/products?${params.toString()}`;
-  const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
-  
-  return response.data.map(item => ({
-    ...item.attributes,
-    id: item.id,
-  }));
+  try {
+    const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
+    return response.data.map(item => normalizeProductAttributes(item.attributes, item.id));
+  } catch {
+    const all = await readDecapProducts();
+    let filtered = all;
+    if (options?.category) filtered = filtered.filter(p => p.category === options.category);
+    if (options?.featured !== undefined) filtered = filtered.filter(p => p.featured === options.featured);
+    if (options?.limit) filtered = filtered.slice(0, options.limit);
+    return filtered;
+  }
 });
 
 /**
@@ -236,17 +394,15 @@ export const getProductBySlug = cache(async (slug: string): Promise<Product | nu
   });
 
   const path = `/products?${params.toString()}`;
-  const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
-  
-  if (!response.data.length) {
-    return null;
+  try {
+    const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
+    if (!response.data.length) return null;
+    const item = response.data[0];
+    return normalizeProductAttributes(item.attributes, item.id);
+  } catch {
+    const all = await readDecapProducts();
+    return all.find(p => p.slug === slug) || null;
   }
-
-  const item = response.data[0];
-  return {
-    ...item.attributes,
-    id: item.id,
-  };
 });
 
 /**
@@ -271,16 +427,13 @@ export const getProductsByCategory = cache(async (
  */
 export const getSiteSettings = cache(async (): Promise<SiteSettings | null> => {
   const path = '/site-setting?populate=collections';
-  const response: StrapiSingleResponse<SiteSettings> = await strapiFetch(path);
-  
-  if (!response.data) {
-    return null;
+  try {
+    const response: StrapiSingleResponse<SiteSettings> = await strapiFetch(path);
+    if (!response.data) return null;
+    return { ...response.data.attributes, id: response.data.id } as SiteSettings;
+  } catch {
+    return readDecapSiteSettings();
   }
-
-  return {
-    ...response.data.attributes,
-    id: response.data.id,
-  };
 });
 
 /**
@@ -307,10 +460,7 @@ export const searchProducts = cache(async (query: string, limit = 20): Promise<P
   const path = `/products?${params.toString()}`;
   const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
   
-  return response.data.map(item => ({
-    ...item.attributes,
-    id: item.id,
-  }));
+  return response.data.map(item => normalizeProductAttributes(item.attributes, item.id));
 });
 
 /**
