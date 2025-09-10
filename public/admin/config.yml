@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: haxllo/ar-alphaya-jewellery
+  name: git-gateway
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
 
 # For production with Netlify (requires Git Gateway setup):
 # backend:
