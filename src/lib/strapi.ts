@@ -133,8 +133,18 @@ export async function strapiFetch(
   
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...init?.headers,
   };
+
+  // Safely merge headers
+  if (init?.headers) {
+    if (init.headers instanceof Headers) {
+      init.headers.forEach((value, key) => {
+        headers[key] = value;
+      });
+    } else {
+      Object.assign(headers, init.headers);
+    }
+  }
 
   if (useToken && STRAPI_TOKEN) {
     headers['Authorization'] = `Bearer ${STRAPI_TOKEN}`;
@@ -210,8 +220,8 @@ export const getProducts = cache(async (options?: {
   const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
   
   return response.data.map(item => ({
-    id: item.id,
     ...item.attributes,
+    id: item.id,
   }));
 });
 
@@ -234,8 +244,8 @@ export const getProductBySlug = cache(async (slug: string): Promise<Product | nu
 
   const item = response.data[0];
   return {
-    id: item.id,
     ...item.attributes,
+    id: item.id,
   };
 });
 
@@ -268,8 +278,8 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings | null> => {
   }
 
   return {
-    id: response.data.id,
     ...response.data.attributes,
+    id: response.data.id,
   };
 });
 
@@ -298,8 +308,8 @@ export const searchProducts = cache(async (query: string, limit = 20): Promise<P
   const response: StrapiCollectionResponse<Product> = await strapiFetch(path);
   
   return response.data.map(item => ({
-    id: item.id,
     ...item.attributes,
+    id: item.id,
   }));
 });
 
