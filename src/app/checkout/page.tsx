@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useUser, withPageAuthRequired } from '@/lib/auth-fallback'
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import Link from 'next/link'

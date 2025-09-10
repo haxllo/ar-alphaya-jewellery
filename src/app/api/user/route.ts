@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getSession();
+    const session = await getSession(request, new NextResponse());
     
     if (!session || !session.user) {
       return NextResponse.json(
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const session = await getSession();
+    const session = await getSession(request, new NextResponse());
     
     if (!session || !session.user) {
       return NextResponse.json(

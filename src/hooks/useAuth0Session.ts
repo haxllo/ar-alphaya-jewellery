@@ -1,6 +1,6 @@
 'use client'
 
-import { useUser } from '@/lib/auth-fallback'
+import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
@@ -58,7 +58,7 @@ export function useAuth0Session(): Auth0SessionHook {
     const name = getDisplayName()
     return name
       .split(' ')
-      .map(n => n[0])
+      .map((n: string) => n[0])
       .slice(0, 2)
       .join('')
       .toUpperCase()
