@@ -3,7 +3,7 @@ import CollectionContent from './CollectionContent'
 
 export async function generateStaticParams() {
   // Get categories from existing products
-  const products = getAllProducts()
+  const products = await getAllProducts()
   const productCategories = Array.from(new Set(products.map(p => p.category)))
   
   // Define all collections from navigation (to ensure all routes work)
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 
 export default async function CollectionPage({ params }: { params: Promise<{ handle: string }> }) {
   const { handle } = await params
-  const products = getProductsByCollection(handle)
+  const products = await getProductsByCollection(handle)
   return <CollectionContent handle={handle} products={products} />
 }
 

@@ -8,7 +8,7 @@ backend:
 #   branch: main
 
 # For local development, uncomment this line:
-# local_backend: true
+local_backend: true
 
 media_folder: "public/images/products"
 public_folder: "/images/products"

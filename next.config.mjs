@@ -24,6 +24,24 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      // Strapi CMS images
+      {
+        protocol: 'https',
+        hostname: '**.strapiapp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.up.railway.app',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.render.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '1337',
+      },
     ],
     // Keep unoptimized for Netlify compatibility
     unoptimized: process.env.NODE_ENV === 'production',

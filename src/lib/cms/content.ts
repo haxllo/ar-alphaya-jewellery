@@ -2,6 +2,12 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import type { Product, Collection } from '@/types/product'
+import { 
+  getProducts, 
+  getProductBySlug as getStrapiProductBySlug,
+  getProductsByCategory as getStrapiProductsByCategory,
+  transformProductForLegacyCode 
+} from '@/lib/strapi'
 
 const contentDir = path.join(process.cwd(), 'src', 'data')
 
@@ -12,7 +18,18 @@ export function getAllCollections(): Collection[] {
   return data
 }
 
-export function getAllProducts(): Product[] {
+export async function getAllProducts(): Promise<Product[]> {
+  try {
+    // Try to get products from Strapi first
+    const strapiProducts = await getProducts()
+    if (strapiProducts.length > 0) {
+      return strapiProducts.map(transformProductForLegacyCode)
+    }
+  } catch (error) {
+    console.warn('Failed to fetch products from Strapi, falling back to local files:', error)
+  }
+  
+  // Fallback to local markdown files if Strapi is not available
   const dir = path.join(contentDir, 'products')
   if (!fs.existsSync(dir)) return []
   const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'))
@@ -41,15 +58,40 @@ export function getAllProducts(): Product[] {
   })
 }
 
-export function getProductBySlug(slug: string): Product | null {
-  return getAllProducts().find((p) => p.slug === slug) || null
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  try {
+    // Try to get product from Strapi first
+    const strapiProduct = await getStrapiProductBySlug(slug)
+    if (strapiProduct) {
+      return transformProductForLegacyCode(strapiProduct)
+    }
+  } catch (error) {
+    console.warn(`Failed to fetch product ${slug} from Strapi, falling back to local files:`, error)
+  }
+  
+  // Fallback to local search
+  const allProducts = await getAllProducts()
+  return allProducts.find((p) => p.slug === slug) || null
 }
 
-export function getProductById(id: string): Product | null {
-  return getAllProducts().find((p) => p.id === id) || null
+export async function getProductById(id: string): Promise<Product | null> {
+  const allProducts = await getAllProducts()
+  return allProducts.find((p) => p.id === id) || null
 }
 
-export function getProductsByCollection(handle: string): Product[] {
-  return getAllProducts().filter((p) => p.category === handle)
+export async function getProductsByCollection(handle: string): Promise<Product[]> {
+  try {
+    // Try to get products from Strapi first
+    const strapiProducts = await getStrapiProductsByCategory(handle)
+    if (strapiProducts.length > 0) {
+      return strapiProducts.map(transformProductForLegacyCode)
+    }
+  } catch (error) {
+    console.warn(`Failed to fetch products for category ${handle} from Strapi, falling back to local files:`, error)
+  }
+  
+  // Fallback to local search
+  const allProducts = await getAllProducts()
+  return allProducts.filter((p) => p.category === handle)
 }
 

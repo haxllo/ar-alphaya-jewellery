@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { getAllProducts } from '@/lib/cms/content'
 import FeaturedProducts from './FeaturedProducts'
 
-export default function Home() {
-  const products = getAllProducts().slice(0, 8)
+export default async function Home() {
+  const products = (await getAllProducts()).slice(0, 8)
   return (
     <div className="min-h-screen">
       <section className="bg-gray-50 border-b border-gray-200">
