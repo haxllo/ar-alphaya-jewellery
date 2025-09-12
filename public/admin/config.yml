@@ -5,6 +5,15 @@ backend:
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
+# Global media configuration for security
+media_library:
+  name: uploadcare
+  config:
+    publicKey: "your-uploadcare-public-key"
+    maxFileSize: 5242880  # 5MB
+    allowedTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"]
+    multiple: true
+
 collections:
   - name: "products"
     label: "Products"
@@ -26,6 +35,10 @@ collections:
           name: "image"
           label: "Image"
           widget: "image"
+          config:
+            allowedTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"]
+            maxSize: 5242880  # 5MB limit
+            minSize: 1024     # 1KB minimum
       - { name: "sku", label: "SKU", widget: "string", required: false }
       - { name: "materials", label: "Materials", widget: "list", required: false }
       - { name: "weight", label: "Weight", widget: "number", required: false }

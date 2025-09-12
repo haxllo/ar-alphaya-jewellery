@@ -84,16 +84,16 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
     env: {
-      // Load test environment variables
+      // Load test environment variables from .env.test
       NODE_ENV: 'test',
-      AUTH0_SECRET: 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
-      AUTH0_BASE_URL: 'http://localhost:3000',
-      AUTH0_ISSUER_BASE_URL: 'https://test.auth0.com',
-      AUTH0_CLIENT_ID: 'test-client-id',
-      AUTH0_CLIENT_SECRET: 'test-client-secret',
-      AUTH0_COOKIE_SECURE: 'false',
-      NEXT_PUBLIC_PAYHERE_SANDBOX: 'true',
-      NEXT_PUBLIC_PAYHERE_MERCHANT_ID: 'test-merchant-id',
+      AUTH0_SECRET: process.env.AUTH0_SECRET || 'test-secret-for-playwright-only',
+      AUTH0_BASE_URL: process.env.AUTH0_BASE_URL || 'http://localhost:3000',
+      AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL || 'https://test.auth0.com',
+      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID || 'test-client-id',
+      AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET || 'test-client-secret',
+      AUTH0_COOKIE_SECURE: process.env.AUTH0_COOKIE_SECURE || 'false',
+      NEXT_PUBLIC_PAYHERE_SANDBOX: process.env.NEXT_PUBLIC_PAYHERE_SANDBOX || 'true',
+      NEXT_PUBLIC_PAYHERE_MERCHANT_ID: process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID || 'test-merchant-id',
     },
   },
 

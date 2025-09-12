@@ -1,25 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
+import { securityMiddleware, applySecurityHeaders } from '@/lib/rate-limit'
+import { createErrorResponse, withErrorHandler } from '@/lib/error-handler'
 
-export async function POST(request: NextRequest) {
-  try {
-    const { customer, items, total, orderId } = await request.json()
-    
-    const merchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID
-    const merchantSecret = process.env.PAYHERE_MERCHANT_SECRET
-    const currency = 'LKR'
-    
-    if (!merchantId || !merchantSecret) {
-      return NextResponse.json({ error: 'PayHere configuration missing' }, { status: 500 })
-    }
-    
-    // Generate hash
-    const hashedSecret = crypto.createHash('md5').update(merchantSecret).digest('hex').toUpperCase()
-    const amountFormatted = parseFloat((total / 100).toFixed(2)) // Convert cents to LKR
-    const hash = crypto.createHash('md5')
-      .update(`${merchantId}${orderId}${amountFormatted}${currency}${hashedSecret}`)
-      .digest('hex')
-      .toUpperCase()
+export const POST = withErrorHandler(async (request: NextRequest) => {
+  // Apply security middleware with rate limiting for payment endpoints
+  const securityResponse = securityMiddleware(request, {
+    rateLimitType: 'payment',
+    endpointType: 'api',
+  });
+  
+  if (securityResponse) {
+    return applySecurityHeaders(securityResponse);
+  }
+
+  const { customer, items, total, orderId } = await request.json()
+  
+  const merchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID
+  const merchantSecret = process.env.PAYHERE_MERCHANT_SECRET
+  const currency = 'LKR'
+  
+  if (!merchantId || !merchantSecret) {
+    throw new Error('PayHere configuration missing')
+  }
+  
+  // Generate secure hash using SHA-256 instead of MD5
+  const hashedSecret = crypto.createHash('sha256').update(merchantSecret).digest('hex').toUpperCase()
+  const amountFormatted = parseFloat((total / 100).toFixed(2)) // Convert cents to LKR
+  const hash = crypto.createHash('sha256')
+    .update(`${merchantId}${orderId}${amountFormatted}${currency}${hashedSecret}`)
+    .digest('hex')
+    .toUpperCase()
     
     // Prepare payment data for PayHere
     const paymentData = {
@@ -45,9 +56,6 @@ export async function POST(request: NextRequest) {
       delivery_country: 'Sri Lanka'
     }
     
-    return NextResponse.json({ paymentData })
-  } catch (error) {
-    console.error('PayHere API error:', error)
-    return NextResponse.json({ error: 'Payment processing failed' }, { status: 500 })
-  }
-}
+  const response = NextResponse.json({ paymentData })
+  return applySecurityHeaders(response);
+});
