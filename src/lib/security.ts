@@ -35,8 +35,8 @@ export function addNonceToResponse(response: NextResponse, nonce: string): NextR
 export function generateCSP(nonce: string): string {
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' https://*.auth0.com https://www.payhere.lk https://identity.netlify.com`,
-    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+    `script-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://*.auth0.com https://www.payhere.lk https://identity.netlify.com https://unpkg.com`,
+    `style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com`,
     "img-src 'self' data: https: blob:",
     "font-src 'self' https://fonts.gstatic.com",
     "connect-src 'self' https://*.auth0.com https://api.exchangerate-api.com https://identity.netlify.com https://api.netlify.com",

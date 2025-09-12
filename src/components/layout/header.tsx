@@ -238,7 +238,7 @@ export default function Header() {
               </form>
             </div>
             
-            <nav className="space-y-4">
+            <nav className="md:hidden space-y-4 px-4">
               <Link href="/" className="block text-sm text-gray-700 hover:text-black transition-colors">Home</Link>
               <div>
                 <div className="text-sm font-medium mb-2 text-black">Jewelry</div>

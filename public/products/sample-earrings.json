@@ -1,0 +1,27 @@
+{
+  "name": "Pearl Drop Earrings",
+  "slug": "pearl-drop-earrings",
+  "price": 85000,
+  "currency": "LKR",
+  "category": "earrings",
+  "description": "Classic pearl drop earrings with sterling silver settings. Timeless elegance for any occasion.",
+  "images": [
+    "/images/placeholders/placeholder-2.jpg"
+  ],
+  "sku": "EARR-001",
+  "materials": ["Sterling Silver", "Pearl"],
+  "weight": "2.1g",
+  "dimensions": "2cm drop",
+  "sizes": ["One Size"],
+  "gemstones": [
+    {
+      "name": "Pearl",
+      "value": "8mm",
+      "available": true
+    }
+  ],
+  "inStock": true,
+  "featured": true,
+  "tags": ["pearl", "silver", "classic", "elegant"],
+  "createdAt": "2024-01-16T14:30:00Z"
+}
