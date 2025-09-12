@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
@@ -18,11 +19,21 @@ const collections = [
 
 export default function Header() {
   const { user, error, isLoading } = useUser()
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const items = useCartStore((state) => state.items)
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0)
   const wishlistCount = useWishlistStore((state) => state.getItemCount())
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery('')
+    }
+  }
 
   return (
     <header className="border-b border-border bg-white sticky top-0 z-50 shadow-sm">
@@ -72,6 +83,26 @@ export default function Header() {
             </button>
             <Link href="/contact" className="text-sm text-gray-700 hover:text-black transition-colors">Contact</Link>
           </nav>
+
+          {/* Search Bar - Desktop */}
+          <div className="hidden md:flex flex-1 max-w-md mx-8">
+            <form onSubmit={handleSearch} className="w-full">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search jewelry..."
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-black focus:border-transparent"
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+            </form>
+          </div>
 
           {/* Currency, Cart & Mobile Menu */}
           <div className="flex items-center space-x-4">
@@ -184,6 +215,27 @@ export default function Header() {
             <div className="mb-4 px-4 border-b border-gray-100 pb-4">
               <div className="text-sm font-medium mb-2 text-black">Currency</div>
               <CurrencySelector compact={true} showLabel={false} className="w-full" />
+            </div>
+
+            {/* Search Bar - Mobile */}
+            <div className="mb-4 px-4 border-b border-gray-100 pb-4">
+              <div className="text-sm font-medium mb-2 text-black">Search</div>
+              <form onSubmit={handleSearch}>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search jewelry..."
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-black focus:border-transparent"
+                  />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                </div>
+              </form>
             </div>
             
             <nav className="space-y-4">

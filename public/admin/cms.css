@@ -1,0 +1,380 @@
+/* AR Alphaya Jewellery CMS - Professional Styling */
+
+/* Import Google Fonts for professional typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Root variables for consistent theming */
+:root {
+  --primary-color: #000000;
+  --secondary-color: #ffffff;
+  --accent-color: #f8f8f8;
+  --border-color: #e5e5e5;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Global styles */
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header customization */
+.cms-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #333333 100%);
+  border-bottom: 3px solid var(--accent-color);
+  box-shadow: var(--shadow-lg);
+}
+
+.cms-header .cms-header__logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.cms-header .cms-header__logo:hover {
+  color: var(--accent-color);
+  transition: color 0.2s ease;
+}
+
+/* Navigation improvements */
+.cms-nav {
+  background: var(--secondary-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cms-nav .cms-nav__item {
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin: 0 4px;
+  transition: all 0.2s ease;
+}
+
+.cms-nav .cms-nav__item:hover,
+.cms-nav .cms-nav__item--active {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* Main content area */
+.cms-main {
+  background: var(--accent-color);
+  min-height: calc(100vh - 120px);
+}
+
+/* Card styling */
+.cms-card {
+  background: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.cms-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Form improvements */
+.cms-form {
+  background: var(--secondary-color);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.cms-form .cms-form__field {
+  margin-bottom: 20px;
+}
+
+.cms-form .cms-form__label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cms-form .cms-form__input,
+.cms-form .cms-form__textarea,
+.cms-form .cms-form__select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: var(--secondary-color);
+}
+
+.cms-form .cms-form__input:focus,
+.cms-form .cms-form__textarea:focus,
+.cms-form .cms-form__select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+.cms-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cms-btn--primary {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.cms-btn--primary:hover {
+  background: #333333;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.cms-btn--secondary {
+  background: var(--accent-color);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+
+.cms-btn--secondary:hover {
+  background: var(--border-color);
+  transform: translateY(-1px);
+}
+
+.cms-btn--success {
+  background: var(--success-color);
+  color: var(--secondary-color);
+}
+
+.cms-btn--success:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+/* Status indicators */
+.cms-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cms-status--published {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.cms-status--draft {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.cms-status--pending {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Image upload area */
+.cms-image-upload {
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  background: var(--accent-color);
+  transition: all 0.2s ease;
+}
+
+.cms-image-upload:hover {
+  border-color: var(--primary-color);
+  background: var(--secondary-color);
+}
+
+.cms-image-upload .cms-image-upload__icon {
+  font-size: 48px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.cms-image-upload .cms-image-upload__text {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* List view improvements */
+.cms-list {
+  background: var(--secondary-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.cms-list__item {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.2s ease;
+}
+
+.cms-list__item:hover {
+  background: var(--accent-color);
+}
+
+.cms-list__item:last-child {
+  border-bottom: none;
+}
+
+/* Loading states */
+.cms-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+.cms-loading__spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  border-top: 2px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 12px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .cms-form {
+    padding: 16px;
+  }
+  
+  .cms-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+  
+  .cms-nav .cms-nav__item {
+    padding: 10px 16px;
+    margin: 0 2px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--accent-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Success/Error messages */
+.cms-message {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.cms-message--success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.cms-message--error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.cms-message--warning {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+/* Brand-specific enhancements */
+.cms-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cms-brand__logo {
+  width: 32px;
+  height: 32px;
+  background: var(--secondary-color);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.cms-brand__text {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+}
+
+/* Help text styling */
+.cms-help {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Field group styling */
+.cms-field-group {
+  background: var(--accent-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+}
+
+.cms-field-group__title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

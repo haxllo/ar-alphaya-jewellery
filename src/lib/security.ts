@@ -2,17 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Generate a cryptographically secure nonce
 export function generateNonce(): string {
-  // Use Web Crypto API for browser compatibility
-  if (typeof window !== 'undefined' && window.crypto) {
+  // Use Web Crypto API for Edge Runtime compatibility
+  if (typeof globalThis !== 'undefined' && globalThis.crypto) {
     const array = new Uint8Array(16);
-    window.crypto.getRandomValues(array);
+    globalThis.crypto.getRandomValues(array);
     return btoa(String.fromCharCode.apply(null, Array.from(array)));
-  }
-  
-  // Fallback for Node.js environment
-  if (typeof require !== 'undefined') {
-    const crypto = require('crypto');
-    return crypto.randomBytes(16).toString('base64');
   }
   
   // Fallback for environments without crypto

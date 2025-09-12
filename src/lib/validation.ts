@@ -89,6 +89,33 @@ export const searchQuerySchema = z.object({
   inStock: z.boolean().optional(),
 });
 
+// Advanced search filters validation
+export const searchFiltersSchema = z.object({
+  query: z.string().max(100, 'Search query too long').optional(),
+  category: z.enum(['rings', 'earrings', 'pendants', 'bracelets-bangles']).optional(),
+  minPrice: z.number().min(0, 'Min price must be positive').optional(),
+  maxPrice: z.number().min(0, 'Max price must be positive').optional(),
+  materials: z.array(z.string().max(50, 'Material name too long')).optional(),
+  inStock: z.boolean().optional(),
+  featured: z.boolean().optional(),
+  tags: z.array(z.string().max(30, 'Tag too long')).optional(),
+  limit: z.number().int().min(1, 'Limit must be at least 1').max(100, 'Limit too high').optional(),
+  page: z.number().int().min(1, 'Page must be at least 1').optional(),
+  sortBy: z.enum(['name', 'price', 'createdAt']).optional(),
+  sortOrder: z.enum(['asc', 'desc']).optional(),
+}).refine(
+  (data) => {
+    if (data.minPrice !== undefined && data.maxPrice !== undefined) {
+      return data.minPrice <= data.maxPrice;
+    }
+    return true;
+  },
+  {
+    message: 'Min price must be less than or equal to max price',
+    path: ['minPrice'],
+  }
+);
+
 // Sanitization functions
 export function sanitizeString(input: string): string {
   return input
@@ -170,5 +197,23 @@ export function validateSearchQuery(data: unknown) {
       throw new Error(`Validation failed: ${error.errors.map(e => e.message).join(', ')}`);
     }
     throw error;
+  }
+}
+
+export function validateSearchRequest(data: unknown) {
+  try {
+    const result = searchFiltersSchema.parse(data);
+    return { success: true, data: result };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { 
+        success: false, 
+        errors: error.errors.map(e => ({ field: e.path.join('.'), message: e.message }))
+      };
+    }
+    return { 
+      success: false, 
+      errors: [{ field: 'general', message: 'Validation failed' }]
+    };
   }
 }

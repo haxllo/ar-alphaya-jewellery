@@ -2,6 +2,12 @@ backend:
   name: git-gateway
   branch: main
 
+# Site configuration
+site_url: https://aralphaya.netlify.app
+display_url: https://aralphaya.netlify.app
+logo_url: /images/LOGO1.png
+
+# Media configuration
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
@@ -14,23 +20,39 @@ media_library:
     allowedTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"]
     multiple: true
 
+# Custom CSS for professional appearance
+publish_mode: editorial_workflow
+
 collections:
   - name: "products"
-    label: "Products"
+    label: "💎 Products"
     folder: "public/images/products"
     create: true
     slug: "{{slug}}"
     format: "json"
+    summary: "{{name}} - {{currency}} {{price}}"
+    sortable_fields: ["name", "price", "created_at"]
+    view_filters:
+      - label: "Category"
+        field: category
+        pattern: "{{category}}"
+      - label: "In Stock"
+        field: inStock
+        pattern: "{{inStock}}"
+      - label: "Featured"
+        field: featured
+        pattern: "{{featured}}"
     fields:
-      - { name: "name", label: "Name", widget: "string" }
-      - { name: "slug", label: "Slug", widget: "string" }
-      - { name: "price", label: "Price", widget: "number" }
-      - { name: "currency", label: "Currency", widget: "select", options: ["LKR","USD","EUR","GBP","AUD","CAD","SEK","CHF","JPY"], default: "LKR" }
-      - { name: "category", label: "Category", widget: "select", options: ["rings","earrings","pendants","bracelets-bangles"] }
+      - { name: "name", label: "Product Name", widget: "string", hint: "Enter the full product name (e.g., 'Diamond Engagement Ring')" }
+      - { name: "slug", label: "URL Slug", widget: "string", hint: "URL-friendly version of the name (e.g., 'diamond-engagement-ring')" }
+      - { name: "price", label: "Price", widget: "number", hint: "Enter price in the selected currency (numbers only)" }
+      - { name: "currency", label: "Currency", widget: "select", options: ["LKR","USD","EUR","GBP","AUD","CAD","SEK","CHF","JPY"], default: "LKR", hint: "Select the currency for this product" }
+      - { name: "category", label: "Category", widget: "select", options: ["rings","earrings","pendants","bracelets-bangles"], hint: "Choose the main product category" }
       - name: "images"
-        label: "Images"
+        label: "📸 Product Images"
         widget: "list"
         summary: "{{fields.image}}"
+        hint: "Upload high-quality product images (JPEG, PNG, WebP, GIF). First image will be the main product image."
         field:
           name: "image"
           label: "Image"
@@ -39,53 +61,56 @@ collections:
             allowedTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"]
             maxSize: 5242880  # 5MB limit
             minSize: 1024     # 1KB minimum
-      - { name: "sku", label: "SKU", widget: "string", required: false }
-      - { name: "materials", label: "Materials", widget: "list", required: false }
-      - { name: "weight", label: "Weight", widget: "number", required: false }
-      - { name: "dimensions", label: "Dimensions", widget: "string", required: false }
+      - { name: "sku", label: "SKU (Stock Keeping Unit)", widget: "string", required: false, hint: "Unique product identifier (e.g., 'RING-001')" }
+      - { name: "materials", label: "Materials", widget: "list", required: false, hint: "List of materials used (e.g., 'Gold', 'Diamond', 'Silver')" }
+      - { name: "weight", label: "Weight (grams)", widget: "number", required: false, hint: "Product weight in grams" }
+      - { name: "dimensions", label: "Dimensions", widget: "string", required: false, hint: "Product dimensions (e.g., '2cm x 1.5cm x 0.5cm')" }
       - name: "sizes"
-        label: "Sizes"
+        label: "📏 Available Sizes"
         widget: "list"
         required: false
+        hint: "Add available sizes for this product (e.g., ring sizes, bracelet lengths)"
         fields:
-          - { name: "label", label: "Label", widget: "string" }
-          - { name: "value", label: "Value", widget: "string" }
+          - { name: "label", label: "Size Label", widget: "string", hint: "Display name (e.g., 'Small', 'Medium', 'Large')" }
+          - { name: "value", label: "Size Value", widget: "string", hint: "Actual size value (e.g., '6', '7', '8' for rings)" }
       - name: "gemstones"
-        label: "Gemstones"
+        label: "💎 Gemstones & Stones"
         widget: "list"
         required: false
+        hint: "Add gemstones or decorative stones used in this product"
         fields:
-          - { name: "name", label: "Name", widget: "string" }
-          - { name: "value", label: "Value", widget: "string" }
-          - { name: "priceAdjustment", label: "Price Adjustment", widget: "number", required: false }
-          - { name: "description", label: "Description", widget: "text", required: false }
-          - { name: "available", label: "Available", widget: "boolean", default: true }
-      - { name: "inStock", label: "In Stock", widget: "boolean", default: true }
-      - { name: "featured", label: "Featured", widget: "boolean", default: false }
-      - { name: "tags", label: "Tags", widget: "list", required: false }
-      - { name: "body", label: "Description", widget: "markdown" }
+          - { name: "name", label: "Stone Name", widget: "string", hint: "Name of the stone (e.g., 'Diamond', 'Ruby', 'Sapphire')" }
+          - { name: "value", label: "Stone Details", widget: "string", hint: "Details like carat, cut, color (e.g., '1.5ct Round Brilliant')" }
+          - { name: "priceAdjustment", label: "Price Adjustment", widget: "number", required: false, hint: "Additional cost for this stone option" }
+          - { name: "description", label: "Description", widget: "text", required: false, hint: "Additional details about this stone" }
+          - { name: "available", label: "Available", widget: "boolean", default: true, hint: "Is this stone option currently available?" }
+      - { name: "inStock", label: "✅ In Stock", widget: "boolean", default: true, hint: "Is this product currently available for purchase?" }
+      - { name: "featured", label: "⭐ Featured Product", widget: "boolean", default: false, hint: "Should this product appear in featured sections?" }
+      - { name: "tags", label: "🏷️ Tags", widget: "list", required: false, hint: "Search tags for this product (e.g., 'wedding', 'engagement', 'vintage')" }
+      - { name: "body", label: "📝 Product Description", widget: "markdown", hint: "Detailed product description. Use markdown for formatting." }
 
   - name: "settings"
-    label: "Site Settings"
+    label: "⚙️ Site Settings"
     files:
       - file: "public/admin/site-settings.json"
         name: "site_settings"
-        label: "Site Settings"
+        label: "🌐 Website Configuration"
         format: "json"
         fields:
-          - { name: "title", label: "Title", widget: "string" }
-          - { name: "description", label: "Description", widget: "text" }
-          - { name: "email", label: "Email", widget: "string" }
-          - { name: "phone", label: "Phone", widget: "string" }
-          - { name: "whatsapp", label: "WhatsApp", widget: "string" }
-          - { name: "address", label: "Address", widget: "text" }
-          - { name: "instagram", label: "Instagram", widget: "string" }
+          - { name: "title", label: "Site Title", widget: "string", hint: "Main website title (e.g., 'AR Alphaya Jewellery')" }
+          - { name: "description", label: "Site Description", widget: "text", hint: "Brief description of your business for SEO" }
+          - { name: "email", label: "Contact Email", widget: "string", hint: "Primary business email address" }
+          - { name: "phone", label: "Phone Number", widget: "string", hint: "Business phone number with country code" }
+          - { name: "whatsapp", label: "WhatsApp Number", widget: "string", hint: "WhatsApp number for customer inquiries" }
+          - { name: "address", label: "Business Address", widget: "text", hint: "Full business address" }
+          - { name: "instagram", label: "Instagram Handle", widget: "string", hint: "Instagram username (without @)" }
           - name: "collections"
-            label: "Collections"
+            label: "📚 Product Collections"
             widget: "list"
+            hint: "Create product collections for better organization"
             fields:
-              - { name: "name", label: "Name", widget: "string" }
-              - { name: "handle", label: "Handle", widget: "string" }
-              - { name: "description", label: "Description", widget: "text", required: false }
+              - { name: "name", label: "Collection Name", widget: "string", hint: "Display name (e.g., 'Wedding Rings')" }
+              - { name: "handle", label: "URL Handle", widget: "string", hint: "URL-friendly name (e.g., 'wedding-rings')" }
+              - { name: "description", label: "Description", widget: "text", required: false, hint: "Brief description of this collection" }
 
 
