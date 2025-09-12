@@ -1,9 +1,9 @@
-import { getProductBySlug, getAllProducts } from '@/lib/strapi/products'
+import { getProductBySlug, getProducts } from '@/lib/cms'
 import { notFound } from 'next/navigation'
 import ProductContent from './ProductContent'
 
 export async function generateStaticParams() {
-  const products = await getAllProducts()
+  const products = await getProducts()
   return products.map((product) => ({ slug: product.slug }))
 }
 

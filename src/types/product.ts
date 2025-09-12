@@ -6,9 +6,9 @@ export type SizeOption = {
 export type GemstoneOption = {
   name: string;
   value: string;
-  priceAdjustment: number; // price difference from base price in LKR cents
+  priceAdjustment?: number; // price difference from base price in LKR cents
   description?: string;
-  available: boolean;
+  available?: boolean;
 };
 
 export type Product = {

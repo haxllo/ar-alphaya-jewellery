@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from 'next/link'
-import { getAllProducts } from '@/lib/strapi/products'
+import { getProducts } from '@/lib/cms'
 import FeaturedProducts from './FeaturedProducts'
 
 export default async function Home() {
-  const products = (await getAllProducts()).slice(0, 8)
+  const products = (await getProducts()).slice(0, 8)
   return (
     <div className="min-h-screen">
       <section className="bg-gray-50 border-b border-gray-200">

@@ -1,0 +1,321 @@
+import { cache } from 'react';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Types
+export interface Size {
+  label: string;
+  value: string;
+}
+
+export interface Gemstone {
+  name: string;
+  value: string;
+  priceAdjustment?: number;
+  description?: string;
+  available?: boolean;
+}
+
+export interface Collection {
+  name: string;
+  handle: string;
+  description?: string;
+}
+
+export interface MediaFile {
+  id: number;
+  attributes: {
+    name: string;
+    alternativeText?: string;
+    caption?: string;
+    width: number;
+    height: number;
+    formats?: {
+      thumbnail?: { url: string };
+      small?: { url: string };
+      medium?: { url: string };
+      large?: { url: string };
+    };
+    url: string;
+    previewUrl?: string;
+    provider: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface Product {
+  id: string;
+  productId: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  currency?: string;
+  images: string[];
+  category: string;
+  sku?: string;
+  materials?: string[];
+  weight?: number;
+  dimensions?: string;
+  sizes?: Size[];
+  gemstones?: Gemstone[];
+  inStock?: boolean;
+  featured?: boolean;
+  tags?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface SiteSettings {
+  id: number;
+  title: string;
+  description: string;
+  email: string;
+  phone: string;
+  whatsapp: string;
+  address: string;
+  instagram: string;
+  collections: Collection[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// File paths
+const PRODUCTS_DIR = path.join(process.cwd(), 'public', 'images', 'products');
+const SETTINGS_FILE = path.join(process.cwd(), 'public', 'admin', 'site-settings.json');
+
+// Helper functions
+async function readJsonFile<T>(filePath: string): Promise<T | null> {
+  try {
+    const content = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(content) as T;
+  } catch {
+    return null;
+  }
+}
+
+function normalizeProductAttributes(raw: any, id?: string): Product {
+  const coercedGemstones = Array.isArray(raw.gemstones)
+    ? raw.gemstones.map((g: any) => ({
+        name: g?.name ?? '',
+        value: g?.value ?? '',
+        priceAdjustment: g?.priceAdjustment !== undefined && g?.priceAdjustment !== null
+          ? Number(g.priceAdjustment)
+          : 0,
+        description: g?.description,
+        available: g?.available ?? true,
+      }))
+    : undefined;
+
+  return {
+    id: id ?? raw.id ?? raw.productId ?? raw.slug,
+    productId: raw.productId ?? raw.slug ?? raw.id,
+    name: raw.name,
+    slug: raw.slug,
+    description: raw.body ?? raw.description ?? '',
+    price: raw.price !== undefined && raw.price !== null ? Number(raw.price) : 0,
+    currency: raw.currency ?? 'LKR',
+    images: raw.images || [],
+    category: raw.category ?? 'rings',
+    sku: raw.sku,
+    materials: raw.materials,
+    weight: raw.weight !== undefined && raw.weight !== null ? Number(raw.weight) : undefined,
+    dimensions: raw.dimensions,
+    sizes: raw.sizes,
+    gemstones: coercedGemstones,
+    inStock: raw.inStock ?? true,
+    featured: raw.featured ?? false,
+    tags: raw.tags,
+    createdAt: raw.createdAt ?? raw.originalCreatedAt,
+    updatedAt: raw.updatedAt ?? raw.originalUpdatedAt,
+  };
+}
+
+async function readProducts(): Promise<Product[]> {
+  try {
+    const entries = await fs.readdir(PRODUCTS_DIR, { withFileTypes: true });
+    const productFiles = entries.filter(e => e.isFile() && e.name.toLowerCase().endsWith('.json'));
+    const productsRaw = await Promise.all(
+      productFiles.map(async f => readJsonFile<any>(path.join(PRODUCTS_DIR, f.name)))
+    );
+
+    const products: Product[] = (productsRaw.filter(Boolean) as any[]).map((raw, index) => {
+      const imageList: string[] = Array.isArray(raw.images)
+        ? raw.images.map((img: any) => (typeof img === 'string' ? img : img?.image)).filter(Boolean)
+        : [];
+
+      const mediaFiles = imageList.map((url, i) => ({
+        id: i + 1,
+        attributes: {
+          name: path.basename(url || ''),
+          alternativeText: undefined,
+          caption: undefined,
+          width: 0,
+          height: 0,
+          formats: undefined,
+          url,
+          previewUrl: undefined,
+          provider: 'decap',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+      }));
+
+      return {
+        id: String(index + 1),
+        productId: raw.productId || raw.slug || String(index + 1),
+        name: raw.name || '',
+        slug: raw.slug || (raw.name ? raw.name.toLowerCase().replace(/\s+/g, '-') : `product-${index + 1}`),
+        price: raw.price ? Number(raw.price) : 0,
+        currency: raw.currency || 'LKR',
+        images: mediaFiles.map(file => file.attributes.url),
+        category: raw.category || 'rings',
+        sku: raw.sku,
+        materials: raw.materials,
+        weight: raw.weight !== undefined && raw.weight !== null ? Number(raw.weight) : undefined,
+        dimensions: raw.dimensions,
+        sizes: raw.sizes,
+        gemstones: Array.isArray(raw.gemstones)
+          ? raw.gemstones.map((g: any) => ({
+              name: g?.name ?? '',
+              value: g?.value ?? '',
+              priceAdjustment: g?.priceAdjustment != null ? Number(g.priceAdjustment) : undefined,
+              description: g?.description,
+              available: g?.available,
+            }))
+          : undefined,
+        inStock: Boolean(raw.inStock ?? true),
+        featured: Boolean(raw.featured ?? false),
+        tags: raw.tags,
+        description: raw.body || raw.description || '',
+        originalCreatedAt: undefined,
+        originalUpdatedAt: undefined,
+        publishedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      } as Product;
+    });
+
+    return products.sort((a, b) => a.name.localeCompare(b.name));
+  } catch {
+    return [];
+  }
+}
+
+async function readSiteSettings(): Promise<SiteSettings | null> {
+  const raw = await readJsonFile<any>(SETTINGS_FILE);
+  if (!raw) return null;
+  return {
+    id: 1,
+    title: raw.title || '',
+    description: raw.description || '',
+    email: raw.email || '',
+    phone: raw.phone || '',
+    whatsapp: raw.whatsapp || '',
+    address: raw.address || '',
+    instagram: raw.instagram || '',
+    collections: Array.isArray(raw.collections) ? raw.collections : [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  } as SiteSettings;
+}
+
+// Public API functions
+export function getMediaUrl(url: string | undefined | null): string {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  if (url.startsWith('/')) return url;
+  return url;
+}
+
+export function getOptimizedImageUrl(media: MediaFile, size: 'thumbnail' | 'small' | 'medium' | 'large' | 'original' = 'medium'): string {
+  if (size === 'original') {
+    return getMediaUrl(media.attributes.url);
+  }
+  
+  const format = media.attributes.formats?.[size];
+  return format ? getMediaUrl(format.url) : getMediaUrl(media.attributes.url);
+}
+
+export const getProducts = cache(async (options?: {
+  category?: string;
+  featured?: boolean;
+  limit?: number;
+  page?: number;
+}): Promise<Product[]> => {
+  const all = await readProducts();
+  let filtered = all;
+  
+  if (options?.category) filtered = filtered.filter(p => p.category === options.category);
+  if (options?.featured !== undefined) filtered = filtered.filter(p => p.featured === options.featured);
+  if (options?.limit) filtered = filtered.slice(0, options.limit);
+  
+  return filtered;
+});
+
+export const getProductBySlug = cache(async (slug: string): Promise<Product | null> => {
+  const all = await readProducts();
+  return all.find(p => p.slug === slug) || null;
+});
+
+export const getFeaturedProducts = cache(async (limit = 4): Promise<Product[]> => {
+  return getProducts({ featured: true, limit });
+});
+
+export const getProductsByCategory = cache(async (
+  category: string,
+  limit?: number
+): Promise<Product[]> => {
+  return getProducts({ category, limit });
+});
+
+export const getSiteSettings = cache(async (): Promise<SiteSettings | null> => {
+  return readSiteSettings();
+});
+
+export const getProductCategories = cache(async (): Promise<string[]> => {
+  const products = await getProducts();
+  const categories = new Set(products.map(p => p.category));
+  return Array.from(categories);
+});
+
+export const searchProducts = cache(async (query: string, limit = 20): Promise<Product[]> => {
+  const all = await readProducts();
+  const filtered = all.filter(p => 
+    p.name.toLowerCase().includes(query.toLowerCase()) ||
+    p.description.toLowerCase().includes(query.toLowerCase())
+  );
+  return filtered.slice(0, limit);
+});
+
+export async function getProductStaticPaths(): Promise<Array<{ params: { slug: string } }>> {
+  const products = await getProducts();
+  return products.map(product => ({
+    params: { slug: product.slug },
+  }));
+}
+
+export function transformProductForLegacyCode(product: Product): any {
+  return {
+    id: product.productId,
+    slug: product.slug,
+    name: product.name,
+    price: product.price,
+    currency: product.currency,
+    images: product.images.map(img => getMediaUrl(img)),
+    category: product.category,
+    sku: product.sku,
+    materials: product.materials,
+    weight: product.weight,
+    dimensions: product.dimensions,
+    sizes: product.sizes,
+    gemstones: product.gemstones,
+    inStock: product.inStock,
+    featured: product.featured,
+    tags: product.tags,
+    description: product.description,
+    createdAt: product.createdAt,
+    updatedAt: product.updatedAt,
+  };
+}

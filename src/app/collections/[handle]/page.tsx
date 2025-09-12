@@ -1,9 +1,9 @@
-import { getProductsByCollection, getAllProducts } from '@/lib/strapi/products'
+import { getProductsByCategory, getProducts } from '@/lib/cms'
 import CollectionContent from './CollectionContent'
 
 export async function generateStaticParams() {
   // Get categories from existing products
-  const products = await getAllProducts()
+  const products = await getProducts()
   const productCategories = Array.from(new Set(products.map(p => p.category)))
   
   // Define all collections from navigation (to ensure all routes work)
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 
 export default async function CollectionPage({ params }: { params: Promise<{ handle: string }> }) {
   const { handle } = await params
-  const products = await getProductsByCollection(handle)
+  const products = await getProductsByCategory(handle)
   return <CollectionContent handle={handle} products={products} />
 }
 

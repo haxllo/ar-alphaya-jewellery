@@ -80,7 +80,7 @@ export default function ProductContent({ product }: ProductContentProps) {
               
               <div className="text-3xl font-bold text-primary-700 mb-4">
                 {formatPrice(getFinalPrice())}
-                {selectedGemstone && selectedGemstone.priceAdjustment !== 0 && (
+                {selectedGemstone && selectedGemstone.priceAdjustment !== undefined && selectedGemstone.priceAdjustment !== 0 && (
                   <span className="text-lg text-primary-500 ml-2">
                     ({selectedGemstone.priceAdjustment > 0 ? '+' : ''}{formatPrice(selectedGemstone.priceAdjustment)} for {selectedGemstone.name})
                   </span>
@@ -156,7 +156,7 @@ export default function ProductContent({ product }: ProductContentProps) {
                           </div>
                         </div>
                         <div className="text-sm font-medium text-primary-700">
-                          {gemstone.priceAdjustment === 0 ? 'Included' : 
+                          {gemstone.priceAdjustment === undefined || gemstone.priceAdjustment === 0 ? 'Included' : 
                            gemstone.priceAdjustment > 0 ? `+${formatPrice(gemstone.priceAdjustment)}` : formatPrice(gemstone.priceAdjustment)}
                         </div>
                       </div>
