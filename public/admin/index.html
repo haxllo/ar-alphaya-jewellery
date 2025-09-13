@@ -5,87 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AR Alphaya Jewellery - Content Management</title>
     <link rel="icon" href="/images/LOGO1.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      /* Loading screen */
-      .cms-loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #000000 0%, #333333 100%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-family: 'Inter', sans-serif;
-        z-index: 9999;
-      }
-      
-      .cms-loading__logo {
-        width: 80px;
-        height: 80px;
-        background: white;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        font-weight: 700;
-        color: #000;
-        margin-bottom: 24px;
-        animation: pulse 2s infinite;
-      }
-      
-      .cms-loading__text {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-      
-      .cms-loading__subtext {
-        font-size: 14px;
-        opacity: 0.8;
-      }
-      
-      .cms-loading__spinner {
-        width: 32px;
-        height: 32px;
-        border: 3px solid rgba(255, 255, 255, 0.3);
-        border-top: 3px solid white;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-top: 24px;
-      }
-      
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      
-      /* Hide loading screen when CMS loads */
-      .cms-loaded .cms-loading {
-        display: none;
-      }
-    </style>
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div class="cms-loading">
-      <div class="cms-loading__logo">AR</div>
-      <div class="cms-loading__text">AR Alphaya Jewellery</div>
-      <div class="cms-loading__subtext">Content Management System</div>
-      <div class="cms-loading__spinner"></div>
-    </div>
 
     <!-- Netlify Identity Widget (required for Git Gateway auth) -->
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -93,18 +14,9 @@
     <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
-    <!-- Custom CMS Styling -->
-    <link rel="stylesheet" href="/admin/cms.css">
     
     <!-- CMS Initialization Script -->
     <script>
-      // Hide loading screen when CMS is ready
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-          document.body.classList.add('cms-loaded');
-        }, 2000);
-      });
-      
       // Initialize Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
