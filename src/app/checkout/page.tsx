@@ -9,7 +9,12 @@ import Link from 'next/link'
 type PaymentMethod = 'payhere' | 'bank_transfer'
 
 function CheckoutPage() {
-  const { user, error, isLoading } = useUser()
+  // Temporarily disable Auth0 until properly configured
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
+  
   const items = useCartStore((state) => state.items)
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
@@ -340,4 +345,4 @@ function CheckoutPage() {
   )
 }
 
-export default withPageAuthRequired(CheckoutPage)
+export default CheckoutPage

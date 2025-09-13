@@ -18,7 +18,12 @@ const collections = [
 ]
 
 export default function Header() {
-  const { user, error, isLoading } = useUser()
+  // Temporarily disable Auth0 until properly configured
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
+  
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showSizeGuide, setShowSizeGuide] = useState(false)

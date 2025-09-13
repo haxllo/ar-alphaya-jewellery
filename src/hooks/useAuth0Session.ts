@@ -21,7 +21,11 @@ interface Auth0SessionHook {
 }
 
 export function useAuth0Session(): Auth0SessionHook {
-  const { user, error, isLoading } = useUser()
+  // Temporarily disable Auth0 until properly configured
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
   const router = useRouter()
 
   const isAuthenticated = !isLoading && !error && !!user

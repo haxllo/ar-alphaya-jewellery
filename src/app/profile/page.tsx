@@ -5,7 +5,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 function ProfilePage() {
-  const { user, error, isLoading } = useUser()
+  // Temporarily disable Auth0 until properly configured
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
 
   if (isLoading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -31,13 +35,13 @@ function ProfilePage() {
   if (!user) return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Not Authenticated</h1>
-        <p className="text-gray-600 mb-6">Please sign in to view your profile.</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Authentication Disabled</h1>
+        <p className="text-gray-600 mb-6">Authentication is temporarily disabled. Please check back later.</p>
         <Link 
-          href="/api/auth/login" 
+          href="/" 
           className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
         >
-          Sign In
+          Go Home
         </Link>
       </div>
     </div>
@@ -198,4 +202,4 @@ function ProfilePage() {
   )
 }
 
-export default withPageAuthRequired(ProfilePage)
+export default ProfilePage
