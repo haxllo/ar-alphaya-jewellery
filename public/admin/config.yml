@@ -15,7 +15,7 @@ public_folder: "/images/uploads"
 media_library:
   name: uploadcare
   config:
-    publicKey: "your-uploadcare-public-key"
+    publicKey: "5eb856a1c841f37fa95c"
     maxFileSize: 5242880  # 5MB
     allowedTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"]
     multiple: true
@@ -87,7 +87,7 @@ collections:
       - { name: "inStock", label: "✅ In Stock", widget: "boolean", default: true, hint: "Is this product currently available for purchase?" }
       - { name: "featured", label: "⭐ Featured Product", widget: "boolean", default: false, hint: "Should this product appear in featured sections?" }
       - { name: "tags", label: "🏷️ Tags", widget: "list", required: false, hint: "Search tags for this product (e.g., 'wedding', 'engagement', 'vintage')" }
-      - { name: "body", label: "📝 Product Description", widget: "markdown", hint: "Detailed product description. Use markdown for formatting." }
+      - { name: "description", label: "📝 Product Description", widget: "markdown", hint: "Detailed product description. Use markdown for formatting." }
 
   - name: "settings"
     label: "⚙️ Site Settings"
