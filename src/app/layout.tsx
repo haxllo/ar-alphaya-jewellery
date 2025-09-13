@@ -49,11 +49,11 @@ export default function RootLayout({
             `,
           }}
         />
-        <UserProvider>
+        {/* <UserProvider> */}
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-        </UserProvider>
+        {/* </UserProvider> */}
       </body>
     </html>
   )
