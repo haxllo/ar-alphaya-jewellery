@@ -3,8 +3,12 @@ backend:
   repo: haxllo/ar-alphaya-jewellery # The repository name
   branch: main
 
-media_folder: "content/images/uploads"
-public_folder: "/images/uploads"
+#media_folder: "content/images/uploads"
+media_library:
+  name: uploadcare
+  config:
+    publicKey: "5eb856a1c841f37fa95c"
+#public_folder: "/images/uploads"
 
 collections:
   - name: "products"              # Folder for your products

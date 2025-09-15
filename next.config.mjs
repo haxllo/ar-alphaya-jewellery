@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
   // Server-side rendering for Auth0 API routes (no static export)
   webpack: (config, { isServer }) => {
     // Fix for Auth0 client module resolution
