@@ -11,7 +11,7 @@
 - [x] Collection page routing and generation
 - [x] Core layout components (header, footer)
 - [x] Product page templates
-- [x] Color scheme overhaul (black/white theme)
+- [x] Color scheme overhaul (black/white them)
 - [x] TypeScript type definitions
 - [x] Zustand store setup for cart management
 - [x] Next.js Image optimization setup
