@@ -10,7 +10,7 @@ import type { CartItem } from '@/types/product'
 import { RecommendationService } from '@/lib/recommendations'
 
 export default function CartPage() {
-  const items = useCartStore((state) => state.items)
+  const items = useCartStore((state) => state.items) as CartItem[]
   const addItem = useCartStore((state) => state.addItem)
   const removeItem = useCartStore((state) => state.removeItem)
   const setQuantity = useCartStore((state) => state.setQuantity)
