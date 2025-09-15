@@ -1,6 +1,6 @@
 'use client'
 
-import { useUser } from '@auth0/nextjs-auth0/client'
+import {  useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
@@ -22,10 +22,7 @@ interface Auth0SessionHook {
 
 export function useAuth0Session(): Auth0SessionHook {
   // Temporarily disable Auth0 until properly configured
-  // const { user, error, isLoading } = useUser()
-  const user = null
-  const error = null
-  const isLoading = false
+  const { user, error, isLoading } = useUser()
   const router = useRouter()
 
   const isAuthenticated = !isLoading && !error && !!user

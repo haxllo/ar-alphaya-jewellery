@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full flex flex-col`}>
+        
         <Script
           src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"
           strategy="afterInteractive"
@@ -49,11 +50,11 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* <UserProvider> */}
+        <UserProvider>
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-        {/* </UserProvider> */}
+        </UserProvider>
       </body>
     </html>
   )
