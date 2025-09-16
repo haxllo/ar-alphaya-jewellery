@@ -82,7 +82,7 @@ export interface SiteSettings {
 }
 
 // File paths
-const PRODUCTS_DIR = path.join(process.cwd(), 'public', 'images', 'products');
+const PRODUCTS_DIR = path.join(process.cwd(), 'public', 'products');
 const SETTINGS_FILE = path.join(process.cwd(), 'public', 'admin', 'site-settings.json');
 
 // Helper functions

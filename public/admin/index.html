@@ -17,11 +17,15 @@
           }
         });
       }
+      // Ensure manual init flag is set BEFORE loading Decap CMS to avoid auto-init
+      window.CMS_MANUAL_INIT = true;
     </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      window.CMS_MANUAL_INIT = true;
-      window.CMS && window.CMS.init();
+      // Single explicit init after script load
+      if (window.CMS && typeof window.CMS.init === 'function') {
+        window.CMS.init();
+      }
     </script>
   </body>
   
