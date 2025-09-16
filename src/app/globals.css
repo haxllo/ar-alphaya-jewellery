@@ -18,4 +18,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .emoji-font {
+    font-family: system-ui, -apple-system, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji, Apple Color Emoji, sans-serif;
+    line-height: 1;
+  }
 }

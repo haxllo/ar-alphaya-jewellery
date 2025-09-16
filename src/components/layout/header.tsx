@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <header className="border-b border-border bg-white sticky top-0 z-50 shadow-sm">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="grid grid-cols-3 items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image 
@@ -60,7 +60,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center justify-center space-x-8">
             <Link href="/" className="text-sm text-gray-700 hover:text-black transition-colors">Home</Link>
             <div className="relative group">
               <button className="text-sm text-gray-700 hover:text-black transition-colors flex items-center">
@@ -91,16 +91,14 @@ export default function Header() {
             <Link href="/contact" className="text-sm text-gray-700 hover:text-black transition-colors">Contact</Link>
           </nav>
 
-          {/* Spacer for layout consistency */}
-          <div className="flex-1" />
+          {/* Right actions */}
+          <div className="flex items-center justify-end space-x-3 md:space-x-4">
 
-          {/* Currency, Cart & Mobile Menu */}
-          <div className="flex items-center space-x-4">
             {/* Currency Selector - Desktop */}
             <div className="hidden md:block">
               <CurrencySelector compact={true} showLabel={false} />
             </div>
-            
+
             {/* Wishlist */}
             <Link href="/wishlist" className="relative text-gray-700 hover:text-black transition-colors">
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

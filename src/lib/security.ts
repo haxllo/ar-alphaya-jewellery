@@ -32,12 +32,13 @@ export function addNonceToResponse(response: NextResponse, nonce: string): NextR
 }
 
 // Enhanced CSP with nonce support
-export function generateCSP(nonce: string): string {
+export function generateSiteCSP(): string {
+  // Mirrors global CSP in netlify.toml
   return [
     "default-src 'self' https: data: blob:",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
+    "script-src 'self' 'unsafe-inline' https:",
     "style-src 'self' 'unsafe-inline' https:",
-    "img-src 'self' https: data: blob: https://ucarecdn.com",
+    "img-src 'self' https: data: blob: https://ucarecdn.com https://flagcdn.com",
     "connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com",
     "font-src 'self' https: data:",
     "frame-src 'self' https:",
@@ -47,8 +48,24 @@ export function generateCSP(nonce: string): string {
   ].join('; ');
 }
 
+export function generateAdminCSP(): string {
+  // Mirrors /admin/* CSP in netlify.toml
+  return [
+    "default-src 'self' https: data: blob:",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://unpkg.com https://identity.netlify.com",
+    "style-src 'self' 'unsafe-inline' https:",
+    "img-src 'self' https: data: blob: https://ucarecdn.com https://flagcdn.com",
+    "connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com https://identity.netlify.com",
+    "font-src 'self' https: data:",
+    "frame-src 'self' https: https://identity.netlify.com",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ');
+}
+
 // Security headers with dynamic CSP
-export function getSecurityHeaders(nonce: string) {
+export function getSecurityHeaders(nonce: string, pathname?: string) {
   // Use Netlify's CSP defined in netlify.toml as the single source of truth.
   // To avoid conflicting/double CSP headers in production, we DO NOT emit CSP here when running on Netlify.
   const headers: Record<string, string> = {
@@ -63,7 +80,8 @@ export function getSecurityHeaders(nonce: string) {
   // Only add CSP from middleware when NOT running on Netlify (e.g., local dev or other hosts).
   // Netlify sets CSP via netlify.toml and should be the only CSP in production.
   if (!process.env.NETLIFY) {
-    headers['Content-Security-Policy'] = generateCSP(nonce);
+    const isAdmin = pathname?.startsWith('/admin');
+    headers['Content-Security-Policy'] = isAdmin ? generateAdminCSP() : generateSiteCSP();
   }
 
   return headers;

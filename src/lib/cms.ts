@@ -141,8 +141,29 @@ async function readProducts(): Promise<Product[]> {
     );
 
     const products: Product[] = (productsRaw.filter(Boolean) as any[]).map((raw, index) => {
+      // Normalize images to an array of URL strings
+      const coerceToString = (value: any): string | undefined => {
+        if (!value) return undefined;
+        if (typeof value === 'string') return value;
+        if (Array.isArray(value)) {
+          const first = value.find(v => typeof v === 'string');
+          return typeof first === 'string' ? first : undefined;
+        }
+        return undefined;
+      };
+
       const imageList: string[] = Array.isArray(raw.images)
-        ? raw.images.map((img: any) => (typeof img === 'string' ? img : img?.image)).filter(Boolean)
+        ? raw.images
+            .map((img: any) => {
+              if (typeof img === 'string') return img;
+              if (img && typeof img === 'object') {
+                // Support { image: string } or { image: [string] }
+                const maybe = coerceToString(img.image);
+                return maybe;
+              }
+              return undefined;
+            })
+            .filter((u: any): u is string => typeof u === 'string')
         : [];
 
       const mediaFiles = imageList.map((url, i) => ({
@@ -189,11 +210,11 @@ async function readProducts(): Promise<Product[]> {
         featured: Boolean(raw.featured ?? false),
         tags: raw.tags,
         description: raw.body || raw.description || '',
-        originalCreatedAt: undefined,
-        originalUpdatedAt: undefined,
+        originalCreatedAt: raw.createdAt,
+        originalUpdatedAt: raw.updatedAt,
         publishedAt: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: raw.createdAt || new Date().toISOString(),
+        updatedAt: raw.updatedAt || new Date().toISOString(),
       } as Product;
     });
 

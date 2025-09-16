@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   
   // Apply security headers with nonce
-  const securityHeaders = getSecurityHeaders(nonce);
+  const securityHeaders = getSecurityHeaders(nonce, pathname);
   Object.entries(securityHeaders).forEach(([key, value]) => {
     response.headers.set(key, value);
   });
