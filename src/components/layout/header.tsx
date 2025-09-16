@@ -27,6 +27,7 @@ export default function Header() {
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const items = useCartStore((state) => state.items)
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0)
@@ -37,6 +38,7 @@ export default function Header() {
     if (searchQuery.trim()) {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
       setSearchQuery('')
+      setShowSearch(false)
     }
   }
 
@@ -89,25 +91,8 @@ export default function Header() {
             <Link href="/contact" className="text-sm text-gray-700 hover:text-black transition-colors">Contact</Link>
           </nav>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <form onSubmit={handleSearch} className="w-full">
-              <div className="relative">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search jewelry..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-black focus:border-transparent"
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </div>
-            </form>
-          </div>
+          {/* Spacer for layout consistency */}
+          <div className="flex-1" />
 
           {/* Currency, Cart & Mobile Menu */}
           <div className="flex items-center space-x-4">
@@ -127,6 +112,41 @@ export default function Header() {
                 </span>
               )}
             </Link>
+
+            {/* Search Icon with Dropdown - Desktop */}
+            <div className="relative hidden md:block">
+              <button
+                type="button"
+                aria-label="Search"
+                className="relative text-gray-700 hover:text-black transition-colors p-2"
+                onClick={() => setShowSearch((v) => !v)}
+              >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+              {showSearch && (
+                <div className="absolute right-0 top-full mt-2 w-72 bg-white border border-gray-200 shadow-lg rounded-lg p-2 z-50">
+                  <form onSubmit={handleSearch}>
+                    <div className="relative">
+                      <input
+                        autoFocus
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search jewelry..."
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-black focus:border-transparent"
+                      />
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </div>
             
             {/* Authentication */}
             {isLoading ? (
