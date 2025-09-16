@@ -56,8 +56,16 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"
-
+    Content-Security-Policy = """
+      default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+      script-src * 'unsafe-inline' 'unsafe-eval';
+      connect-src *;
+      img-src * data: blob:;
+      style-src * 'unsafe-inline';
+      font-src *;
+      frame-src *;
+      object-src 'none';
+    """
 # Cache static assets
 [[headers]]
   for = "/static/*"
