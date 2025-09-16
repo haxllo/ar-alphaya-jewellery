@@ -11,7 +11,7 @@ logo_url: "/images/BRAND.svg"
 media_library:
   name: uploadcare
   config:
-    publicKey: "16f6ff0a586efced40fc"
+    publicKey: "5eb856a1c841f37fa95c"
     multiple: true
     preferBlob: true
 
