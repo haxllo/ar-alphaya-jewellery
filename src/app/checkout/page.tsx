@@ -11,8 +11,8 @@ type PaymentMethod = 'payhere' | 'bank_transfer'
 function CheckoutPage() {
   // Temporarily disable Auth0 until properly configured
   // const { user, error, isLoading } = useUser()
-  const user = null
-  const error = null
+  const user: any = null
+  const error: any = null
   const isLoading = false
   
   const items = useCartStore((state) => state.items)

@@ -135,10 +135,10 @@ export default function Header() {
               <div className="relative group">
                 <button className="flex items-center gap-2 text-sm text-gray-700 hover:text-black transition-colors">
                   <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                    {user.picture ? (
+                    {(user as any)?.picture ? (
                       <Image 
-                        src={user.picture} 
-                        alt={user.name || 'User'} 
+                        src={(user as any).picture} 
+                        alt={(user as any).name || 'User'} 
                         width={32}
                         height={32}
                         placeholder="blur"
@@ -152,7 +152,7 @@ export default function Header() {
                       </svg>
                     )}
                   </div>
-                  <span className="hidden md:inline">{user.name || user.email}</span>
+                  <span className="hidden md:inline">{(user as any)?.name || (user as any)?.email}</span>
                   <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -282,10 +282,10 @@ export default function Header() {
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2 mb-3">
                       <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        {user.picture ? (
+                        {(user as any)?.picture ? (
                           <Image 
-                            src={user.picture} 
-                            alt={user.name || 'User'} 
+                            src={(user as any).picture} 
+                            alt={(user as any).name || 'User'} 
                             width={32}
                             height={32}
                             placeholder="blur"
@@ -299,7 +299,7 @@ export default function Header() {
                           </svg>
                         )}
                       </div>
-                      <span className="text-sm font-medium text-black">{user.name || user.email}</span>
+                      <span className="text-sm font-medium text-black">{(user as any)?.name || (user as any)?.email}</span>
                     </div>
                     <Link href="/profile" className="block text-sm text-gray-700 hover:text-black transition-colors pl-4">
                       My Profile

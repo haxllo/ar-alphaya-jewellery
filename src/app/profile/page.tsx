@@ -7,8 +7,8 @@ import Image from 'next/image'
 function ProfilePage() {
   // Temporarily disable Auth0 until properly configured
   // const { user, error, isLoading } = useUser()
-  const user = null
-  const error = null
+  const user: any = null
+  const error: any = null
   const isLoading = false
 
   if (isLoading) return (

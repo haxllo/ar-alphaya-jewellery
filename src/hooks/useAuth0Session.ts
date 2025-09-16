@@ -54,7 +54,8 @@ export function useAuth0Session(): Auth0SessionHook {
 
   const getDisplayName = useCallback(() => {
     if (!user) return ''
-    return user.name || user.nickname || user.email || 'User'
+    const u = user as any
+    return u?.name || u?.nickname || u?.email || 'User'
   }, [user])
 
   const getInitials = useCallback(() => {
@@ -70,25 +71,29 @@ export function useAuth0Session(): Auth0SessionHook {
 
   const hasRole = useCallback((role: string) => {
     if (!user) return false
-    const roles = user['https://example.com/roles'] || user.roles || []
+    const u = user as any
+    const roles = u['https://example.com/roles'] || u.roles || []
     return Array.isArray(roles) && roles.includes(role)
   }, [user])
 
   const hasPermission = useCallback((permission: string) => {
     if (!user) return false
-    const permissions = user['https://example.com/permissions'] || user.permissions || []
+    const u = user as any
+    const permissions = u['https://example.com/permissions'] || u.permissions || []
     return Array.isArray(permissions) && permissions.includes(permission)
   }, [user])
 
   const getUserMetadata = useCallback((key?: string) => {
     if (!user) return null
-    const metadata = user.user_metadata || {}
+    const u = user as any
+    const metadata = u.user_metadata || {}
     return key ? (metadata as any)[key] : metadata
   }, [user])
 
   const getAppMetadata = useCallback((key?: string) => {
     if (!user) return null
-    const metadata = user.app_metadata || {}
+    const u = user as any
+    const metadata = u.app_metadata || {}
     return key ? (metadata as any)[key] : metadata
   }, [user])
 
