@@ -2,8 +2,6 @@ backend:
   name: git-gateway
   branch: main
 
-site_url: "https://ar-alphaya-jewellery.netlify.app"
-display_url: "https://ar-alphaya-jewellery.netlify.app"
 
 logo_url: "/images/BRAND.svg"
 
@@ -22,42 +20,60 @@ media_library:
 collections:
   - name: "products"
     label: "Products"
-    folder: "content/products"
+    folder: "public/products"
     create: true
+    format: "json"
+    extension: "json"
     slug: "{{slug}}"
+    summary: "{{name}} — Rs. {{price}}"
+    sortable_fields: ["name", "price", "createdAt", "updatedAt"]
+    view_filters:
+      - { label: "Featured", field: "featured", pattern: true }
+      - { label: "In Stock", field: "inStock", pattern: true }
     fields:
-      - { label: "Title", name: "title", widget: "string" }
+      - { label: "ID", name: "productId", widget: "string", required: false }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
-      - { label: "Price", name: "price", widget: "number" }
-      - { label: "Image", name: "image", widget: "image" }
-      - { label: "Category", name: "category", widget: "select", options: ["Rings", "Necklaces", "Bracelets", "Earrings"] }
-      - { label: "Published", name: "published", widget: "boolean", default: true }
-
-  - name: "pages"
-    label: "Pages"
-    files:
-      - file: "content/pages/about.md"
-        label: "About Page"
-        name: "about"
+      - { label: "Price (LKR)", name: "price", widget: "number", value_type: "int", min: 0, step: 1 }
+      - { label: "Currency", name: "currency", widget: "string", required: false, default: "LKR" }
+      - label: "Images (Uploadcare)"
+        name: "images"
+        widget: "list"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Body", name: "body", widget: "markdown" }
-
-      - file: "content/pages/contact.md"
-        label: "Contact Page"
-        name: "contact"
+          - { label: "Image", name: "image", widget: "image" }
+      - { label: "Category", name: "category", widget: "string", default: "rings" }
+      - { label: "SKU", name: "sku", widget: "string", required: false }
+      - label: "Materials"
+        name: "materials"
+        widget: "list"
+        required: false
+        field: { label: "Material", name: "material", widget: "string" }
+      - label: "Sizes"
+        name: "sizes"
+        widget: "list"
+        required: false
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "blog"
-    label: "Blog"
-    folder: "content/blog"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Featured Image", name: "thumbnail", widget: "image" }
-      - { label: "Body", name: "body", widget: "markdown" }
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - label: "Gemstones"
+        name: "gemstones"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+          - { label: "Price Adjustment", name: "priceAdjustment", widget: "number", required: false }
+          - { label: "Description", name: "description", widget: "string", required: false }
+          - { label: "Available", name: "available", widget: "boolean", required: false, default: true }
+      - { label: "Weight (g)", name: "weight", widget: "number", required: false }
+      - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
+      - { label: "In Stock", name: "inStock", widget: "boolean", default: true }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Created At", name: "createdAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
