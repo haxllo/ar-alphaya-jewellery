@@ -1,21 +1,86 @@
 backend:
   name: git-gateway
-  repo: haxllo/ar-alphaya-jewellery # The repository name
   branch: main
 
-media_folder: "images/uploads"
+site_url: "https://ar-alphaya-jewellery.netlify.app"
+display_url: "https://ar-alphaya-jewellery.netlify.app"
+
+logo_url: "/images/BRAND.svg"
+
+# Uploadcare media library
+media_library:
+  name: uploadcare
+  config:
+    publicKey: "16f6ff0a586efced40fc"
+    multiple: true
+    preferBlob: true
+
+# With Uploadcare, media_folder is not used for storage, but Decap CMS requires it.
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog" # Used in the UI
-    folder: "products/blog" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    fields: # The fields for each document, usually in front matter
-      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Featured Image", name: "thumbnail", widget: "image" }
-      - { label: "Rating (scale of 1-5)", name: "rating", widget: "number" }
-      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: "public/images/products"
+    create: true
+    extension: "json"
+    slug: "{{slug}}"
+    summary: "{{name}} — Rs. {{price}}"
+    sortable_fields: ["name", "price", "createdAt", "updatedAt"]
+    view_filters:
+      - label: "Featured"
+        field: "featured"
+        pattern: true
+      - label: "In Stock"
+        field: "inStock"
+        pattern: true
+    fields:
+      - { label: "ID", name: "productId", widget: "string", required: false, hint: "Auto if empty" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "kebab-case unique" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Price (LKR)", name: "price", widget: "number", value_type: "int", min: 0, step: 1 }
+      - { label: "Currency", name: "currency", widget: "string", required: false, default: "LKR" }
+      - label: "Images (Uploadcare)"
+        name: "images"
+        widget: "list"
+        summary: "{{fields.image}}"
+        fields:
+          - { label: "Image URL", name: "image", widget: "string", hint: "Uploadcare CDN URL or path" }
+      - { label: "Category", name: "category", widget: "string", default: "rings" }
+      - { label: "SKU", name: "sku", widget: "string", required: false }
+      - label: "Materials"
+        name: "materials"
+        widget: "list"
+        required: false
+        field: { label: "Material", name: "material", widget: "string" }
+      - label: "Sizes"
+        name: "sizes"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - label: "Gemstones"
+        name: "gemstones"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+          - { label: "Price Adjustment", name: "priceAdjustment", widget: "number", required: false }
+          - { label: "Description", name: "description", widget: "string", required: false }
+          - { label: "Available", name: "available", widget: "boolean", required: false, default: true }
+      - { label: "Weight (g)", name: "weight", widget: "number", required: false }
+      - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
+      - { label: "In Stock", name: "inStock", widget: "boolean", default: true }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Created At", name: "createdAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
