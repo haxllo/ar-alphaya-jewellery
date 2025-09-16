@@ -1,0 +1,21 @@
+{
+  "name": "Gold Chain Necklace",
+  "slug": "gold-chain-necklace",
+  "price": 120000,
+  "currency": "LKR",
+  "category": "necklaces",
+  "description": "Beautiful 18k gold chain necklace with intricate link design. A versatile piece that complements any outfit.",
+  "images": [
+    "/images/placeholders/placeholder-3.jpg"
+  ],
+  "sku": "NECK-001",
+  "materials": ["18k Gold"],
+  "weight": "5.8g",
+  "dimensions": "45cm length",
+  "sizes": ["45cm"],
+  "gemstones": [],
+  "inStock": true,
+  "featured": false,
+  "tags": ["gold", "chain", "versatile", "classic"],
+  "createdAt": "2024-01-17T09:15:00Z"
+}

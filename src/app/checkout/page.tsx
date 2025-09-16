@@ -1,22 +1,21 @@
 'use client'
 
-  // Add more properties if your items have them
-import type { CartItem } from '@/types/product'
 import { useState, useEffect } from 'react'
-import { UserProviderProps, useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import Link from 'next/link'
 
 type PaymentMethod = 'payhere' | 'bank_transfer'
 
-
 function CheckoutPage() {
   // Temporarily disable Auth0 until properly configured
-  const { user, error, isLoading } = useUser()
-
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
   
-  const items = useCartStore((state) => state.items) as CartItem[]
+  const items = useCartStore((state) => state.items)
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   

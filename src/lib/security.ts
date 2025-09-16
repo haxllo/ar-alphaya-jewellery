@@ -52,15 +52,24 @@ export function generateCSP(nonce: string): string {
 
 // Security headers with dynamic CSP
 export function getSecurityHeaders(nonce: string) {
-  return {
+  // Use Netlify's CSP defined in netlify.toml as the single source of truth.
+  // To avoid conflicting/double CSP headers in production, we DO NOT emit CSP here when running on Netlify.
+  const headers: Record<string, string> = {
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
     'X-XSS-Protection': '1; mode=block',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-    'Content-Security-Policy': generateCSP(nonce),
   };
+
+  // Only add CSP from middleware when NOT running on Netlify (e.g., local dev or other hosts).
+  // Netlify sets CSP via netlify.toml and should be the only CSP in production.
+  if (!process.env.NETLIFY) {
+    headers['Content-Security-Policy'] = generateCSP(nonce);
+  }
+
+  return headers;
 }
 
 // Apply security headers to response

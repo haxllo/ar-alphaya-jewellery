@@ -1,14 +1,15 @@
-"use client"
+'use client'
 
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import Link from 'next/link'
-import Image from 'next/image'// or the real hook
-
-
+import Image from 'next/image'
 
 function ProfilePage() {
   // Temporarily disable Auth0 until properly configured
-  const { user, error, isLoading } = useUser()
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
 
   if (isLoading) return (
     <div className="min-h-screen flex items-center justify-center">

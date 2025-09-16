@@ -10,10 +10,6 @@ import { useWishlistStore } from '@/lib/store/wishlist'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import CurrencySelector from '@/components/ui/CurrencySelector'
 
-
-
-
-
 const collections = [
   { handle: 'rings', title: 'Rings' },
   { handle: 'earrings', title: 'Earrings' },
@@ -23,7 +19,10 @@ const collections = [
 
 export default function Header() {
   // Temporarily disable Auth0 until properly configured
-  const { user, error, isLoading } = useUser()
+  // const { user, error, isLoading } = useUser()
+  const user = null
+  const error = null
+  const isLoading = false
   
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
