@@ -3,8 +3,14 @@ import Link from 'next/link'
 import { getProducts } from '@/lib/cms'
 import FeaturedProducts from './FeaturedProducts'
 
+export const revalidate = 60;
+
 export default async function Home() {
-  const products = (await getProducts()).slice(0, 8)
+  const productsAll = await getProducts()
+  const products = productsAll
+    .slice()
+    .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+    .slice(0, 8)
   return (
     <div className="min-h-screen">
       <section className="bg-gray-50 border-b border-gray-200">

@@ -1,4 +1,6 @@
 import { getProductBySlug, getProducts } from '@/lib/cms'
+
+export const revalidate = 60;
 import { notFound } from 'next/navigation'
 import ProductContent from './ProductContent'
 

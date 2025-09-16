@@ -21,6 +21,7 @@ collections:
   - name: "products"
     label: "Products"
     folder: "public/products"
+    identifier_field: "slug"
     create: true
     format: "json"
     extension: "json"
@@ -42,7 +43,15 @@ collections:
         widget: "list"
         fields:
           - { label: "Image", name: "image", widget: "image" }
-      - { label: "Category", name: "category", widget: "string", default: "rings" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Rings", value: "rings" }
+          - { label: "Earrings", value: "earrings" }
+          - { label: "Pendants", value: "pendants" }
+          - { label: "Bracelets & Bangles", value: "bracelets-bangles" }
+        default: "rings"
       - { label: "SKU", name: "sku", widget: "string", required: false }
       - label: "Materials"
         name: "materials"

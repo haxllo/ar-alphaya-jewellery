@@ -1,4 +1,6 @@
 import { getProductsByCategory, getProducts } from '@/lib/cms'
+
+export const revalidate = 60;
 import CollectionContent from './CollectionContent'
 
 export async function generateStaticParams() {
