@@ -178,9 +178,9 @@ class CurrencyService {
     await new Promise(resolve => setTimeout(resolve, 500))
     
     // In a real implementation:
-    // const response = await fetch(`https://api.exchangerate-api.com/v4/latest/LKR`)
-    // const data = await response.json()
-    // return data.rates
+    const response = await fetch(`https://api.exchangerate-api.com/v4/latest/LKR`)
+    const data = await response.json()
+    return data.rates
     
     // Return mock rates with some variation
     const variation = 0.02 // 2% variation
