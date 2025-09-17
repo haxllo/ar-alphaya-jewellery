@@ -3,20 +3,35 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { sendAbandonedCartEmail } from '@/lib/email/sender'
 
+type AbandonedCartItem = {
+  name: string
+  price: number
+  quantity: number
+  image?: string
+}
+
+type AbandonedCart = {
+  id: string
+  email: string
+  status: 'pending' | 'emailed' | string
+  items: AbandonedCartItem[]
+  emailedAt?: string
+}
+
 const DATA_DIR = path.join(process.cwd(), '.data')
 const DATA_FILE = path.join(DATA_DIR, 'abandoned-carts.json')
 
-async function readCarts() {
+async function readCarts(): Promise<AbandonedCart[]> {
   try {
     const raw = await fs.readFile(DATA_FILE, 'utf8')
     const json = JSON.parse(raw || '{}')
-    return Array.isArray(json.carts) ? json.carts : []
+    return Array.isArray(json.carts) ? (json.carts as AbandonedCart[]) : []
   } catch {
     return []
   }
 }
 
-async function writeCarts(carts: any[]) {
+async function writeCarts(carts: AbandonedCart[]) {
   await fs.mkdir(DATA_DIR, { recursive: true })
   const data = { carts }
   await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf8')
@@ -35,7 +50,7 @@ export async function POST(req: NextRequest) {
     }
 
     const carts = await readCarts()
-    const cart = carts.find(c => c.id === cartId)
+    const cart = carts.find((c: AbandonedCart) => c.id === cartId)
 
     if (!cart) {
       return NextResponse.json({ error: 'Cart not found' }, { status: 404 })
@@ -46,7 +61,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Format items for email
-    const emailItems = cart.items.map((item: any) => ({
+    const emailItems = cart.items.map((item: AbandonedCartItem) => ({
       name: item.name,
       price: `LKR ${item.price.toLocaleString()}`,
       quantity: item.quantity,

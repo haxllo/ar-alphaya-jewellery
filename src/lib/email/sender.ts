@@ -1,7 +1,11 @@
 import { Resend } from 'resend'
 import { renderAbandonedCartEmail } from './abandonedCartTemplate'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend(): Resend | null {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return null
+  return new Resend(apiKey)
+}
 
 export interface EmailOptions {
   to: string
@@ -11,7 +15,8 @@ export interface EmailOptions {
 }
 
 export async function sendEmail(options: EmailOptions) {
-  if (!process.env.RESEND_API_KEY) {
+  const resend = getResend()
+  if (!resend) {
     console.warn('RESEND_API_KEY not configured, email not sent')
     return { success: false, error: 'Email service not configured' }
   }

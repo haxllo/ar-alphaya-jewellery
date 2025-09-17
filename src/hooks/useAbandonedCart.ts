@@ -11,7 +11,7 @@ interface AbandonedCartOptions {
 export function useAbandonedCart(options: AbandonedCartOptions = {}) {
   const { email, delay = 30 * 60 * 1000 } = options // 30 minutes default
   const items = useCartStore((state) => state.items)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastActivityRef = useRef<number>(Date.now())
 
   const recordAbandonedCart = async () => {
@@ -24,11 +24,11 @@ export function useAbandonedCart(options: AbandonedCartOptions = {}) {
         body: JSON.stringify({
           email,
           items: items.map(item => ({
-            productId: item.product.id,
-            name: item.product.name,
-            price: item.product.price,
+            productId: item.productId,
+            name: item.name,
+            price: item.price,
             quantity: item.quantity,
-            image: item.product.images?.[0],
+            image: item.image,
           })),
         }),
       })
@@ -86,11 +86,11 @@ export function useAbandonedCart(options: AbandonedCartOptions = {}) {
         const data = JSON.stringify({
           email,
           items: items.map(item => ({
-            productId: item.product.id,
-            name: item.product.name,
-            price: item.product.price,
+            productId: item.productId,
+            name: item.name,
+            price: item.price,
             quantity: item.quantity,
-            image: item.product.images?.[0],
+            image: item.image,
           })),
         })
         

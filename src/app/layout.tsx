@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
 import NetlifyIdentityLoader from '@/components/layout/NetlifyIdentityLoader'
-import { UserProvider } from '@auth0/nextjs-auth0/client'
+import Providers from './providers'
 import AbandonedCartTracker from '@/components/AbandonedCartTracker'
 
 export default function RootLayout({
@@ -63,12 +63,12 @@ export default function RootLayout({
           }}
         />
         <NetlifyIdentityLoader />
-        {/* <UserProvider> */}
+        <Providers>
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
           <AbandonedCartTracker />
-        {/* </UserProvider> */}
+        </Providers>
       </body>
     </html>
   )

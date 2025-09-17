@@ -10,7 +10,7 @@ export default function AbandonedCartTracker() {
   const { user } = useUser()
   
   useAbandonedCart({
-    email: user?.email,
+    email: user?.email ?? undefined,
     delay: 30 * 60 * 1000, // 30 minutes
   })
 
