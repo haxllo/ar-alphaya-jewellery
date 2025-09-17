@@ -197,15 +197,14 @@ export default function Header() {
                 </div>
               </div>
             ) : (
-              <Link
-                href="/api/auth/login"
+              <button onClick={() => window.location.href = '/api/auth/login'}
                 className="relative text-gray-700 hover:text-black transition-colors p-2"
                 title="Sign In"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-              </Link>
+              </button>
             )}
             
             <Link href="/cart" className="relative text-gray-700 hover:text-black transition-colors">
@@ -331,15 +330,14 @@ export default function Header() {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center">
-                    <Link
-                      href="/api/auth/login"
+                    <button onClick={() => window.location.href = '/api/auth/login'}
                       className="flex items-center gap-2 text-center bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition-colors"
                     >
                       <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                       Sign In
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>

@@ -78,12 +78,12 @@ function AuthErrorContent() {
         </div>
 
         <div className="space-y-4">
-          <Link
+          <a
             href="/api/auth/login"
             className="w-full inline-flex items-center justify-center px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
           >
             Try Signing In Again
-          </Link>
+          </a>
           
           <Link
             href="/"
