@@ -1,4 +1,4 @@
-# Set default behavior to automatically normalize line endings
+# Auto-detect text files and normalize line endings
 * text=auto
 
 # Force LF for shell scripts (Linux-friendly)
@@ -7,7 +7,33 @@
 # Force CRLF for Windows batch files
 *.bat text eol=crlf
 
-# Optional: keep JSON, JS, CSS, etc. normalized
-*.json text
+# JavaScript / TypeScript / JSON / CSS / HTML / Markdown
 *.js   text
+*.jsx  text
+*.ts   text
+*.tsx  text
+*.json text
 *.css  text
+*.scss text
+*.html text
+*.md   text
+
+# Images and binaries – do not modify
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.svg  binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.eot  binary
+*.ttf  binary
+
+# Ignore IDE / OS specific files
+*.swp   text
+*.swo   text
+.DS_Store binary
+Thumbs.db binary
+
