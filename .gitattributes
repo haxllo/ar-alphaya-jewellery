@@ -1,0 +1,13 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Force LF for shell scripts (Linux-friendly)
+*.sh text eol=lf
+
+# Force CRLF for Windows batch files
+*.bat text eol=crlf
+
+# Optional: keep JSON, JS, CSS, etc. normalized
+*.json text
+*.js   text
+*.css  text
