@@ -230,6 +230,21 @@ class CurrencyService {
   }
 
   /**
+   * Get last rates update time from cache (ms epoch) or null
+   */
+  static getLastRatesUpdate(): number | null {
+    if (typeof window === 'undefined') return null
+    try {
+      const cacheStr = localStorage.getItem(this.RATES_CACHE_KEY)
+      if (!cacheStr) return null
+      const { timestamp } = JSON.parse(cacheStr)
+      return typeof timestamp === 'number' ? timestamp : null
+    } catch {
+      return null
+    }
+  }
+
+  /**
    * Load cached exchange rates if they're still fresh
    */
   static loadCachedRates(): boolean {

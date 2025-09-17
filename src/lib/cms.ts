@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { validateProduct } from '@/lib/validation';
 
 // Types
 export interface Size {
@@ -140,7 +141,26 @@ async function readProducts(): Promise<Product[]> {
       productFiles.map(async f => readJsonFile<any>(path.join(PRODUCTS_DIR, f.name)))
     );
 
-    const products: Product[] = (productsRaw.filter(Boolean) as any[]).map((raw, index) => {
+    const products: Product[] = (productsRaw.filter(Boolean) as any[])
+      .filter((raw, i) => {
+        // Basic validation; skip invalid entries but continue
+        try {
+          // Map raw into a minimal object for validation (before normalization)
+          validateProduct({
+            name: raw?.name ?? '',
+            slug: raw?.slug ?? '',
+            price: Number(raw?.price ?? 0),
+            currency: (raw?.currency ?? 'LKR'),
+            category: raw?.category ?? 'rings',
+            images: Array.isArray(raw?.images) && raw.images.length > 0 ? raw.images.map((x:any)=> (typeof x === 'string' ? x : (typeof x?.image === 'string' ? x.image : ''))).filter(Boolean) : ['https://via.placeholder.com/600'],
+          })
+          return true
+        } catch (e) {
+          console.warn('Skipping invalid product entry at index', i)
+          return false
+        }
+      })
+      .map((raw, index) => {
       // Normalize images to an array of URL strings
       const coerceToString = (value: any): string | undefined => {
         if (!value) return undefined;

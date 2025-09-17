@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import type { Product, CartItem } from '@/types/product'
+import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useCartStore } from '@/lib/store/cart'
 
 interface ProductRecommendationsProps {
@@ -21,6 +22,7 @@ export default function ProductRecommendations({
 }: ProductRecommendationsProps) {
   const addItem = useCartStore((state) => state.addItem)
   const [addingItems, setAddingItems] = useState<Set<string>>(new Set())
+  const { formatPrice } = usePriceFormatter()
 
   const handleQuickAdd = async (product: Product) => {
     if (addingItems.has(product.id)) return
@@ -88,7 +90,7 @@ export default function ProductRecommendations({
                   {product.name}
                 </h3>
                 <p className="text-gray-600 text-sm mb-2">
-                  Rs {product.price.toLocaleString()}
+                  {formatPrice(product.price)}
                 </p>
                 {product.materials && product.materials.length > 0 && (
                   <p className="text-xs text-gray-500 capitalize">

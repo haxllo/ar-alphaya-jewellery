@@ -119,6 +119,20 @@ export default function CurrencySelector({
                 <GlobeAltIcon className={`h-3 w-3 ${isLoading ? 'animate-spin' : ''}`} />
                 {isLoading ? 'Updating rates...' : 'Update rates'}
               </button>
+              {typeof window !== 'undefined' && (
+                <div className="mt-1 text-[10px] text-gray-400">
+                  Last updated:{' '}
+                  {(() => {
+                    const ts = CurrencyService.getLastRatesUpdate();
+                    if (!ts) return '—';
+                    try {
+                      return new Date(ts).toLocaleString();
+                    } catch {
+                      return '—';
+                    }
+                  })()}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -182,6 +196,20 @@ export default function CurrencySelector({
                 <GlobeAltIcon className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                 {isLoading ? 'Updating exchange rates...' : 'Update exchange rates'}
               </button>
+              {typeof window !== 'undefined' && (
+                <div className="mt-1 text-[10px] text-gray-400">
+                  Last updated:{' '}
+                  {(() => {
+                    const ts = CurrencyService.getLastRatesUpdate();
+                    if (!ts) return '—';
+                    try {
+                      return new Date(ts).toLocaleString();
+                    } catch {
+                      return '—';
+                    }
+                  })()}
+                </div>
+              )}
             </div>
           </div>
         </div>
