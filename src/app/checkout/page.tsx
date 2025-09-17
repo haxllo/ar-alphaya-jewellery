@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
@@ -18,6 +19,7 @@ function CheckoutPage() {
   const items = useCartStore((state) => state.items)
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
+  const { formatPrice } = usePriceFormatter()
   
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
@@ -46,7 +48,7 @@ function CheckoutPage() {
   }, [user])
   
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
-  const shipping = 1000 // Fixed shipping cost
+  const shipping = 1000 // Fixed shipping cost (LKR)
   const total = subtotal + shipping
   
   if (isLoading) {
@@ -280,7 +282,7 @@ function CheckoutPage() {
               disabled={isProcessing}
               className="w-full bg-black text-white py-3 px-6 rounded hover:bg-neutral-800 disabled:bg-neutral-400"
             >
-              {isProcessing ? 'Processing...' : `Place Order - Rs ${total.toLocaleString()}`}
+              {isProcessing ? 'Processing...' : `Place Order - ${formatPrice(total)}`}
             </button>
           </form>
         </div>
@@ -298,7 +300,7 @@ function CheckoutPage() {
                     {item.size && <div className="text-neutral-500">Size: {item.size}</div>}
                     <div className="text-neutral-500">Qty: {item.quantity}</div>
                   </div>
-                  <div>Rs {(item.price * item.quantity).toLocaleString()}</div>
+                  <div>{formatPrice(item.price * item.quantity)}</div>
                 </div>
               ))}
             </div>
@@ -306,15 +308,15 @@ function CheckoutPage() {
             <div className="border-t pt-4 space-y-2">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>Rs {subtotal.toLocaleString()}</span>
+                <span>{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
-                <span>Rs {shipping.toLocaleString()}</span>
+                <span>{formatPrice(shipping)}</span>
               </div>
               <div className="flex justify-between text-lg font-semibold border-t pt-2">
                 <span>Total</span>
-                <span>Rs {total.toLocaleString()}</span>
+                <span>{formatPrice(total)}</span>
               </div>
             </div>
             

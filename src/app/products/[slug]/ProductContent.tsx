@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import AddToCart from '@/components/cart/add-to-cart'
@@ -40,12 +41,15 @@ export default function ProductContent({ product }: ProductContentProps) {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div>
-            <div className="aspect-square bg-primary-100 rounded-lg mb-4 overflow-hidden">
+            <div className="aspect-square bg-primary-100 rounded-lg mb-4 overflow-hidden relative">
               {product.images && product.images[0] ? (
-                <img 
-                  src={product.images[0]} 
+                <Image 
+                  src={product.images[0]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                  priority
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-primary-400">
@@ -55,11 +59,14 @@ export default function ProductContent({ product }: ProductContentProps) {
             </div>
             <div className="grid grid-cols-4 gap-2">
               {product.images?.slice(1, 5).map((image, index) => (
-                <div key={index} className="aspect-square bg-primary-100 rounded-lg overflow-hidden">
-                  <img 
-                    src={image} 
+                <div key={index} className="aspect-square bg-primary-100 rounded-lg overflow-hidden relative">
+                  <Image 
+                    src={image}
                     alt={`${product.name} view ${index + 2}`}
-                    className="w-full h-full object-cover cursor-pointer hover:opacity-75 transition-opacity"
+                    fill
+                    className="object-cover cursor-pointer hover:opacity-75 transition-opacity"
+                    sizes="(max-width: 768px) 25vw, (max-width: 1024px) 25vw, 25vw"
+                    loading="lazy"
                   />
                 </div>
               )) || [1, 2, 3].map((i) => (
