@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     shortcut: '/images/LOGO1.png',
     apple: '/images/LOGO2.png',
   },
+  manifest: '/manifest.webmanifest',
+};
+
+export const viewport = {
+  themeColor: '#121212',
 };
 
 import Header from '@/components/layout/header'
@@ -32,13 +37,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full flex flex-col`}>
+      <head>
+        <meta name="theme-color" content="#121212" />
         <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="apple-touch-icon" href="/images/LOGO1.png" />
         <script
           dangerouslySetInnerHTML={{
             __html: `if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); }); }`,
           }}
         />
+      </head>
+      <body className={`${inter.className} h-full flex flex-col`}>
         {/* Organization JSON-LD */}
         <script
           type="application/ld+json"

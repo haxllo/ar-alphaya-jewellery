@@ -7,10 +7,13 @@ import { useRouter } from 'next/navigation'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
-import SizeGuideModal from '@/components/product/SizeGuideModal'
-import CurrencySelector from '@/components/ui/CurrencySelector'
+import dynamic from 'next/dynamic'
 import { useCurrency } from '@/hooks/useCurrency'
-import SearchSuggestions from '@/components/search/SearchSuggestions'
+
+// Lazy load heavy components to improve TTI
+const SizeGuideModal = dynamic(() => import('@/components/product/SizeGuideModal'), { ssr: false })
+const CurrencySelector = dynamic(() => import('@/components/ui/CurrencySelector'), { ssr: false })
+const SearchSuggestions = dynamic(() => import('@/components/search/SearchSuggestions'), { ssr: false })
 
 const collections = [
   { handle: 'rings', title: 'Rings' },
@@ -99,9 +102,14 @@ export default function Header() {
           <nav className="hidden md:flex items-center justify-center space-x-8">
             <Link href="/" className="text-sm text-gray-700 hover:text-black transition-colors">Home</Link>
             <div className="relative group">
-              <button className="text-sm text-gray-700 hover:text-black transition-colors flex items-center">
+              <button 
+                className="text-sm text-gray-700 hover:text-black transition-colors flex items-center"
+                aria-label="Jewelry collections menu"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
                 Jewelry
-                <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -121,6 +129,7 @@ export default function Header() {
             <button
               onClick={() => setShowSizeGuide(true)}
               className="text-sm text-gray-700 hover:text-black transition-colors"
+              aria-label="Open size guide modal"
             >
               Size Guide
             </button>
@@ -136,12 +145,12 @@ export default function Header() {
             </div>
 
             {/* Wishlist */}
-            <Link href="/wishlist" className="relative text-gray-700 hover:text-black transition-colors">
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <Link href="/wishlist" className="relative text-gray-700 hover:text-black transition-colors" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
               {wishlistCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
                   {wishlistCount}
                 </span>
               )}
@@ -151,11 +160,12 @@ export default function Header() {
             <div className="relative hidden md:block">
               <button
                 type="button"
-                aria-label="Search"
+                aria-label="Search products"
+                aria-expanded={showSearch}
                 className="relative text-gray-700 hover:text-black transition-colors p-2"
                 onClick={() => setShowSearch((v) => !v)}
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
@@ -227,6 +237,7 @@ export default function Header() {
                             setSuggestions([])
                             setHighlighted(-1)
                           }}
+                          aria-label={`View all results for ${searchQuery}`}
                         >
                           View all results for "{searchQuery}"
                         </button>
@@ -252,7 +263,12 @@ export default function Header() {
               <div className="w-8 h-8 animate-pulse bg-gray-200 rounded-full"></div>
             ) : user ? (
               <div className="relative group">
-                <button className="flex items-center gap-2 text-sm text-gray-700 hover:text-black transition-colors">
+                <button 
+                  className="flex items-center gap-2 text-sm text-gray-700 hover:text-black transition-colors"
+                  aria-label="User account menu"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                >
                   <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
                     {(user as any)?.picture ? (
                       <Image 
@@ -266,13 +282,13 @@ export default function Header() {
                         className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     )}
                   </div>
                   <span className="hidden md:inline">{(user as any)?.name || (user as any)?.email}</span>
-                  <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -298,22 +314,24 @@ export default function Header() {
                 </div>
               </div>
             ) : (
-              <button onClick={() => window.location.href = '/api/auth/login'}
+              <button 
+                onClick={() => window.location.href = '/api/auth/login'}
                 className="relative text-gray-700 hover:text-black transition-colors p-2"
+                aria-label="Sign in to your account"
                 title="Sign In"
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </button>
             )}
             
-            <Link href="/cart" className="relative text-gray-700 hover:text-black transition-colors">
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <Link href="/cart" className="relative text-gray-700 hover:text-black transition-colors" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H19M7 13v8a2 2 0 002 2h6a2 2 0 002-2v-8" />
               </svg>
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
                   {cartCount}
                 </span>
               )}
@@ -323,8 +341,10 @@ export default function Header() {
             <button
               className="md:hidden text-gray-700 hover:text-black transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Open mobile menu"
+              aria-expanded={mobileMenuOpen}
             >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -381,6 +401,7 @@ export default function Header() {
               <button
                 onClick={() => setShowSizeGuide(true)}
                 className="block text-sm text-gray-700 hover:text-black transition-colors text-left"
+                aria-label="Open size guide modal"
               >
                 Size Guide
               </button>

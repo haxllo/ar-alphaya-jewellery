@@ -73,9 +73,10 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
         disabled={!canAddToCart() || isAdding}
         className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
           canAddToCart() && !isAdding
-            ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-xl'
-            : 'bg-primary-200 text-primary-400 cursor-not-allowed'
+            ? 'bg-black hover:bg-gray-800 text-white shadow-lg hover:shadow-xl'
+            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
         }`}
+        aria-label={isAdding ? 'Adding to cart...' : 'Add to cart'}
       >
         <ShoppingCart className={`h-5 w-5 ${isAdding ? 'animate-bounce' : ''}`} />
         {isAdding ? (

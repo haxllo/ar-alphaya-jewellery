@@ -56,6 +56,16 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   
+  // Performance optimizations
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@auth0/nextjs-auth0'],
+  },
+  
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
   // Environment variables available on client
   env: {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

@@ -60,6 +60,7 @@ export default function Footer() {
                 <button
                   onClick={() => setShowSizeGuide(true)}
                   className="text-gray-300 hover:text-white transition-colors text-left"
+                  aria-label="Open size guide modal"
                 >
                   Size Guide
                 </button>

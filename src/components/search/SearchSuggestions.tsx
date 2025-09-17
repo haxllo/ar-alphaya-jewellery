@@ -74,12 +74,13 @@ export default function SearchSuggestions({ query, onSelect, onClose }: SearchSu
               onSelect(suggestion.text)
               onClose()
             }}
-            className="w-full flex items-center gap-3 p-3 text-left hover:bg-primary-50 rounded-lg transition-colors"
+            className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+            aria-label={`Search for ${suggestion.text}`}
           >
             {getIcon(suggestion.type)}
             <div className="flex-1">
-              <div className="font-medium text-primary-800">{suggestion.text}</div>
-              <div className="text-sm text-primary-500 flex items-center gap-2">
+              <div className="font-medium text-gray-900">{suggestion.text}</div>
+              <div className="text-sm text-gray-600 flex items-center gap-2">
                 <span>{getTypeLabel(suggestion.type)}</span>
                 {suggestion.count && (
                   <>
