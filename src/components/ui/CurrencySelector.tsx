@@ -17,12 +17,12 @@ const CURRENCY_TO_COUNTRY: Record<string, string> = {
   SGD: 'sg',
 };
 
-function getFlagUrl(currencyCode: string, size: 16 | 24 = 16): string | null {
+// FlagCDN supports width x height: 16x12, 24x18, 32x24, 48x36, 64x48, 128x96
+function getFlagUrl(currencyCode: string, width: 16 | 24 | 32 | 48 | 64 | 128 = 24): string | null {
   const country = CURRENCY_TO_COUNTRY[currencyCode];
   if (!country) return null;
-  // Use flagcdn PNGs (fast and widely cached)
-  const height = size; // 16 or 24 high; width is auto based on aspect ratio
-  return `https://flagcdn.com/${height}x${Math.round((height * 4) / 3)}/${country}.png`;
+  const height = Math.round(width * 0.75); // 4:3 aspect ratio
+  return `https://flagcdn.com/${width}x${height}/${country}.png`;
 }
 
 interface CurrencySelectorProps {
