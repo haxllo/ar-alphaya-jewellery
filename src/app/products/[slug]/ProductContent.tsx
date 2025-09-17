@@ -38,6 +38,22 @@ export default function ProductContent({ product }: ProductContentProps) {
   return (
     <>
       <main className="mx-auto max-w-7xl px-6 py-12">
+        {/* Breadcrumbs */}
+        <nav className="text-sm text-primary-600 mb-4" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2">
+            <li>
+              <a href="/" className="hover:underline">Home</a>
+            </li>
+            <li aria-hidden>›</li>
+            <li>
+              <a href={`/collections/${product.category}`} className="capitalize hover:underline">
+                {product.category.replace('-', ' ')}
+              </a>
+            </li>
+            <li aria-hidden>›</li>
+            <li className="text-primary-800" aria-current="page">{product.name}</li>
+          </ol>
+        </nav>
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div>

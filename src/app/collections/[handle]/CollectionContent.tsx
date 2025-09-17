@@ -15,6 +15,16 @@ export default function CollectionContent({ handle, products }: CollectionConten
   
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
+      {/* Breadcrumbs */}
+      <nav className="text-sm text-gray-600 mb-4" aria-label="Breadcrumb">
+        <ol className="flex items-center gap-2">
+          <li>
+            <a href="/" className="hover:underline">Home</a>
+          </li>
+          <li aria-hidden>›</li>
+          <li className="capitalize" aria-current="page">{handle.replace('-', ' ')}</li>
+        </ol>
+      </nav>
       <h1 className="text-3xl font-semibold mb-6 capitalize text-black">{handle.replace('-', ' ')}</h1>
       {products.length === 0 ? (
         <p className="text-gray-600">No products found in this collection yet.</p>

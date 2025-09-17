@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import CurrencySelector from '@/components/ui/CurrencySelector'
+import { useCurrency } from '@/hooks/useCurrency'
 
 const collections = [
   { handle: 'rings', title: 'Rings' },
@@ -29,6 +30,9 @@ export default function Header() {
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [suggestions, setSuggestions] = useState<Array<{ name: string; slug: string; price: number }>>([])
+  const [loadingSuggest, setLoadingSuggest] = useState(false)
+  const { formatPrice } = useCurrency()
   const items = useCartStore((state) => state.items)
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0)
   const wishlistCount = useWishlistStore((state) => state.getItemCount())
@@ -39,8 +43,36 @@ export default function Header() {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
       setSearchQuery('')
       setShowSearch(false)
+      setSuggestions([])
     }
   }
+
+  const fetchSuggestions = useCallback(async (q: string) => {
+    if (!q || q.length < 2) {
+      setSuggestions([])
+      return
+    }
+    try {
+      setLoadingSuggest(true)
+      const params = new URLSearchParams({ q, limit: '5', sortBy: 'createdAt', sortOrder: 'desc' })
+      const res = await fetch(`/api/search?${params.toString()}`)
+      if (!res.ok) throw new Error('search failed')
+      const data = await res.json()
+      const prods = data?.data?.products || []
+      setSuggestions(prods.map((p: any) => ({ name: p.name, slug: p.slug, price: p.price })))
+    } catch {
+      setSuggestions([])
+    } finally {
+      setLoadingSuggest(false)
+    }
+  }, [])
+
+  // Debounce suggestions
+  useEffect(() => {
+    if (!showSearch) return
+    const id = setTimeout(() => fetchSuggestions(searchQuery.trim()), 200)
+    return () => clearTimeout(id)
+  }, [searchQuery, showSearch, fetchSuggestions])
 
   return (
     <header className="border-b border-border bg-white sticky top-0 z-50 shadow-sm">
@@ -142,6 +174,28 @@ export default function Header() {
                       </div>
                     </div>
                   </form>
+                  {/* Autocomplete suggestions */}
+                  {(loadingSuggest || suggestions.length > 0) && (
+                    <div className="mt-2 border-t border-gray-100 pt-2 max-h-64 overflow-y-auto">
+                      {loadingSuggest && (
+                        <div className="px-2 py-2 text-xs text-gray-500">Searching…</div>
+                      )}
+                      {suggestions.map((s) => (
+                        <Link
+                          key={s.slug}
+                          href={`/products/${s.slug}`}
+                          className="flex items-center justify-between px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded"
+                          onClick={() => setShowSearch(false)}
+                        >
+                          <span className="truncate mr-2">{s.name}</span>
+                          <span className="text-xs text-gray-500 whitespace-nowrap">{formatPrice(s.price)}</span>
+                        </Link>
+                      ))}
+                      {!loadingSuggest && suggestions.length === 0 && searchQuery.length >= 2 && (
+                        <div className="px-2 py-2 text-xs text-gray-500">No results</div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

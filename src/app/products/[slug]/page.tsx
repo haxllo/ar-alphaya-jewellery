@@ -17,7 +17,37 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     return notFound()
   }
 
-  return <ProductContent product={product} />
+  // Product JSON-LD structured data
+  const jsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description || undefined,
+    image: product.images && product.images.length > 0 ? product.images : undefined,
+    sku: product.sku || undefined,
+    brand: {
+      '@type': 'Brand',
+      name: 'AR Alphaya Jewellery',
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: product.currency || 'LKR',
+      price: product.price,
+      availability: product.inStock === false ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products/${product.slug}`,
+    },
+  }
+
+  return (
+    <>
+      {/* JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProductContent product={product} />
+    </>
+  )
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
