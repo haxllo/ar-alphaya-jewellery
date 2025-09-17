@@ -20,7 +20,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Single source of truth for CSP in production (Netlify). Middleware will not emit CSP when NETLIFY env is present.
-    Content-Security-Policy = "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' https: data: blob: https://ucarecdn.com https://flagcdn.com; connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com; font-src 'self' https: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';"
+    Content-Security-Policy = "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' https: data: blob: https://ucarecdn.com https://flagcdn.com; connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com; font-src 'self' https: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';"
 
 [[headers]]
   for = "/admin/*"
