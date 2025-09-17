@@ -7,7 +7,7 @@ import CartItemComponent from '@/components/cart/cart-item'
 import CartSummary from '@/components/cart/cart-summary'
 import ProductRecommendations from '@/components/recommendations/ProductRecommendations'
 import type { CartItem } from '@/types/product'
-import { RecommendationService } from '@/lib/recommendations'
+// Removed mock recommendations; fetch real products via API
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items) as CartItem[]
@@ -23,10 +23,30 @@ export default function CartPage() {
   const taxEstimate = Math.round(subtotal * 0.02) // 2% tax estimate  
   const total = subtotal + shippingEstimate + taxEstimate
 
-  // Smart product recommendations based on cart contents
-  const suggestedProducts = items.length > 0 
-    ? RecommendationService.getFrequentlyBoughtTogether(items, 3)
-    : RecommendationService.getTrendingProducts(3)
+  // Smart product recommendations: fetch real products from API (featured as a simple default)
+  const [suggestedProducts, setSuggestedProducts] = useState<any[]>([])
+
+  async function fetchRecommendations() {
+    try {
+      const res = await fetch('/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ featured: true, limit: 3 })
+      })
+      if (!res.ok) return setSuggestedProducts([])
+      const json = await res.json()
+      const products = json?.data?.products || []
+      setSuggestedProducts(products)
+    } catch {
+      setSuggestedProducts([])
+    }
+  }
+
+  // Load on mount and when cart empties/fills to keep simple
+  // In future, derive categories from items and query accordingly
+  useState(() => {
+    fetchRecommendations()
+  })
 
   const handleQuantityChange = (productId: string, newQuantity: number, size?: string) => {
     if (newQuantity <= 0) {
