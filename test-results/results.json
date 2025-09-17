@@ -1,0 +1,422 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\playwright.config.ts",
+    "rootDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\global-setup.ts",
+    "globalTeardown": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "line",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/test-results/**",
+          "**/playwright-report/**"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/test-results/**",
+          "**/playwright-report/**"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/test-results/**",
+          "**/playwright-report/**"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/test-results/**",
+          "**/playwright-report/**"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "C:/Users/mshab/Documents/ar-alphaya-jewellery/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/test-results/**",
+          "**/playwright-report/**"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 6,
+    "webServer": {
+      "command": "npm run build && npm run start",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "env": {
+        "NODE_ENV": "test",
+        "AUTH0_SECRET": "test-secret-for-playwright-only",
+        "AUTH0_BASE_URL": "http://localhost:3000",
+        "AUTH0_ISSUER_BASE_URL": "https://test.auth0.com",
+        "AUTH0_CLIENT_ID": "test-client-id",
+        "AUTH0_CLIENT_SECRET": "test-client-secret",
+        "AUTH0_COOKIE_SECURE": "false",
+        "NEXT_PUBLIC_PAYHERE_SANDBOX": "true",
+        "NEXT_PUBLIC_PAYHERE_MERCHANT_ID": "test-merchant-id"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "smoke.spec.ts",
+      "file": "smoke.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "home renders and shows featured",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1310,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-17T12:03:04.004Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4219922fea2e2bd3c691-ac51580fb83fd098c976",
+          "file": "smoke.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "PDP renders",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "timedOut",
+                  "duration": 31761,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts",
+                        "column": 32,
+                        "line": 11
+                      },
+                      "message": "Error: locator.getAttribute: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('a[href^=\"/products/\"]').first()\u001b[22m\n\n\n\u001b[0m \u001b[90m  9 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m 10 |\u001b[39m   \u001b[36mconst\u001b[39m firstLink \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'a[href^=\"/products/\"]'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m   \u001b[36mconst\u001b[39m href \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstLink\u001b[33m.\u001b[39mgetAttribute(\u001b[32m'href'\u001b[39m)\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m   expect(href)\u001b[33m.\u001b[39mtoBeTruthy()\n \u001b[90m 13 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(href\u001b[33m!\u001b[39m)\n \u001b[90m 14 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'heading'\u001b[39m)\u001b[33m.\u001b[39mfirst())\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m\n\u001b[2m    at C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts:11:32\u001b[22m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-17T12:03:04.020Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-PDP-renders-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-PDP-renders-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-PDP-renders-chromium\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "4219922fea2e2bd3c691-7eb7ae37cf4d21e8a168",
+          "file": "smoke.spec.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "add to cart and view cart",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "timedOut",
+                  "duration": 31759,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts",
+                        "column": 32,
+                        "line": 20
+                      },
+                      "message": "Error: locator.getAttribute: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('a[href^=\"/products/\"]').first()\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m 19 |\u001b[39m   \u001b[36mconst\u001b[39m firstLink \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'a[href^=\"/products/\"]'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m   \u001b[36mconst\u001b[39m href \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstLink\u001b[33m.\u001b[39mgetAttribute(\u001b[32m'href'\u001b[39m)\n \u001b[90m    |\u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m   expect(href)\u001b[33m.\u001b[39mtoBeTruthy()\n \u001b[90m 22 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(href\u001b[33m!\u001b[39m)\n \u001b[90m 23 |\u001b[39m   \u001b[36mconst\u001b[39m addBtn \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/add to cart/i\u001b[39m })\u001b[0m\n\u001b[2m    at C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts:20:32\u001b[22m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-17T12:03:04.003Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-add-to-cart-and-view-cart-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-add-to-cart-and-view-cart-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-add-to-cart-and-view-cart-chromium\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "4219922fea2e2bd3c691-bcff720dff999df9874d",
+          "file": "smoke.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "checkout page renders",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "failed",
+                  "duration": 16820,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText('Checkout')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Checkout')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText('Checkout')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Checkout')\u001b[22m\n\n    at C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts:33:44",
+                    "location": {
+                      "file": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts",
+                      "column": 44,
+                      "line": 33
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 31 |\u001b[39m test(\u001b[32m'checkout page renders'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 32 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/checkout'\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Checkout'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 34 |\u001b[39m })\n \u001b[90m 35 |\u001b[39m\n \u001b[90m 36 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts",
+                        "column": 44,
+                        "line": 33
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText('Checkout')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Checkout')\u001b[22m\n\n\n\u001b[0m \u001b[90m 31 |\u001b[39m test(\u001b[32m'checkout page renders'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 32 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/checkout'\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Checkout'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 34 |\u001b[39m })\n \u001b[90m 35 |\u001b[39m\n \u001b[90m 36 |\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts:33:44\u001b[22m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-17T12:03:04.002Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-checkout-page-renders-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\test-results\\smoke-checkout-page-renders-chromium\\video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\mshab\\Documents\\ar-alphaya-jewellery\\e2e\\smoke.spec.ts",
+                    "column": 44,
+                    "line": 33
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "4219922fea2e2bd3c691-224272e772faadae6eba",
+          "file": "smoke.spec.ts",
+          "line": 31,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-17T12:02:40.691Z",
+    "duration": 56227.994,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

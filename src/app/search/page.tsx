@@ -195,6 +195,9 @@ function SearchContent() {
         <p className="text-gray-600">
           {pagination.total} {pagination.total === 1 ? 'product' : 'products'} found
         </p>
+
+        {/* Active Filter Chips */}
+        <ActiveFilterChips filters={filters} onChange={updateFilters} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -224,21 +227,104 @@ function SearchContent() {
             </>
           ) : (
             <div className="text-center py-12">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">No products found</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">No products found</h2>
               <p className="text-gray-600 mb-6">
-                Try adjusting your search criteria or browse all products
+                {filters.query ? (
+                  <>No results for "{filters.query}". Try different keywords or remove some filters.</>
+                ) : (
+                  <>Try adjusting your filters or browse popular collections.</>
+                )}
               </p>
-              <button
-                onClick={() => updateFilters({})}
-                className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors"
-              >
-                Clear Filters
-              </button>
+
+              <div className="flex flex-col items-center gap-3 mb-8">
+                <button
+                  onClick={() => updateFilters({ query: '', category: undefined, minPrice: undefined, maxPrice: undefined, materials: undefined, inStock: undefined, featured: undefined, tags: undefined })}
+                  className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors"
+                >
+                  Clear all filters
+                </button>
+                <button
+                  onClick={() => updateFilters({ query: '', page: 1 })}
+                  className="text-sm text-gray-700 hover:text-black underline"
+                >
+                  Reset search
+                </button>
+              </div>
+
+              <div className="max-w-xl mx-auto">
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Popular collections</h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {(['rings','earrings','pendants','bracelets-bangles'] as const).map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => updateFilters({ category: c })}
+                      className="px-3 py-1.5 border border-gray-300 rounded-full text-sm text-gray-700 hover:bg-gray-50 capitalize"
+                    >
+                      {c.replace('-', ' ')}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
       </div>
     </main>
+  )
+}
+
+function ActiveFilterChips({
+  filters,
+  onChange
+}: {
+  filters: SearchFilters
+  onChange: (partial: Partial<SearchFilters>) => void
+}) {
+  const chips: Array<{ label: string; onClear: () => void }> = []
+
+  if (filters.query) chips.push({ label: `Query: ${filters.query}`, onClear: () => onChange({ query: '' }) })
+  if (filters.category) chips.push({ label: `Category: ${filters.category.replace('-', ' ')}`, onClear: () => onChange({ category: undefined }) })
+  if (filters.minPrice !== undefined) chips.push({ label: `Min: ${filters.minPrice}`, onClear: () => onChange({ minPrice: undefined }) })
+  if (filters.maxPrice !== undefined) chips.push({ label: `Max: ${filters.maxPrice}`, onClear: () => onChange({ maxPrice: undefined }) })
+  if (filters.materials && filters.materials.length > 0) filters.materials.forEach((m, i) => chips.push({ label: `Material: ${m}`, onClear: () => onChange({ materials: filters.materials!.filter((_, idx) => idx !== i) }) }))
+  if (filters.tags && filters.tags.length > 0) filters.tags.forEach((t, i) => chips.push({ label: `Tag: ${t}`, onClear: () => onChange({ tags: filters.tags!.filter((_, idx) => idx !== i) }) }))
+  if (filters.inStock !== undefined) chips.push({ label: filters.inStock ? 'In stock' : 'Out of stock', onClear: () => onChange({ inStock: undefined }) })
+  if (filters.featured !== undefined) chips.push({ label: filters.featured ? 'Featured' : 'Not featured', onClear: () => onChange({ featured: undefined }) })
+
+  if (chips.length === 0) return null
+
+  const clearAll = () => onChange({
+    query: '',
+    category: undefined,
+    minPrice: undefined,
+    maxPrice: undefined,
+    materials: undefined,
+    inStock: undefined,
+    featured: undefined,
+    tags: undefined,
+  })
+
+  return (
+    <div className="mt-3 flex flex-wrap gap-2 items-center">
+      {chips.map((chip, idx) => (
+        <button
+          key={idx}
+          onClick={chip.onClear}
+          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-gray-300 text-gray-700 hover:bg-gray-50"
+        >
+          <span>{chip.label}</span>
+          <svg className="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      ))}
+      <button
+        onClick={clearAll}
+        className="ml-2 text-sm text-gray-600 hover:text-black underline"
+      >
+        Clear all
+      </button>
+    </div>
   )
 }
 

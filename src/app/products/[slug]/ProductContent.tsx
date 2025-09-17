@@ -1,25 +1,28 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { usePriceFormatter } from '@/hooks/useCurrency'
+import { CurrencyService } from '@/lib/currency'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import AddToCart from '@/components/cart/add-to-cart'
 import SizeGuideModal from '@/components/ui/SizeGuideModal'
 import ShippingReturnsModal from '@/components/ui/ShippingReturnsModal'
 import type { Product, GemstoneOption } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
+import ProductRecommendations from '@/components/recommendations/ProductRecommendations'
 
 interface ProductContentProps {
   product: Product
 }
 
 export default function ProductContent({ product }: ProductContentProps) {
-  const { formatPrice } = usePriceFormatter()
+  const { formatPrice, currentCurrency } = usePriceFormatter() as any
   const [selectedSize, setSelectedSize] = useState<string>('')
   const [selectedGemstone, setSelectedGemstone] = useState<GemstoneOption | null>(null)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const [showShippingReturns, setShowShippingReturns] = useState(false)
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([] as unknown as Product[])
 
   // Calculate final price with gemstone adjustment
   const getFinalPrice = () => {
@@ -101,7 +104,7 @@ export default function ProductContent({ product }: ProductContentProps) {
                 <WishlistButton product={product} size="lg" />
               </div>
               
-              <div className="text-3xl font-bold text-primary-700 mb-4">
+              <div className="text-3xl font-bold text-primary-700 mb-1">
                 {formatPrice(getFinalPrice())}
                 {selectedGemstone && selectedGemstone.priceAdjustment !== undefined && selectedGemstone.priceAdjustment !== 0 && (
                   <span className="text-lg text-primary-500 ml-2">
@@ -109,6 +112,14 @@ export default function ProductContent({ product }: ProductContentProps) {
                   </span>
                 )}
               </div>
+              {currentCurrency?.code !== 'LKR' && (
+                <div className="text-sm text-primary-600 mb-4">
+                  Base price: <span className="font-medium">LKR {getFinalPrice().toLocaleString()}</span>
+                  <span className="ml-2 text-primary-500">
+                    (rates updated {(() => { const ts = CurrencyService.getLastRatesUpdate?.(); if (!ts) return 'recently'; try { return new Date(ts).toLocaleString(); } catch { return 'recently'; } })()})
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Product Description */}
@@ -264,6 +275,16 @@ export default function ProductContent({ product }: ProductContentProps) {
         </div>
       </main>
 
+      {/* Related products */}
+      <section className="mx-auto max-w-7xl px-6">
+        <RelatedProducts product={product} onLoad={setRelatedProducts} />
+        <ProductRecommendations
+          products={relatedProducts as any}
+          title="You might also like"
+          className="mt-4"
+        />
+      </section>
+
       {/* Modals */}
       <SizeGuideModal 
         isOpen={showSizeGuide} 
@@ -275,6 +296,58 @@ export default function ProductContent({ product }: ProductContentProps) {
         isOpen={showShippingReturns} 
         onClose={() => setShowShippingReturns(false)}
       />
+
+      {/* Sticky Add-to-Cart (mobile) */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-primary-200 p-3 md:hidden z-40">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-sm text-primary-600 truncate">{product.name}</div>
+            <div className="text-lg font-semibold text-primary-800">{formatPrice(getFinalPrice())}</div>
+          </div>
+          <button
+            onClick={() => {
+              const btn = document.querySelector('button:where([type="button"])') as HTMLButtonElement | null
+              btn?.click()
+            }}
+            className="flex-1 bg-primary-700 text-white py-3 px-4 rounded-lg font-medium hover:bg-primary-800 text-center"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
     </>
   )
+}
+
+function RelatedProducts({ product, onLoad }: { product: Product; onLoad: (p: Product[]) => void }) {
+  useEffect(() => {
+    let ignore = false
+    async function run() {
+      try {
+        const body: any = {
+          category: product.category,
+          limit: 4,
+          sortBy: 'createdAt',
+          sortOrder: 'desc',
+        }
+        if (product.tags && product.tags.length > 0) {
+          body.tags = product.tags.slice(0, 3)
+        }
+        const res = await fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+        if (!res.ok) return onLoad([] as any)
+        const json = await res.json()
+        const prods = (json?.data?.products || []).filter((p: any) => p.slug !== product.slug)
+        if (!ignore) onLoad(prods)
+      } catch {
+        if (!ignore) onLoad([] as any)
+      }
+    }
+    run()
+    return () => { ignore = true }
+  }, [product, onLoad])
+  return null
 }

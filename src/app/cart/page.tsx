@@ -23,19 +23,26 @@ export default function CartPage() {
   const taxEstimate = Math.round(subtotal * 0.02) // 2% tax estimate  
   const total = subtotal + shippingEstimate + taxEstimate
 
-  // Smart product recommendations: fetch real products from API (featured as a simple default)
+  // Smart product recommendations: fetch contextual products from API (category/tags from cart)
   const [suggestedProducts, setSuggestedProducts] = useState<any[]>([])
 
   async function fetchRecommendations() {
     try {
+      // Derive categories and tags from items if possible
+      const categories = Array.from(new Set(items.map((i) => (i as any).category).filter(Boolean)))
+      const tags = Array.from(new Set(items.flatMap((i) => ((i as any).tags || []))).values())
+      const body: any = { limit: 4, sortBy: 'createdAt', sortOrder: 'desc' }
+      if (categories.length > 0) body.category = categories[0]
+      if (tags.length > 0) body.tags = tags.slice(0, 3)
+
       const res = await fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ featured: true, limit: 3 })
+        body: JSON.stringify(body)
       })
       if (!res.ok) return setSuggestedProducts([])
       const json = await res.json()
-      const products = json?.data?.products || []
+      const products = (json?.data?.products || []).filter((p: any) => !items.some((i) => i.slug === p.slug))
       setSuggestedProducts(products)
     } catch {
       setSuggestedProducts([])

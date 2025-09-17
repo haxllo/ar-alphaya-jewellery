@@ -38,12 +38,42 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     },
   }
 
+  // BreadcrumbList JSON-LD
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: (product.category || '').replace('-', ' '),
+        item: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/collections/${product.category}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.name,
+        item: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products/${product.slug}`,
+      },
+    ],
+  }
+
   return (
     <>
       {/* JSON-LD structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <ProductContent product={product} />
     </>

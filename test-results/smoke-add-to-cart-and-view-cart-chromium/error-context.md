@@ -1,0 +1,119 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "AR Alphaya Jewellery Logo AR Alphaya" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "AR Alphaya Jewellery Logo" [ref=e6] [cursor=pointer]
+        - generic [ref=e7] [cursor=pointer]: AR Alphaya
+      - navigation [ref=e8]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - button "Jewelry" [ref=e11] [cursor=pointer]:
+          - text: Jewelry
+          - img [ref=e12] [cursor=pointer]
+        - link "About" [ref=e14] [cursor=pointer]:
+          - /url: /about/
+        - button "Size Guide" [ref=e15] [cursor=pointer]
+        - link "Contact" [ref=e16] [cursor=pointer]:
+          - /url: /contact/
+      - generic [ref=e17]:
+        - button "Rs LKR" [ref=e20] [cursor=pointer]:
+          - generic [ref=e21] [cursor=pointer]: Rs
+          - generic [ref=e22] [cursor=pointer]: LKR
+          - img [ref=e23] [cursor=pointer]
+        - link [ref=e25] [cursor=pointer]:
+          - /url: /wishlist/
+          - img [ref=e26] [cursor=pointer]
+        - button "Search" [ref=e29] [cursor=pointer]:
+          - img [ref=e30] [cursor=pointer]
+        - button "Sign In" [ref=e32] [cursor=pointer]:
+          - img [ref=e33] [cursor=pointer]
+        - link [ref=e35] [cursor=pointer]:
+          - /url: /cart/
+          - img [ref=e36] [cursor=pointer]
+  - main [ref=e38]:
+    - generic [ref=e39]:
+      - generic [ref=e41]:
+        - img "AR Alphaya Jewellery Brand" [ref=e43]
+        - generic [ref=e44]:
+          - paragraph [ref=e45]: Fine jewelry and custom pieces. Discover rings, earrings, pendants and more.
+          - generic [ref=e46]:
+            - link "Shop Rings" [ref=e47] [cursor=pointer]:
+              - /url: /collections/rings/
+            - link "Shop Earrings" [ref=e48] [cursor=pointer]:
+              - /url: /collections/earrings/
+      - heading "Featured" [level=2] [ref=e50]
+  - contentinfo [ref=e51]:
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e55]:
+            - img "AR Alphaya Jewellery Logo" [ref=e56]
+            - generic [ref=e57]: AR Alphaya
+          - paragraph [ref=e58]: Fine jewelry and custom pieces crafted with precision and passion.
+          - generic [ref=e59]:
+            - link "Facebook" [ref=e60] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e61] [cursor=pointer]: Facebook
+              - img [ref=e62] [cursor=pointer]
+            - link "Instagram" [ref=e64] [cursor=pointer]:
+              - /url: https://www.instagram.com/ar_alphaya_jewellery/
+              - generic [ref=e65] [cursor=pointer]: Instagram
+              - img [ref=e66] [cursor=pointer]
+            - link "WhatsApp" [ref=e68] [cursor=pointer]:
+              - /url: https://wa.me/94774293406
+              - generic [ref=e69] [cursor=pointer]: WhatsApp
+              - img [ref=e70] [cursor=pointer]
+        - generic [ref=e72]:
+          - heading "Quick Links" [level=3] [ref=e73]
+          - list [ref=e74]:
+            - listitem [ref=e75]:
+              - link "Home" [ref=e76] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e77]:
+              - link "About" [ref=e78] [cursor=pointer]:
+                - /url: /about/
+            - listitem [ref=e79]:
+              - button "Size Guide" [ref=e80] [cursor=pointer]
+            - listitem [ref=e81]:
+              - link "Contact" [ref=e82] [cursor=pointer]:
+                - /url: /contact/
+            - listitem [ref=e83]:
+              - link "Cart" [ref=e84] [cursor=pointer]:
+                - /url: /cart/
+        - generic [ref=e85]:
+          - heading "Collections" [level=3] [ref=e86]
+          - list [ref=e87]:
+            - listitem [ref=e88]:
+              - link "Rings" [ref=e89] [cursor=pointer]:
+                - /url: /collections/rings/
+            - listitem [ref=e90]:
+              - link "Earrings" [ref=e91] [cursor=pointer]:
+                - /url: /collections/earrings/
+            - listitem [ref=e92]:
+              - link "Pendants" [ref=e93] [cursor=pointer]:
+                - /url: /collections/pendants/
+            - listitem [ref=e94]:
+              - link "Bracelets & Bangles" [ref=e95] [cursor=pointer]:
+                - /url: /collections/bracelets-bangles/
+        - generic [ref=e96]:
+          - heading "Contact" [level=3] [ref=e97]
+          - generic [ref=e98]:
+            - paragraph [ref=e99]: "Email: aralphayajewellery@gmail.com"
+            - paragraph [ref=e100]: "Phone: +94 77 429 3406"
+            - paragraph [ref=e101]: "Address: 143/5 Rainbow park, Temple road, Kengalla - 20186"
+      - generic [ref=e103]:
+        - link "Privacy Policy" [ref=e104] [cursor=pointer]:
+          - /url: /privacy/
+        - link "Terms of Service" [ref=e105] [cursor=pointer]:
+          - /url: /terms/
+        - link "Shipping Policy" [ref=e106] [cursor=pointer]:
+          - /url: /shipping/
+        - link "Return Policy" [ref=e107] [cursor=pointer]:
+          - /url: /returns/
+      - paragraph [ref=e109]: © 2025 AR Alphaya Jewellery. All rights reserved.
+  - alert [ref=e110]
+```

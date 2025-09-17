@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
       getPriceRange()
     ]);
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       data: {
         products: searchResult.products,
@@ -61,6 +61,9 @@ export async function GET(request: NextRequest) {
         }
       }
     });
+    // Cache for 60s at the edge with stale-while-revalidate of 5m
+    res.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return res
 
   } catch (error) {
     console.error('Search API error:', error);
@@ -95,7 +98,7 @@ export async function POST(request: NextRequest) {
       getPriceRange()
     ]);
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       data: {
         products: searchResult.products,
@@ -113,6 +116,8 @@ export async function POST(request: NextRequest) {
         }
       }
     });
+    res.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return res
 
   } catch (error) {
     console.error('Search API error:', error);

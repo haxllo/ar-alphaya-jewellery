@@ -4,6 +4,7 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)
 }
 
+// Deprecated: use usePriceFormatter hook instead
 export function formatPrice(price: number, currency = 'LKR'): string {
   return `${currency} ${price.toLocaleString()}`
 }
