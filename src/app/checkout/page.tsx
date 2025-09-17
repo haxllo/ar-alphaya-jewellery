@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { usePriceFormatter } from '@/hooks/useCurrency'
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
+import { useUser } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import Link from 'next/link'
@@ -11,16 +11,34 @@ import { trackEvent } from '@/lib/analytics'
 type PaymentMethod = 'payhere' | 'bank_transfer'
 
 function CheckoutPage() {
-  // Temporarily disable Auth0 until properly configured
-  // const { user, error, isLoading } = useUser()
-  const user: any = null
-  const error: any = null
-  const isLoading = false
+  const { user, error, isLoading } = useUser()
   
   const items = useCartStore((state) => state.items)
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const { formatPrice } = usePriceFormatter()
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-primary-700">Loading…</div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-6">
+        <div className="max-w-md w-full border border-primary-200 rounded-lg p-6 text-center">
+          <h1 className="text-2xl font-bold text-primary-800 mb-2">Sign in to continue</h1>
+          <p className="text-primary-600 mb-4">You need to be logged in to proceed to checkout.</p>
+          <a
+            href={`/api/auth/login?returnTo=${encodeURIComponent('/checkout')}`}
+            className="inline-block bg-primary-700 hover:bg-primary-800 text-white px-5 py-2 rounded-lg font-medium"
+          >
+            Sign in with Auth0
+          </a>
+        </div>
+      </div>
+    )
+  }
   
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',

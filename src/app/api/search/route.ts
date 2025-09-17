@@ -61,8 +61,8 @@ export async function GET(request: NextRequest) {
         }
       }
     });
-    // Cache for 60s at the edge with stale-while-revalidate of 5m
-    res.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    // Cache for 5m at the edge with long SWR for repeat queries
+    res.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600')
     return res
 
   } catch (error) {
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
         }
       }
     });
-    res.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    res.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600')
     return res
 
   } catch (error) {

@@ -9,7 +9,9 @@ export async function GET(_request: NextRequest) {
     const now = Date.now()
 
     if (cachedRates && (now - cachedRates.timestamp) < CACHE_TTL_MS) {
-      return NextResponse.json({ base: 'LKR', rates: cachedRates.data, cached: true })
+      const res = NextResponse.json({ base: 'LKR', rates: cachedRates.data, cached: true })
+      res.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600')
+      return res
     }
 
     // Use exchangerate.host (free, no key) with base LKR
@@ -25,7 +27,9 @@ export async function GET(_request: NextRequest) {
 
     cachedRates = { data: rates, timestamp: now }
 
-    return NextResponse.json({ base: 'LKR', rates, cached: false })
+    const res = NextResponse.json({ base: 'LKR', rates, cached: false })
+    res.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600')
+    return res
   } catch (error) {
     console.error('Rates API error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

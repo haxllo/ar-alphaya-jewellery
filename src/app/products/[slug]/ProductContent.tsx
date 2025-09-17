@@ -2,15 +2,21 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import { CurrencyService } from '@/lib/currency'
-import WishlistButton from '@/components/wishlist/WishlistButton'
-import AddToCart from '@/components/cart/add-to-cart'
-import SizeGuideModal from '@/components/ui/SizeGuideModal'
-import ShippingReturnsModal from '@/components/ui/ShippingReturnsModal'
+// Lazy-load below-the-fold/heavy components to improve TTI
+const WishlistButton = dynamic(() => import('@/components/wishlist/WishlistButton'), { ssr: false })
+const AddToCart = dynamic(() => import('@/components/cart/add-to-cart'), { ssr: false })
+const SizeGuideModal = dynamic(() => import('@/components/ui/SizeGuideModal'), { ssr: false })
+const ShippingReturnsModal = dynamic(() => import('@/components/ui/ShippingReturnsModal'), { ssr: false })
 import type { Product, GemstoneOption } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
-import ProductRecommendations from '@/components/recommendations/ProductRecommendations'
+const ProductRecommendations = dynamic(
+  () => import('@/components/recommendations/ProductRecommendations'),
+  { ssr: false }
+)
+const CompareButton = dynamic(() => import('@/components/product/CompareButton'), { ssr: false })
 import { useRouter } from 'next/navigation'
 
 interface ProductContentProps {
@@ -104,7 +110,10 @@ export default function ProductContent({ product }: ProductContentProps) {
                 <div>
                   <h1 className="text-3xl font-bold text-primary-800 mb-2">{product.name}</h1>
                 </div>
-                <WishlistButton product={product} size="lg" />
+                <div className="flex items-center gap-3">
+                  <CompareButton product={product} size="md" />
+                  <WishlistButton product={product} size="lg" />
+                </div>
               </div>
               
               <div className="text-3xl font-bold text-primary-700 mb-1">

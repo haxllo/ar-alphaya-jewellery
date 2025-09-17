@@ -23,6 +23,7 @@ import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
 import NetlifyIdentityLoader from '@/components/layout/NetlifyIdentityLoader'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
+import AbandonedCartTracker from '@/components/AbandonedCartTracker'
 
 export default function RootLayout({
   children,
@@ -32,6 +33,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full flex flex-col`}>
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); }); }`,
+          }}
+        />
         {/* Organization JSON-LD */}
         <script
           type="application/ld+json"
@@ -60,6 +67,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <AbandonedCartTracker />
         {/* </UserProvider> */}
       </body>
     </html>

@@ -8,6 +8,7 @@ import { SearchFilters, Product } from '@/lib/cms'
 import SearchFiltersComponent from '@/components/search/SearchFilters'
 import ProductGrid from '@/components/search/ProductGrid'
 import SearchPagination from '@/components/search/SearchPagination'
+import AdvancedSorting from '@/components/search/AdvancedSorting'
 import { useCurrency } from '@/hooks/useCurrency'
 
 interface SearchResult {
@@ -212,6 +213,18 @@ function SearchContent() {
 
         {/* Results */}
         <div className="lg:col-span-3">
+          {products.length > 0 && (
+            <div className="mb-6 flex items-center justify-between">
+              <div className="text-sm text-primary-600">
+                {searchResult.pagination.total} products found
+              </div>
+              <AdvancedSorting
+                sortBy={filters.sortBy ?? 'createdAt'}
+                sortOrder={(filters.sortOrder as 'asc' | 'desc') ?? 'desc'}
+                onSortChange={(sortBy, sortOrder) => updateFilters({ sortBy, sortOrder })}
+              />
+            </div>
+          )}
           {products.length > 0 ? (
             <>
               <ProductGrid products={products} />

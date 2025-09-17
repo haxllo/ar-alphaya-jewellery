@@ -10,6 +10,7 @@ import { useWishlistStore } from '@/lib/store/wishlist'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import CurrencySelector from '@/components/ui/CurrencySelector'
 import { useCurrency } from '@/hooks/useCurrency'
+import SearchSuggestions from '@/components/search/SearchSuggestions'
 
 const collections = [
   { handle: 'rings', title: 'Rings' },
@@ -230,6 +231,16 @@ export default function Header() {
                           View all results for "{searchQuery}"
                         </button>
                       )}
+                      <SearchSuggestions
+                        query={searchQuery}
+                        onSelect={(suggestion) => {
+                          setSearchQuery(suggestion)
+                          router.push(`/search?q=${encodeURIComponent(suggestion)}`)
+                          setShowSearch(false)
+                          setSuggestions([])
+                        }}
+                        onClose={() => setShowSearch(false)}
+                      />
                     </div>
                   )}
                 </div>
