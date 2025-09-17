@@ -1,9 +1,16 @@
 import Image from "next/image";
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getProducts } from '@/lib/cms'
 import FeaturedProducts from './FeaturedProducts'
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
 
 export default async function Home() {
   const productsAll = await getProducts()

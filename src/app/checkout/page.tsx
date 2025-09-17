@@ -6,6 +6,7 @@ import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/product/SizeGuideModal'
 import Link from 'next/link'
+import { trackEvent } from '@/lib/analytics'
 
 type PaymentMethod = 'payhere' | 'bank_transfer'
 
@@ -33,6 +34,8 @@ function CheckoutPage() {
   
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('payhere')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
   
   // Pre-fill form with user data
   useEffect(() => {
@@ -82,6 +85,19 @@ function CheckoutPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomerInfo(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    setTouched(prev => ({ ...prev, [e.target.name]: true }))
+  }
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {}
+    if (!customerInfo.firstName.trim()) newErrors.firstName = 'First name is required'
+    if (!customerInfo.lastName.trim()) newErrors.lastName = 'Last name is required'
+    if (!customerInfo.email.trim()) newErrors.email = 'Email is required'
+    if (!customerInfo.phone.trim()) newErrors.phone = 'Phone is required'
+    if (!customerInfo.address.trim()) newErrors.address = 'Address is required'
+    if (!customerInfo.city.trim()) newErrors.city = 'City is required'
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handlePayHerePayment = async () => {
@@ -118,18 +134,33 @@ function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validate()) return
     
     if (paymentMethod === 'payhere') {
+      try { trackEvent('begin_checkout', { total, items: items.length }) } catch {}
       await handlePayHerePayment()
     } else if (paymentMethod === 'bank_transfer') {
       alert('Bank transfer instructions will be sent to your email.')
+      try { trackEvent('purchase', { total, method: 'bank_transfer' }) } catch {}
       clear()
     }
   }
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="text-3xl font-semibold mb-8">Checkout</h1>
+      <h1 className="text-3xl font-semibold mb-6">Checkout</h1>
+      {/* Progress Indicator */}
+      <ol className="flex items-center mb-8 text-sm" aria-label="Progress">
+        {['Cart','Information','Payment'].map((step, idx) => (
+          <li key={step} className="flex-1 flex items-center">
+            <div className={`flex items-center gap-2 ${idx <= 1 ? 'text-black' : 'text-gray-400'}`}>
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${idx <= 1 ? 'bg-black text-white' : 'bg-gray-200 text-gray-600'}`}>{idx+1}</span>
+              <span className="hidden sm:inline">{step}</span>
+            </div>
+            {idx < 2 && <div className={`flex-1 h-px mx-2 ${idx < 1 ? 'bg-black' : 'bg-gray-200'}`}></div>}
+          </li>
+        ))}
+      </ol>
       
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Customer Information */}
@@ -149,8 +180,13 @@ function CheckoutPage() {
                     required
                     value={customerInfo.firstName}
                     onChange={handleInputChange}
-                    className="w-full border rounded px-3 py-2"
+                    onBlur={validate}
+                    aria-invalid={!!errors.firstName}
+                    className={`w-full border rounded px-3 py-2 ${errors.firstName && touched.firstName ? 'border-red-400' : 'border-gray-300'}`}
                   />
+                  {errors.firstName && touched.firstName && (
+                    <p className="mt-1 text-xs text-red-600">{errors.firstName}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium mb-1">
@@ -163,8 +199,13 @@ function CheckoutPage() {
                     required
                     value={customerInfo.lastName}
                     onChange={handleInputChange}
-                    className="w-full border rounded px-3 py-2"
+                    onBlur={validate}
+                    aria-invalid={!!errors.lastName}
+                    className={`w-full border rounded px-3 py-2 ${errors.lastName && touched.lastName ? 'border-red-400' : 'border-gray-300'}`}
                   />
+                  {errors.lastName && touched.lastName && (
+                    <p className="mt-1 text-xs text-red-600">{errors.lastName}</p>
+                  )}
                 </div>
               </div>
               
@@ -180,8 +221,13 @@ function CheckoutPage() {
                     required
                     value={customerInfo.email}
                     onChange={handleInputChange}
-                    className="w-full border rounded px-3 py-2"
+                    onBlur={validate}
+                    aria-invalid={!!errors.email}
+                    className={`w-full border rounded px-3 py-2 ${errors.email && touched.email ? 'border-red-400' : 'border-gray-300'}`}
                   />
+                  {errors.email && touched.email && (
+                    <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium mb-1">
@@ -194,8 +240,13 @@ function CheckoutPage() {
                     required
                     value={customerInfo.phone}
                     onChange={handleInputChange}
-                    className="w-full border rounded px-3 py-2"
+                    onBlur={validate}
+                    aria-invalid={!!errors.phone}
+                    className={`w-full border rounded px-3 py-2 ${errors.phone && touched.phone ? 'border-red-400' : 'border-gray-300'}`}
                   />
+                  {errors.phone && touched.phone && (
+                    <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -214,8 +265,13 @@ function CheckoutPage() {
                     required
                     value={customerInfo.address}
                     onChange={handleInputChange}
-                    className="w-full border rounded px-3 py-2"
+                    onBlur={validate}
+                    aria-invalid={!!errors.address}
+                    className={`w-full border rounded px-3 py-2 ${errors.address && touched.address ? 'border-red-400' : 'border-gray-300'}`}
                   />
+                  {errors.address && touched.address && (
+                    <p className="mt-1 text-xs text-red-600">{errors.address}</p>
+                  )}
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
@@ -229,8 +285,13 @@ function CheckoutPage() {
                       required
                       value={customerInfo.city}
                       onChange={handleInputChange}
-                      className="w-full border rounded px-3 py-2"
+                      onBlur={validate}
+                      aria-invalid={!!errors.city}
+                      className={`w-full border rounded px-3 py-2 ${errors.city && touched.city ? 'border-red-400' : 'border-gray-300'}`}
                     />
+                    {errors.city && touched.city && (
+                      <p className="mt-1 text-xs text-red-600">{errors.city}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="postalCode" className="block text-sm font-medium mb-1">

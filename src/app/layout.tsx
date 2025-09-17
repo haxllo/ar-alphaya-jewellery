@@ -32,6 +32,29 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full flex flex-col`}>
+        {/* Organization JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'AR Alphaya Jewellery',
+              url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+              logo: '/images/BRAND.svg',
+              sameAs: [
+                'https://www.instagram.com/ar_alphaya_jewellery/'
+              ],
+              contactPoint: [{
+                '@type': 'ContactPoint',
+                telephone: '+94-77-429-3406',
+                contactType: 'customer support',
+                areaServed: 'LK',
+                availableLanguage: ['en']
+              }]
+            })
+          }}
+        />
         <NetlifyIdentityLoader />
         {/* <UserProvider> */}
           <Header />

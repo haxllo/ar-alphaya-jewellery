@@ -33,6 +33,7 @@ export default function Header() {
   const [suggestions, setSuggestions] = useState<Array<{ name: string; slug: string; price: number }>>([])
   const [loadingSuggest, setLoadingSuggest] = useState(false)
   const { formatPrice } = useCurrency()
+  const [highlighted, setHighlighted] = useState<number>(-1)
   const items = useCartStore((state) => state.items)
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0)
   const wishlistCount = useWishlistStore((state) => state.getItemCount())
@@ -50,6 +51,7 @@ export default function Header() {
   const fetchSuggestions = useCallback(async (q: string) => {
     if (!q || q.length < 2) {
       setSuggestions([])
+      setHighlighted(-1)
       return
     }
     try {
@@ -60,6 +62,7 @@ export default function Header() {
       const data = await res.json()
       const prods = data?.data?.products || []
       setSuggestions(prods.map((p: any) => ({ name: p.name, slug: p.slug, price: p.price })))
+      setHighlighted(-1)
     } catch {
       setSuggestions([])
     } finally {
@@ -157,7 +160,26 @@ export default function Header() {
               </button>
               {showSearch && (
                 <div className="absolute right-0 top-full mt-2 w-72 bg-white border border-gray-200 shadow-lg rounded-lg p-2 z-50">
-                  <form onSubmit={handleSearch}>
+                  <form
+                    onSubmit={handleSearch}
+                    onKeyDown={(e) => {
+                      if (suggestions.length === 0) return
+                      if (e.key === 'ArrowDown') {
+                        e.preventDefault()
+                        setHighlighted((h) => (h + 1) % suggestions.length)
+                      } else if (e.key === 'ArrowUp') {
+                        e.preventDefault()
+                        setHighlighted((h) => (h <= 0 ? suggestions.length - 1 : h - 1))
+                      } else if (e.key === 'Enter' && highlighted >= 0) {
+                        e.preventDefault()
+                        const s = suggestions[highlighted]
+                        router.push(`/products/${s.slug}`)
+                        setShowSearch(false)
+                        setSuggestions([])
+                        setHighlighted(-1)
+                      }
+                    }}
+                  >
                     <div className="relative">
                       <input
                         autoFocus
@@ -180,11 +202,12 @@ export default function Header() {
                       {loadingSuggest && (
                         <div className="px-2 py-2 text-xs text-gray-500">Searching…</div>
                       )}
-                      {suggestions.map((s) => (
+                      {suggestions.map((s, idx) => (
                         <Link
                           key={s.slug}
                           href={`/products/${s.slug}`}
-                          className="flex items-center justify-between px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded"
+                          className={`flex items-center justify-between px-2 py-2 text-sm rounded ${highlighted === idx ? 'bg-gray-100 text-black' : 'text-gray-700 hover:bg-gray-50'}`}
+                          onMouseEnter={() => setHighlighted(idx)}
                           onClick={() => setShowSearch(false)}
                         >
                           <span className="truncate mr-2">{s.name}</span>
@@ -193,6 +216,19 @@ export default function Header() {
                       ))}
                       {!loadingSuggest && suggestions.length === 0 && searchQuery.length >= 2 && (
                         <div className="px-2 py-2 text-xs text-gray-500">No results</div>
+                      )}
+                      {!loadingSuggest && suggestions.length > 0 && (
+                        <button
+                          className="w-full mt-1 text-xs text-gray-600 hover:text-black underline px-2 py-1 text-left"
+                          onClick={() => {
+                            router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+                            setShowSearch(false)
+                            setSuggestions([])
+                            setHighlighted(-1)
+                          }}
+                        >
+                          View all results for "{searchQuery}"
+                        </button>
                       )}
                     </div>
                   )}

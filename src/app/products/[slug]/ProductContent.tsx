@@ -11,6 +11,7 @@ import ShippingReturnsModal from '@/components/ui/ShippingReturnsModal'
 import type { Product, GemstoneOption } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
 import ProductRecommendations from '@/components/recommendations/ProductRecommendations'
+import { useRouter } from 'next/navigation'
 
 interface ProductContentProps {
   product: Product
@@ -23,6 +24,8 @@ export default function ProductContent({ product }: ProductContentProps) {
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const [showShippingReturns, setShowShippingReturns] = useState(false)
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([] as unknown as Product[])
+  const [waitlistEmail, setWaitlistEmail] = useState('')
+  const [waitlistStatus, setWaitlistStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   // Calculate final price with gemstone adjustment
   const getFinalPrice = () => {
@@ -234,6 +237,46 @@ export default function ProductContent({ product }: ProductContentProps) {
             {/* Action Buttons */}
             <div className="space-y-4">
               <AddToCart product={product} selectedSize={selectedSize} selectedGemstone={selectedGemstone} />
+              {!product.inStock && (
+                <div className="border border-primary-200 rounded-lg p-4">
+                  <div className="font-medium text-primary-800 mb-2">Out of stock — get notified</div>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="email"
+                      value={waitlistEmail}
+                      onChange={(e) => setWaitlistEmail(e.target.value)}
+                      placeholder="Your email"
+                      className="flex-1 border border-primary-300 rounded px-3 py-2 text-sm"
+                    />
+                    <button
+                      onClick={async () => {
+                        try {
+                          setWaitlistStatus('loading')
+                          const res = await fetch('/api/waitlist', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ productId: product.id, slug: product.slug, email: waitlistEmail })
+                          })
+                          if (!res.ok) throw new Error('Failed')
+                          setWaitlistStatus('success')
+                        } catch {
+                          setWaitlistStatus('error')
+                        }
+                      }}
+                      disabled={!waitlistEmail || waitlistStatus === 'loading'}
+                      className="bg-primary-700 text-white px-4 py-2 rounded text-sm font-medium disabled:opacity-60"
+                    >
+                      {waitlistStatus === 'loading' ? 'Please wait…' : 'Notify me'}
+                    </button>
+                  </div>
+                  {waitlistStatus === 'success' && (
+                    <div className="text-green-700 text-sm mt-2">We will email you when it’s back in stock.</div>
+                  )}
+                  {waitlistStatus === 'error' && (
+                    <div className="text-red-700 text-sm mt-2">Could not submit. Try again.</div>
+                  )}
+                </div>
+              )}
               
               <div className="flex flex-col sm:flex-row gap-3">
                 <a

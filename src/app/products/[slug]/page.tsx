@@ -1,4 +1,5 @@
 import { getProductBySlug, getProducts } from '@/lib/cms'
+import { ReviewsService } from '@/lib/reviews'
 import type { Metadata } from 'next'
 
 export const revalidate = 60;
@@ -18,7 +19,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   }
 
   // Product JSON-LD structured data
-  const jsonLd = {
+  const summary = ReviewsService.getReviewSummary(product.id)
+  const jsonLd: any = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
     name: product.name,
@@ -36,6 +38,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       availability: product.inStock === false ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
       url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products/${product.slug}`,
     },
+  }
+
+  if (summary.totalReviews > 0) {
+    jsonLd.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: summary.averageRating,
+      reviewCount: summary.totalReviews,
+    }
   }
 
   // BreadcrumbList JSON-LD
