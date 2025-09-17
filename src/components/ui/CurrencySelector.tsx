@@ -4,25 +4,12 @@ import { useState, useEffect } from 'react';
 import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Currency, SUPPORTED_CURRENCIES, CurrencyService } from '@/lib/currency';
 
-// Map currency code to ISO country code for flagcdn
-const CURRENCY_TO_COUNTRY: Record<string, string> = {
-  LKR: 'lk',
-  USD: 'us',
-  EUR: 'eu',
-  GBP: 'gb',
-  INR: 'in',
-  AUD: 'au',
-  CAD: 'ca',
-  JPY: 'jp',
-  SGD: 'sg',
-};
-
-// FlagCDN supports width x height: 16x12, 24x18, 32x24, 48x36, 64x48, 128x96
-function getFlagUrl(currencyCode: string, width: 16 | 24 | 32 | 48 | 64 | 128 = 24): string | null {
-  const country = CURRENCY_TO_COUNTRY[currencyCode];
-  if (!country) return null;
-  const height = Math.round(width * 0.75); // 4:3 aspect ratio
-  return `https://flagcdn.com/${width}x${height}/${country}.png`;
+function SymbolBadge({ symbol, code }: { symbol: string; code: string }) {
+  return (
+    <span className="inline-flex items-center justify-center w-5 h-5 rounded border border-gray-200 bg-white text-[11px] font-semibold text-gray-700">
+      {symbol || code}
+    </span>
+  );
 }
 
 interface CurrencySelectorProps {
@@ -97,23 +84,7 @@ export default function CurrencySelector({
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-1 px-2 py-1 text-sm hover:bg-gray-100 rounded transition-colors"
         >
-          <span className="inline-flex items-center justify-center w-5 h-5">
-            {getFlagUrl(currentCurrency.code, 24) ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={getFlagUrl(currentCurrency.code, 24) as string}
-                alt={currentCurrency.code}
-                className="h-5 w-auto rounded-sm"
-                loading="lazy"
-                onError={(e) => {
-                  const el = e.currentTarget as HTMLImageElement;
-                  el.style.display = 'none';
-                }}
-              />
-            ) : (
-              <span className="text-xs font-medium">{currentCurrency.code}</span>
-            )}
-          </span>
+          <SymbolBadge symbol={currentCurrency.symbol} code={currentCurrency.code} />
           <span className="font-medium">{currentCurrency.code}</span>
           <ChevronDownIcon className={`h-3 w-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
@@ -129,23 +100,7 @@ export default function CurrencySelector({
                     currentCurrency.code === currency.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
                   }`}
                 >
-                  <span className="inline-flex items-center justify-center w-5 h-5">
-                    {getFlagUrl(currency.code, 24) ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={getFlagUrl(currency.code, 24) as string}
-                        alt={currency.code}
-                        className="h-5 w-auto rounded-sm"
-                        loading="lazy"
-                        onError={(e) => {
-                          const el = e.currentTarget as HTMLImageElement;
-                          el.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <span className="text-xs font-medium">{currency.code}</span>
-                    )}
-                  </span>
+                  <SymbolBadge symbol={currency.symbol} code={currency.code} />
                   <div className="flex-1 text-left">
                     <div className="font-medium">{currency.code}</div>
                     <div className="text-xs text-gray-500">{currency.name}</div>
@@ -179,23 +134,7 @@ export default function CurrencySelector({
       >
         <GlobeAltIcon className="h-4 w-4 text-gray-500" />
         {showLabel && <span className="text-sm text-gray-700">Currency:</span>}
-        <span className="inline-flex items-center justify-center w-5 h-5">
-          {getFlagUrl(currentCurrency.code, 16) ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={getFlagUrl(currentCurrency.code, 16) as string}
-              alt={currentCurrency.code}
-              className="h-4 w-auto rounded-sm"
-              loading="lazy"
-              onError={(e) => {
-                const el = e.currentTarget as HTMLImageElement;
-                el.style.display = 'none';
-              }}
-            />
-          ) : (
-            <span className="text-xs font-medium">{currentCurrency.code}</span>
-          )}
-        </span>
+        <SymbolBadge symbol={currentCurrency.symbol} code={currentCurrency.code} />
         <span className="font-medium">{currentCurrency.code}</span>
         <ChevronDownIcon className={`h-4 w-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
@@ -219,23 +158,7 @@ export default function CurrencySelector({
                       : 'text-gray-700'
                   }`}
                 >
-                  <span className="inline-flex items-center justify-center w-5 h-5">
-                    {getFlagUrl(currency.code, 24) ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={getFlagUrl(currency.code, 24) as string}
-                        alt={currency.code}
-                        className="h-5 w-auto rounded-sm"
-                        loading="lazy"
-                        onError={(e) => {
-                          const el = e.currentTarget as HTMLImageElement;
-                          el.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <span className="text-xs font-medium">{currency.code}</span>
-                    )}
-                  </span>
+                  <SymbolBadge symbol={currency.symbol} code={currency.code} />
                   <div className="flex-1 text-left">
                     <div className="font-medium">{currency.name}</div>
                     <div className="text-xs text-gray-500">{currency.code}</div>

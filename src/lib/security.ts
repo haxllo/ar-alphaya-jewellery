@@ -34,9 +34,18 @@ export function addNonceToResponse(response: NextResponse, nonce: string): NextR
 // Enhanced CSP with nonce support
 export function generateSiteCSP(): string {
   // Mirrors global CSP in netlify.toml
+  const isProd = process.env.NODE_ENV === 'production';
+  const scriptDirectives = [
+    "script-src 'self' 'unsafe-inline' https:",
+  ];
+  // Allow eval only in non-production to support Next.js dev tooling
+  if (!isProd) {
+    scriptDirectives[0] = "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:";
+  }
+
   return [
     "default-src 'self' https: data: blob:",
-    "script-src 'self' 'unsafe-inline' https:",
+    scriptDirectives[0],
     "style-src 'self' 'unsafe-inline' https:",
     "img-src 'self' https: data: blob: https://ucarecdn.com https://flagcdn.com",
     "connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com",

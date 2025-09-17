@@ -37,8 +37,10 @@ export const DEFAULT_CURRENCY: Currency = SUPPORTED_CURRENCIES[0]
 class CurrencyService {
   private static readonly STORAGE_KEY = 'ar-alphaya-currency-settings'
   private static readonly CACHE_DURATION = 60 * 60 * 1000 // 1 hour in milliseconds
+  private static readonly RATES_CACHE_KEY = 'ar-alphaya-exchange-rates-v2'
   
-  // Mock exchange rates (in a real app, fetch from API like exchangerate-api.com)
+  // Exchange rates map keyed as "FROM-TO" (e.g., "LKR-USD").
+  // Initialized with mocks; replaced at runtime by live API data.
   private static mockRates: Record<string, number> = {
     'LKR-USD': 0.0031,
     'LKR-EUR': 0.0029,
@@ -170,28 +172,37 @@ class CurrencyService {
   }
 
   /**
-   * Fetch latest exchange rates (mock implementation)
-   * In a real app, this would call an external API like exchangerate-api.com
+   * Fetch latest exchange rates from internal API route using LKR as base.
+   * Returns a map keyed as "FROM-TO" for supported currencies, including reverse pairs.
    */
   static async fetchExchangeRates(): Promise<Record<string, number>> {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500))
-    
-    // In a real implementation:
-    const response = await fetch(`https://api.exchangerate-api.com/v4/latest/LKR`)
-    const data = await response.json()
-    return data.rates
-    
-    // Return mock rates with some variation
-    const variation = 0.02 // 2% variation
-    const updatedRates: Record<string, number> = {}
-    
-    Object.entries(this.mockRates).forEach(([key, rate]) => {
-      const randomVariation = 1 + (Math.random() - 0.5) * variation
-      updatedRates[key] = Math.round(rate * randomVariation * 10000) / 10000
-    })
-    
-    return updatedRates
+    const resp = await fetch('/api/rates', { cache: 'no-store' })
+    if (!resp.ok) {
+      throw new Error('Failed to fetch exchange rates')
+    }
+    const json = await resp.json()
+    const base = (json.base || 'LKR') as string
+    const rates = (json.rates || {}) as Record<string, number>
+
+    const result: Record<string, number> = {}
+
+    // Ensure base to base is 1
+    result[`${base}-${base}`] = 1
+
+    // Only keep supported currencies (plus base)
+    const supportedCodes = new Set(SUPPORTED_CURRENCIES.map(c => c.code).concat([base]))
+
+    for (const [code, rate] of Object.entries(rates)) {
+      if (!supportedCodes.has(code)) continue
+      if (typeof rate !== 'number' || !isFinite(rate) || rate <= 0) continue
+
+      // base -> code (e.g., LKR-USD)
+      result[`${base}-${code}`] = rate
+      // code -> base (e.g., USD-LKR)
+      result[`${code}-${base}`] = 1 / rate
+    }
+
+    return result
   }
 
   /**
@@ -200,7 +211,8 @@ class CurrencyService {
   static async updateExchangeRates(): Promise<void> {
     try {
       const rates = await this.fetchExchangeRates()
-      this.mockRates = rates
+      // Merge with existing to avoid wiping out unsupported keys accidentally
+      this.mockRates = { ...this.mockRates, ...rates }
       
       // Cache the rates with timestamp
       if (typeof window !== 'undefined') {
@@ -208,7 +220,9 @@ class CurrencyService {
           rates,
           timestamp: Date.now()
         }
-        localStorage.setItem('ar-alphaya-exchange-rates', JSON.stringify(cacheData))
+        localStorage.setItem(this.RATES_CACHE_KEY, JSON.stringify(cacheData))
+        // Clean up old cache key if present
+        try { localStorage.removeItem('ar-alphaya-exchange-rates') } catch {}
       }
     } catch (error) {
       console.error('Failed to update exchange rates:', error)
@@ -222,13 +236,32 @@ class CurrencyService {
     if (typeof window === 'undefined') return false
 
     try {
-      const cached = localStorage.getItem('ar-alphaya-exchange-rates')
-      if (cached) {
-        const { rates, timestamp } = JSON.parse(cached)
-        
-        // Check if cache is still fresh (within CACHE_DURATION)
+      // Prefer new cache key; fallback to old and normalize
+      let cacheStr = localStorage.getItem(this.RATES_CACHE_KEY)
+      let isLegacy = false
+      if (!cacheStr) {
+        cacheStr = localStorage.getItem('ar-alphaya-exchange-rates')
+        if (cacheStr) isLegacy = true
+      }
+      if (cacheStr) {
+        const { rates, timestamp } = JSON.parse(cacheStr)
         if (Date.now() - timestamp < this.CACHE_DURATION) {
-          this.mockRates = rates
+          // Normalize legacy shape { USD: number, ... } into FROM-TO pairs
+          if (isLegacy && rates && typeof rates === 'object') {
+            const normalized: Record<string, number> = {}
+            const base = 'LKR'
+            normalized[`${base}-${base}`] = 1
+            const supportedCodes = new Set(SUPPORTED_CURRENCIES.map(c => c.code).concat([base]))
+            Object.entries(rates as Record<string, number>).forEach(([code, rate]) => {
+              if (!supportedCodes.has(code)) return
+              if (typeof rate !== 'number' || !isFinite(rate) || rate <= 0) return
+              normalized[`${base}-${code}`] = rate
+              normalized[`${code}-${base}`] = 1 / rate
+            })
+            this.mockRates = { ...this.mockRates, ...normalized }
+          } else {
+            this.mockRates = { ...this.mockRates, ...(rates || {}) }
+          }
           return true
         }
       }
