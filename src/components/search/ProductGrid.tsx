@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { memo } from 'react'
 import Image from 'next/image'
 import { Product } from '@/lib/cms'
 import { useCurrency } from '@/hooks/useCurrency'
@@ -9,7 +10,7 @@ interface ProductGridProps {
   products: Product[]
 }
 
-export default function ProductGrid({ products }: ProductGridProps) {
+function ProductGridComponent({ products }: ProductGridProps) {
   const { formatPrice } = useCurrency()
 
   if (products.length === 0) {
@@ -121,3 +122,5 @@ export default function ProductGrid({ products }: ProductGridProps) {
     </div>
   )
 }
+
+export default memo(ProductGridComponent)

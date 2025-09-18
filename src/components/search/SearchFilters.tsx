@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useCallback, useState } from 'react'
 import { SearchFilters } from '@/lib/cms'
 import { useCurrency } from '@/hooks/useCurrency'
 
@@ -23,7 +23,7 @@ export default function SearchFiltersComponent({
   const { formatPrice } = useCurrency()
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['category', 'price']))
 
-  const toggleSection = (section: string) => {
+  const toggleSection = useCallback((section: string) => {
     const newExpanded = new Set(expandedSections)
     if (newExpanded.has(section)) {
       newExpanded.delete(section)
@@ -31,42 +31,42 @@ export default function SearchFiltersComponent({
       newExpanded.add(section)
     }
     setExpandedSections(newExpanded)
-  }
+  }, [expandedSections])
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = useCallback((category: string) => {
     onFiltersChange({ category: category === filters.category ? undefined : category })
-  }
+  }, [onFiltersChange, filters.category])
 
-  const handleMaterialChange = (material: string) => {
+  const handleMaterialChange = useCallback((material: string) => {
     const currentMaterials = filters.materials || []
     const newMaterials = currentMaterials.includes(material)
       ? currentMaterials.filter(m => m !== material)
       : [...currentMaterials, material]
     
     onFiltersChange({ materials: newMaterials.length > 0 ? newMaterials : undefined })
-  }
+  }, [onFiltersChange, filters.materials])
 
-  const handleTagChange = (tag: string) => {
+  const handleTagChange = useCallback((tag: string) => {
     const currentTags = filters.tags || []
     const newTags = currentTags.includes(tag)
       ? currentTags.filter(t => t !== tag)
       : [...currentTags, tag]
     
     onFiltersChange({ tags: newTags.length > 0 ? newTags : undefined })
-  }
+  }, [onFiltersChange, filters.tags])
 
-  const handlePriceChange = (minPrice?: number, maxPrice?: number) => {
+  const handlePriceChange = useCallback((minPrice?: number, maxPrice?: number) => {
     onFiltersChange({ 
       minPrice: minPrice || undefined, 
       maxPrice: maxPrice || undefined 
     })
-  }
+  }, [onFiltersChange])
 
-  const handleSortChange = (sortBy: 'name' | 'price' | 'createdAt', sortOrder: 'asc' | 'desc') => {
+  const handleSortChange = useCallback((sortBy: 'name' | 'price' | 'createdAt', sortOrder: 'asc' | 'desc') => {
     onFiltersChange({ sortBy, sortOrder })
-  }
+  }, [onFiltersChange])
 
-  const clearAllFilters = () => {
+  const clearAllFilters = useCallback(() => {
     onFiltersChange({
       query: undefined,
       category: undefined,
@@ -79,9 +79,9 @@ export default function SearchFiltersComponent({
       sortBy: 'createdAt',
       sortOrder: 'desc'
     })
-  }
+  }, [onFiltersChange])
 
-  const hasActiveFilters = !!(
+  const hasActiveFilters = useMemo(() => !!(
     filters.category ||
     filters.minPrice !== undefined ||
     filters.maxPrice !== undefined ||
@@ -89,7 +89,7 @@ export default function SearchFiltersComponent({
     filters.inStock !== undefined ||
     filters.featured !== undefined ||
     (filters.tags && filters.tags.length > 0)
-  )
+  ), [filters])
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6">

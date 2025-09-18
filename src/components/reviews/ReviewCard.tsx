@@ -10,7 +10,9 @@ interface ReviewCardProps {
   className?: string
 }
 
-export default function ReviewCard({ review, className = '' }: ReviewCardProps) {
+import { memo } from 'react'
+
+function ReviewCardComponent({ review, className = '' }: ReviewCardProps) {
   const [helpful, setHelpful] = useState(review.helpful || 0)
   const [hasVoted, setHasVoted] = useState(false)
   const [isVoting, setIsVoting] = useState(false)
@@ -93,3 +95,5 @@ export default function ReviewCard({ review, className = '' }: ReviewCardProps) 
     </div>
   )
 }
+
+export default memo(ReviewCardComponent)

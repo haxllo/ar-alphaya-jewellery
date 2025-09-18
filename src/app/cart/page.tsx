@@ -5,7 +5,8 @@ import { useState } from 'react'
 import { useCartStore } from '@/lib/store/cart'
 import CartItemComponent from '@/components/cart/cart-item'
 import CartSummary from '@/components/cart/cart-summary'
-import ProductRecommendations from '@/components/recommendations/ProductRecommendations'
+import dynamic from 'next/dynamic'
+const ProductRecommendations = dynamic(() => import('@/components/recommendations/ProductRecommendations'), { ssr: false })
 import type { CartItem } from '@/types/product'
 // Removed mock recommendations; fetch real products via API
 

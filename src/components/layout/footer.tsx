@@ -16,8 +16,8 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Image 
-                src="/images/LOGO2.png" 
-                alt="AR Alphaya Jewellery Logo" 
+                src="/images/LOGO1.png" 
+                alt="AR Alphaya Jewellery" 
                 width={40} 
                 height={45}
                 loading="lazy"
