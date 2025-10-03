@@ -6,6 +6,7 @@
  */
 
 import React, { createContext, useContext, ReactNode } from 'react'
+import Link from 'next/link'
 
 interface User {
   name?: string
@@ -59,12 +60,13 @@ export function withPageAuthRequired<P extends object>(
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Authentication Required</h1>
             <p className="text-gray-600 mb-6">Please sign in to access this page.</p>
-            <a 
-              href="/api/auth/login" 
+            <Link
+              href="/api/auth/login"
+              prefetch={false}
               className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
             >
               Sign In
-            </a>
+            </Link>
           </div>
         </div>
       )

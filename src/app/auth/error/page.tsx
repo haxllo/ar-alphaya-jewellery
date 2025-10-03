@@ -78,12 +78,13 @@ function AuthErrorContent() {
         </div>
 
         <div className="space-y-4">
-          <a
+          <Link
             href="/api/auth/login"
+            prefetch={false}
             className="w-full inline-flex items-center justify-center px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
           >
             Try Signing In Again
-          </a>
+          </Link>
           
           <Link
             href="/"

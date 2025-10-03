@@ -1,3 +1,4 @@
+export { default } from '@/components/ui/SizeGuideModal'
 'use client'
 
 import { useState } from 'react'

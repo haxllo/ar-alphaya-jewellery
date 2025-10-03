@@ -20,6 +20,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   // Product JSON-LD structured data
   const summary = ReviewsService.getReviewSummary(product.id)
+  const reviews = ReviewsService.getProductReviews(product.id)
   const jsonLd: any = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
@@ -85,7 +86,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
-      <ProductContent product={product} />
+      <ProductContent product={product} reviewSummary={summary} reviews={reviews} />
     </>
   )
 }

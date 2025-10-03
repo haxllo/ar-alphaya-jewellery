@@ -2,28 +2,34 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import { CurrencyService } from '@/lib/currency'
+import ReviewCard from '@/components/reviews/ReviewCard'
+import StarRating from '@/components/reviews/StarRating'
+import type { Product, GemstoneOption, Review, ReviewSummary } from '@/types/product'
+import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+
 // Lazy-load below-the-fold/heavy components to improve TTI
 const WishlistButton = dynamic(() => import('@/components/wishlist/WishlistButton'), { ssr: false })
 const AddToCart = dynamic(() => import('@/components/cart/add-to-cart'), { ssr: false })
 const SizeGuideModal = dynamic(() => import('@/components/ui/SizeGuideModal'), { ssr: false })
 const ShippingReturnsModal = dynamic(() => import('@/components/ui/ShippingReturnsModal'), { ssr: false })
-import type { Product, GemstoneOption } from '@/types/product'
-import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
 const ProductRecommendations = dynamic(
   () => import('@/components/recommendations/ProductRecommendations'),
   { ssr: false }
 )
 const CompareButton = dynamic(() => import('@/components/product/CompareButton'), { ssr: false })
-import { useRouter } from 'next/navigation'
 
 interface ProductContentProps {
   product: Product
+  reviewSummary?: ReviewSummary
+  reviews?: Review[]
 }
 
-export default function ProductContent({ product }: ProductContentProps) {
+export default function ProductContent({ product, reviewSummary, reviews = [] }: ProductContentProps) {
   const { formatPrice, currentCurrency } = usePriceFormatter() as any
   const [selectedSize, setSelectedSize] = useState<string>('')
   const [selectedGemstone, setSelectedGemstone] = useState<GemstoneOption | null>(null)
@@ -49,27 +55,27 @@ export default function ProductContent({ product }: ProductContentProps) {
 
   return (
     <>
-      <main className="mx-auto max-w-7xl px-6 py-12">
+      <main className="mx-auto max-w-7xl px-6 py-14">
         {/* Breadcrumbs */}
-        <nav className="text-sm text-primary-600 mb-4" aria-label="Breadcrumb">
+        <nav className="mb-6 text-xs uppercase tracking-[0.3em] text-nocturne-500" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li>
-              <a href="/" className="hover:underline">Home</a>
+              <Link href="/" className="underline-offset-4 hover:underline">Home</Link>
             </li>
-            <li aria-hidden>›</li>
+            <li aria-hidden>/</li>
             <li>
-              <a href={`/collections/${product.category}`} className="capitalize hover:underline">
+              <Link href={`/collections/${product.category}`} className="underline-offset-4 capitalize hover:underline">
                 {product.category.replace('-', ' ')}
-              </a>
+              </Link>
             </li>
-            <li aria-hidden>›</li>
-            <li className="text-primary-800" aria-current="page">{product.name}</li>
+            <li aria-hidden>/</li>
+            <li className="text-nocturne-400" aria-current="page">{product.name}</li>
           </ol>
         </nav>
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Product Images */}
           <div>
-            <div className="aspect-square bg-primary-100 rounded-lg mb-4 overflow-hidden relative">
+            <div className="relative aspect-square overflow-hidden rounded-3xl border border-nocturne-100 bg-white/70 shadow-subtle">
               {product.images && product.images[0] ? (
                 <Image 
                   src={product.images[0]}
@@ -80,35 +86,36 @@ export default function ProductContent({ product }: ProductContentProps) {
                   priority
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-primary-400">
+                <div className="flex h-full w-full items-center justify-center text-nocturne-300">
                   <Gem className="h-16 w-16" />
                 </div>
               )}
             </div>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="mt-4 grid grid-cols-4 gap-3">
               {product.images?.slice(1, 5).map((image, index) => (
-                <div key={index} className="aspect-square bg-primary-100 rounded-lg overflow-hidden relative">
+                <div key={index} className="relative aspect-square overflow-hidden rounded-2xl border border-transparent bg-white/60 transition-all duration-300 hover:border-gold-200">
                   <Image 
                     src={image}
                     alt={`${product.name} view ${index + 2}`}
                     fill
-                    className="object-cover cursor-pointer hover:opacity-75 transition-opacity"
+                    className="cursor-pointer object-cover transition-opacity duration-300 hover:opacity-80"
                     sizes="(max-width: 768px) 25vw, (max-width: 1024px) 25vw, 25vw"
                     loading="lazy"
                   />
                 </div>
               )) || [1, 2, 3].map((i) => (
-                <div key={i} className="aspect-square bg-primary-100 rounded-lg" />
+                <div key={i} className="aspect-square rounded-2xl border border-dashed border-nocturne-100" />
               ))}
             </div>
           </div>
 
           {/* Product Details */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
-              <div className="flex items-start justify-between mb-4">
+              <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div>
-                  <h1 className="text-3xl font-bold text-primary-800 mb-2">{product.name}</h1>
+                  <p className="text-xs uppercase tracking-[0.4em] text-nocturne-500">{product.category.replace('-', ' ')}</p>
+                  <h1 className="mt-3 font-serif text-4xl text-nocturne-900">{product.name}</h1>
                 </div>
                 <div className="flex items-center gap-3">
                   <CompareButton product={product} size="md" />
@@ -116,18 +123,18 @@ export default function ProductContent({ product }: ProductContentProps) {
                 </div>
               </div>
               
-              <div className="text-3xl font-bold text-primary-700 mb-1">
+              <div className="text-4xl font-semibold text-nocturne-900">
                 {formatPrice(getFinalPrice())}
                 {selectedGemstone && selectedGemstone.priceAdjustment !== undefined && selectedGemstone.priceAdjustment !== 0 && (
-                  <span className="text-lg text-primary-500 ml-2">
+                  <span className="ml-2 text-base text-nocturne-500">
                     ({selectedGemstone.priceAdjustment > 0 ? '+' : ''}{formatPrice(selectedGemstone.priceAdjustment)} for {selectedGemstone.name})
                   </span>
                 )}
               </div>
               {currentCurrency?.code !== 'LKR' && (
-                <div className="text-sm text-primary-600 mb-4">
-                  Base price: <span className="font-medium">LKR {getFinalPrice().toLocaleString()}</span>
-                  <span className="ml-2 text-primary-500">
+                <div className="mt-2 text-sm text-nocturne-500">
+                  Base price: <span className="font-semibold text-nocturne-700">LKR {getFinalPrice().toLocaleString()}</span>
+                  <span className="ml-2 text-nocturne-400">
                     (rates updated {(() => { const ts = CurrencyService.getLastRatesUpdate?.(); if (!ts) return 'recently'; try { return new Date(ts).toLocaleString(); } catch { return 'recently'; } })()})
                   </span>
                 </div>
@@ -135,54 +142,54 @@ export default function ProductContent({ product }: ProductContentProps) {
             </div>
 
             {/* Product Description */}
-            <div className="prose prose-sm max-w-none">
-              <h3 className="font-semibold text-primary-800 mb-2">Description</h3>
-              <div className="text-primary-600 whitespace-pre-wrap">{product.description}</div>
+            <div className="space-y-3 rounded-3xl border border-nocturne-100 bg-white/80 p-6 shadow-subtle">
+              <h3 className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Description</h3>
+              <div className="text-sm leading-relaxed text-nocturne-600 whitespace-pre-wrap">{product.description}</div>
             </div>
 
             {/* Product Specifications */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-primary-50 rounded-lg">
+            <div className="grid grid-cols-1 gap-4 rounded-3xl border border-nocturne-100 bg-white/70 p-6 sm:grid-cols-2">
               {product.materials && product.materials.length > 0 && (
                 <div>
-                  <h4 className="font-medium text-primary-700 mb-1">Materials</h4>
-                  <p className="text-sm text-primary-600">{product.materials.join(', ')}</p>
+                  <h4 className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Materials</h4>
+                  <p className="mt-2 text-sm text-nocturne-600">{product.materials.join(', ')}</p>
                 </div>
               )}
               
               {product.weight && (
-                <div className="flex items-center gap-2">
-                  <Scale className="h-4 w-4 text-primary-600" />
+                <div className="flex items-center gap-3">
+                  <Scale className="h-4 w-4 text-nocturne-400" />
                   <div>
-                    <h4 className="font-medium text-primary-700">Weight</h4>
-                    <p className="text-sm text-primary-600">{product.weight}g</p>
+                    <h4 className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Weight</h4>
+                    <p className="mt-1 text-sm text-nocturne-600">{product.weight}g</p>
                   </div>
                 </div>
               )}
               
               {product.dimensions && (
                 <div>
-                  <h4 className="font-medium text-primary-700 mb-1">Dimensions</h4>
-                  <p className="text-sm text-primary-600">{product.dimensions}</p>
+                  <h4 className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Dimensions</h4>
+                  <p className="mt-2 text-sm text-nocturne-600">{product.dimensions}</p>
                 </div>
               )}
 
               <div>
-                <h4 className="font-medium text-primary-700 mb-1">Category</h4>
-                <p className="text-sm text-primary-600 capitalize">{product.category.replace('-', ' ')}</p>
+                <h4 className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Category</h4>
+                <p className="mt-2 text-sm text-nocturne-600 capitalize">{product.category.replace('-', ' ')}</p>
               </div>
             </div>
 
             {/* Gemstone Selection */}
             {product.gemstones && product.gemstones.length > 0 && (
               <div>
-                <h3 className="font-semibold text-primary-800 mb-3">Select Gemstone</h3>
+                <h3 className="mb-3 text-xs uppercase tracking-[0.3em] text-nocturne-500">Select Gemstone</h3>
                 <div className="grid grid-cols-1 gap-3">
                   {product.gemstones.map((gemstone) => (
                     <label key={gemstone.value} className={`cursor-pointer p-3 border rounded-lg transition-all ${
                       selectedGemstone?.value === gemstone.value 
-                        ? 'border-primary-500 bg-primary-50' 
-                        : 'border-primary-200 hover:border-primary-300'
-                    } ${!gemstone.available ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                        ? 'border-gold-400 bg-gold-50/70' 
+                        : 'border-nocturne-100 hover:border-gold-200'
+                    } ${!gemstone.available ? 'cursor-not-allowed opacity-40' : ''}`}>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <input
@@ -192,16 +199,16 @@ export default function ProductContent({ product }: ProductContentProps) {
                             checked={selectedGemstone?.value === gemstone.value}
                             onChange={() => setSelectedGemstone(gemstone)}
                             disabled={!gemstone.available}
-                            className="text-primary-600"
+                            className="text-nocturne-600"
                           />
                           <div>
-                            <div className="font-medium text-primary-800">{gemstone.name}</div>
+                            <div className="font-medium text-nocturne-800">{gemstone.name}</div>
                             {gemstone.description && (
-                              <div className="text-sm text-primary-600">{gemstone.description}</div>
+                              <div className="text-sm text-nocturne-500">{gemstone.description}</div>
                             )}
                           </div>
                         </div>
-                        <div className="text-sm font-medium text-primary-700">
+                        <div className="text-sm font-semibold text-nocturne-700">
                           {gemstone.priceAdjustment === undefined || gemstone.priceAdjustment === 0 ? 'Included' : 
                            gemstone.priceAdjustment > 0 ? `+${formatPrice(gemstone.priceAdjustment)}` : formatPrice(gemstone.priceAdjustment)}
                         </div>
@@ -215,25 +222,25 @@ export default function ProductContent({ product }: ProductContentProps) {
             {/* Size Selection */}
             {product.sizes && product.sizes.length > 0 && (
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-primary-800">Select Size</h3>
+                <div className="mb-3 flex items-center justify-between">
+                  <h3 className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Select Size</h3>
                   <button
                     onClick={() => setShowSizeGuide(true)}
-                    className="text-sm text-primary-600 hover:text-primary-800 underline flex items-center gap-1"
+                    className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-nocturne-500 underline-offset-4 hover:text-nocturne-800 hover:underline"
                   >
                     <Ruler className="h-4 w-4" />
                     Size Guide
                   </button>
                 </div>
-                <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
+                <div className="grid grid-cols-4 gap-2 md:grid-cols-6">
                   {product.sizes.map((size) => (
                     <button
                       key={size.value}
                       onClick={() => setSelectedSize(size.value)}
                       className={`p-3 border rounded-lg text-sm font-medium transition-all ${
                         selectedSize === size.value 
-                          ? 'border-primary-500 bg-primary-500 text-white' 
-                          : 'border-primary-200 text-primary-700 hover:border-primary-400'
+                          ? 'border-gold-400 bg-gold-500 text-white' 
+                          : 'border-nocturne-100 text-nocturne-700 hover:border-gold-200'
                       }`}
                     >
                       {size.label}
@@ -247,15 +254,15 @@ export default function ProductContent({ product }: ProductContentProps) {
             <div className="space-y-4">
               <AddToCart product={product} selectedSize={selectedSize} selectedGemstone={selectedGemstone} />
               {!product.inStock && (
-                <div className="border border-primary-200 rounded-lg p-4">
-                  <div className="font-medium text-primary-800 mb-2">Out of stock — get notified</div>
-                  <div className="flex flex-col sm:flex-row gap-2">
+                <div className="rounded-3xl border border-nocturne-100 bg-white/70 p-5">
+                  <div className="text-sm font-semibold uppercase tracking-[0.28em] text-nocturne-500">Out of stock — join the waitlist</div>
+                  <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                     <input
                       type="email"
                       value={waitlistEmail}
                       onChange={(e) => setWaitlistEmail(e.target.value)}
                       placeholder="Your email"
-                      className="flex-1 border border-primary-300 rounded px-3 py-2 text-sm"
+                      className="flex-1 rounded-full border border-nocturne-100 bg-white/80 px-4 py-2 text-sm focus:border-gold-300 focus:outline-none"
                     />
                     <button
                       onClick={async () => {
@@ -273,26 +280,26 @@ export default function ProductContent({ product }: ProductContentProps) {
                         }
                       }}
                       disabled={!waitlistEmail || waitlistStatus === 'loading'}
-                      className="bg-primary-700 text-white px-4 py-2 rounded text-sm font-medium disabled:opacity-60"
+                      className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-white transition-all duration-300 disabled:opacity-50 hover:-translate-y-0.5"
                     >
                       {waitlistStatus === 'loading' ? 'Please wait…' : 'Notify me'}
                     </button>
                   </div>
                   {waitlistStatus === 'success' && (
-                    <div className="text-green-700 text-sm mt-2">We will email you when it’s back in stock.</div>
+                    <div className="mt-2 text-sm text-emerald-500">We will email you when it’s back in stock.</div>
                   )}
                   {waitlistStatus === 'error' && (
-                    <div className="text-red-700 text-sm mt-2">Could not submit. Try again.</div>
+                    <div className="mt-2 text-sm text-red-500">Could not submit. Try again.</div>
                   )}
                 </div>
               )}
               
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <a
                   href={getWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors"
+                  className="flex flex-1 items-center justify-center gap-3 rounded-full bg-green-600 px-6 py-3 text-sm font-semibold tracking-[0.18em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-green-700"
                 >
                   <MessageCircle className="h-5 w-5" />
                   Ask on WhatsApp
@@ -300,7 +307,7 @@ export default function ProductContent({ product }: ProductContentProps) {
                 
                 <button
                   onClick={() => setShowShippingReturns(true)}
-                  className="flex-1 flex items-center justify-center gap-2 border border-primary-300 text-primary-700 hover:bg-primary-50 py-3 px-6 rounded-lg font-medium transition-colors"
+                  className="flex flex-1 items-center justify-center gap-3 rounded-full border border-nocturne-100 px-6 py-3 text-sm font-semibold tracking-[0.18em] text-nocturne-700 transition-transform duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:text-foreground"
                 >
                   <Truck className="h-5 w-5" />
                   Shipping & Returns
@@ -309,22 +316,52 @@ export default function ProductContent({ product }: ProductContentProps) {
             </div>
 
             {/* Additional Information */}
-            <div className="border-t pt-6 space-y-3 text-sm text-primary-600">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+            <div className="space-y-3 border-t border-nocturne-100 pt-6 text-sm text-nocturne-600">
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
                 <span>Free shipping on orders over LKR 50,000</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-sky-500"></span>
                 <span>30-day return policy</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-violet-500"></span>
                 <span>Lifetime warranty on manufacturing defects</span>
               </div>
             </div>
           </div>
         </div>
+
+        <section className="mt-16 space-y-8">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Client impressions</p>
+              <h2 className="font-serif text-3xl text-nocturne-900">Reviews</h2>
+            </div>
+            {(reviewSummary?.totalReviews ?? 0) > 0 && (
+              <div className="flex items-center gap-3 text-sm text-nocturne-600">
+                <StarRating rating={reviewSummary?.averageRating ?? 0} size="sm" />
+                <span>
+                  {reviewSummary?.averageRating?.toFixed(1)} average • {reviewSummary?.totalReviews}{' '}
+                  {reviewSummary && reviewSummary.totalReviews === 1 ? 'review' : 'reviews'}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {(reviewSummary?.totalReviews ?? 0) === 0 ? (
+            <div className="rounded-3xl border border-nocturne-100 bg-white/75 p-8 text-center text-nocturne-600">
+              Be the first to share your story with this piece. Reach out to our concierge team to arrange a private viewing or bespoke appointment.
+            </div>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2">
+              {reviews.map((review) => (
+                <ReviewCard key={review.id} review={review} />
+              ))}
+            </div>
+          )}
+        </section>
       </main>
 
       {/* Related products */}
@@ -333,7 +370,7 @@ export default function ProductContent({ product }: ProductContentProps) {
         <ProductRecommendations
           products={relatedProducts as any}
           title="You might also like"
-          className="mt-4"
+          className="mt-8"
         />
       </section>
 
@@ -350,18 +387,18 @@ export default function ProductContent({ product }: ProductContentProps) {
       />
 
       {/* Sticky Add-to-Cart (mobile) */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-primary-200 p-3 md:hidden z-40">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-nocturne-200 bg-white/90 p-3 backdrop-blur md:hidden">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-sm text-primary-600 truncate">{product.name}</div>
-            <div className="text-lg font-semibold text-primary-800">{formatPrice(getFinalPrice())}</div>
+            <div className="truncate text-sm text-nocturne-500">{product.name}</div>
+            <div className="text-lg font-semibold text-nocturne-900">{formatPrice(getFinalPrice())}</div>
           </div>
           <button
             onClick={() => {
               const btn = document.querySelector('button:where([type="button"])') as HTMLButtonElement | null
               btn?.click()
             }}
-            className="flex-1 bg-primary-700 text-white py-3 px-4 rounded-lg font-medium hover:bg-primary-800 text-center"
+            className="flex-1 rounded-full bg-foreground py-3 px-4 text-center text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
           >
             Add to Cart
           </button>

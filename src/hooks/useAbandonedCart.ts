@@ -1,21 +1,22 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useCartStore } from '@/lib/store/cart'
 
 interface AbandonedCartOptions {
   email?: string
   delay?: number // milliseconds before considering cart abandoned
+  enabled?: boolean
 }
 
 export function useAbandonedCart(options: AbandonedCartOptions = {}) {
-  const { email, delay = 30 * 60 * 1000 } = options // 30 minutes default
+  const { email, delay = 30 * 60 * 1000, enabled = true } = options // 30 minutes default
   const items = useCartStore((state) => state.items)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastActivityRef = useRef<number>(Date.now())
 
-  const recordAbandonedCart = async () => {
-    if (!email || items.length === 0) return
+  const recordAbandonedCart = useCallback(async () => {
+    if (!enabled || !email || items.length === 0) return
 
     try {
       await fetch('/api/abandoned', {
@@ -35,23 +36,27 @@ export function useAbandonedCart(options: AbandonedCartOptions = {}) {
     } catch (error) {
       console.warn('Failed to record abandoned cart:', error)
     }
-  }
+  }, [enabled, email, items])
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     lastActivityRef.current = Date.now()
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
     
-    if (items.length > 0) {
+    if (enabled && items.length > 0) {
       timeoutRef.current = setTimeout(() => {
         recordAbandonedCart()
       }, delay)
     }
-  }
+  }, [enabled, items, delay, recordAbandonedCart])
 
   // Track user activity
   useEffect(() => {
+    if (!enabled) {
+      return undefined
+    }
+
     const handleActivity = () => {
       lastActivityRef.current = Date.now()
     }
@@ -66,20 +71,31 @@ export function useAbandonedCart(options: AbandonedCartOptions = {}) {
         document.removeEventListener(event, handleActivity, true)
       })
     }
-  }, [])
+  }, [enabled])
 
   // Track cart changes
   useEffect(() => {
+    if (!enabled) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+      return undefined
+    }
+
     resetTimer()
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
       }
     }
-  }, [items, email, delay])
+  }, [enabled, resetTimer])
 
   // Record on page unload if cart has items
   useEffect(() => {
+    if (!enabled) {
+      return undefined
+    }
+
     const handleBeforeUnload = () => {
       if (items.length > 0 && email) {
         // Use sendBeacon for reliable delivery on page unload
@@ -107,7 +123,7 @@ export function useAbandonedCart(options: AbandonedCartOptions = {}) {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload)
     }
-  }, [items, email])
+  }, [items, email, enabled, recordAbandonedCart])
 
   return {
     recordAbandonedCart,

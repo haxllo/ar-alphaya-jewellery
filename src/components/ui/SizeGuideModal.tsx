@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { X, Ruler } from 'lucide-react'
 
 interface SizeGuideModalProps {
@@ -9,156 +9,210 @@ interface SizeGuideModalProps {
   category?: string
 }
 
+const RING_SIZES = [
+  { us: '5', uk: 'J', eu: '49', circumference: '15.7mm' },
+  { us: '6', uk: 'L', eu: '52', circumference: '16.5mm' },
+  { us: '7', uk: 'N', eu: '54', circumference: '17.3mm' },
+  { us: '8', uk: 'P', eu: '57', circumference: '18.1mm' },
+  { us: '9', uk: 'R', eu: '59', circumference: '19.0mm' },
+]
+
+const BRACELET_SIZES = [
+  { label: 'Small', bracelet: '16-17cm', wrist: '14-15cm' },
+  { label: 'Medium', bracelet: '18-19cm', wrist: '16-17cm' },
+  { label: 'Large', bracelet: '20-21cm', wrist: '18-19cm' },
+  { label: 'X-Large', bracelet: '22-23cm', wrist: '20-21cm' },
+]
+
+const CHAIN_LENGTHS = [
+  { length: '35cm / 14″', label: 'Choker', description: 'Sits close to the neck' },
+  { length: '40cm / 16″', label: 'Collarbone', description: 'Everyday classic length' },
+  { length: '45cm / 18″', label: 'Princess', description: 'Falls just below the collarbone' },
+  { length: '50cm / 20″', label: 'Matinee', description: 'Elegant for layering and high necklines' },
+  { length: '60cm / 24″', label: 'Opera', description: 'Drapes below the bust line' },
+]
+
 export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: SizeGuideModalProps) {
+  const ringSizes = useMemo(() => RING_SIZES, [])
+  const braceletSizes = useMemo(() => BRACELET_SIZES, [])
+  const chainLengths = useMemo(() => CHAIN_LENGTHS, [])
+
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
+    if (!isOpen) {
+      return
     }
-    
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isOpen])
+  }, [isOpen, onClose])
 
-  if (!isOpen) return null
+  if (!isOpen) {
+    return null
+  }
 
-  const ringSizes = [
-    { us: '5', uk: 'J', eu: '49', circumference: '15.7mm' },
-    { us: '6', uk: 'L', eu: '52', circumference: '16.5mm' },
-    { us: '7', uk: 'N', eu: '54', circumference: '17.3mm' },
-    { us: '8', uk: 'P', eu: '57', circumference: '18.1mm' },
-    { us: '9', uk: 'R', eu: '59', circumference: '19.0mm' },
-  ]
+  const showRings = category === 'rings' || category === 'all'
+  const showBracelets = category === 'bracelets-bangles' || category === 'all'
+  const showNecklaces = category === 'pendants' || category === 'all'
+
+  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose()
+    }
+  }
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
+    <div
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-nocturne-900/70 backdrop-blur-sm p-4"
+      onClick={handleOverlayClick}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-nocturne-200/60 bg-white/95 shadow-luxe mx-auto my-auto"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <header className="flex items-center justify-between border-b border-nocturne-100 bg-white/80 px-6 py-5">
           <div className="flex items-center gap-3">
-            <Ruler className="h-6 w-6 text-primary-600" />
-            <h2 className="text-xl font-semibold text-primary-800">Size Guide</h2>
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-50/70 text-gold-600">
+              <Ruler className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-nocturne-400">Bespoke Sizing</p>
+              <h2 className="font-serif text-2xl text-nocturne-900">Size Guide</h2>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-primary-100 rounded-full transition-colors"
+            className="rounded-full border border-nocturne-100 p-2 text-nocturne-400 transition-colors hover:border-nocturne-200 hover:text-nocturne-700"
+            aria-label="Close size guide"
           >
             <X className="h-5 w-5" />
           </button>
-        </div>
+        </header>
 
-        <div className="p-6 space-y-6">
-          {/* Ring Sizing */}
-          {(category === 'rings' || category === 'all') && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-primary-800">Ring Size Guide</h3>
-              
-              <div className="mb-4 p-4 bg-primary-50 rounded-lg">
-                <h4 className="font-medium mb-2 text-primary-700">How to Measure Your Ring Size</h4>
-                <ol className="list-decimal list-inside text-sm text-primary-600 space-y-2">
-                  <li>Wrap a string or paper around the base of your finger</li>
-                  <li>Mark where the string/paper overlaps with a pen</li>
-                  <li>Measure the length with a ruler (in mm)</li>
-                  <li>Compare with the chart below to find your size</li>
-                </ol>
+        <main className="space-y-10 px-6 py-8 text-nocturne-600">
+          <p className="rounded-2xl border border-gold-100/60 bg-gold-50/50 px-5 py-4 text-sm text-nocturne-700">
+            Measure at the end of the day for the most accurate fit. If you are between sizes we recommend selecting the larger size for enduring comfort.
+          </p>
+
+          {showRings && (
+            <section className="space-y-4">
+              <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Rings</p>
+                  <h3 className="font-serif text-xl text-nocturne-900">Ring Size Conversion Chart</h3>
+                </div>
+                <p className="text-xs text-nocturne-400">
+                  Wrap a ribbon around the base of your finger and compare the measurement below.
+                </p>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-primary-200">
-                  <thead>
-                    <tr className="bg-primary-100">
-                      <th className="border border-primary-200 px-3 py-2 text-sm font-semibold">US Size</th>
-                      <th className="border border-primary-200 px-3 py-2 text-sm font-semibold">UK Size</th>
-                      <th className="border border-primary-200 px-3 py-2 text-sm font-semibold">EU Size</th>
-                      <th className="border border-primary-200 px-3 py-2 text-sm font-semibold">Circumference</th>
+              <div className="overflow-hidden rounded-2xl border border-nocturne-100">
+                <table className="w-full border-separate border-spacing-0 text-sm">
+                  <thead className="bg-nocturne-50/80 text-nocturne-500">
+                    <tr>
+                      {['US Size', 'UK Size', 'EU Size', 'Circumference'].map((label) => (
+                        <th key={label} className="px-4 py-3 text-left font-semibold uppercase tracking-[0.15em] text-[0.68rem]">
+                          {label}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {ringSizes.map((size, index) => (
-                      <tr key={index} className="hover:bg-primary-50">
-                        <td className="border border-primary-200 px-3 py-2 text-sm text-center">{size.us}</td>
-                        <td className="border border-primary-200 px-3 py-2 text-sm text-center">{size.uk}</td>
-                        <td className="border border-primary-200 px-3 py-2 text-sm text-center">{size.eu}</td>
-                        <td className="border border-primary-200 px-3 py-2 text-sm text-center">{size.circumference}</td>
+                    {ringSizes.map((size) => (
+                      <tr key={size.us} className="border-t border-nocturne-100/80">
+                        <td className="px-4 py-3 font-medium text-nocturne-800">{size.us}</td>
+                        <td className="px-4 py-3 text-nocturne-700">{size.uk}</td>
+                        <td className="px-4 py-3 text-nocturne-700">{size.eu}</td>
+                        <td className="px-4 py-3 text-nocturne-700">{size.circumference}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Bracelet Sizing */}
-          {(category === 'bracelets-bangles' || category === 'all') && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-primary-800">Bracelet Size Guide</h3>
-              
-              <div className="mb-4 p-4 bg-primary-50 rounded-lg">
-                <h4 className="font-medium mb-2 text-primary-700">How to Measure Your Wrist</h4>
-                <ol className="list-decimal list-inside text-sm text-primary-600 space-y-2">
-                  <li>Use a flexible measuring tape or string</li>
-                  <li>Wrap around your wrist just below the wrist bone</li>
-                  <li>Add 1.5-2cm for comfort</li>
-                  <li>This is your ideal bracelet length</li>
-                </ol>
+          {showBracelets && (
+            <section className="space-y-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Bracelets</p>
+                <h3 className="font-serif text-xl text-nocturne-900">Wrist Measurement Guide</h3>
               </div>
-
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium">Small: 16-17cm</div>
-                  <div className="text-primary-600">Wrist 14-15cm</div>
-                </div>
-                <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium">Medium: 18-19cm</div>
-                  <div className="text-primary-600">Wrist 16-17cm</div>
-                </div>
-                <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium">Large: 20-21cm</div>
-                  <div className="text-primary-600">Wrist 18-19cm</div>
-                </div>
-                <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium">X-Large: 22-23cm</div>
-                  <div className="text-primary-600">Wrist 20-21cm</div>
-                </div>
+              <div className="grid gap-4 rounded-2xl border border-nocturne-100 bg-white/80 p-5 sm:grid-cols-2">
+                {braceletSizes.map((size) => (
+                  <div key={size.label} className="rounded-xl border border-nocturne-100/70 bg-white/70 p-4">
+                    <div className="text-xs uppercase tracking-[0.3em] text-nocturne-400">{size.label}</div>
+                    <div className="mt-2 text-sm font-medium text-nocturne-800">Bracelet: {size.bracelet}</div>
+                    <div className="text-xs text-nocturne-500">Fits wrist {size.wrist}</div>
+                  </div>
+                ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Chain Length Guide */}
-          {(category === 'pendants' || category === 'all') && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-primary-800">Chain Length Guide</h3>
-              
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center p-3 border border-primary-200 rounded">
-                  <div className="font-medium">14" (35cm)</div>
-                  <div className="text-primary-600">Choker length</div>
-                </div>
-                <div className="flex justify-between items-center p-3 border border-primary-200 rounded">
-                  <div className="font-medium">16" (40cm)</div>
-                  <div className="text-primary-600">At the collarbone</div>
-                </div>
-                <div className="flex justify-between items-center p-3 border border-primary-200 rounded">
-                  <div className="font-medium">18" (45cm)</div>
-                  <div className="text-primary-600">Just below the collarbone</div>
-                </div>
-                <div className="flex justify-between items-center p-3 border border-primary-200 rounded">
-                  <div className="font-medium">20" (50cm)</div>
-                  <div className="text-primary-600">At the neckline</div>
-                </div>
-                <div className="flex justify-between items-center p-3 border border-primary-200 rounded">
-                  <div className="font-medium">24" (60cm)</div>
-                  <div className="text-primary-600">Below the neckline</div>
-                </div>
+          {showNecklaces && (
+            <section className="space-y-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Necklaces</p>
+                <h3 className="font-serif text-xl text-nocturne-900">Chain Length Overview</h3>
               </div>
-            </div>
+              <div className="space-y-3">
+                {chainLengths.map((item) => (
+                  <div key={item.length} className="flex flex-col gap-2 rounded-2xl border border-nocturne-100 bg-white/70 p-4 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <div className="text-sm font-semibold text-nocturne-800">{item.length}</div>
+                      <div className="text-xs uppercase tracking-[0.3em] text-nocturne-400">{item.label}</div>
+                    </div>
+                    <p className="text-sm text-nocturne-600 md:text-right">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
 
-          <div className="border-t pt-4 text-xs text-primary-500">
-            <p>Need help finding your size? Contact us for personalized assistance.</p>
+          <section className="space-y-3">
+            <h3 className="font-semibold text-nocturne-800">Convert your measurement</h3>
+            <div className="grid gap-4 rounded-2xl border border-nocturne-100 bg-white/70 p-5 md:grid-cols-3">
+              {['US Size', 'UK Size', 'Circumference (mm)'].map((label) => (
+                <div key={label}>
+                  <label className="text-xs uppercase tracking-[0.3em] text-nocturne-400">{label}</label>
+                  <input
+                    type="text"
+                    className="mt-2 w-full rounded-xl border border-nocturne-100 bg-white/80 px-3 py-2 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-gold-300 focus:outline-none focus:ring-2 focus:ring-gold-100"
+                    placeholder="Tap to enter"
+                    aria-label={label}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+
+        <footer className="flex flex-col gap-3 border-t border-nocturne-100 bg-white/85 px-6 py-5 text-sm text-nocturne-500 md:flex-row md:items-center md:justify-between">
+          <div>
+            Unsure after measuring? Our concierge team will assist via WhatsApp or email with bespoke guidance.
           </div>
-        </div>
+          <div className="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-nocturne-500">
+            <a href="mailto:aralphayajewellery@gmail.com" className="rounded-full border border-nocturne-200 px-4 py-2 hover:border-gold-300 hover:text-nocturne-800">
+              Email Concierge
+            </a>
+            <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="rounded-full border border-nocturne-200 px-4 py-2 hover:border-gold-300 hover:text-nocturne-800">
+              WhatsApp Us
+            </a>
+          </div>
+        </footer>
       </div>
     </div>
   )

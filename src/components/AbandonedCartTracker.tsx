@@ -6,20 +6,21 @@ import { useEffect, useState } from 'react'
 
 export default function AbandonedCartTracker() {
   const [isClient, setIsClient] = useState(false)
+  const { user } = useUser()
   
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  if (!isClient || !process.env.NEXT_PUBLIC_ENABLE_ABANDONED_CART || process.env.NEXT_PUBLIC_ENABLE_ABANDONED_CART === 'false') {
-    return null
-  }
-  
-  const { user } = useUser()
-  
+  const isEnabled =
+    isClient &&
+    !!process.env.NEXT_PUBLIC_ENABLE_ABANDONED_CART &&
+    process.env.NEXT_PUBLIC_ENABLE_ABANDONED_CART !== 'false'
+
   useAbandonedCart({
-    email: user?.email ?? undefined,
+    email: isEnabled ? user?.email ?? undefined : undefined,
     delay: 30 * 60 * 1000, // 30 minutes
+    enabled: isEnabled,
   })
 
   return null // This component doesn't render anything

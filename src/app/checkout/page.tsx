@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useCartStore } from '@/lib/store/cart'
-import SizeGuideModal from '@/components/product/SizeGuideModal'
+import SizeGuideModal from '@/components/ui/SizeGuideModal'
 import Link from 'next/link'
 import { trackEvent } from '@/lib/analytics'
 
@@ -29,12 +29,13 @@ function CheckoutPage() {
         <div className="max-w-md w-full border border-primary-200 rounded-lg p-6 text-center">
           <h1 className="text-2xl font-bold text-primary-800 mb-2">Sign in to continue</h1>
           <p className="text-primary-600 mb-4">You need to be logged in to proceed to checkout.</p>
-          <a
+          <Link
             href={`/api/auth/login?returnTo=${encodeURIComponent('/checkout')}`}
-            className="inline-block bg-primary-700 hover:bg-primary-800 text-white px-5 py-2 rounded-lg font-medium"
+            prefetch={false}
+            className="inline-block rounded-full bg-foreground px-6 py-3 text-sm font-semibold tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-nocturne-900"
           >
             Sign in with Auth0
-          </a>
+          </Link>
         </div>
       </div>
     )

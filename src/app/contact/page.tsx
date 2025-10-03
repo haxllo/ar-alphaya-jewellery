@@ -24,62 +24,73 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12">
-      <div className="grid lg:grid-cols-2 gap-12">
+    <div className="mx-auto max-w-7xl px-6 py-14">
+      <div className="rounded-3xl bg-white/80 p-10 shadow-subtle">
+        <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Connect with our atelier</p>
+        <h1 className="mt-3 font-serif text-4xl text-nocturne-900 md:text-5xl">We would love to craft with you</h1>
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-nocturne-600">
+          Share your inspirations, schedule a bespoke consultation, or ask about an existing piece. Our concierge team replies within 24 hours.
+        </p>
+      </div>
+
+      <div className="mt-14 grid gap-12 lg:grid-cols-[1fr_1.05fr]">
         {/* Contact Information */}
-        <div>
-          <h1 className="text-4xl font-serif mb-6">Get in Touch</h1>
-          <p className="text-neutral-600 mb-8">
-            We&apos;d love to hear from you. Whether you&apos;re interested in our existing pieces or 
-            want to discuss a custom design, we&apos;re here to help.
-          </p>
+        <div className="space-y-8 rounded-3xl border border-nocturne-100 bg-white/70 p-8 shadow-subtle">
+          <div>
+            <h2 className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Atelier details</h2>
+            <p className="mt-3 font-serif text-2xl text-nocturne-900">Visit our studio</p>
+            <p className="mt-2 text-sm text-nocturne-600">
+              143/5 Rainbow Park, Temple Road<br />
+              Kengalla 20186, Sri Lanka
+            </p>
+          </div>
 
-          <div className="space-y-6">
+          <div className="grid gap-6 text-sm text-nocturne-600">
             <div>
-              <h3 className="font-semibold mb-2">Visit Our Studio</h3>
-              <p className="text-neutral-600">
-                143/5 Rainbow park, Temple road<br />
-                Kengalla - 20186, Sri Lanka
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-2">Contact Information</h3>
-              <p className="text-neutral-600">
+              <p className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Concierge</p>
+              <p className="mt-2">
                 <strong>Email:</strong> aralphayajewellery@gmail.com<br />
                 <strong>Phone:</strong> +94 77 429 3406<br />
                 <strong>WhatsApp:</strong> +94 77 429 3406
               </p>
             </div>
-
             <div>
-              <h3 className="font-semibold mb-2">Business Hours</h3>
-              <p className="text-neutral-600">
-                Monday - Friday: 9:00 AM - 6:00 PM<br />
-                Saturday: 10:00 AM - 4:00 PM<br />
+              <p className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Hours</p>
+              <p className="mt-2">
+                Mon–Fri: 9:00 AM – 6:00 PM<br />
+                Saturday: 10:00 AM – 4:00 PM<br />
                 Sunday: By appointment only
               </p>
             </div>
-
             <div>
-              <h3 className="font-semibold mb-2">Follow Us</h3>
-              <div className="flex space-x-4">
-                <a href="#" className="text-neutral-600 hover:text-black">Facebook</a>
-                <a href="https://www.instagram.com/ar_alphaya_jewellery/" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-black">Instagram</a>
-                <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-black">WhatsApp</a>
+              <p className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Follow</p>
+              <div className="mt-3 flex gap-4 text-nocturne-600">
+                <a href="https://www.instagram.com/ar_alphaya_jewellery/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">Instagram</a>
+                <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">WhatsApp</a>
               </div>
             </div>
+          </div>
+
+          <div className="rounded-3xl border border-gold-200/60 bg-gold-50/70 p-6 text-nocturne-700">
+            <p className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Appointments</p>
+            <p className="mt-3 text-sm leading-relaxed">
+              In-person and virtual consultations are available by reservation. Share your availability and we&apos;ll curate gemstones in advance.
+            </p>
+            <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center text-sm font-semibold text-nocturne-700 underline-offset-6 hover:underline">
+              Start a WhatsApp chat
+            </a>
           </div>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-neutral-50 p-8 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
+        <div className="rounded-3xl border border-nocturne-100 bg-white/85 p-8 shadow-luxe">
+          <h2 className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Message us</h2>
+          <p className="mt-2 font-serif text-2xl text-nocturne-900">Tell us about your dream piece</p>
           
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1">
+          <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-xs uppercase tracking-[0.28em] text-nocturne-500">
                   Name *
                 </label>
                 <input
@@ -89,12 +100,13 @@ export default function ContactPage() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full border border-neutral-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                  suppressHydrationWarning
+                  className="w-full rounded-full border border-nocturne-100 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-gold-200 focus:outline-none focus:ring-2 focus:ring-gold-100"
                 />
               </div>
               
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-xs uppercase tracking-[0.28em] text-nocturne-500">
                   Email *
                 </label>
                 <input
@@ -104,13 +116,14 @@ export default function ContactPage() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full border border-neutral-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                  suppressHydrationWarning
+                  className="w-full rounded-full border border-nocturne-100 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-gold-200 focus:outline-none focus:ring-2 focus:ring-gold-100"
                 />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium mb-1">
+            <div className="space-y-2">
+              <label htmlFor="phone" className="text-xs uppercase tracking-[0.28em] text-nocturne-500">
                 Phone
               </label>
               <input
@@ -119,12 +132,13 @@ export default function ContactPage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full border border-neutral-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                suppressHydrationWarning
+                className="w-full rounded-full border border-nocturne-100 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-gold-200 focus:outline-none focus:ring-2 focus:ring-gold-100"
               />
             </div>
 
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium mb-1">
+            <div className="space-y-2">
+              <label htmlFor="subject" className="text-xs uppercase tracking-[0.28em] text-nocturne-500">
                 Subject *
               </label>
               <select
@@ -133,36 +147,38 @@ export default function ContactPage() {
                 required
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full border border-neutral-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                suppressHydrationWarning
+                className="w-full rounded-full border border-nocturne-100 bg-white/70 px-4 py-3 text-sm text-nocturne-700 focus:border-gold-200 focus:outline-none focus:ring-2 focus:ring-gold-100"
               >
                 <option value="">Select a subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="custom">Custom Design</option>
-                <option value="repair">Repair Service</option>
-                <option value="appointment">Schedule Appointment</option>
+                <option value="general">General inquiry</option>
+                <option value="custom">Custom design</option>
+                <option value="repair">Repair service</option>
+                <option value="appointment">Schedule appointment</option>
                 <option value="other">Other</option>
               </select>
             </div>
 
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-1">
+            <div className="space-y-2">
+              <label htmlFor="message" className="text-xs uppercase tracking-[0.28em] text-nocturne-500">
                 Message *
               </label>
               <textarea
                 id="message"
                 name="message"
                 required
-                rows={4}
+                rows={5}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full border border-neutral-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
-                placeholder="Tell us about your jewelry needs or questions..."
+                suppressHydrationWarning
+                className="w-full rounded-3xl border border-nocturne-100 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-gold-200 focus:outline-none focus:ring-2 focus:ring-gold-100"
+                placeholder="Share occasion dates, gemstones you love, or ideas you’ve collected."
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-black text-white py-3 px-6 rounded hover:bg-neutral-800 transition-colors"
+              className="w-full rounded-full bg-foreground py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5"
             >
               Send Message
             </button>

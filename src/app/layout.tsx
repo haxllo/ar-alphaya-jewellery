@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   display: "swap",
+  variable: "--font-sans",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full antialiased scroll-smooth ${inter.variable} ${playfair.variable}`}>
       <head>
         <meta name="theme-color" content="#121212" />
         <link rel="manifest" href="/manifest.webmanifest" />
@@ -50,7 +58,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} h-full flex flex-col`}>
+      <body className="h-full flex flex-col font-sans bg-background text-foreground">
         {/* Organization JSON-LD */}
         <script
           type="application/ld+json"
@@ -76,9 +84,12 @@ export default function RootLayout({
         />
         <NetlifyIdentityLoader />
         <Providers>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <div className="relative flex min-h-screen flex-col">
+            <div className="pointer-events-none absolute inset-0 bg-hero-radial" aria-hidden="true" />
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
           <AbandonedCartTracker />
         </Providers>
       </body>
