@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getProducts } from '@/lib/cms'
 import FeaturedProducts from './FeaturedProducts'
+import DynamicHeroImage from '@/components/home/DynamicHeroImage'
 
 export const revalidate = 60;
 
@@ -187,13 +188,7 @@ export default async function Home() {
               ))}
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-3xl border border-nocturne-100">
-            <Image
-              src="/images/LOGO2.png"
-              alt="Jewellery atelier"
-              fill
-              className="object-contain object-center p-6"
-            />
+          <div className="relative overflow-hidden rounded-3xl border border-nocturne-100 h-[400px]">`n            <DynamicHeroImage />
           </div>
         </div>
       </section>
@@ -275,3 +270,6 @@ export default async function Home() {
     </div>
   )
 }
+
+
+
