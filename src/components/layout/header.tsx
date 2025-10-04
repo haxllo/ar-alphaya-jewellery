@@ -29,6 +29,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [showUserDropdown, setShowUserDropdown] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [suggestions, setSuggestions] = useState<Array<{ name: string; slug: string; price: number }>>([])
   const [loadingSuggest, setLoadingSuggest] = useState(false)
@@ -262,11 +263,12 @@ export default function Header() {
             {isLoading ? (
               <div className="w-8 h-8 animate-pulse bg-gray-200 rounded-full"></div>
             ) : user ? (
-              <div className="relative group">
+              <div className="relative user-dropdown-container">
                 <button 
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
                   className="flex items-center gap-2 text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
                   aria-label="User account menu"
-                  aria-expanded="false"
+                  aria-expanded={showUserDropdown}
                   aria-haspopup="true"
                 >
                   <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
@@ -288,30 +290,56 @@ export default function Header() {
                     )}
                   </div>
                   <span className="hidden md:inline">{(user as any)?.name || (user as any)?.email}</span>
-                  <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg 
+                    className={`ml-1 h-3 w-3 transition-transform ${showUserDropdown ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    aria-hidden="true"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white/95 shadow-luxe opacity-0 invisible transition-all group-hover:visible group-hover:opacity-100">
-                  <Link
-                    href="/profile"
-                    className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors first:rounded-t-xl hover:bg-gold-50/70 hover:text-foreground"
-                  >
-                    My Profile
-                  </Link>
-                  <Link
-                    href="/orders"
-                    className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors hover:bg-gold-50/70 hover:text-foreground"
-                  >
-                    My Orders
-                  </Link>
-                  <Link
-                    href="/api/auth/logout"
-                    className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors last:rounded-b-xl hover:bg-gold-50/70 hover:text-foreground"
-                  >
-                    Sign Out
-                  </Link>
-                </div>
+                {showUserDropdown && (
+                  <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white shadow-luxe backdrop-blur-sm animate-in fade-in slide-in-from-top-2 duration-200">
+                    <Link
+                      href="/profile"
+                      onClick={() => setShowUserDropdown(false)}
+                      className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors first:rounded-t-xl hover:bg-gold-50/70 hover:text-foreground"
+                    >
+                      <div className="flex items-center gap-3">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <span>My Profile</span>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/orders"
+                      onClick={() => setShowUserDropdown(false)}
+                      className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors hover:bg-gold-50/70 hover:text-foreground"
+                    >
+                      <div className="flex items-center gap-3">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        <span>My Orders</span>
+                      </div>
+                    </Link>
+                    <div className="border-t border-border/50"></div>
+                    <Link
+                      href="/api/auth/logout"
+                      className="block px-5 py-3 text-sm font-medium text-red-600 transition-colors last:rounded-b-xl hover:bg-red-50 hover:text-red-700"
+                    >
+                      <div className="flex items-center gap-3">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Sign Out</span>
+                      </div>
+                    </Link>
+                  </div>
+                )}
               </div>
             ) : (
               <button 
