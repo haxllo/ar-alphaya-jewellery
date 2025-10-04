@@ -20,7 +20,7 @@ export default function DynamicHeroImage() {
   }, [])
 
   return (
-    <div className="relative h-full w-full">
+    <div className="absolute inset-0">
       {images.map((image, index) => (
         <div
           key={image.src}
@@ -32,7 +32,7 @@ export default function DynamicHeroImage() {
             src={image.src}
             alt={image.alt}
             fill
-            className="object-cover object-center rounded-3xl"
+            className="object-cover object-center"
             priority={index === 0}
           />
         </div>
