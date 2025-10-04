@@ -327,9 +327,9 @@ export default function Header() {
                       </div>
                     </Link>
                     <div className="border-t border-border/50"></div>
-                    <Link
-                      href="/api/auth/logout"
-                      className="block px-5 py-3 text-sm font-medium text-red-600 transition-colors last:rounded-b-xl hover:bg-red-50 hover:text-red-700"
+                    <button
+                      onClick={() => window.location.href = '/api/auth/logout'}
+                      className="block w-full text-left px-5 py-3 text-sm font-medium text-red-600 transition-colors last:rounded-b-xl hover:bg-red-50 hover:text-red-700"
                     >
                       <div className="flex items-center gap-3">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -337,7 +337,7 @@ export default function Header() {
                         </svg>
                         <span>Sign Out</span>
                       </div>
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>
