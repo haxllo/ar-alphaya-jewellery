@@ -19,6 +19,10 @@ export async function GET(
     // Handle different auth routes
     switch (auth0) {
     case 'login':
+      console.log('[Auth Login] Building Auth0 login URL...');
+      console.log('[Auth Login] ISSUER:', process.env.AUTH0_ISSUER_BASE_URL);
+      console.log('[Auth Login] CLIENT_ID:', process.env.AUTH0_CLIENT_ID ? 'SET' : 'MISSING');
+      
       // Redirect to Auth0 Universal Login
       const loginUrl = new URL(`${process.env.AUTH0_ISSUER_BASE_URL}/authorize`);
       loginUrl.searchParams.set('client_id', process.env.AUTH0_CLIENT_ID!);
@@ -26,7 +30,10 @@ export async function GET(
       loginUrl.searchParams.set('response_type', 'code');
       loginUrl.searchParams.set('scope', process.env.AUTH0_SCOPE || 'openid profile email');
       loginUrl.searchParams.set('state', Math.random().toString(36).substring(7));
-      return NextResponse.redirect(loginUrl);
+      
+      console.log('[Auth Login] Redirecting to:', loginUrl.toString());
+      
+      return NextResponse.redirect(loginUrl.toString());
       
     case 'logout':
       // Clear session cookie
@@ -163,9 +170,17 @@ export async function GET(
     }
   } catch (error) {
     console.error('[Auth Route] Unexpected error:', error);
+    console.error('[Auth Route] Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.redirect(
-      `${process.env.AUTH0_BASE_URL}/auth/error?error=server_error&details=${encodeURIComponent(errorMessage)}`
+    
+    // Don't redirect on login errors - return error response
+    return NextResponse.json(
+      { 
+        error: 'server_error',
+        message: errorMessage,
+        details: error instanceof Error ? error.stack : undefined
+      },
+      { status: 500 }
     );
   }
 }
