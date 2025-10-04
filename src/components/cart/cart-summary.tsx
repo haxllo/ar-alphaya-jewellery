@@ -87,7 +87,7 @@ export default function CartSummary({
       <div className="mt-8 space-y-3">
         <Link 
           href="/checkout" 
-          className="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors font-medium text-center block flex items-center justify-center"
+          className="w-full rounded-full bg-foreground py-3 px-4 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900 text-center block flex items-center justify-center"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -96,7 +96,7 @@ export default function CartSummary({
         </Link>
         <Link 
           href="/" 
-          className="w-full border border-gray-300 text-black py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors text-center block"
+          className="w-full rounded-full border border-nocturne-200 py-3 px-4 text-sm font-semibold tracking-[0.25em] text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400 text-center block"
         >
           Continue Shopping
         </Link>

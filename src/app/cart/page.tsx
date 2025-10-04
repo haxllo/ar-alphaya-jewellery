@@ -94,7 +94,7 @@ export default function CartPage() {
           <div className="space-y-4">
             <Link 
               href="/" 
-              className="inline-block bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+              className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
             >
               Continue Shopping
             </Link>
