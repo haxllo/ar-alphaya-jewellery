@@ -5,7 +5,7 @@ export default function AboutPage() {
         <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Our Maison</p>
         <h1 className="mt-4 font-serif text-4xl text-nocturne-900 md:text-5xl">The artistry behind AR Alphaya Jewellery</h1>
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-nocturne-600">
-          AR Alphaya Jewellery is a solo atelier based in Kandy, Sri Lanka. I design, carve, cast, and finish each piece by hand, partnering with local gemstone cutters to showcase the colour and character of Sri Lankan stones in modern, wearable forms.
+          AR Alphaya Jewellery is a solo atelier based in Kandy, Sri Lanka. I design, carve, cast, and finish each piece by hand, partnering with local gemstone cutters to showcase the colour and character of Sri Lankan stones in modern, wearable forms. <strong>I believe everyone deserves meaningful, bespoke jewellery—without luxury prices.</strong>
         </p>
       </section>
 

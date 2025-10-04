@@ -8,6 +8,7 @@ export default function ContactPage() {
     email: '',
     phone: '',
     subject: '',
+    budget: '',
     message: ''
   })
 
@@ -16,7 +17,7 @@ export default function ContactPage() {
     // Handle form submission here - could integrate with email service
     console.log('Form submitted:', formData)
     alert('Thank you for your message! We will get back to you soon.')
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+    setFormData({ name: '', email: '', phone: '', subject: '', budget: '', message: '' })
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -29,7 +30,7 @@ export default function ContactPage() {
         <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Connect with our atelier</p>
         <h1 className="mt-3 font-serif text-4xl text-nocturne-900 md:text-5xl">We would love to craft with you</h1>
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-nocturne-600">
-          Share your inspirations, schedule a bespoke consultation, or ask about an existing piece. Our concierge team replies within 24 hours.
+          Share your inspirations, schedule a bespoke consultation, or ask about an existing piece. <strong>We welcome all budgets</strong>—from heirloom resets to milestone commissions. Free no-pressure design call for everyone. Our concierge team replies within 24 hours.
         </p>
       </div>
 
@@ -188,3 +189,4 @@ export default function ContactPage() {
     </div>
   )
 }
+

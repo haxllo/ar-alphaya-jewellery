@@ -60,6 +60,10 @@ export default async function Home() {
   ]
   const faqs = [
     {
+      question: 'Are your prices premium?',
+      answer: 'No! Most custom pieces cost the same or less than ready-made jewellery at major stores. You pay for artisan craftsmanship, not luxury markup. Every project starts with a budget conversation so you feel comfortable from day one.',
+    },
+    {
       question: 'Do you sell ready-made pieces?',
       answer: 'Yes—limited studio creations are listed here and can be customised. Most clients commission a bespoke design starting from an idea, sketch, or heirloom reset.',
     },
@@ -85,23 +89,23 @@ export default async function Home() {
               Bespoke Jewellery Atelier
             </p>
             <h1 className="font-serif text-4xl leading-tight text-nocturne-900 sm:text-5xl lg:text-6xl">
-              Custom jewellery handcrafted by a single artisan for your milestone moments.
+              Custom jewellery at everyday prices—affordable, personal, and crafted just for you.
             </h1>
             <p className="max-w-xl text-base leading-relaxed text-nocturne-600">
-              AR Alphaya Jewellery is a one-person studio creating bespoke pieces with Sri Lankan coloured gemstones and recycled gold. Each commission begins with a conversation—together we shape a design that feels true to you.
+              AR Alphaya Jewellery is a one-person studio creating bespoke pieces with Sri Lankan coloured gemstones and recycled gold. Each commission begins with a conversation—together we shape a design that feels true to you. <strong>No luxury markup, just artisan craftsmanship.</strong>
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
                 className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
-                href="/collections/rings"
+                href="/contact"
               >
-                View Current Creations
+                Get a Quote—No Obligation
               </Link>
               <Link
                 className="inline-flex items-center justify-center rounded-full border border-nocturne-200 px-8 py-3 text-sm font-semibold tracking-[0.25em] text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
-                href="/contact"
+                href="/collections/rings"
               >
-                Start A Custom Brief
+                See Affordable Bespoke Options
               </Link>
             </div>
             <div className="flex flex-wrap gap-6 pt-4 text-sm text-nocturne-500">
