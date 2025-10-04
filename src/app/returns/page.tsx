@@ -1,6 +1,9 @@
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
 export default function ReturnPolicyPage() {
+  redirect('/policies#returns')
+  
   return (
     <main className="mx-auto max-w-4xl px-6 py-12">
       <div className="prose prose-lg max-w-none">

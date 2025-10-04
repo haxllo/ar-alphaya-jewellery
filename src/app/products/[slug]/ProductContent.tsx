@@ -10,7 +10,6 @@ import ReviewCard from '@/components/reviews/ReviewCard'
 import StarRating from '@/components/reviews/StarRating'
 import type { Product, GemstoneOption, Review, ReviewSummary } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 // Lazy-load below-the-fold/heavy components to improve TTI
 const WishlistButton = dynamic(() => import('@/components/wishlist/WishlistButton'), { ssr: false })
@@ -38,6 +37,19 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([] as unknown as Product[])
   const [waitlistEmail, setWaitlistEmail] = useState('')
   const [waitlistStatus, setWaitlistStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const formatAvailability = (value?: string) => {
+    if (!value) return ''
+    return value
+      .split(/[-_\s]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ')
+  }
+  const availabilityFallback = product.inStock ? 'Ready to ship' : 'Made to order'
+  const availabilityLabel = formatAvailability(product.availability) || availabilityFallback
+  const leadTimeCopy = product.leadTime || (product.inStock ? 'Dispatches within 3–5 business days' : 'Crafted to order in roughly 4–6 weeks')
+  const isCustomisable = product.customizable !== false
 
   // Calculate final price with gemstone adjustment
   const getFinalPrice = () => {
@@ -129,6 +141,27 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
                   <span className="ml-2 text-base text-nocturne-500">
                     ({selectedGemstone.priceAdjustment > 0 ? '+' : ''}{formatPrice(selectedGemstone.priceAdjustment)} for {selectedGemstone.name})
                   </span>
+                )}
+              </div>
+              <div className="mt-3 flex flex-col gap-2 rounded-3xl border border-nocturne-100 bg-white/70 p-4 text-sm text-nocturne-600">
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Availability</span>
+                  <span className="font-medium text-nocturne-800">{availabilityLabel}</span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs uppercase tracking-[0.28em] text-nocturne-500">Estimated timeline</span>
+                  <span>{leadTimeCopy}</span>
+                </div>
+                {product.statusNote && (
+                  <div className="rounded-2xl border border-gold-200/60 bg-gold-50/70 p-3 text-nocturne-700">
+                    {product.statusNote}
+                  </div>
+                )}
+                {isCustomisable && (
+                  <div className="flex items-center gap-2 text-nocturne-600">
+                    <span className="h-2 w-2 rounded-full bg-gold-400" />
+                    <span>Custom design adjustments welcomed—add notes at checkout or message us.</span>
+                  </div>
                 )}
               </div>
               {currentCurrency?.code !== 'LKR' && (
@@ -310,7 +343,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
                   className="flex flex-1 items-center justify-center gap-3 rounded-full border border-nocturne-100 px-6 py-3 text-sm font-semibold tracking-[0.18em] text-nocturne-700 transition-transform duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:text-foreground"
                 >
                   <Truck className="h-5 w-5" />
-                  Shipping & Returns
+                  Delivery Details
                 </button>
               </div>
             </div>
@@ -319,16 +352,18 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
             <div className="space-y-3 border-t border-nocturne-100 pt-6 text-sm text-nocturne-600">
               <div className="flex items-center gap-3">
                 <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-                <span>Free shipping on orders over LKR 50,000</span>
+                <span>Each piece is handcrafted in Kandy, Sri Lanka.</span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="h-2 w-2 rounded-full bg-sky-500"></span>
-                <span>30-day return policy</span>
+                <span>Typical timeline: {leadTimeCopy}.</span>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-violet-500"></span>
-                <span>Lifetime warranty on manufacturing defects</span>
-              </div>
+              {isCustomisable && (
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-violet-500"></span>
+                  <span>Need adjustments? Send us your ideas and we will refine them together.</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -352,7 +387,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
 
           {(reviewSummary?.totalReviews ?? 0) === 0 ? (
             <div className="rounded-3xl border border-nocturne-100 bg-white/75 p-8 text-center text-nocturne-600">
-              Be the first to share your story with this piece. Reach out to our concierge team to arrange a private viewing or bespoke appointment.
+              Be the first to share your story with this piece. Message us to arrange a design consultation or viewing.
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2">

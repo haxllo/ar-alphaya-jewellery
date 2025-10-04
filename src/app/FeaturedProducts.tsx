@@ -17,11 +17,11 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
     <section className="mx-auto max-w-7xl px-6">
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">New Arrivals</p>
-          <h2 className="mt-2 font-serif text-3xl text-nocturne-900 md:text-4xl">Featured pieces from our atelier</h2>
+          <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Current creations</p>
+          <h2 className="mt-2 font-serif text-3xl text-nocturne-900 md:text-4xl">Limited pieces available to customise or claim</h2>
         </div>
         <Link href="/collections/rings" className="text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline">
-          Explore curated edits
+          View all studio listings
         </Link>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -56,6 +56,18 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
                 <p className="text-xs uppercase tracking-[0.32em] text-nocturne-400">{p.category.replace('-', ' ')}</p>
                 <h3 className="font-serif text-xl text-nocturne-900 transition-colors group-hover:text-foreground">{p.name}</h3>
                 <span className="text-sm font-semibold text-nocturne-600">{formatPrice(p.price)}</span>
+                {(p.availability || p.leadTime) && (
+                  <div className="mt-2 flex flex-col gap-1">
+                    {p.availability && (
+                      <span className="inline-flex w-fit items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
+                        {p.availability.split(/[-_\s]+/).filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
+                      </span>
+                    )}
+                    {p.leadTime && (
+                      <span className="text-xs text-nocturne-500">Lead time: {p.leadTime}</span>
+                    )}
+                  </div>
+                )}
               </div>
             </Link>
           </div>

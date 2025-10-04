@@ -17,12 +17,11 @@ export default function ShippingPolicyPage() {
         <div className="bg-gray-50 rounded-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">SHIPPING OVERVIEW</h2>
           <ul className="space-y-2 text-gray-700">
-            <li>✓ Free shipping within Sri Lanka for orders over Rs 50,000</li>
-            <li>✓ Island-wide delivery available</li>
-            <li>✓ International shipping to selected countries</li>
-            <li>✓ Express delivery options available</li>
-            <li>✓ Secure packaging for all jewelry items</li>
-            <li>✓ Order tracking provided</li>
+            <li>✓ Commissions are handcrafted to order; please allow 4–6 weeks before dispatch.</li>
+            <li>✓ Island-wide delivery across Sri Lanka with tracked courier partners.</li>
+            <li>✓ Studio collection in Kandy can be arranged by appointment.</li>
+            <li>✓ International shipping is available on request and quoted individually.</li>
+            <li>✓ Every piece ships in discreet, secure packaging with care instructions.</li>
           </ul>
         </div>
 
@@ -33,20 +32,20 @@ export default function ShippingPolicyPage() {
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Standard Delivery</h3>
               <ul className="space-y-2 text-gray-700">
-                <li><strong>Timeframe:</strong> 3-7 business days</li>
-                <li><strong>Cost:</strong> Rs 500 (Free over Rs 50,000)</li>
-                <li><strong>Coverage:</strong> All major cities and towns</li>
-                <li><strong>Tracking:</strong> Yes</li>
+                <li><strong>Dispatch:</strong> Orders leave the studio once bench work is completed (typically 4–6 weeks).</li>
+                <li><strong>Transit time:</strong> 2–4 business days with tracking updates.</li>
+                <li><strong>Coverage:</strong> All major cities and town centres in Sri Lanka.</li>
+                <li><strong>Cost:</strong> Rs 750 flat rate.</li>
               </ul>
             </div>
             
             <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">Express Delivery</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Hand Delivery / Pick-up</h3>
               <ul className="space-y-2 text-gray-700">
-                <li><strong>Timeframe:</strong> 1-2 business days</li>
-                <li><strong>Cost:</strong> Rs 1,500</li>
-                <li><strong>Coverage:</strong> Kandy, Colombo, Galle, Negombo</li>
-                <li><strong>Tracking:</strong> Real-time tracking</li>
+                <li><strong>Dispatch:</strong> Coordinated once your piece has passed final polishing.</li>
+                <li><strong>Options:</strong> Studio collection in Kandy or personal delivery within Kandy city.</li>
+                <li><strong>Extended handover:</strong> Delivery to Colombo is available on select dates; please enquire for scheduling and fees.</li>
+                <li><strong>Cost:</strong> Quoted during confirmation.</li>
               </ul>
             </div>
           </div>
@@ -54,9 +53,9 @@ export default function ShippingPolicyPage() {
           <div className="bg-blue-50 rounded-lg p-6 mb-6">
             <h3 className="text-lg font-semibold text-blue-900 mb-3">Special Delivery Areas</h3>
             <ul className="space-y-2 text-blue-800 text-sm">
-              <li>• <strong>Kandy Area:</strong> Same-day delivery available for orders placed before 2 PM</li>
-              <li>• <strong>Remote Areas:</strong> Additional 2-3 days may be required</li>
-              <li>• <strong>Post Office Box:</strong> Not available for jewelry deliveries (signature required)</li>
+              <li>• <strong>Kandy District:</strong> Same-day handover is possible once your piece is ready.</li>
+              <li>• <strong>Remote areas:</strong> Couriers may require an additional 1–2 business days.</li>
+              <li>• <strong>PO Boxes:</strong> Unavailable; a signature is required on delivery.</li>
             </ul>
           </div>
         </section>
@@ -93,25 +92,27 @@ export default function ShippingPolicyPage() {
                 </ul>
               </div>
             </div>
+            <p className="mt-4 text-sm text-gray-600">International delivery is coordinated manually to ensure paperwork, insurance, and timelines fit your destination. Availability for a country may change based on local regulations and carrier schedules.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Shipping Times & Costs</h3>
               <ul className="space-y-3 text-gray-700">
-                <li><strong>Asia Pacific:</strong> 7-14 days | Rs 3,500 - Rs 5,000</li>
-                <li><strong>Europe:</strong> 10-21 days | Rs 4,500 - Rs 6,500</li>
-                <li><strong>North America:</strong> 10-21 days | Rs 5,000 - Rs 7,000</li>
+                <li><strong>Asia Pacific:</strong> 6–12 business days in transit. Rates start around Rs 4,500; final cost confirmed before payment.</li>
+                <li><strong>Europe:</strong> 10–18 business days in transit. Rates vary by destination; expect Rs 6,000–9,000.</li>
+                <li><strong>North America:</strong> 10–18 business days in transit. Rates typically begin at Rs 7,500.</li>
+                <li className="text-sm text-gray-500">Transit times are counted after your piece leaves the studio. Customs processing may extend delivery windows.</li>
               </ul>
             </div>
             
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">International Requirements</h3>
               <ul className="space-y-2 text-gray-700 text-sm">
-                <li>• Customs forms completed</li>
-                <li>• Import duties may apply</li>
-                <li>• Minimum order Rs 25,000</li>
-                <li>• Jewelry certificates included</li>
+                <li>• Completed customs forms and identification where requested by carriers.</li>
+                <li>• Import duties, VAT, and brokerage fees are the responsibility of the recipient.</li>
+                <li>• Minimum order value of Rs 30,000 for international consignments.</li>
+                <li>• Care cards and material notes are included; insurance can be arranged on request.</li>
               </ul>
             </div>
           </div>
@@ -124,7 +125,7 @@ export default function ShippingPolicyPage() {
             <div className="flex items-start space-x-4">
               <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">1</div>
               <div>
-                <h3 className="font-semibold text-gray-800">Order Confirmation</h3>
+                <p className="text-gray-700 text-sm">Each piece is inspected under magnification, photographed for records, and packaged securely.</p>
                 <p className="text-gray-700 text-sm">Orders are processed within 1-2 business days after payment confirmation.</p>
               </div>
             </div>
@@ -132,7 +133,7 @@ export default function ShippingPolicyPage() {
             <div className="flex items-start space-x-4">
               <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">2</div>
               <div>
-                <h3 className="font-semibold text-gray-800">Quality Check</h3>
+                <p className="text-gray-700 text-sm">Your parcel is booked with a trusted courier and tracking details are shared via email.</p>
                 <p className="text-gray-700 text-sm">Each piece undergoes careful inspection and professional packaging.</p>
               </div>
             </div>
@@ -149,7 +150,7 @@ export default function ShippingPolicyPage() {
               <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">4</div>
               <div>
                 <h3 className="font-semibold text-gray-800">Delivery</h3>
-                <p className="text-gray-700 text-sm">Secure delivery with signature confirmation required.</p>
+                <p className="text-gray-700 text-sm">Signature confirmation is required on delivery or at pick-up.</p>
               </div>
             </div>
           </div>
@@ -166,17 +167,17 @@ export default function ShippingPolicyPage() {
                   <li>• Premium jewelry boxes</li>
                   <li>• Protective cushioning materials</li>
                   <li>• Tamper-evident sealing</li>
-                  <li>• Discreet exterior packaging</li>
+                  <li>• Discreet, unbranded exterior cartons</li>
                 </ul>
               </div>
               
               <div>
                 <h3 className="font-semibold text-gray-800 mb-3">Insurance & Security</h3>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>• Full insurance coverage included</li>
-                  <li>• Signature required on delivery</li>
-                  <li>• Safe drop-off not available</li>
-                  <li>• GPS tracking available</li>
+                  <li>• Signature required on delivery or collection</li>
+                  <li>• Safe drop-off is not available for jewellery shipments</li>
+                  <li>• Insurance for domestic parcels is included up to Rs 150,000; higher coverage can be arranged on request.</li>
+                  <li>• International insurance is quoted separately when required.</li>
                 </ul>
               </div>
             </div>

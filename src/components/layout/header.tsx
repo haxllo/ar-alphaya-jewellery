@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { useUser } from '@auth0/nextjs-auth0'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
 import dynamic from 'next/dynamic'
@@ -23,10 +23,7 @@ const collections = [
 ]
 
 export default function Header() {
-  // Temporarily disable Auth0 until properly configured
-  // const { user, error, isLoading } = useUser()
-  const user = null
-  const isLoading = false
+  const { user, error, isLoading } = useUser()
   
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -35,11 +32,17 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('')
   const [suggestions, setSuggestions] = useState<Array<{ name: string; slug: string; price: number }>>([])
   const [loadingSuggest, setLoadingSuggest] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false)
   const { formatPrice } = useCurrency()
   const [highlighted, setHighlighted] = useState<number>(-1)
-  const items = useCartStore((state) => state.items)
-  const cartCount = items.reduce((acc, item) => acc + item.quantity, 0)
-  const wishlistCount = useWishlistStore((state) => state.getItemCount())
+  const cartItems = useCartStore((state) => state.items)
+  const wishlistItems = useWishlistStore((state) => state.items)
+  const cartCount = hasMounted ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0
+  const wishlistCount = hasMounted ? wishlistItems.length : 0
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -103,14 +106,15 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Home</Link>
+            <Link href="/#process" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Custom Commissions</Link>
             <div className="relative group">
               <button 
                 className="flex items-center text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
-                aria-label="Jewelry collections menu"
+                aria-label="Collections menu"
                 aria-expanded="false"
                 aria-haspopup="true"
               >
-                Jewelry
+                Collections
                 <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -128,13 +132,6 @@ export default function Header() {
               </div>
             </div>
             <Link href="/about" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">About</Link>
-            <button
-              onClick={() => setShowSizeGuide(true)}
-              className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
-              aria-label="Open size guide modal"
-            >
-              Size Guide
-            </button>
             <Link href="/contact" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Contact</Link>
           </nav>
         </div>
@@ -386,8 +383,9 @@ export default function Header() {
             
             <nav className="space-y-5">
               <Link href="/" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Home</Link>
+              <Link href="/#process" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Custom Commissions</Link>
               <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Jewelry</div>
+                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Collections</div>
                 <div className="mt-3 pl-4 space-y-3">
                   {collections.map((collection) => (
                     <Link
@@ -401,17 +399,11 @@ export default function Header() {
                 </div>
               </div>
               <Link href="/about" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">About</Link>
-              <button
-                onClick={() => setShowSizeGuide(true)}
-                className="block text-left text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground"
-                aria-label="Open size guide modal"
-              >
-                Size Guide
-              </button>
               <Link href="/contact" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Contact</Link>
               <Link href="/wishlist" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">
                 Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
               </Link>
+              <Link href="/policies" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Policies</Link>
               
               {/* Mobile Authentication */}
               <div className="mt-6 border-t border-border/60 pt-6">

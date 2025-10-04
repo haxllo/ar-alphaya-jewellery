@@ -17,8 +17,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "AR Alphaya Jewellery | Fine Jewelry & Custom Pieces",
-  description: "Discover exquisite fine jewelry and custom pieces at AR Alphaya Jewellery. Specializing in rings, earrings, pendants, and bracelets crafted with precision and passion.",
+  title: "AR Alphaya Jewellery | Bespoke Sri Lankan Jewellery",
+  description: "A one-person atelier crafting custom jewellery in Kandy, Sri Lanka. Explore limited studio creations and commission coloured gemstone pieces made just for you.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   icons: {
     icon: '/images/LOGO1.png',
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`h-full antialiased scroll-smooth ${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`antialiased scroll-smooth ${inter.variable} ${playfair.variable}`}>
       <head>
         <meta name="theme-color" content="#121212" />
         <link rel="manifest" href="/manifest.webmanifest" />
@@ -58,7 +58,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="h-full flex flex-col font-sans bg-background text-foreground">
+      <body className="flex flex-col font-sans bg-background text-foreground min-h-screen">
         {/* Organization JSON-LD */}
         <script
           type="application/ld+json"

@@ -1,17 +1,12 @@
-"use client";
+import { redirect } from 'next/navigation'
 
-import Head from "next/head";
-import * as Sentry from "@sentry/nextjs";
-import { useState, useEffect } from "react";
-
-class SentryExampleFrontendError extends Error {
-  constructor(message: string | undefined) {
-    super(message);
-    this.name = "SentryExampleFrontendError";
-  }
+// Debug page removed - redirecting to home
+export default function Page() {
+  redirect('/')
 }
 
-export default function Page() {
+/* Old code removed - page now redirects to home
+function OldPage() {
   const [hasSentError, setHasSentError] = useState(false);
   const [isConnected, setIsConnected] = useState(true);
   
@@ -207,3 +202,4 @@ export default function Page() {
     </div>
   );
 }
+*/

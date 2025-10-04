@@ -66,6 +66,10 @@ export interface Product {
   tags?: string[];
   createdAt?: string;
   updatedAt?: string;
+  availability?: string;
+  leadTime?: string;
+  customizable?: boolean;
+  statusNote?: string;
 }
 
 export interface SiteSettings {
@@ -130,6 +134,10 @@ function normalizeProductAttributes(raw: any, id?: string): Product {
     tags: raw.tags,
     createdAt: raw.createdAt ?? raw.originalCreatedAt,
     updatedAt: raw.updatedAt ?? raw.originalUpdatedAt,
+    availability: raw.availability,
+    leadTime: raw.leadTime,
+    customizable: raw.customizable ?? false,
+    statusNote: raw.statusNote,
   };
 }
 
@@ -235,6 +243,10 @@ async function readProducts(): Promise<Product[]> {
         publishedAt: new Date().toISOString(),
         createdAt: raw.createdAt || new Date().toISOString(),
         updatedAt: raw.updatedAt || new Date().toISOString(),
+        availability: raw.availability,
+        leadTime: raw.leadTime,
+        customizable: raw.customizable ?? false,
+        statusNote: raw.statusNote,
       } as Product;
     });
 

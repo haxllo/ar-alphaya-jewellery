@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { usePriceFormatter } from '@/hooks/useCurrency'
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { useUser } from '@auth0/nextjs-auth0'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/ui/SizeGuideModal'
 import Link from 'next/link'
@@ -86,7 +86,7 @@ function CheckoutPage() {
     return (
       <div className="mx-auto max-w-2xl px-6 py-12 text-center">
         <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
-        <p className="text-gray-600 mb-6">{error.message}</p>
+        <p className="text-gray-600 mb-6">{String(error)}</p>
         <Link href="/" className="bg-black text-white px-6 py-2 rounded">Go Home</Link>
       </div>
     )

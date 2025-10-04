@@ -88,6 +88,16 @@ export default function CollectionContent({ handle, products }: CollectionConten
                   <p className="text-xs uppercase tracking-[0.3em] text-nocturne-400">{title}</p>
                   <h3 className="font-serif text-xl text-nocturne-900 transition-colors group-hover:text-foreground">{p.name}</h3>
                   <span className="text-sm font-semibold text-nocturne-600">{formatPrice(p.price)}</span>
+                  {(p.availability || p.leadTime) && (
+                    <div className="mt-2 flex flex-col gap-1">
+                      {p.availability && (
+                        <span className="inline-flex w-fit items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
+                          {p.availability.split(/[-_\s]+/).filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
+                        </span>
+                      )}
+                      {p.leadTime && <span className="text-xs text-nocturne-500">Lead time: {p.leadTime}</span>}
+                    </div>
+                  )}
                 </div>
               </Link>
             </div>

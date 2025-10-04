@@ -8,6 +8,17 @@ function AuthErrorContent() {
   const searchParams = useSearchParams()
   const error = searchParams.get('error')
   const message = searchParams.get('message')
+  const details = searchParams.get('details')
+  
+  // Parse details if available
+  let errorDetails = null
+  if (details) {
+    try {
+      errorDetails = JSON.parse(details)
+    } catch (e) {
+      errorDetails = details
+    }
+  }
 
   const getErrorMessage = (error: string | null, message: string | null) => {
     if (message) {
@@ -72,9 +83,22 @@ function AuthErrorContent() {
             {errorInfo.title}
           </h1>
           
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 mb-4">
             {errorInfo.description}
           </p>
+          
+          {errorDetails && (
+            <div className="mb-8 p-4 bg-gray-50 rounded-lg text-left">
+              <p className="text-xs font-mono text-gray-700">
+                <strong>Error Details:</strong>
+              </p>
+              <pre className="text-xs text-gray-600 mt-2 overflow-auto">
+                {typeof errorDetails === 'object' 
+                  ? JSON.stringify(errorDetails, null, 2)
+                  : String(errorDetails)}
+              </pre>
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">

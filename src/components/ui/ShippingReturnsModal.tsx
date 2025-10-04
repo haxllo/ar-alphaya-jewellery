@@ -55,34 +55,34 @@ export default function ShippingReturnsModal({ isOpen, onClose }: ShippingReturn
                 </div>
                 <div className="text-sm text-primary-600 space-y-1">
                   <div className="flex justify-between">
-                    <span>Colombo & Suburbs:</span>
-                    <span className="font-medium">1-2 business days</span>
+                    <span>Bench time:</span>
+                    <span className="font-medium">4–6 weeks (made to order)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Other Cities in Sri Lanka:</span>
-                    <span className="font-medium">3-5 business days</span>
+                    <span>Sri Lanka transit:</span>
+                    <span className="font-medium">2–4 business days</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Remote Areas:</span>
-                    <span className="font-medium">5-7 business days</span>
+                    <span>International transit:</span>
+                    <span className="font-medium">Quoted per destination</span>
                   </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border border-primary-200 rounded-lg">
-                  <h4 className="font-medium mb-2 text-primary-700">Free Shipping</h4>
-                  <p className="text-sm text-primary-600">Orders over LKR 50,000 qualify for free shipping island-wide.</p>
+                  <h4 className="font-medium mb-2 text-primary-700">Domestic Courier</h4>
+                  <p className="text-sm text-primary-600">Tracked courier delivery across Sri Lanka with signature on arrival. Flat rate of LKR 750.</p>
                 </div>
                 <div className="p-4 border border-primary-200 rounded-lg">
-                  <h4 className="font-medium mb-2 text-primary-700">Express Delivery</h4>
-                  <p className="text-sm text-primary-600">Same-day delivery available in Colombo for orders placed before 2 PM.</p>
+                  <h4 className="font-medium mb-2 text-primary-700">Studio Collection</h4>
+                  <p className="text-sm text-primary-600">Pick up from the Kandy studio or request a handover in Kandy city by appointment.</p>
                 </div>
               </div>
 
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
                 <h4 className="font-medium mb-2 text-amber-800">Custom Orders</h4>
-                <p className="text-sm text-amber-700">Custom jewelry pieces require 2-3 weeks for crafting and delivery.</p>
+                <p className="text-sm text-amber-700">All pieces are handcrafted to order. We will email check-ins at key stages and confirm dispatch dates once polishing is complete.</p>
               </div>
             </div>
           </div>
@@ -96,34 +96,32 @@ export default function ShippingReturnsModal({ isOpen, onClose }: ShippingReturn
             
             <div className="space-y-4">
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <h4 className="font-medium mb-2 text-green-800">30-Day Return Window</h4>
+                <h4 className="font-medium mb-2 text-green-800">Return Policy</h4>
                 <p className="text-sm text-green-700 mb-2">
-                  We offer a 30-day return policy for most items. Items must be returned in original condition with all packaging and certificates.
+                  Because each commission is custom made, finished pieces are non-refundable. Adjustments such as resizing or chain length alterations are complimentary within 14 days of delivery.
                 </p>
-                <ul className="text-sm text-green-700 space-y-1">
-                  <li>• Unworn and unaltered condition</li>
-                  <li>• Original packaging and authentication certificates</li>
-                  <li>• Return initiated within 30 days of delivery</li>
-                </ul>
+                <p className="text-sm text-green-700">
+                  Ready-to-ship items (when listed) may be returned within 7 days in original, unworn condition. Return courier fees are the customer’s responsibility.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border border-primary-200 rounded-lg">
-                  <h4 className="font-medium mb-2 text-primary-700">Eligible for Return</h4>
+                  <h4 className="font-medium mb-2 text-primary-700">Complimentary Adjustments</h4>
                   <ul className="text-sm text-primary-600 space-y-1">
-                    <li>• Rings, earrings, pendants</li>
-                    <li>• Bracelets and bangles</li>
-                    <li>• Items with original tags</li>
-                    <li>• Non-personalized jewelry</li>
+                    <li>• Ring resizing within one size (where design allows)</li>
+                    <li>• Chain length adjustments or extender fittings</li>
+                    <li>• Minor polishing or finishing touch-ups</li>
+                    <li>• Support with safe care and storage</li>
                   </ul>
                 </div>
                 <div className="p-4 border border-red-200 bg-red-50 rounded-lg">
                   <h4 className="font-medium mb-2 text-red-700">Not Eligible</h4>
                   <ul className="text-sm text-red-600 space-y-1">
-                    <li>• Custom/personalized items</li>
-                    <li>• Pierced earrings (hygiene)</li>
-                    <li>• Items worn or damaged</li>
-                    <li>• Sale items (final sale)</li>
+                    <li>• Completed bespoke and personalised pieces</li>
+                    <li>• Earrings once worn (for hygiene reasons)</li>
+                    <li>• Items showing wear or accidental damage</li>
+                    <li>• Sale or sample items marked final sale</li>
                   </ul>
                 </div>
               </div>
@@ -139,25 +137,24 @@ export default function ShippingReturnsModal({ isOpen, onClose }: ShippingReturn
             
             <div className="space-y-4">
               <div className="p-4 bg-primary-50 rounded-lg">
-                <h4 className="font-medium mb-2 text-primary-700">Lifetime Warranty</h4>
+                <h4 className="font-medium mb-2 text-primary-700">Care Guarantee</h4>
                 <p className="text-sm text-primary-600">
-                  All AR Alphaya jewelry comes with a lifetime warranty covering manufacturing defects. 
-                  This includes loose stones, broken clasps, and structural issues under normal wear.
+                  Every piece is inspected before it leaves the studio. If you notice a craftsmanship issue within 90 days of delivery, please get in touch and it will be repaired at no additional cost.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium mb-1">Free Cleaning</div>
-                  <div className="text-primary-600">Bring your jewelry for professional cleaning anytime</div>
+                  <div className="font-medium mb-1">Complimentary clean</div>
+                  <div className="text-primary-600">One free clean and polish within six months of delivery.</div>
                 </div>
                 <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium mb-1">Repair Service</div>
-                  <div className="text-primary-600">Professional repair and restoration services available</div>
+                  <div className="font-medium mb-1">Repair service</div>
+                  <div className="text-primary-600">Future repairs and restorations are quoted individually.</div>
                 </div>
                 <div className="p-3 border border-primary-200 rounded">
-                  <div className="font-medium mb-1">Authenticity</div>
-                  <div className="text-primary-600">All pieces come with authenticity certificates</div>
+                  <div className="font-medium mb-1">Materials</div>
+                  <div className="text-primary-600">Each order includes a care card detailing metals and gemstones used.</div>
                 </div>
               </div>
             </div>

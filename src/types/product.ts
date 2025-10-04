@@ -31,6 +31,10 @@ export type Product = {
   tags?: string[];
   createdAt?: string;
   updatedAt?: string;
+  availability?: string; // e.g. made-to-order, ready-to-ship, sample
+  leadTime?: string; // human readable lead time info
+  customizable?: boolean;
+  statusNote?: string;
 };
 
 export type CartItem = {

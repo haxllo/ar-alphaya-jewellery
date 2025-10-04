@@ -1,6 +1,6 @@
 'use client'
 
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { useUser } from '@auth0/nextjs-auth0'
 import { useAbandonedCart } from '@/hooks/useAbandonedCart'
 import { useEffect, useState } from 'react'
 

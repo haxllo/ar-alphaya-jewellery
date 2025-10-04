@@ -24,6 +24,11 @@ a {
   @apply transition-colors duration-200 ease-luxe;
 }
 
+html {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
