@@ -342,16 +342,35 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <button 
-                onClick={() => window.location.href = '/api/auth/login'}
-                className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
-                aria-label="Sign in to your account"
-                title="Sign In"
-              >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </button>
+              <div className="relative user-dropdown-container">
+                <button 
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                  aria-label="Sign in to your account"
+                  aria-expanded={showUserDropdown}
+                  aria-haspopup="true"
+                  title="Sign In"
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </button>
+                {showUserDropdown && (
+                  <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white shadow-luxe backdrop-blur-sm animate-in fade-in slide-in-from-top-2 duration-200">
+                    <Link
+                      href="/api/auth/login"
+                      className="block px-5 py-3 text-sm font-medium text-nocturne-900 transition-colors rounded-xl hover:bg-gold-50/70 hover:text-foreground"
+                    >
+                      <div className="flex items-center gap-3">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Sign In</span>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
             )}
             
             <Link href="/cart" className="relative text-nocturne-600 hover:text-foreground transition-colors" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
