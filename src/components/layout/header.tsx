@@ -141,9 +141,10 @@ export default function Header() {
         <div className="flex items-center justify-end gap-3 md:gap-5">
 
             {/* Currency Selector - Desktop */}
-            <div className="hidden md:block">
+            {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
+            {/* <div className="hidden md:block">
               <CurrencySelector compact={true} showLabel={false} />
-            </div>
+            </div> */}
 
             {/* Wishlist */}
             <Link href="/wishlist" className="relative text-nocturne-600 hover:text-foreground transition-colors" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
@@ -402,10 +403,11 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="border-t border-border/70 bg-white/95 px-6 py-6 backdrop-blur md:hidden">
             {/* Currency Selector - Mobile */}
-            <div className="mb-6 border-b border-border/60 pb-6">
+            {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
+            {/* <div className="mb-6 border-b border-border/60 pb-6">
               <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Currency</div>
               <CurrencySelector compact={true} showLabel={false} className="w-full" />
-            </div>
+            </div> */}
 
             {/* Search Bar - Mobile */}
             <div className="mb-6 border-b border-border/60 pb-6">

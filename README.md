@@ -184,6 +184,54 @@ PAYHERE_MERCHANT_SECRET=your-merchant-secret
 NEXT_PUBLIC_PAYHERE_SANDBOX=true
 ```
 
+## 💱 Currency Selector (Temporarily Disabled)
+
+The multi-currency selector is currently disabled. To re-enable it:
+
+### Re-enabling Currency Selector
+
+1. Open `src/components/layout/header.tsx`
+2. Find the two commented sections marked with `TEMPORARILY DISABLED`:
+   - **Desktop Currency Selector** (around line 143-147)
+   - **Mobile Currency Selector** (around line 405-410)
+3. Uncomment both sections by removing `{/* */}` wrapper:
+
+**Desktop (before):**
+```tsx
+{/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
+{/* <div className="hidden md:block">
+  <CurrencySelector compact={true} showLabel={false} />
+</div> */}
+```
+
+**Desktop (after):**
+```tsx
+<div className="hidden md:block">
+  <CurrencySelector compact={true} showLabel={false} />
+</div>
+```
+
+**Mobile (before):**
+```tsx
+{/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
+{/* <div className="mb-6 border-b border-border/60 pb-6">
+  <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Currency</div>
+  <CurrencySelector compact={true} showLabel={false} className="w-full" />
+</div> */}
+```
+
+**Mobile (after):**
+```tsx
+<div className="mb-6 border-b border-border/60 pb-6">
+  <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Currency</div>
+  <CurrencySelector compact={true} showLabel={false} className="w-full" />
+</div>
+```
+
+4. Save the file and the currency selector will be re-enabled for both desktop and mobile views.
+
+**Note:** The currency functionality (`useCurrency` hook, exchange rate API, etc.) remains fully functional in the background.
+
 ## 🔧 Development Scripts
 
 - `npm run dev` - Start development server
