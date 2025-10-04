@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { useUser } from '@auth0/nextjs-auth0'
+import { useAuth } from '@/hooks/useAuth'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
 import dynamic from 'next/dynamic'
@@ -23,7 +23,7 @@ const collections = [
 ]
 
 export default function Header() {
-  const { user, error, isLoading } = useUser()
+  const { user, error, isLoading } = useAuth()
   
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
