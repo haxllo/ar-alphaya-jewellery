@@ -147,12 +147,12 @@ export default function Header() {
             </div> */}
 
             {/* Wishlist */}
-            <Link href="/wishlist" className="relative text-nocturne-600 hover:text-foreground transition-colors" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
+            <Link href="/wishlist" className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
               </svg>
               {wishlistCount > 0 && (
-                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold-500 text-xs font-medium text-white" aria-hidden="true">
+                <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-nocturne-900 text-xs font-medium text-white" aria-hidden="true">
                   {wishlistCount}
                 </span>
               )}
@@ -167,8 +167,8 @@ export default function Header() {
                 className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                 onClick={() => setShowSearch((v) => !v)}
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
               </button>
               {showSearch && (
@@ -267,39 +267,29 @@ export default function Header() {
               <div className="relative user-dropdown-container">
                 <button 
                   onClick={() => setShowUserDropdown(!showUserDropdown)}
-                  className="flex items-center gap-2 text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+                  className="flex items-center gap-2 rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                   aria-label="User account menu"
                   aria-expanded={showUserDropdown}
                   aria-haspopup="true"
                 >
-                  <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                  <div className="relative w-6 h-6 flex items-center justify-center">
                     {(user as any)?.picture ? (
                       <Image 
                         src={(user as any).picture} 
                         alt={(user as any).name || 'User'} 
-                        width={32}
-                        height={32}
+                        width={24}
+                        height={24}
                         placeholder="blur"
-                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
+                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
                         loading="lazy"
                         className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                       </svg>
                     )}
                   </div>
-                  <span className="hidden md:inline">{(user as any)?.name || (user as any)?.email}</span>
-                  <svg 
-                    className={`ml-1 h-3 w-3 transition-transform ${showUserDropdown ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24" 
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
                 </button>
                 {showUserDropdown && (
                   <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white shadow-luxe backdrop-blur-sm animate-in fade-in slide-in-from-top-2 duration-200">
@@ -374,12 +364,12 @@ export default function Header() {
               </div>
             )}
             
-            <Link href="/cart" className="relative text-nocturne-600 hover:text-foreground transition-colors" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
+            <Link href="/cart" className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H19M7 13v8a2 2 0 002 2h6a2 2 0 002-2v-8" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
               </svg>
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-xs font-medium text-white" aria-hidden="true">
+                <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-xs font-medium text-white" aria-hidden="true">
                   {cartCount}
                 </span>
               )}
@@ -393,7 +383,7 @@ export default function Header() {
               aria-expanded={mobileMenuOpen}
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 6.75h16M4 12h16M4 18h16" />
               </svg>
             </button>
         </div>
@@ -518,3 +508,11 @@ export default function Header() {
     </header>
   )
 }
+
+
+
+
+
+
+
+
