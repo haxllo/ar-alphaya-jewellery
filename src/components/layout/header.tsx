@@ -357,9 +357,9 @@ export default function Header() {
                 </button>
                 {showUserDropdown && (
                   <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white shadow-luxe backdrop-blur-sm animate-in fade-in slide-in-from-top-2 duration-200">
-                    <Link
-                      href="/api/auth/login"
-                      className="block px-5 py-3 text-sm font-medium text-nocturne-900 transition-colors rounded-xl hover:bg-gold-50/70 hover:text-foreground"
+                    <button
+                      onClick={() => window.location.href = '/api/auth/login'}
+                      className="block w-full text-left px-5 py-3 text-sm font-medium text-nocturne-900 transition-colors rounded-xl hover:bg-gold-50/70 hover:text-foreground"
                     >
                       <div className="flex items-center gap-3">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -367,7 +367,7 @@ export default function Header() {
                         </svg>
                         <span>Sign In</span>
                       </div>
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>
