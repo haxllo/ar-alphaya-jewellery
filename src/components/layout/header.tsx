@@ -428,54 +428,77 @@ export default function Header() {
               {/* Mobile Authentication */}
               <div className="mt-6 border-t border-border/60 pt-6">
                 {isLoading ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 animate-pulse bg-gray-200 rounded-full"></div>
-                    <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
+                  <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-50/30">
+                    <div className="w-8 h-8 animate-pulse bg-nocturne-200 rounded-full"></div>
+                    <div className="h-4 bg-nocturne-200 rounded w-32 animate-pulse"></div>
                   </div>
                 ) : user ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2 mb-3">
-                      <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-50/30 mb-3">
+                      <div className="w-10 h-10 rounded-full overflow-hidden bg-nocturne-100 flex items-center justify-center flex-shrink-0">
                         {(user as any)?.picture ? (
                           <Image 
                             src={(user as any).picture} 
                             alt={(user as any).name || 'User'} 
-                            width={32}
-                            height={32}
+                            width={40}
+                            height={40}
                             placeholder="blur"
-                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
+                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
                             loading="lazy"
-                            className="w-full h-full rounded-full object-cover"
+                            className="w-full h-full object-cover"
                           />
                         ) : (
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          <svg className="w-5 h-5 text-nocturne-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                           </svg>
                         )}
                       </div>
-                      <span className="text-sm font-medium text-black">{(user as any)?.name || (user as any)?.email}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-nocturne-900 truncate">{(user as any)?.name || 'My Account'}</div>
+                        <div className="text-xs text-nocturne-500 truncate">{(user as any)?.email}</div>
+                      </div>
                     </div>
-                    <Link href="/profile" className="block text-sm text-gray-700 hover:text-black transition-colors pl-4">
+                    <Link 
+                      href="/profile" 
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                    >
+                      <svg className="w-5 h-5 text-nocturne-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                      </svg>
                       My Profile
                     </Link>
-                    <Link href="/orders" className="block text-sm text-gray-700 hover:text-black transition-colors pl-4">
+                    <Link 
+                      href="/orders" 
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                    >
+                      <svg className="w-5 h-5 text-nocturne-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                      </svg>
                       My Orders
                     </Link>
-                    <Link href="/api/auth/logout" className="block text-sm text-gray-700 hover:text-black transition-colors pl-4">
-                      Sign Out
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center">
-                    <button onClick={() => window.location.href = '/api/auth/login'}
-                      className="flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+                    <div className="border-t border-border/40 my-2"></div>
+                    <button
+                      onClick={() => window.location.href = '/api/auth/logout'}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 rounded-lg w-full text-left"
                     >
-                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                       </svg>
-                      Sign In
+                      Sign Out
                     </button>
                   </div>
+                ) : (
+                  <button 
+                    onClick={() => window.location.href = '/api/auth/login'}
+                    className="flex items-center justify-center gap-3 w-full rounded-xl bg-foreground px-6 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:shadow-lg"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    Sign In
+                  </button>
                 )}
               </div>
             </nav>
