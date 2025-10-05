@@ -56,6 +56,32 @@ export function useAuth(): AuthState {
     // Initial fetch
     fetchUser()
 
+    // Check if we just returned from Auth0 (has code or state in URL)
+    const urlParams = new URLSearchParams(window.location.search)
+    const hasAuthCallback = urlParams.has('code') || urlParams.has('state')
+    
+    // If we just returned from auth, poll for a few seconds to catch the session
+    if (hasAuthCallback) {
+      let pollCount = 0
+      const maxPolls = 10 // Poll for up to 5 seconds (10 * 500ms)
+      
+      const pollInterval = setInterval(() => {
+        pollCount++
+        fetchUser()
+        
+        if (pollCount >= maxPolls) {
+          clearInterval(pollInterval)
+        }
+      }, 500) // Check every 500ms
+
+      return () => clearInterval(pollInterval)
+    }
+
+    // Set up periodic polling every 3 seconds to catch auth changes
+    const pollInterval = setInterval(() => {
+      fetchUser()
+    }, 3000)
+
     // Re-check auth when page becomes visible (after Auth0 redirect)
     const handleVisibilityChange = () => {
       if (!document.hidden) {
@@ -68,21 +94,13 @@ export function useAuth(): AuthState {
       fetchUser()
     }
 
-    // Re-check auth when navigating back to the page
-    const handlePageShow = (event: PageTransitionEvent) => {
-      if (event.persisted) {
-        fetchUser()
-      }
-    }
-
     document.addEventListener('visibilitychange', handleVisibilityChange)
     window.addEventListener('focus', handleFocus)
-    window.addEventListener('pageshow', handlePageShow)
 
     return () => {
+      clearInterval(pollInterval)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('focus', handleFocus)
-      window.removeEventListener('pageshow', handlePageShow)
     }
   }, [fetchUser])
 
