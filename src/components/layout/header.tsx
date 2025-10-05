@@ -333,35 +333,16 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <div className="relative user-dropdown-container">
-                <button 
-                  onClick={() => setShowUserDropdown(!showUserDropdown)}
-                  className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
-                  aria-label="Sign in to your account"
-                  aria-expanded={showUserDropdown}
-                  aria-haspopup="true"
-                  title="Sign In"
-                >
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </button>
-                {showUserDropdown && (
-                  <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white shadow-luxe backdrop-blur-sm animate-in fade-in slide-in-from-top-2 duration-200">
-                    <button
-                      onClick={() => window.location.href = '/api/auth/login'}
-                      className="block w-full text-left px-5 py-3 text-sm font-medium text-nocturne-900 transition-colors rounded-xl hover:bg-gold-50/70 hover:text-foreground"
-                    >
-                      <div className="flex items-center gap-3">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
-                        <span>Sign In</span>
-                      </div>
-                    </button>
-                  </div>
-                )}
-              </div>
+              <button 
+                onClick={() => window.location.href = '/api/auth/login'}
+                className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                aria-label="Sign in to your account"
+                title="Sign In"
+              >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+              </button>
             )}
             
             <Link href="/cart" className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
