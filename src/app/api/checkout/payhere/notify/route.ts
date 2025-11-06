@@ -50,11 +50,65 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     timestamp: new Date().toISOString()
   })
 
-  // TODO: In production, implement:
-  // 1. Update order status in database
-  // 2. Send confirmation emails
-  // 3. Update inventory
-  // 4. Trigger fulfillment process
+  // Update order status in Supabase
+  const { createServerClient } = await import('@/lib/supabase')
+  const supabase = createServerClient()
+
+  // Map PayHere status codes to our order statuses
+  // PayHere status codes: 2 = success, 0 = pending, -1 = canceled, -2 = failed, -3 = chargedback
+  let orderStatus = 'pending'
+  let paymentStatus = 'pending'
+  const now = new Date().toISOString()
+
+  if (statusCode === '2') {
+    orderStatus = 'paid'
+    paymentStatus = 'paid'
+  } else if (statusCode === '0') {
+    orderStatus = 'processing'
+    paymentStatus = 'processing'
+  } else if (statusCode === '-1') {
+    orderStatus = 'cancelled'
+    paymentStatus = 'failed'
+  } else if (statusCode === '-2') {
+    orderStatus = 'cancelled'
+    paymentStatus = 'failed'
+  } else if (statusCode === '-3') {
+    orderStatus = 'refunded'
+    paymentStatus = 'refunded'
+  }
+
+  // Update order by order_number (orderId from PayHere)
+  const updateData: any = {
+    status: orderStatus,
+    payment_status: paymentStatus,
+    updated_at: now,
+  }
+
+  if (statusCode === '2' && paymentId) {
+    updateData.payment_id = paymentId
+    updateData.paid_at = now
+  }
+
+  if (statusCode === '-1' || statusCode === '-2') {
+    updateData.cancelled_at = now
+  }
+
+  const { error: updateError } = await supabase
+    .from('orders')
+    .update(updateData)
+    .eq('order_number', orderId)
+
+  if (updateError) {
+    console.error('Error updating order status:', updateError)
+    // Don't fail the webhook, but log the error
+  } else {
+    console.log('Order status updated:', { orderId, orderStatus, paymentStatus })
+  }
+
+  // TODO: In production, also implement:
+  // 1. Send confirmation emails (when status = 'paid')
+  // 2. Update inventory
+  // 3. Trigger fulfillment process
 
   const response = NextResponse.json({ status: 'ok' })
   return applySecurityHeaders(response);

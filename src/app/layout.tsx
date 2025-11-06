@@ -37,6 +37,7 @@ import Footer from '@/components/layout/footer'
 import NetlifyIdentityLoader from '@/components/layout/NetlifyIdentityLoader'
 import Providers from './providers'
 import AbandonedCartTracker from '@/components/AbandonedCartTracker'
+import CartSync from '@/components/cart/CartSync'
 
 export default function RootLayout({
   children,
@@ -91,6 +92,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <AbandonedCartTracker />
+          <CartSync />
         </Providers>
       </body>
     </html>

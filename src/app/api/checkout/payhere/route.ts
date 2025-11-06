@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { securityMiddleware, applySecurityHeaders } from '@/lib/rate-limit'
 import { createErrorResponse, withErrorHandler } from '@/lib/error-handler'
+import { getServerSession } from '@/lib/auth'
+import { createServerClient } from '@/lib/supabase'
 
 export const POST = withErrorHandler(async (request: NextRequest) => {
   // Apply security middleware with rate limiting for payment endpoints
@@ -22,6 +24,60 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   
   if (!merchantId || !merchantSecret) {
     throw new Error('PayHere configuration missing')
+  }
+
+  // Get user session
+  const session = await getServerSession()
+  const supabase = createServerClient()
+
+  // Create order in Supabase
+  const { data: order, error: orderError } = await supabase
+    .from('orders')
+    .insert({
+      order_number: orderId,
+      user_id: session?.user?.id || null,
+      email: customer.email,
+      status: 'pending',
+      payment_status: 'pending',
+      payment_method: 'payhere',
+      subtotal: total,
+      total: total,
+      currency: currency,
+      customer_first_name: customer.firstName,
+      customer_last_name: customer.lastName,
+      customer_phone: customer.phone,
+      customer_address: customer.address,
+      customer_city: customer.city,
+      customer_country: 'Sri Lanka',
+    })
+    .select()
+    .single()
+
+  if (orderError || !order) {
+    console.error('Error creating order:', orderError)
+    throw new Error('Failed to create order')
+  }
+
+  // Create order items
+  const orderItems = items.map((item: any) => ({
+    order_id: order.id,
+    product_id: item.productId,
+    slug: item.slug,
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    size: item.size || null,
+    gemstone: item.gemstone || null,
+    image: item.image || null,
+  }))
+
+  const { error: itemsError } = await supabase
+    .from('order_items')
+    .insert(orderItems)
+
+  if (itemsError) {
+    console.error('Error creating order items:', itemsError)
+    // Don't fail the request, but log the error
   }
   
   // Generate secure hash using SHA-256 instead of MD5
@@ -56,6 +112,6 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
       delivery_country: 'Sri Lanka'
     }
     
-  const response = NextResponse.json({ paymentData })
+  const response = NextResponse.json({ paymentData, orderId: order.id })
   return applySecurityHeaders(response);
 });

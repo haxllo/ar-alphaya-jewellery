@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import { useAuth } from '@/hooks/useAuth'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
@@ -319,7 +320,7 @@ export default function Header() {
                     </Link>
                     <div className="border-t border-border/50"></div>
                     <button
-                      onClick={() => window.location.href = '/api/auth/logout'}
+                      onClick={() => signOut({ callbackUrl: '/' })}
                       className="block w-full text-left px-5 py-3 text-sm font-medium text-red-600 transition-colors last:rounded-b-xl hover:bg-red-50 hover:text-red-700"
                     >
                       <div className="flex items-center gap-3">
@@ -333,8 +334,8 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <button 
-                onClick={() => window.location.href = '/api/auth/login'}
+              <Link 
+                href="/auth/signin"
                 className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                 aria-label="Sign in to your account"
                 title="Sign In"
@@ -342,7 +343,7 @@ export default function Header() {
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
-              </button>
+              </Link>
             )}
             
             <Link href="/cart" className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
@@ -480,7 +481,7 @@ export default function Header() {
                     </Link>
                     <div className="border-t border-border/40 my-2"></div>
                     <button
-                      onClick={() => window.location.href = '/api/auth/logout'}
+                      onClick={() => signOut({ callbackUrl: '/' })}
                       className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 rounded-lg w-full text-left"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
@@ -490,15 +491,15 @@ export default function Header() {
                     </button>
                   </div>
                 ) : (
-                  <button 
-                    onClick={() => window.location.href = '/api/auth/login'}
+                  <Link 
+                    href="/auth/signin"
                     className="flex items-center justify-center gap-3 w-full rounded-xl bg-foreground px-6 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:shadow-lg"
                   >
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>
                     Sign In
-                  </button>
+                  </Link>
                 )}
               </div>
             </nav>

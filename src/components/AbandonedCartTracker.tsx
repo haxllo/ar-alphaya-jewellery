@@ -1,12 +1,13 @@
 'use client'
 
-import { useUser } from '@auth0/nextjs-auth0'
+import { useSession } from 'next-auth/react'
 import { useAbandonedCart } from '@/hooks/useAbandonedCart'
 import { useEffect, useState } from 'react'
 
 export default function AbandonedCartTracker() {
   const [isClient, setIsClient] = useState(false)
-  const { user } = useUser()
+  const { data: session } = useSession()
+  const user = session?.user
   
   useEffect(() => {
     setIsClient(true)

@@ -1,5 +1,0 @@
----
-description: finish the to-dos list added by you without asking for reference, use the codebase and the online indexed docs if needed
-globs:
-alwaysApply: true
----

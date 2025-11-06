@@ -24,15 +24,6 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // ----------------------
-  // 2️⃣ Existing protected routes
-  // ----------------------
-  const protectedRoutes = ['/profile', '/checkout', '/orders'];
-  const protectedApiRoutes = ['/api/user', '/api/checkout'];
-
-  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
-  const isProtectedApiRoute = protectedApiRoutes.some(route => pathname.startsWith(route));
-
   // Generate nonce for CSP
   const nonce = generateNonce();
   const response = NextResponse.next();
@@ -43,24 +34,8 @@ export async function middleware(request: NextRequest) {
   });
   response.headers.set('x-nonce', nonce);
 
-  // API route auth
-  if (isProtectedApiRoute) {
-    const authHeader = request.headers.get('authorization');
-    const sessionToken = request.cookies.get('appSession')?.value;
-    if (!authHeader && !sessionToken) {
-      return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
-    }
-  }
-
-  // Page route auth
-  if (isProtectedRoute) {
-    const sessionToken = request.cookies.get('appSession')?.value;
-    if (!sessionToken) {
-      const loginUrl = new URL('/api/auth/login', request.url);
-      loginUrl.searchParams.set('returnTo', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
-  }
+  // Note: Route protection is handled at the page level using server components
+  // See src/lib/auth.ts for requireAuth() helper
 
   return response;
 }
@@ -72,7 +47,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - api/auth (NextAuth routes)
      */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|api/auth).*)",
   ],
 };

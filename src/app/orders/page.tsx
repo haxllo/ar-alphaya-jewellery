@@ -1,7 +1,98 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Package, ArrowLeft } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+
+interface OrderItem {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  size?: string
+  gemstone?: string
+  image?: string
+}
+
+interface Order {
+  id: string
+  order_number: string
+  status: string
+  payment_status: string
+  total: number
+  currency: string
+  created_at: string
+  paid_at?: string
+  order_items: OrderItem[]
+}
 
 export default function OrdersPage() {
+  const { data: session, status: sessionStatus } = useSession()
+  const router = useRouter()
+  const [orders, setOrders] = useState<Order[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (sessionStatus === 'loading') return
+
+    if (sessionStatus === 'unauthenticated') {
+      router.push('/auth/signin?callbackUrl=/orders')
+      return
+    }
+
+    // Fetch orders
+    fetch('/api/orders')
+      .then((res) => res.json())
+      .then((data) => {
+        setOrders(data.orders || [])
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.error('Error fetching orders:', error)
+        setIsLoading(false)
+      })
+  }, [sessionStatus, router])
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  }
+
+  const formatPrice = (cents: number, currency: string = 'LKR') => {
+    return `Rs ${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'paid':
+      case 'delivered':
+        return 'text-green-600'
+      case 'processing':
+      case 'shipped':
+        return 'text-blue-600'
+      case 'cancelled':
+      case 'refunded':
+        return 'text-red-600'
+      default:
+        return 'text-gray-600'
+    }
+  }
+
+  if (sessionStatus === 'loading' || isLoading) {
+    return (
+      <main className="mx-auto max-w-4xl px-6 py-12">
+        <div className="text-center py-12">
+          <p className="text-gray-600">Loading orders...</p>
+        </div>
+      </main>
+    )
+  }
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-12">
       <div className="mb-6">
@@ -15,49 +106,86 @@ export default function OrdersPage() {
         <h1 className="text-3xl font-semibold text-gray-900">Your Orders</h1>
       </div>
       
-      {/* Empty state - in a real app, this would show actual orders */}
-      <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-          <Package className="w-8 h-8 text-gray-400" />
-        </div>
-        
-        <h2 className="text-xl font-medium text-gray-900 mb-4">No orders yet</h2>
-        <p className="text-gray-600 mb-8">
-          When you place your first order, it will appear here.
-        </p>
-        
-        <Link 
-          href="/" 
-          className="inline-block bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
-        >
-          Start Shopping
-        </Link>
-      </div>
-      
-      {/* In a real implementation, you would show order history here */}
-      <div className="hidden">
-        <div className="space-y-4">
-          <div className="border border-gray-200 rounded-lg p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="font-medium text-gray-900">Order #12345</h3>
-                <p className="text-sm text-gray-600">Placed on January 15, 2025</p>
-              </div>
-              <div className="text-right">
-                <p className="font-medium text-gray-900">Rs 250,000</p>
-                <p className="text-sm text-green-600">Delivered</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-gray-100 rounded mr-4"></div>
-              <div>
-                <p className="font-medium text-gray-900">Blue Sapphire Ring</p>
-                <p className="text-sm text-gray-600">Quantity: 1</p>
-              </div>
-            </div>
+      {orders.length === 0 ? (
+        <div className="text-center py-12">
+          <div className="w-16 h-16 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+            <Package className="w-8 h-8 text-gray-400" />
           </div>
+          
+          <h2 className="text-xl font-medium text-gray-900 mb-4">No orders yet</h2>
+          <p className="text-gray-600 mb-8">
+            When you place your first order, it will appear here.
+          </p>
+          
+          <Link 
+            href="/" 
+            className="inline-block bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
+          >
+            Start Shopping
+          </Link>
         </div>
-      </div>
+      ) : (
+        <div className="space-y-4">
+          {orders.map((order) => (
+            <div key={order.id} className="border border-gray-200 rounded-lg p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="font-medium text-gray-900">{order.order_number}</h3>
+                  <p className="text-sm text-gray-600">
+                    Placed on {formatDate(order.created_at)}
+                  </p>
+                  {order.paid_at && (
+                    <p className="text-sm text-gray-500">
+                      Paid on {formatDate(order.paid_at)}
+                    </p>
+                  )}
+                </div>
+                <div className="text-right">
+                  <p className="font-medium text-gray-900">
+                    {formatPrice(order.total, order.currency)}
+                  </p>
+                  <p className={`text-sm font-medium ${getStatusColor(order.status)}`}>
+                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                  </p>
+                  {order.payment_status !== order.status && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      Payment: {order.payment_status}
+                    </p>
+                  )}
+                </div>
+              </div>
+              
+              <div className="space-y-3 mt-4 pt-4 border-t border-gray-100">
+                {order.order_items.map((item) => (
+                  <div key={item.id} className="flex items-center">
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-12 h-12 object-cover rounded mr-4"
+                      />
+                    )}
+                    {!item.image && (
+                      <div className="w-12 h-12 bg-gray-100 rounded mr-4"></div>
+                    )}
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900">{item.name}</p>
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <span>Quantity: {item.quantity}</span>
+                        {item.size && <span>• Size: {item.size}</span>}
+                        {item.gemstone && <span>• {item.gemstone}</span>}
+                      </div>
+                    </div>
+                    <p className="text-sm font-medium text-gray-900">
+                      {formatPrice(item.price * item.quantity, order.currency)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </main>
   )
 }

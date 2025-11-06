@@ -1,11 +1,23 @@
 'use client'
 
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 function ProfilePage() {
-  const { user, error, isLoading } = useUser()
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  const user = session?.user
+  const isLoading = status === 'loading'
+  const error = status === 'unauthenticated' ? new Error('Not authenticated') : null
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin?callbackUrl=/profile')
+    }
+  }, [status, router])
 
   if (isLoading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -50,9 +62,9 @@ function ProfilePage() {
         <div className="bg-gray-50 px-6 py-8 border-b border-gray-200">
           <div className="flex items-center space-x-6">
             <div className="flex-shrink-0">
-              {user.picture ? (
+              {user.image ? (
                 <Image
-                  src={user.picture}
+                  src={user.image}
                   alt={user.name || 'Profile'}
                   width={96}
                   height={96}
@@ -72,7 +84,7 @@ function ProfilePage() {
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{user.name || 'User Profile'}</h1>
               <p className="text-lg text-gray-600">{user.email}</p>
-              {user.email_verified && (
+              {(user as any).emailVerified && (
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-2">
                   <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -106,14 +118,14 @@ function ProfilePage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">User ID</label>
               <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg font-mono text-xs">
-                {user.sub}
+                {user.id || user.email}
               </div>
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Updated</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email Verified</label>
               <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                {user.updated_at ? new Date(user.updated_at).toLocaleDateString() : 'Not available'}
+                {(user as any).emailVerified ? 'Yes' : 'No'}
               </div>
             </div>
           </div>
@@ -181,15 +193,15 @@ function ProfilePage() {
               </p>
             </div>
             <div className="mt-4 sm:mt-0 sm:ml-6 flex-shrink-0">
-              <Link
-                href="/api/auth/logout"
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-lg text-red-700 bg-red-50 hover:bg-red-100 hover:border-red-400 transition-colors"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
                 Sign Out
-              </Link>
+              </button>
             </div>
           </div>
         </div>

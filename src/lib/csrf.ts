@@ -54,7 +54,7 @@ export function csrfProtection(request: NextRequest): NextResponse | null {
   }
   
   // Skip CSRF for public endpoints
-  const publicEndpoints = ['/api/auth/login', '/api/auth/logout', '/api/contact'];
+  const publicEndpoints = ['/api/auth/signin', '/api/auth/signout', '/api/auth/callback', '/api/contact'];
   const isPublicEndpoint = publicEndpoints.some(endpoint => 
     request.nextUrl.pathname.startsWith(endpoint)
   );

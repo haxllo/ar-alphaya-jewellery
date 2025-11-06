@@ -1,24 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { getServerSession } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    // In Auth0 v4 with Next.js App Router, session is managed through cookies
-    // Check for Auth0 session cookie
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get('appSession');
+    const session = await getServerSession();
     
-    if (!sessionCookie) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' }, 
         { status: 401 }
       );
     }
 
-    // For Auth0 v4, user data should be fetched from the client using useUser hook
-    // This endpoint can be simplified or removed if not needed
+    // Return user data from session
     return NextResponse.json({ 
-      message: 'Use the useUser hook on the client side to get user data in Auth0 v4',
+      user: session.user,
       authenticated: true 
     });
   } catch (error) {
@@ -32,11 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    // Check for Auth0 session cookie
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get('appSession');
+    const session = await getServerSession();
     
-    if (!sessionCookie) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' }, 
         { status: 401 }
@@ -45,14 +39,15 @@ export async function PATCH(request: NextRequest) {
 
     const body = await request.json();
     
-    // Here you could update user metadata via Auth0 Management API
-    // For now, we'll just return a success response
-    // In a real implementation, you'd call the Auth0 Management API to update user data
+    // TODO: Update user data in Supabase
+    // You can use Supabase client to update user metadata
+    // const supabase = createServerClient()
+    // await supabase.auth.admin.updateUserById(session.user.id, { ... })
     
     console.log('User update request:', body);
     
     return NextResponse.json({ 
-      message: 'User update endpoint - implement Auth0 Management API call here',
+      message: 'User update endpoint - implement Supabase user update here',
       success: true
     });
   } catch (error) {

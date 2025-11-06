@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { createServerClient } from '@/lib/supabase'
 import { sendAbandonedCartEmail } from '@/lib/email/sender'
 
 type AbandonedCartItem = {
@@ -8,33 +7,6 @@ type AbandonedCartItem = {
   price: number
   quantity: number
   image?: string
-}
-
-type AbandonedCart = {
-  id: string
-  email: string
-  status: 'pending' | 'emailed' | string
-  items: AbandonedCartItem[]
-  emailedAt?: string
-}
-
-const DATA_DIR = path.join(process.cwd(), '.data')
-const DATA_FILE = path.join(DATA_DIR, 'abandoned-carts.json')
-
-async function readCarts(): Promise<AbandonedCart[]> {
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf8')
-    const json = JSON.parse(raw || '{}')
-    return Array.isArray(json.carts) ? (json.carts as AbandonedCart[]) : []
-  } catch {
-    return []
-  }
-}
-
-async function writeCarts(carts: AbandonedCart[]) {
-  await fs.mkdir(DATA_DIR, { recursive: true })
-  const data = { carts }
-  await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf8')
 }
 
 export async function POST(req: NextRequest) {
@@ -49,10 +21,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Cart ID required' }, { status: 400 })
     }
 
-    const carts = await readCarts()
-    const cart = carts.find((c: AbandonedCart) => c.id === cartId)
+    const supabase = createServerClient()
 
-    if (!cart) {
+    // Fetch abandoned cart from Supabase
+    const { data: cart, error: fetchError } = await supabase
+      .from('abandoned_carts')
+      .select('*')
+      .eq('id', cartId)
+      .single()
+
+    if (fetchError || !cart) {
       return NextResponse.json({ error: 'Cart not found' }, { status: 404 })
     }
 
@@ -60,8 +38,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Cart already processed' }, { status: 400 })
     }
 
+    // Parse items from JSONB
+    const items = (cart.items as any) as AbandonedCartItem[]
+
     // Format items for email
-    const emailItems = cart.items.map((item: AbandonedCartItem) => ({
+    const emailItems = items.map((item: AbandonedCartItem) => ({
       name: item.name,
       price: `LKR ${item.price.toLocaleString()}`,
       quantity: item.quantity,
@@ -72,9 +53,20 @@ export async function POST(req: NextRequest) {
     const result = await sendAbandonedCartEmail(cart.email, emailItems)
 
     if (result.success) {
-      cart.status = 'emailed'
-      cart.emailedAt = new Date().toISOString()
-      await writeCarts(carts)
+      // Update cart status in Supabase
+      const { error: updateError } = await supabase
+        .from('abandoned_carts')
+        .update({
+          status: 'emailed',
+          emailed_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', cartId)
+
+      if (updateError) {
+        console.error('Error updating abandoned cart status:', updateError)
+        // Still return success since email was sent
+      }
       
       return NextResponse.json({ 
         success: true, 
