@@ -46,7 +46,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^5.13.0",
+    "@netlify/plugin-nextjs": "^5.13.4",
     "@playwright/test": "^1.55.0",
     "@types/lodash": "^4.17.20",
     "@types/node": "^22.18.0",
