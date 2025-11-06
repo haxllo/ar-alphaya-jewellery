@@ -22,8 +22,11 @@ export async function sendEmail(options: EmailOptions) {
   }
 
   try {
+    // Get from email from environment variable or use default
+    const fromEmail = options.from || process.env.EMAIL_FROM || 'AR Alphaya Jewellery <noreply@alphayajewellery.com>'
+    
     const result = await resend.emails.send({
-      from: options.from || 'AR Alphaya Jewellery <noreply@alphayajewellery.com>',
+      from: fromEmail,
       to: [options.to],
       subject: options.subject,
       html: options.html,

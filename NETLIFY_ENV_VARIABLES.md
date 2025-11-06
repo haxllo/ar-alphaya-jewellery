@@ -51,14 +51,26 @@ NEXT_PUBLIC_SITE_URL=https://your-site.netlify.app
 NEXT_PUBLIC_SITE_NAME=AR Alphaya Jewellery
 ```
 
-### Email Configuration (Optional - for abandoned carts)
+### Email Configuration (Resend - for abandoned carts)
 
 ```bash
-# Email Service (if using SendGrid, Resend, etc.)
-EMAIL_FROM=noreply@your-site.com
-EMAIL_SERVICE_API_KEY=<your-email-service-key>
+# Resend Email Service Configuration
+# Get your API key from: https://resend.com/api-keys
+RESEND_API_KEY=re_your-resend-api-key-here
+EMAIL_FROM=AR Alphaya Jewellery <noreply@yourdomain.com>
+# Note: EMAIL_FROM must be a verified domain in Resend
+# Format: "Display Name <email@yourdomain.com>" or just "email@yourdomain.com"
 ENABLE_ABANDONED_CART=true  # Set to 'false' to disable
+NEXT_PUBLIC_ENABLE_ABANDONED_CART=true
 ```
+
+**Resend Setup Steps:**
+1. Sign up at [resend.com](https://resend.com)
+2. Go to **API Keys** and create a new API key
+3. Copy the API key (starts with `re_`) and set as `RESEND_API_KEY`
+4. Add and verify your domain in Resend (Settings → Domains)
+5. Set `EMAIL_FROM` to use your verified domain (e.g., `noreply@yourdomain.com`)
+6. For testing, you can use Resend's test domain: `onboarding@resend.dev`
 
 ### Sentry (Error Tracking - Optional)
 
@@ -108,7 +120,7 @@ These are **never** exposed to the client:
 - `AUTH_SECRET`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `PAYHERE_MERCHANT_SECRET`
-- `EMAIL_SERVICE_API_KEY`
+- `RESEND_API_KEY`
 - `GITHUB_TOKEN`
 - `SENTRY_AUTH_TOKEN`
 - `ADMIN_PASS`
