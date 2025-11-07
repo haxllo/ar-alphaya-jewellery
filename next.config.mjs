@@ -3,9 +3,8 @@ import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 
-  // Server-side rendering for Auth0 API routes (no static export)
+  // Webpack configuration
   webpack: (config, { isServer }) => {
-    // Fix for Auth0 client module resolution
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -15,12 +14,8 @@ const nextConfig = {
     return config;
   },
   images: {
-    // Auth0 user avatars and external images
+    // External images
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.auth0.com',
-      },
       {
         protocol: 'https',
         hostname: '**.gravatar.com',
@@ -42,23 +37,20 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Keep unoptimized for Netlify compatibility
-    unoptimized: process.env.NODE_ENV === 'production',
+    // Enable image optimization for Vercel
+    unoptimized: false,
   },
   // Enable trailing slash for consistent routing
   trailingSlash: true,
   
   // Build configuration
-  eslint: {
-    ignoreDuringBuilds: true, // Temporarily disabled for deployment
-  },
   typescript: {
     ignoreBuildErrors: false,
   },
   
   // Performance optimizations
   experimental: {
-    optimizePackageImports: ['lucide-react', '@auth0/nextjs-auth0'],
+    optimizePackageImports: ['lucide-react'],
   },
   
   // Compiler optimizations

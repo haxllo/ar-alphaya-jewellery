@@ -34,7 +34,6 @@ export const viewport = {
 
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
-import NetlifyIdentityLoader from '@/components/layout/NetlifyIdentityLoader'
 import Providers from './providers'
 import AbandonedCartTracker from '@/components/AbandonedCartTracker'
 import CartSync from '@/components/cart/CartSync'
@@ -83,7 +82,6 @@ export default function RootLayout({
             })
           }}
         />
-        <NetlifyIdentityLoader />
         <Providers>
           <div className="relative flex min-h-screen flex-col">
             <div className="pointer-events-none absolute inset-0 bg-hero-radial" aria-hidden="true" />

@@ -12,12 +12,44 @@ export default function ContactPage() {
     message: ''
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here - could integrate with email service
-    console.log('Form submitted:', formData)
-    alert('Thank you for your message! We will get back to you soon.')
-    setFormData({ name: '', email: '', phone: '', subject: '', budget: '', message: '' })
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to send message')
+      }
+
+      setSubmitStatus('success')
+      setFormData({ name: '', email: '', phone: '', subject: '', budget: '', message: '' })
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle')
+      }, 5000)
+    } catch (error) {
+      setSubmitStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -177,11 +209,24 @@ export default function ContactPage() {
               ></textarea>
             </div>
 
+            {submitStatus === 'success' && (
+              <div className="rounded-full bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800 text-center">
+                ✓ Thank you for your message! We will get back to you soon.
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="rounded-full bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800 text-center">
+                {errorMessage || 'Something went wrong. Please try again.'}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full rounded-full bg-foreground py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5"
+              disabled={isSubmitting || submitStatus === 'success'}
+              className="w-full rounded-full bg-foreground py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>

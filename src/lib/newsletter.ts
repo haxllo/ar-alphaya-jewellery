@@ -1,3 +1,5 @@
+import { createClientClient } from '@/lib/supabase'
+
 export interface NewsletterSubscription {
   email: string
   subscribedAt: string
@@ -36,58 +38,37 @@ export class NewsletterService {
         }
       }
 
-      // Check if already subscribed (in a real app, this would be handled by the backend)
-      const existingSubscription = this.getStoredSubscription(email)
-      if (existingSubscription) {
+      // Call the API endpoint
+      const response = await fetch(this.API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          preferences: preferences || {
+            newProducts: true,
+            sales: true,
+            styleGuides: true,
+            exclusiveEvents: true
+          },
+          source
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
         return {
-          success: true,
-          message: 'You\'re already subscribed to our newsletter!'
+          success: false,
+          message: data.message || 'Failed to subscribe to newsletter'
         }
       }
 
-      const subscription: NewsletterSubscription = {
-        email,
-        subscribedAt: new Date().toISOString(),
-        preferences: preferences || {
-          newProducts: true,
-          sales: true,
-          styleGuides: true,
-          exclusiveEvents: true
-        },
-        source
-      }
-
-      // In a real implementation, this would be an API call
-      // const response = await fetch(this.API_ENDPOINT, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(subscription),
-      // })
-      
-      // For demo purposes, simulate API delay and occasional failures
-      await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000))
-      
-      // 5% chance of failure for demo
-      if (Math.random() < 0.05) {
-        throw new Error('Network error - please try again')
-      }
-
-      // Store subscription locally for demo
-      this.storeSubscription(subscription)
-
-      // Simulate different responses
-      const responses = [
-        'Welcome to AR Alphaya Jewellery newsletter!',
-        'Thank you for subscribing! Check your inbox for a welcome offer.',
-        'Successfully subscribed! You\'ll receive our latest updates.',
-      ]
-
       return {
         success: true,
-        message: responses[Math.floor(Math.random() * responses.length)],
-        subscriptionId: `sub_${Date.now()}`
+        message: data.message || 'Successfully subscribed to our newsletter!',
+        subscriptionId: data.subscriptionId
       }
 
     } catch (error) {
@@ -104,21 +85,32 @@ export class NewsletterService {
    */
   static async unsubscribe(email: string, subscriptionId?: string): Promise<NewsletterResponse> {
     try {
-      // In a real implementation:
-      // const response = await fetch(`${this.API_ENDPOINT}/unsubscribe`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email, subscriptionId }),
-      // })
+      const supabase = createClientClient()
+      
+      const { data, error } = await supabase
+        .from('newsletter_subscriptions')
+        .update({
+          is_active: false,
+          unsubscribed_at: new Date().toISOString(),
+        })
+        .eq('email', email.toLowerCase().trim())
+        .select()
+        .single()
 
-      // For demo, remove from local storage
-      this.removeStoredSubscription(email)
+      if (error) {
+        console.error('Error unsubscribing:', error)
+        return {
+          success: false,
+          message: 'Failed to unsubscribe. Please try again or contact support.'
+        }
+      }
 
       return {
         success: true,
         message: 'Successfully unsubscribed from our newsletter.'
       }
     } catch (error) {
+      console.error('Unsubscribe error:', error)
       return {
         success: false,
         message: 'Failed to unsubscribe. Please try again or contact support.'
@@ -134,26 +126,53 @@ export class NewsletterService {
     preferences: NewsletterSubscription['preferences']
   ): Promise<NewsletterResponse> {
     try {
-      const existing = this.getStoredSubscription(email)
-      if (!existing) {
+      const supabase = createClientClient()
+      
+      // Check if subscription exists
+      const { data: existing, error: checkError } = await supabase
+        .from('newsletter_subscriptions')
+        .select('id, is_active')
+        .eq('email', email.toLowerCase().trim())
+        .single()
+
+      if (checkError || !existing || !existing.is_active) {
         return {
           success: false,
           message: 'Subscription not found'
         }
       }
 
-      const updated: NewsletterSubscription = {
-        ...existing,
-        preferences
-      }
+      // Update preferences
+      const { data, error } = await supabase
+        .from('newsletter_subscriptions')
+        .update({
+          preferences: preferences || {
+            newProducts: true,
+            sales: true,
+            styleGuides: true,
+            exclusiveEvents: true
+          },
+          updated_at: new Date().toISOString(),
+        })
+        .eq('email', email.toLowerCase().trim())
+        .select()
+        .single()
 
-      this.storeSubscription(updated)
+      if (error) {
+        console.error('Error updating preferences:', error)
+        return {
+          success: false,
+          message: 'Failed to update preferences. Please try again.'
+        }
+      }
 
       return {
         success: true,
-        message: 'Newsletter preferences updated successfully!'
+        message: 'Newsletter preferences updated successfully!',
+        subscriptionId: data.id
       }
     } catch (error) {
+      console.error('Update preferences error:', error)
       return {
         success: false,
         message: 'Failed to update preferences. Please try again.'
@@ -163,37 +182,40 @@ export class NewsletterService {
 
   /**
    * Get subscription analytics (for admin dashboard)
+   * Note: This now requires server-side implementation using Supabase
    */
-  static getSubscriptionStats(): {
+  static async getSubscriptionStats(): Promise<{
     totalSubscribers: number
-    recentSubscriptions: NewsletterSubscription[]
-    topSources: Array<{ source: string; count: number }>
-  } {
-    const subscriptions = this.getAllStoredSubscriptions()
-    
-    // Get recent subscriptions (last 7 days)
-    const weekAgo = new Date()
-    weekAgo.setDate(weekAgo.getDate() - 7)
-    const recent = subscriptions.filter(sub => 
-      new Date(sub.subscribedAt) > weekAgo
-    )
+    activeSubscribers: number
+    recentSubscriptions: number
+  }> {
+    try {
+      const supabase = createClientClient()
+      
+      // Call Supabase function or query directly
+      const { data, error } = await supabase.rpc('get_newsletter_stats')
 
-    // Count sources
-    const sourceCounts: Record<string, number> = {}
-    subscriptions.forEach(sub => {
-      const source = sub.source || 'unknown'
-      sourceCounts[source] = (sourceCounts[source] || 0) + 1
-    })
+      if (error) {
+        console.error('Error fetching newsletter stats:', error)
+        return {
+          totalSubscribers: 0,
+          activeSubscribers: 0,
+          recentSubscriptions: 0
+        }
+      }
 
-    const topSources = Object.entries(sourceCounts)
-      .map(([source, count]) => ({ source, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5)
-
-    return {
-      totalSubscribers: subscriptions.length,
-      recentSubscriptions: recent,
-      topSources
+      return {
+        totalSubscribers: data?.[0]?.total_subscribers || 0,
+        activeSubscribers: data?.[0]?.active_subscribers || 0,
+        recentSubscriptions: data?.[0]?.recent_subscriptions || 0
+      }
+    } catch (error) {
+      console.error('Error getting subscription stats:', error)
+      return {
+        totalSubscribers: 0,
+        activeSubscribers: 0,
+        recentSubscriptions: 0
+      }
     }
   }
 
@@ -201,58 +223,6 @@ export class NewsletterService {
   private static isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email.trim().toLowerCase())
-  }
-
-  private static getStorageKey(): string {
-    return 'ar-alphaya-newsletter-subscriptions'
-  }
-
-  private static storeSubscription(subscription: NewsletterSubscription): void {
-    if (typeof window === 'undefined') return
-
-    try {
-      const existing = this.getAllStoredSubscriptions()
-      const updated = existing.filter(sub => sub.email !== subscription.email)
-      updated.push(subscription)
-      
-      localStorage.setItem(this.getStorageKey(), JSON.stringify(updated))
-    } catch (error) {
-      console.error('Failed to store subscription:', error)
-    }
-  }
-
-  private static getStoredSubscription(email: string): NewsletterSubscription | null {
-    if (typeof window === 'undefined') return null
-
-    try {
-      const subscriptions = this.getAllStoredSubscriptions()
-      return subscriptions.find(sub => sub.email.toLowerCase() === email.toLowerCase()) || null
-    } catch (error) {
-      return null
-    }
-  }
-
-  private static getAllStoredSubscriptions(): NewsletterSubscription[] {
-    if (typeof window === 'undefined') return []
-
-    try {
-      const stored = localStorage.getItem(this.getStorageKey())
-      return stored ? JSON.parse(stored) : []
-    } catch (error) {
-      return []
-    }
-  }
-
-  private static removeStoredSubscription(email: string): void {
-    if (typeof window === 'undefined') return
-
-    try {
-      const existing = this.getAllStoredSubscriptions()
-      const updated = existing.filter(sub => sub.email.toLowerCase() !== email.toLowerCase())
-      localStorage.setItem(this.getStorageKey(), JSON.stringify(updated))
-    } catch (error) {
-      console.error('Failed to remove subscription:', error)
-    }
   }
 }
 

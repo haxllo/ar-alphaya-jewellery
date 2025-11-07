@@ -64,6 +64,7 @@ export const contactFormSchema = z.object({
   phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, 'Invalid phone number').optional(),
   subject: z.string().min(5, 'Subject must be at least 5 characters').max(100, 'Subject too long'),
   message: z.string().min(10, 'Message must be at least 10 characters').max(1000, 'Message too long'),
+  budget: z.string().max(100, 'Budget description too long').optional(),
 });
 
 // Newsletter subscription validation
