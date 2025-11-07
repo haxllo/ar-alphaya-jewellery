@@ -43,14 +43,26 @@ export default function OrdersPage() {
     }
 
     // Fetch orders
-    fetch('/api/orders')
-      .then((res) => res.json())
+    fetch('/api/orders', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include', // Include cookies for session
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+        return res.json()
+      })
       .then((data) => {
         setOrders(data.orders || [])
         setIsLoading(false)
       })
       .catch((error) => {
         console.error('Error fetching orders:', error)
+        setOrders([]) // Set empty array on error
         setIsLoading(false)
       })
   }, [sessionStatus, router])

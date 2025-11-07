@@ -122,7 +122,10 @@ export const authOptions = {
       return session
     },
   },
+  // Ensure proper URL handling for Vercel
   trustHost: true,
+  // Use environment variables for URLs
+  url: process.env.NEXTAUTH_URL || process.env.AUTH_URL,
 }
 
 // NextAuth v5 returns { handlers, auth }

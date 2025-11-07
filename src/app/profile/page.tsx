@@ -194,7 +194,19 @@ function ProfilePage() {
             </div>
             <div className="mt-4 sm:mt-0 sm:ml-6 flex-shrink-0">
               <button
-                onClick={() => signOut({ callbackUrl: '/' })}
+                onClick={async () => {
+                  try {
+                    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+                    await signOut({ 
+                      callbackUrl: `${baseUrl}/`,
+                      redirect: true 
+                    })
+                  } catch (error) {
+                    console.error('Sign out error:', error)
+                    // Fallback redirect
+                    router.push('/')
+                  }
+                }}
                 className="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-lg text-red-700 bg-red-50 hover:bg-red-100 hover:border-red-400 transition-colors"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

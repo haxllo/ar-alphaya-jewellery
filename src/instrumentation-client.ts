@@ -14,6 +14,46 @@ Sentry.init({
 
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
+  
+  // Add error handling for network issues (CORS, blocked requests, etc.)
+  beforeSend(event, hint) {
+    // Silently ignore network errors that are common with ad blockers
+    if (hint.originalException) {
+      const error = hint.originalException;
+      if (error instanceof TypeError) {
+        const message = error.message || '';
+        if (message.includes('NetworkError') ||
+            message.includes('Failed to fetch') ||
+            message.includes('Network request failed') ||
+            message.includes('CORS request did not succeed') ||
+            message.includes('Load failed')) {
+          return null; // Don't send to Sentry
+        }
+      }
+    }
+    return event;
+  },
+  
+  // Ignore common network/CORS errors
+  ignoreErrors: [
+    'NetworkError',
+    'Failed to fetch',
+    'Network request failed',
+    'CORS request did not succeed',
+    'Load failed',
+    'NetworkError when attempting to fetch resource',
+  ],
+  
+  // Filter out CORS-related events
+  beforeBreadcrumb(breadcrumb) {
+    // Don't log CORS errors as breadcrumbs
+    if (breadcrumb.category === 'xhr' || breadcrumb.category === 'fetch') {
+      if (breadcrumb.data && breadcrumb.data.status_code === 0) {
+        return null; // Filter out failed CORS requests
+      }
+    }
+    return breadcrumb;
+  },
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

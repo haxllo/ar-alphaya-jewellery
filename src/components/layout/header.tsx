@@ -320,7 +320,19 @@ export default function Header() {
                     </Link>
                     <div className="border-t border-border/50"></div>
                     <button
-                      onClick={() => signOut({ callbackUrl: '/' })}
+                      onClick={async () => {
+                        try {
+                          const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+                          await signOut({ 
+                            callbackUrl: `${baseUrl}/`,
+                            redirect: true 
+                          })
+                        } catch (error) {
+                          console.error('Sign out error:', error)
+                          // Fallback redirect
+                          router.push('/')
+                        }
+                      }}
                       className="block w-full text-left px-5 py-3 text-sm font-medium text-red-600 transition-colors last:rounded-b-xl hover:bg-red-50 hover:text-red-700"
                     >
                       <div className="flex items-center gap-3">
@@ -481,7 +493,19 @@ export default function Header() {
                     </Link>
                     <div className="border-t border-border/40 my-2"></div>
                     <button
-                      onClick={() => signOut({ callbackUrl: '/' })}
+                      onClick={async () => {
+                        try {
+                          const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+                          await signOut({ 
+                            callbackUrl: `${baseUrl}/`,
+                            redirect: true 
+                          })
+                        } catch (error) {
+                          console.error('Sign out error:', error)
+                          // Fallback redirect
+                          router.push('/')
+                        }
+                      }}
                       className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 rounded-lg w-full text-left"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
