@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getProducts } from '@/lib/cms'
-import FeaturedProducts from './FeaturedProducts'
+import FeaturedProducts from '@/components/home/FeaturedProducts'
 import DynamicHeroImage from '@/components/home/DynamicHeroImage'
 
 export const revalidate = 60;

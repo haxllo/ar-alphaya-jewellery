@@ -51,7 +51,6 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/LOGO1.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://2vhk07la2x.ucarecd.net" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.auth0.com" crossOrigin="anonymous" />
         <script
           dangerouslySetInnerHTML={{
             __html: `if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); }); }`,
