@@ -10,7 +10,7 @@ export default async function AdminLayout({
   // Check if user is authenticated
   const session = await getServerSession()
   
-  if (!session) {
+  if (!session || !session.user) {
     redirect('/auth/signin?callbackUrl=/admin')
   }
 
