@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from '@/lib/auth'
 import { createServerClient } from '@/lib/supabase'
+import Script from 'next/script'
 
 export default async function AdminLayout({
   children,
@@ -37,5 +38,20 @@ export default async function AdminLayout({
     )
   }
 
-  return <>{children}</>
+  return (
+    <>
+      <Script 
+        id="uploadcare-config"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `window.UPLOADCARE_PUBLIC_KEY = '5eb856a1c841f37fa95c';`
+        }}
+      />
+      <Script 
+        src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" 
+        strategy="beforeInteractive"
+      />
+      {children}
+    </>
+  )
 }
