@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { X, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { FileUploaderRegular } from '@uploadcare/react-uploader/next'
+import '@uploadcare/react-uploader/core.css'
 
 interface ImageUploaderProps {
   images: string[]
@@ -12,34 +14,23 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploaderProps) {
-  const [uploading, setUploading] = useState(false)
+  const [showUploader, setShowUploader] = useState(false)
 
-  const handleUpload = () => {
-    setUploading(true)
-    
-    try {
-      // @ts-ignore - Uploadcare widget loaded via CDN
-      const widget = window.uploadcare.Widget('[role=uploadcare-uploader]', {
-        publicKey: '5eb856a1c841f37fa95c',
-        multiple: true,
-        multipleMax: maxImages - images.length,
-        imagesOnly: true,
-        previewStep: true,
-        crop: 'free'
+  const handleChangeEvent = (e: any) => {
+    const files = e.detail?.allEntries || []
+    if (files.length > 0) {
+      const newUrls = files.map((file: any) => {
+        // Get the CDN URL with optimization
+        const uuid = file.uuid
+        return `https://ucarecdn.com/${uuid}/-/preview/1000x1000/`
       })
-      
-      widget.onUploadComplete((info: any) => {
-        const newUrls = info.files ? info.files.map((f: any) => f.cdnUrl) : [info.cdnUrl]
-        onChange([...images, ...newUrls])
-        setUploading(false)
-      })
-      
-      widget.openDialog()
-    } catch (error) {
-      console.error('Upload error:', error)
-      setUploading(false)
-      alert('Upload failed. Please try again.')
+      onChange([...images, ...newUrls])
+      setShowUploader(false)
     }
+  }
+
+  const handleOpenUploader = () => {
+    setShowUploader(true)
   }
 
   const removeImage = (index: number) => {
@@ -60,19 +51,43 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
         <p className="text-sm text-gray-600">
           {images.length} / {maxImages} images uploaded
         </p>
-        {images.length < maxImages && (
+        {images.length < maxImages && !showUploader && (
           <Button
             type="button"
             variant="outline"
             size="sm"
-            onClick={handleUpload}
-            disabled={uploading}
+            onClick={handleOpenUploader}
           >
             <Upload className="mr-2 h-4 w-4" />
-            {uploading ? 'Uploading...' : 'Add Images'}
+            Add Images
           </Button>
         )}
       </div>
+      
+      {showUploader && images.length < maxImages && (
+        <div className="border-2 border-dashed border-blue-300 rounded-lg p-4 bg-blue-50">
+          <FileUploaderRegular
+            pubkey="5eb856a1c841f37fa95c"
+            classNameUploader="uc-light uc-purple"
+            sourceList="local, camera, url"
+            multiple={true}
+            multipleMax={maxImages - images.length}
+            imgOnly={true}
+            userAgentIntegration="llm-nextjs"
+            filesViewMode="grid"
+            onChange={handleChangeEvent}
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="mt-2"
+            onClick={() => setShowUploader(false)}
+          >
+            Cancel
+          </Button>
+        </div>
+      )}
       
       {images.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -126,7 +141,7 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
         </div>
       )}
       
-      {images.length === 0 && (
+      {images.length === 0 && !showUploader && (
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
           <Upload className="mx-auto h-12 w-12 text-gray-400" />
           <p className="mt-2 text-sm text-gray-600">No images uploaded yet</p>
@@ -134,15 +149,12 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
             type="button"
             variant="outline"
             className="mt-4"
-            onClick={handleUpload}
-            disabled={uploading}
+            onClick={handleOpenUploader}
           >
             Upload Images
           </Button>
         </div>
       )}
-      
-      <input type="hidden" role="uploadcare-uploader" />
     </div>
   )
 }

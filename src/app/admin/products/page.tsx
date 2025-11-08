@@ -379,8 +379,6 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
-      {/* Load Uploadcare Widget */}
-      <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async />
       <Toaster />
     </div>
   )
