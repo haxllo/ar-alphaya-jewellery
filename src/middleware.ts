@@ -12,15 +12,22 @@ export async function middleware(request: NextRequest) {
 
     const username = process.env.ADMIN_USER;
     const password = process.env.ADMIN_PASS;
+
+    if (!username || !password) {
+      console.error('ADMIN_USER or ADMIN_PASS not set in environment variables');
+      return new NextResponse('Admin credentials not configured', {
+        status: 500,
+      });
+    }
+
     const validBase64 = Buffer.from(`${username}:${password}`).toString('base64');
 
     if (authHeader !== `Basic ${validBase64}`) {
-      return new NextResponse('Unauthorized', {
+      const response = new NextResponse('Unauthorized', {
         status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Admin Area"',
-        },
       });
+      response.headers.set('WWW-Authenticate', 'Basic realm="Admin Area"');
+      return response;
     }
   }
 
