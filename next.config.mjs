@@ -32,6 +32,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**.ucarecdn.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ucarecdn.com',
+      },
     ],
     // Enable advanced image optimization
     formats: ['image/webp', 'image/avif'],
