@@ -14,7 +14,6 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploaderProps) {
-  const [showUploader, setShowUploader] = useState(false)
   const ctxProviderRef = useRef<any>(null)
 
   useEffect(() => {
@@ -101,16 +100,11 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
         const updatedImages = [...images, ...newUrls]
         console.log('Updated images array:', updatedImages)
         onChange(updatedImages)
-        setShowUploader(false)
       }
     } else {
       console.log('No successful uploads yet')
       console.log('Current statuses:', allEntries.map((f: any) => f.status))
     }
-  }
-
-  const handleOpenUploader = () => {
-    setShowUploader(true)
   }
 
   const removeImage = (index: number) => {
@@ -127,48 +121,7 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-600">
-          {images.length} / {maxImages} images uploaded
-        </p>
-        {images.length < maxImages && !showUploader && (
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={handleOpenUploader}
-          >
-            <Upload className="mr-2 h-4 w-4" />
-            Add Images
-          </Button>
-        )}
-      </div>
-      
-      {showUploader && images.length < maxImages && (
-        <div className="border-2 border-dashed border-blue-300 rounded-lg p-4 bg-blue-50">
-          <FileUploaderRegular
-            ctxName="product-uploader"
-            pubkey="5eb856a1c841f37fa95c"
-            classNameUploader="uc-light uc-purple"
-            sourceList="local, camera, url"
-            multiple={true}
-            multipleMax={maxImages - images.length}
-            imgOnly={true}
-            userAgentIntegration="llm-nextjs"
-            filesViewMode="grid"
-            onChange={handleChangeEvent}
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="mt-2"
-            onClick={() => setShowUploader(false)}
-          >
-            Cancel
-          </Button>
-        </div>
-      )}
+      {/* Uploaded Images Grid */}
       
       {images.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -222,19 +175,34 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
         </div>
       )}
       
-      {images.length === 0 && !showUploader && (
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
-          <Upload className="mx-auto h-12 w-12 text-gray-400" />
-          <p className="mt-2 text-sm text-gray-600">No images uploaded yet</p>
-          <Button
-            type="button"
-            variant="outline"
-            className="mt-4"
-            onClick={handleOpenUploader}
-          >
-            Upload Images
-          </Button>
+      
+      {/* Upload Area - Always Visible */}
+      {images.length < maxImages && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium text-gray-700">
+              {images.length > 0 ? 'Add More Images' : 'Upload Product Images'}
+            </p>
+            <p className="text-xs text-gray-500">
+              {images.length} / {maxImages} uploaded
+            </p>
+          </div>
+          <FileUploaderRegular
+            ctxName="product-uploader"
+            pubkey="5eb856a1c841f37fa95c"
+            classNameUploader="uc-light"
+            sourceList="local, camera, url"
+            multiple={true}
+            multipleMax={maxImages - images.length}
+            imgOnly={true}
+            userAgentIntegration="llm-nextjs"
+            onChange={handleChangeEvent}
+          />
         </div>
+      )}
+      
+      {images.length >= maxImages && (
+        <p className="text-sm text-gray-600">Maximum {maxImages} images reached</p>
       )}
     </div>
   )
