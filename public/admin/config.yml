@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: haxllo/ar-alphaya-jewellery
+  name: git-gateway
   branch: main
-  auth_type: implicit
-  app_id: github-token
 
 
 logo_url: "/images/BRAND.svg"
