@@ -66,3 +66,29 @@ export const CURRENCIES = [
 export const MAX_IMAGES = 10
 export const MAX_DESCRIPTION_LENGTH = 5000
 export const MAX_NAME_LENGTH = 255
+
+export const AVAILABILITY_OPTIONS = [
+  { value: 'in-stock', label: 'In Stock' },
+  { value: 'made-to-order', label: 'Made to Order' },
+  { value: 'out-of-stock', label: 'Out of Stock' },
+  { value: 'pre-order', label: 'Pre-Order' },
+  { value: 'discontinued', label: 'Discontinued' }
+] as const
+
+export const GEMSTONE_TYPES = [
+  'Sapphire',
+  'Ruby',
+  'Emerald',
+  'Topaz',
+  'Amethyst',
+  'Garnet',
+  'Aquamarine',
+  'Tourmaline',
+  'Citrine',
+  'Peridot',
+  'Moonstone',
+  'Opal',
+  'Tanzanite',
+  'Spinel',
+  'Zircon'
+] as const
