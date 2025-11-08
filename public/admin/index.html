@@ -14,122 +14,40 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
     <script>
-      // Custom GitHub authentication using our API endpoint
+      // Fetch token from our API and inject it for CMS
+      async function initCMS() {
+        try {
+          // Get GitHub token from protected endpoint
+          const response = await fetch('/api/admin/auth?provider=github');
+          if (!response.ok) throw new Error('Failed to authenticate');
+          
+          const { token } = await response.json();
+          if (!token) throw new Error('No token received');
+          
+          // Store token in localStorage for Decap CMS GitHub backend
+          localStorage.setItem('github-token', token);
+          
+          // Initialize CMS
+          if (window.CMS) {
+            window.CMS.init();
+          }
+        } catch (error) {
+          console.error('Init error:', error);
+          document.body.innerHTML = `
+            <div style="padding: 40px; font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+              <h1>⚠️ Authentication Error</h1>
+              <p style="color: #666;">${error.message}</p>
+              <p>Make sure you're logged in with Basic Auth credentials.</p>
+              <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; cursor: pointer;">
+                Retry
+              </button>
+            </div>
+          `;
+        }
+      }
+      
       if (window.CMS) {
-        // Register custom backend that uses our GitHub token endpoint
-        window.CMS.registerBackend('github', class {
-          constructor(config, options) {
-            this.config = config;
-            this.options = options;
-          }
-          
-          async authenticate() {
-            try {
-              // Fetch GitHub token from our protected API endpoint
-              // Protected by HTTP Basic Auth via middleware
-              const response = await fetch('/api/admin/auth?provider=github');
-              
-              if (!response.ok) {
-                throw new Error('Failed to authenticate with GitHub');
-              }
-              
-              const data = await response.json();
-              
-              if (!data.token) {
-                throw new Error('No token received');
-              }
-              
-              return {
-                token: data.token,
-                refresh_token: null,
-              };
-            } catch (error) {
-              console.error('Authentication error:', error);
-              throw error;
-            }
-          }
-          
-          async request(path, options = {}) {
-            const auth = await this.authenticate();
-            const headers = {
-              'Authorization': `token ${auth.token}`,
-              'Content-Type': 'application/json',
-              ...options.headers,
-            };
-            
-            const url = `https://api.github.com${path}`;
-            const response = await fetch(url, {
-              ...options,
-              headers,
-            });
-            
-            if (!response.ok) {
-              throw new Error(`GitHub API error: ${response.statusText}`);
-            }
-            
-            return response.json();
-          }
-          
-          async entriesByFolder(collection, extension) {
-            const { folder } = collection;
-            const path = `repos/${this.config.repo}/contents/${folder}`;
-            const files = await this.request(path);
-            return files.filter(file => file.name.endsWith(`.${extension}`));
-          }
-          
-          async getEntry(collection, slug, extension) {
-            const path = `repos/${this.config.repo}/contents/${collection.folder}/${slug}.${extension}`;
-            const file = await this.request(path);
-            const content = atob(file.content);
-            return { file, data: JSON.parse(content) };
-          }
-          
-          async persistEntry(entry, options) {
-            const auth = await this.authenticate();
-            const { collection, slug, raw } = entry;
-            const path = `${collection.folder}/${slug}.${collection.extension}`;
-            
-            // Get current file SHA if it exists (for updates)
-            let sha;
-            try {
-              const existing = await this.request(`repos/${this.config.repo}/contents/${path}`);
-              sha = existing.sha;
-            } catch (e) {
-              // File doesn't exist yet (new entry)
-            }
-            
-            const message = options.commitMessage || `${sha ? 'Update' : 'Create'} ${collection.label} "${entry.data.name || slug}"`;
-            
-            await this.request(`repos/${this.config.repo}/contents/${path}`, {
-              method: 'PUT',
-              body: JSON.stringify({
-                message,
-                content: btoa(raw),
-                sha,
-                branch: this.config.branch || 'main',
-              }),
-            });
-            
-            return entry;
-          }
-          
-          async deleteEntry(collection, slug) {
-            const path = `${collection.folder}/${slug}.${collection.extension}`;
-            const file = await this.request(`repos/${this.config.repo}/contents/${path}`);
-            
-            await this.request(`repos/${this.config.repo}/contents/${path}`, {
-              method: 'DELETE',
-              body: JSON.stringify({
-                message: `Delete ${collection.label} "${slug}"`,
-                sha: file.sha,
-                branch: this.config.branch || 'main',
-              }),
-            });
-          }
-        });
-        
-        // Initialize Decap CMS
-        window.CMS.init();
+        initCMS();
       }
     </script>
   </body>
