@@ -9,9 +9,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ImageUploader } from '@/components/admin/ImageUploader'
-import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS } from '@/lib/admin/constants'
+import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES } from '@/lib/admin/constants'
 import { generateSlugFromName } from '@/lib/admin/validation'
-import type { ProductFormData } from '@/types/admin'
+import type { ProductFormData, Size, Gemstone } from '@/types/admin'
 
 export default function NewProductPage() {
   const router = useRouter()
@@ -182,6 +182,74 @@ export default function NewProductPage() {
             </div>
           </div>
 
+          {/* Materials & Physical Details */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Materials & Physical Details</h2>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="materials">Materials</Label>
+                <select
+                  id="materials"
+                  multiple
+                  className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  value={formData.materials || []}
+                  onChange={(e) => {
+                    const selected = Array.from(e.target.selectedOptions, option => option.value)
+                    setFormData(prev => ({ ...prev, materials: selected }))
+                  }}
+                >
+                  {MATERIALS.map(material => (
+                    <option key={material} value={material}>{material}</option>
+                  ))}
+                </select>
+                <p className="mt-1 text-xs text-gray-500">Hold Ctrl/Cmd to select multiple</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="weight">Weight (grams)</Label>
+                  <Input
+                    id="weight"
+                    type="number"
+                    value={formData.weight || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, weight: e.target.value ? Number(e.target.value) : null }))}
+                    min="0"
+                    step="0.01"
+                    placeholder="e.g., 5.25"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="dimensions">Dimensions</Label>
+                  <Input
+                    id="dimensions"
+                    value={formData.dimensions || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, dimensions: e.target.value }))}
+                    placeholder="e.g., 20mm x 15mm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="tags">Tags</Label>
+                <select
+                  id="tags"
+                  multiple
+                  className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  value={formData.tags || []}
+                  onChange={(e) => {
+                    const selected = Array.from(e.target.selectedOptions, option => option.value)
+                    setFormData(prev => ({ ...prev, tags: selected }))
+                  }}
+                >
+                  {COMMON_TAGS.map(tag => (
+                    <option key={tag} value={tag}>{tag}</option>
+                  ))}
+                </select>
+                <p className="mt-1 text-xs text-gray-500">Hold Ctrl/Cmd to select multiple</p>
+              </div>
+            </div>
+          </div>
+
           {/* Images Section */}
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold mb-4">Product Images *</h2>
@@ -191,9 +259,207 @@ export default function NewProductPage() {
             />
           </div>
 
+          {/* Sizes Section */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Sizes (Optional)</h2>
+            <div className="space-y-3">
+              {(formData.sizes || []).map((size, index) => (
+                <div key={index} className="flex gap-3">
+                  <Input
+                    placeholder="Size label (e.g., Small, 7, M)"
+                    value={size.label}
+                    onChange={(e) => {
+                      const newSizes = [...(formData.sizes || [])]
+                      newSizes[index] = { ...size, label: e.target.value }
+                      setFormData(prev => ({ ...prev, sizes: newSizes }))
+                    }}
+                  />
+                  <Input
+                    placeholder="Value"
+                    value={size.value}
+                    onChange={(e) => {
+                      const newSizes = [...(formData.sizes || [])]
+                      newSizes[index] = { ...size, value: e.target.value }
+                      setFormData(prev => ({ ...prev, sizes: newSizes }))
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => {
+                      const newSizes = (formData.sizes || []).filter((_, i) => i !== index)
+                      setFormData(prev => ({ ...prev, sizes: newSizes }))
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  const newSizes = [...(formData.sizes || []), { label: '', value: '' }]
+                  setFormData(prev => ({ ...prev, sizes: newSizes }))
+                }}
+              >
+                Add Size
+              </Button>
+            </div>
+          </div>
+
+          {/* Gemstones Section */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Gemstones (Optional)</h2>
+            <div className="space-y-4">
+              {(formData.gemstones || []).map((gemstone, index) => (
+                <div key={index} className="p-4 border rounded-lg space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Gemstone Name</Label>
+                      <select
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                        value={gemstone.name}
+                        onChange={(e) => {
+                          const newGemstones = [...(formData.gemstones || [])]
+                          newGemstones[index] = { ...gemstone, name: e.target.value }
+                          setFormData(prev => ({ ...prev, gemstones: newGemstones }))
+                        }}
+                      >
+                        <option value="">Select gemstone</option>
+                        {GEMSTONE_TYPES.map(type => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <Label>Identifier/Color</Label>
+                      <Input
+                        placeholder="e.g., Blue, 2ct, AAA"
+                        value={gemstone.value}
+                        onChange={(e) => {
+                          const newGemstones = [...(formData.gemstones || [])]
+                          newGemstones[index] = { ...gemstone, value: e.target.value }
+                          setFormData(prev => ({ ...prev, gemstones: newGemstones }))
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Price Adjustment (LKR)</Label>
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        value={gemstone.priceAdjustment || 0}
+                        onChange={(e) => {
+                          const newGemstones = [...(formData.gemstones || [])]
+                          newGemstones[index] = { ...gemstone, priceAdjustment: Number(e.target.value) }
+                          setFormData(prev => ({ ...prev, gemstones: newGemstones }))
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-end">
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => {
+                          const newGemstones = (formData.gemstones || []).filter((_, i) => i !== index)
+                          setFormData(prev => ({ ...prev, gemstones: newGemstones }))
+                        }}
+                      >
+                        Remove Gemstone
+                      </Button>
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Textarea
+                      rows={2}
+                      placeholder="Optional description about this gemstone option"
+                      value={gemstone.description || ''}
+                      onChange={(e) => {
+                        const newGemstones = [...(formData.gemstones || [])]
+                        newGemstones[index] = { ...gemstone, description: e.target.value }
+                        setFormData(prev => ({ ...prev, gemstones: newGemstones }))
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  const newGemstones = [...(formData.gemstones || []), { name: '', value: '', priceAdjustment: 0 }]
+                  setFormData(prev => ({ ...prev, gemstones: newGemstones }))
+                }}
+              >
+                Add Gemstone Option
+              </Button>
+            </div>
+          </div>
+
+          {/* Availability & Lead Time */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Availability & Lead Time</h2>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="availability">Availability Status</Label>
+                <select
+                  id="availability"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  value={formData.availability || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, availability: e.target.value }))}
+                >
+                  <option value="">Select availability</option>
+                  {AVAILABILITY_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="lead_time">Lead Time</Label>
+                <Input
+                  id="lead_time"
+                  value={formData.lead_time || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, lead_time: e.target.value }))}
+                  placeholder="e.g., 2-3 weeks, 10 business days"
+                />
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="customizable"
+                  checked={formData.customizable}
+                  onChange={(e) => setFormData(prev => ({ ...prev, customizable: e.target.checked }))}
+                  className="h-4 w-4 rounded border-gray-300"
+                />
+                <Label htmlFor="customizable" className="ml-2 cursor-pointer">
+                  Customizable (Can be modified per customer request)
+                </Label>
+              </div>
+
+              <div>
+                <Label htmlFor="status_note">Status Note</Label>
+                <Textarea
+                  id="status_note"
+                  rows={2}
+                  value={formData.status_note || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, status_note: e.target.value }))}
+                  placeholder="Internal note about this product's status"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Status Section */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Status</h2>
+            <h2 className="text-lg font-semibold mb-4">Visibility & Stock</h2>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center">
                 <input
