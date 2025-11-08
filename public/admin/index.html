@@ -3,30 +3,134 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <title>Content Manager - AR Alphaya Jewellery</title>
   </head>
   <body>
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
+      // Manual init flag - prevents auto-init before we configure the backend
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <script>
+      // Custom GitHub authentication using our API endpoint
+      if (window.CMS) {
+        // Register custom backend that uses our GitHub token endpoint
+        window.CMS.registerBackend('github', class {
+          constructor(config, options) {
+            this.config = config;
+            this.options = options;
+          }
+          
+          async authenticate() {
+            try {
+              // Fetch GitHub token from our protected API endpoint
+              // Protected by HTTP Basic Auth via middleware
+              const response = await fetch('/api/admin/auth?provider=github');
+              
+              if (!response.ok) {
+                throw new Error('Failed to authenticate with GitHub');
+              }
+              
+              const data = await response.json();
+              
+              if (!data.token) {
+                throw new Error('No token received');
+              }
+              
+              return {
+                token: data.token,
+                refresh_token: null,
+              };
+            } catch (error) {
+              console.error('Authentication error:', error);
+              throw error;
+            }
+          }
+          
+          async request(path, options = {}) {
+            const auth = await this.authenticate();
+            const headers = {
+              'Authorization': `token ${auth.token}`,
+              'Content-Type': 'application/json',
+              ...options.headers,
+            };
+            
+            const url = `https://api.github.com${path}`;
+            const response = await fetch(url, {
+              ...options,
+              headers,
+            });
+            
+            if (!response.ok) {
+              throw new Error(`GitHub API error: ${response.statusText}`);
+            }
+            
+            return response.json();
+          }
+          
+          async entriesByFolder(collection, extension) {
+            const { folder } = collection;
+            const path = `repos/${this.config.repo}/contents/${folder}`;
+            const files = await this.request(path);
+            return files.filter(file => file.name.endsWith(`.${extension}`));
+          }
+          
+          async getEntry(collection, slug, extension) {
+            const path = `repos/${this.config.repo}/contents/${collection.folder}/${slug}.${extension}`;
+            const file = await this.request(path);
+            const content = atob(file.content);
+            return { file, data: JSON.parse(content) };
+          }
+          
+          async persistEntry(entry, options) {
+            const auth = await this.authenticate();
+            const { collection, slug, raw } = entry;
+            const path = `${collection.folder}/${slug}.${collection.extension}`;
+            
+            // Get current file SHA if it exists (for updates)
+            let sha;
+            try {
+              const existing = await this.request(`repos/${this.config.repo}/contents/${path}`);
+              sha = existing.sha;
+            } catch (e) {
+              // File doesn't exist yet (new entry)
+            }
+            
+            const message = options.commitMessage || `${sha ? 'Update' : 'Create'} ${collection.label} "${entry.data.name || slug}"`;
+            
+            await this.request(`repos/${this.config.repo}/contents/${path}`, {
+              method: 'PUT',
+              body: JSON.stringify({
+                message,
+                content: btoa(raw),
+                sha,
+                branch: this.config.branch || 'main',
+              }),
+            });
+            
+            return entry;
+          }
+          
+          async deleteEntry(collection, slug) {
+            const path = `${collection.folder}/${slug}.${collection.extension}`;
+            const file = await this.request(`repos/${this.config.repo}/contents/${path}`);
+            
+            await this.request(`repos/${this.config.repo}/contents/${path}`, {
+              method: 'DELETE',
+              body: JSON.stringify({
+                message: `Delete ${collection.label} "${slug}"`,
+                sha: file.sha,
+                branch: this.config.branch || 'main',
+              }),
             });
           }
         });
-      }
-      // Ensure manual init flag is set BEFORE loading Decap CMS to avoid auto-init
-      window.CMS_MANUAL_INIT = true;
-    </script>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script>
-      // Single explicit init after script load
-      if (window.CMS && typeof window.CMS.init === 'function') {
+        
+        // Initialize Decap CMS
         window.CMS.init();
       }
     </script>
   </body>
-  
 </html>
