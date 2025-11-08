@@ -24,9 +24,13 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
       console.log('Success event detail:', e.detail)
       
       const file = e.detail
-      if (file && file.cdnUrl) {
-        // Extract UUID from cdnUrl
-        const uuid = file.uuid || file.cdnUrl.split('/').find((part: string) => part.match(/^[a-f0-9-]{36}$/i))
+      if (file) {
+        console.log('File object:', file)
+        console.log('cdnUrl:', file.cdnUrl)
+        console.log('uuid:', file.uuid)
+        
+        // Extract UUID for deduplication
+        const uuid = file.uuid || (file.cdnUrl ? file.cdnUrl.split('/').find((part: string) => part.match(/^[a-f0-9-]{36}$/i)) : null)
         
         // Check if already added to prevent duplicates
         if (uuid && addedUrls.current.has(uuid)) {
@@ -34,14 +38,26 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
           return
         }
         
-        // Use simple CDN URL - NO TRAILING SLASH (Uploadcare returns 404 with slash)
-        const cleanUrl = `https://ucarecdn.com/${uuid}`
-        console.log('Adding URL from success event:', cleanUrl)
+        // Use the cdnUrl directly from Uploadcare API response
+        // According to docs: https://ucarecdn.com/{uuid}/ is the correct format
+        let imageUrl = file.cdnUrl
         
-        if (uuid) {
-          addedUrls.current.add(uuid)
+        if (!imageUrl && uuid) {
+          // Fallback: construct URL with trailing slash (Uploadcare docs format)
+          imageUrl = `https://ucarecdn.com/${uuid}/`
+          console.log('Constructed URL from UUID:', imageUrl)
+        } else {
+          console.log('Using cdnUrl from API:', imageUrl)
         }
-        onChange([...images, cleanUrl])
+        
+        if (imageUrl) {
+          if (uuid) {
+            addedUrls.current.add(uuid)
+          }
+          onChange([...images, imageUrl])
+        } else {
+          console.error('No valid URL found for file:', file)
+        }
       }
     }
 
