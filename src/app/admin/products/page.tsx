@@ -3,13 +3,16 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Plus, Search, Filter } from 'lucide-react'
+import { Plus, Search, Filter, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { useToast } from '@/components/ui/use-toast'
+import { Toaster } from '@/components/ui/toaster'
 import type { Product } from '@/types/admin'
 
 export default function AdminProductsPage() {
+  const { toast } = useToast()
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -84,23 +87,22 @@ export default function AdminProductsPage() {
     setSelectedIds(newSelected)
   }
 
-  const handleBulkAction = async () => {
-    if (!bulkAction || selectedIds.size === 0) return
+  const handleBulkAction = async (actionType: string) => {
+    if (selectedIds.size === 0) return
     
-    const action = bulkAction
     const count = selectedIds.size
     const ids = Array.from(selectedIds)
     
     let confirmMessage = ''
-    switch (action) {
+    switch (actionType) {
       case 'delete':
         confirmMessage = `Are you sure you want to delete ${count} product(s)? This cannot be undone.`
         break
       case 'publish':
-        confirmMessage = `Publish ${count} product(s)?`
+        confirmMessage = `Publish ${count} product(s)? They will be visible on your website.`
         break
       case 'draft':
-        confirmMessage = `Move ${count} product(s) to draft?`
+        confirmMessage = `Move ${count} product(s) to draft? They will be hidden from your website.`
         break
       default:
         return
@@ -112,7 +114,7 @@ export default function AdminProductsPage() {
       const response = await fetch('/api/admin/products/bulk', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action, ids })
+        body: JSON.stringify({ action: actionType, ids })
       })
       
       if (!response.ok) {
@@ -123,10 +125,24 @@ export default function AdminProductsPage() {
       setBulkAction('')
       fetchProducts()
       fetchStats()
-      alert(`Successfully ${action === 'delete' ? 'deleted' : action === 'publish' ? 'published' : 'moved to draft'} ${count} product(s)`)
+      
+      // Success toast
+      toast({
+        variant: "success",
+        title: "Success!",
+        description: actionType === 'delete' 
+          ? `Successfully deleted ${count} product(s)`
+          : actionType === 'publish'
+          ? `Successfully published ${count} product(s) - now visible on website`
+          : `Moved ${count} product(s) to draft - hidden from website`,
+      })
     } catch (error) {
       console.error('Error performing bulk action:', error)
-      alert('Failed to perform bulk action')
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to perform bulk action. Please try again.",
+      })
     }
   }
 
@@ -197,35 +213,45 @@ export default function AdminProductsPage() {
 
         {/* Bulk Actions Toolbar */}
         {selectedIds.size > 0 && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-lg p-5 mb-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <span className="font-medium text-blue-900">
-                  {selectedIds.size} product{selectedIds.size !== 1 ? 's' : ''} selected
-                </span>
-                <select
-                  className="flex h-10 rounded-md border border-input bg-white px-3 py-2 text-sm"
-                  value={bulkAction}
-                  onChange={(e) => setBulkAction(e.target.value)}
-                >
-                  <option value="">Select action...</option>
-                  <option value="publish">Publish</option>
-                  <option value="draft">Move to Draft</option>
-                  <option value="delete">Delete</option>
-                </select>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-blue-600" />
+                  <span className="font-semibold text-blue-900 text-lg">
+                    {selectedIds.size} product{selectedIds.size !== 1 ? 's' : ''} selected
+                  </span>
+                </div>
+                <div className="h-8 w-px bg-blue-300" />
                 <Button 
-                  variant="default" 
-                  size="sm"
-                  onClick={handleBulkAction}
-                  disabled={!bulkAction}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium px-6"
+                  size="default"
+                  onClick={() => handleBulkAction('publish')}
                 >
-                  Apply
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  Publish
+                </Button>
+                <Button 
+                  variant="outline"
+                  size="default"
+                  onClick={() => handleBulkAction('draft')}
+                  className="border-gray-300"
+                >
+                  Move to Draft
+                </Button>
+                <Button 
+                  variant="destructive"
+                  size="default"
+                  onClick={() => handleBulkAction('delete')}
+                >
+                  Delete
                 </Button>
               </div>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => setSelectedIds(new Set())}
+                className="text-blue-700 hover:text-blue-900"
               >
                 Clear Selection
               </Button>
@@ -234,7 +260,7 @@ export default function AdminProductsPage() {
         )}
 
         {/* Products Table */}
-        <div className="bg-white rounded-lg shadow overflow-x-auto">
+        <div className="bg-white rounded-lg shadow overflow-x-auto" style={{ minHeight: '600px', maxHeight: '70vh' }}>
           {loading ? (
             <div className="p-12 text-center">
               <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
@@ -355,6 +381,7 @@ export default function AdminProductsPage() {
 
       {/* Load Uploadcare Widget */}
       <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async />
+      <Toaster />
     </div>
   )
 }

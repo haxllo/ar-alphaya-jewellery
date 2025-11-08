@@ -9,11 +9,15 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ImageUploader } from '@/components/admin/ImageUploader'
+import { CheckboxGrid } from '@/components/admin/CheckboxGrid'
 import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES } from '@/lib/admin/constants'
+import { useToast } from '@/components/ui/use-toast'
+import { Toaster } from '@/components/ui/toaster'
 import type { Product, Size, Gemstone } from '@/types/admin'
 
 export default function EditProductPage({ params }: { params: { id: string } }) {
   const router = useRouter()
+  const { toast } = useToast()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [product, setProduct] = useState<Partial<Product>>({})
@@ -55,7 +59,15 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         throw new Error(error.error || 'Failed to update product')
       }
 
-      router.push('/admin/products')
+      toast({
+        variant: "success",
+        title: "Product Updated!",
+        description: updateData.status === 'published' 
+          ? "Product is now published and visible on website"
+          : "Product saved successfully",
+      })
+      
+      setTimeout(() => router.push('/admin/products'), 1000)
     } catch (error) {
       console.error('Error saving product:', error)
       alert(error instanceof Error ? error.message : 'Failed to save product')
@@ -207,24 +219,13 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold mb-4">Materials & Physical Details</h2>
             <div className="space-y-4">
-              <div>
-                <Label htmlFor="materials">Materials</Label>
-                <select
-                  id="materials"
-                  multiple
-                  className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  value={product.materials || []}
-                  onChange={(e) => {
-                    const selected = Array.from(e.target.selectedOptions, option => option.value)
-                    setProduct(prev => ({ ...prev, materials: selected }))
-                  }}
-                >
-                  {MATERIALS.map(material => (
-                    <option key={material} value={material}>{material}</option>
-                  ))}
-                </select>
-                <p className="mt-1 text-xs text-gray-500">Hold Ctrl/Cmd to select multiple</p>
-              </div>
+              <CheckboxGrid
+                label="Materials"
+                options={MATERIALS}
+                selected={product.materials || []}
+                onChange={(materials) => setProduct(prev => ({ ...prev, materials }))}
+                columns={4}
+              />
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -250,24 +251,13 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="tags">Tags</Label>
-                <select
-                  id="tags"
-                  multiple
-                  className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  value={product.tags || []}
-                  onChange={(e) => {
-                    const selected = Array.from(e.target.selectedOptions, option => option.value)
-                    setProduct(prev => ({ ...prev, tags: selected }))
-                  }}
-                >
-                  {COMMON_TAGS.map(tag => (
-                    <option key={tag} value={tag}>{tag}</option>
-                  ))}
-                </select>
-                <p className="mt-1 text-xs text-gray-500">Hold Ctrl/Cmd to select multiple</p>
-              </div>
+              <CheckboxGrid
+                label="Tags"
+                options={COMMON_TAGS}
+                selected={product.tags || []}
+                onChange={(tags) => setProduct(prev => ({ ...prev, tags }))}
+                columns={3}
+              />
             </div>
           </div>
 
@@ -548,6 +538,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   )
 }
