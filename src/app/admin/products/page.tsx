@@ -13,6 +13,8 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  const [bulkAction, setBulkAction] = useState('')
   const [stats, setStats] = useState({
     total: 0,
     published: 0,
@@ -61,6 +63,70 @@ export default function AdminProductsPage() {
     } catch (error) {
       console.error('Error deleting product:', error)
       alert('Failed to delete product')
+    }
+  }
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === products.length) {
+      setSelectedIds(new Set())
+    } else {
+      setSelectedIds(new Set(products.map(p => p.id)))
+    }
+  }
+
+  const toggleSelect = (id: string) => {
+    const newSelected = new Set(selectedIds)
+    if (newSelected.has(id)) {
+      newSelected.delete(id)
+    } else {
+      newSelected.add(id)
+    }
+    setSelectedIds(newSelected)
+  }
+
+  const handleBulkAction = async () => {
+    if (!bulkAction || selectedIds.size === 0) return
+    
+    const action = bulkAction
+    const count = selectedIds.size
+    const ids = Array.from(selectedIds)
+    
+    let confirmMessage = ''
+    switch (action) {
+      case 'delete':
+        confirmMessage = `Are you sure you want to delete ${count} product(s)? This cannot be undone.`
+        break
+      case 'publish':
+        confirmMessage = `Publish ${count} product(s)?`
+        break
+      case 'draft':
+        confirmMessage = `Move ${count} product(s) to draft?`
+        break
+      default:
+        return
+    }
+    
+    if (!confirm(confirmMessage)) return
+    
+    try {
+      const response = await fetch('/api/admin/products/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, ids })
+      })
+      
+      if (!response.ok) {
+        throw new Error('Bulk action failed')
+      }
+      
+      setSelectedIds(new Set())
+      setBulkAction('')
+      fetchProducts()
+      fetchStats()
+      alert(`Successfully ${action === 'delete' ? 'deleted' : action === 'publish' ? 'published' : 'moved to draft'} ${count} product(s)`)
+    } catch (error) {
+      console.error('Error performing bulk action:', error)
+      alert('Failed to perform bulk action')
     }
   }
 
@@ -129,6 +195,44 @@ export default function AdminProductsPage() {
           </div>
         </div>
 
+        {/* Bulk Actions Toolbar */}
+        {selectedIds.size > 0 && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <span className="font-medium text-blue-900">
+                  {selectedIds.size} product{selectedIds.size !== 1 ? 's' : ''} selected
+                </span>
+                <select
+                  className="flex h-10 rounded-md border border-input bg-white px-3 py-2 text-sm"
+                  value={bulkAction}
+                  onChange={(e) => setBulkAction(e.target.value)}
+                >
+                  <option value="">Select action...</option>
+                  <option value="publish">Publish</option>
+                  <option value="draft">Move to Draft</option>
+                  <option value="delete">Delete</option>
+                </select>
+                <Button 
+                  variant="default" 
+                  size="sm"
+                  onClick={handleBulkAction}
+                  disabled={!bulkAction}
+                >
+                  Apply
+                </Button>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setSelectedIds(new Set())}
+              >
+                Clear Selection
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Products Table */}
         <div className="bg-white rounded-lg shadow overflow-x-auto">
           {loading ? (
@@ -147,6 +251,14 @@ export default function AdminProductsPage() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-6 py-3 text-left">
+                    <input
+                      type="checkbox"
+                      checked={products.length > 0 && selectedIds.size === products.length}
+                      onChange={toggleSelectAll}
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                  </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-96">
                     Product
                   </th>
@@ -170,6 +282,14 @@ export default function AdminProductsPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((product) => (
                   <tr key={product.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(product.id)}
+                        onChange={() => toggleSelect(product.id)}
+                        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                    </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
                         <div className="h-10 w-10 flex-shrink-0">
