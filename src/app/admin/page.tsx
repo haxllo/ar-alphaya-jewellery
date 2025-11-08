@@ -1,9 +1,21 @@
-import { redirect } from 'next/navigation'
+'use client'
 
-export const dynamic = 'force-static'
+import { useEffect } from 'react'
 
-export default function AdminRedirect() {
-  redirect('/admin/index.html')
+export default function AdminPage() {
+  useEffect(() => {
+    // Redirect to the CMS HTML page
+    window.location.href = '/admin/cms'
+  }, [])
+
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="text-center">
+        <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
+        <p>Loading admin panel...</p>
+      </div>
+    </div>
+  )
 }
 
 

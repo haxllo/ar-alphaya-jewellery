@@ -1,0 +1,179 @@
+import { getServerSession } from '@/lib/auth'
+import { redirect } from 'next/navigation'
+
+export default async function AdminCMSPage() {
+  const session = await getServerSession()
+  
+  if (!session) {
+    redirect('/auth/signin?callbackUrl=/admin/cms')
+  }
+
+  // Render the CMS interface
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex" />
+        <title>Content Manager - AR Alphaya Jewellery</title>
+      </head>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: `window.CMS_MANUAL_INIT = true;` }} />
+        
+        <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+        
+        <script dangerouslySetInnerHTML={{ __html: `
+          async function initCMS() {
+            try {
+              // Get GitHub token from our protected API
+              const response = await fetch('/api/admin/auth?provider=github');
+              if (!response.ok) {
+                throw new Error('Failed to fetch authentication token');
+              }
+              
+              const { token } = await response.json();
+              if (!token) {
+                throw new Error('No token received from server');
+              }
+              
+              // Create a simple GitHub backend implementation
+              class SimpleGitHubBackend {
+                constructor(config, options = {}) {
+                  this.config = config;
+                  this.token = token;
+                  this.repo = 'haxllo/ar-alphaya-jewellery';
+                  this.branch = 'main';
+                  this.user = { name: 'Admin', login: 'admin', token: this.token };
+                }
+                
+                isGitBackend() {
+                  return true;
+                }
+                
+                status() {
+                  return Promise.resolve({ 
+                    auth: { status: true }, 
+                    api: { status: true, statusPage: '' } 
+                  });
+                }
+                
+                authComponent() {
+                  return null;
+                }
+                
+                restoreUser() {
+                  return Promise.resolve(this.user);
+                }
+                
+                authenticate() {
+                  return Promise.resolve(this.user);
+                }
+                
+                logout() {
+                  return Promise.resolve();
+                }
+                
+                getToken() {
+                  return Promise.resolve(this.token);
+                }
+                
+                async request(path, options = {}) {
+                  const headers = {
+                    'Authorization': \`token \${this.token}\`,
+                    'Content-Type': 'application/json',
+                    ...options.headers,
+                  };
+                  
+                  const response = await fetch(\`https://api.github.com/\${path}\`, {
+                    ...options,
+                    headers,
+                  });
+                  
+                  if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(\`GitHub API error: \${response.status} - \${error}\`);
+                  }
+                  
+                  return response.json();
+                }
+                
+                async entriesByFolder(collection, extension) {
+                  const folder = collection.get('folder');
+                  const files = await this.request(\`repos/\${this.repo}/contents/\${folder}\`);
+                  return files.filter(f => f.name.endsWith(\`.\${extension}\`));
+                }
+                
+                async getEntry(collection, slug, path) {
+                  const file = await this.request(\`repos/\${this.repo}/contents/\${path}\`);
+                  const content = atob(file.content.replace(/\\n/g, ''));
+                  return { file: { path, id: file.sha }, data: content };
+                }
+                
+                async persistEntry(entry, options = {}) {
+                  const path = entry.path;
+                  const content = entry.raw;
+                  
+                  let sha;
+                  try {
+                    const existing = await this.request(\`repos/\${this.repo}/contents/\${path}\`);
+                    sha = existing.sha;
+                  } catch (e) {}
+                  
+                  const payload = {
+                    message: options.commitMessage || \`\${sha ? 'Update' : 'Create'} "\${entry.slug}"\`,
+                    content: btoa(unescape(encodeURIComponent(content))),
+                    branch: this.branch,
+                  };
+                  
+                  if (sha) {
+                    payload.sha = sha;
+                  }
+                  
+                  return this.request(\`repos/\${this.repo}/contents/\${path}\`, {
+                    method: 'PUT',
+                    body: JSON.stringify(payload),
+                  });
+                }
+                
+                async deleteEntry(collection, slug, path) {
+                  const file = await this.request(\`repos/\${this.repo}/contents/\${path}\`);
+                  
+                  return this.request(\`repos/\${this.repo}/contents/\${path}\`, {
+                    method: 'DELETE',
+                    body: JSON.stringify({
+                      message: \`Delete "\${slug}"\`,
+                      sha: file.sha,
+                      branch: this.branch,
+                    }),
+                  });
+                }
+              }
+              
+              // Register our backend
+              if (window.CMS) {
+                window.CMS.registerBackend('git-gateway', SimpleGitHubBackend);
+                window.CMS.init();
+              }
+            } catch (error) {
+              console.error('CMS initialization error:', error);
+              document.body.innerHTML = \`
+                <div style="padding: 40px; font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+                  <h1>⚠️ CMS Initialization Error</h1>
+                  <p style="color: #d32f2f; font-weight: bold;">\${error.message}</p>
+                  <p>Please ensure GITHUB_TOKEN is configured in Vercel.</p>
+                  <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; cursor: pointer; background: #1976d2; color: white; border: none; border-radius: 4px;">
+                    Retry
+                  </button>
+                </div>
+              \`;
+            }
+          }
+          
+          if (window.CMS) {
+            initCMS();
+          }
+        ` }} />
+      </body>
+    </html>
+  )
+}

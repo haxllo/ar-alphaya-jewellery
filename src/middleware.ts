@@ -4,32 +4,8 @@ import { generateNonce, getSecurityHeaders } from "@/lib/security";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // ----------------------
-  // 1️⃣ Protect /admin with Basic Auth
-  // ----------------------
-  if (pathname.startsWith('/admin')) {
-    const authHeader = request.headers.get('authorization');
-
-    const username = process.env.ADMIN_USER;
-    const password = process.env.ADMIN_PASS;
-
-    if (!username || !password) {
-      console.error('ADMIN_USER or ADMIN_PASS not set in environment variables');
-      return new NextResponse('Admin credentials not configured', {
-        status: 500,
-      });
-    }
-
-    const validBase64 = Buffer.from(`${username}:${password}`).toString('base64');
-
-    if (authHeader !== `Basic ${validBase64}`) {
-      const response = new NextResponse('Unauthorized', {
-        status: 401,
-      });
-      response.headers.set('WWW-Authenticate', 'Basic realm="Admin Area"');
-      return response;
-    }
-  }
+  // Admin routes are now protected by Supabase auth in the layout
+  // No Basic Auth needed - authentication happens at the page level
 
   // Generate nonce for CSP
   const nonce = generateNonce();
