@@ -60,9 +60,6 @@ const nextConfig = {
     // Enable image optimization for Vercel
     unoptimized: false,
   },
-  // Enable trailing slash for consistent routing
-  trailingSlash: true,
-  
   // Build configuration
   typescript: {
     ignoreBuildErrors: false,
