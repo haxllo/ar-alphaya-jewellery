@@ -9,7 +9,7 @@ import { bulkDeleteProducts, bulkUpdateStatus } from '@/lib/admin/products'
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession()
-    if (!session || !session.user) {
+    if (!session || !session.user || !session.user.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
     
