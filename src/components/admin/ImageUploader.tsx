@@ -34,8 +34,8 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
           return
         }
         
-        // Use simple CDN URL without transformations (Next.js will optimize)
-        const cleanUrl = `https://ucarecdn.com/${uuid}/`
+        // Use simple CDN URL - NO TRAILING SLASH (Uploadcare returns 404 with slash)
+        const cleanUrl = `https://ucarecdn.com/${uuid}`
         console.log('Adding URL from success event:', cleanUrl)
         
         if (uuid) {
