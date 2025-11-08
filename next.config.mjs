@@ -47,6 +47,11 @@ const nextConfig = {
         hostname: '**.ucarecdn.net',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.ucarecd.net',
+        pathname: '/**',
+      },
     ],
     // Enable advanced image optimization
     formats: ['image/webp', 'image/avif'],
