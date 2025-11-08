@@ -15,6 +15,7 @@ interface ImageUploaderProps {
 
 export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploaderProps) {
   const ctxProviderRef = useRef<any>(null)
+  const addedUrls = useRef<Set<string>>(new Set())
 
   useEffect(() => {
     // Listen for file-upload-success event
@@ -24,11 +25,23 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
       
       const file = e.detail
       if (file && file.cdnUrl) {
-        const baseUrl = file.cdnUrl.replace(/\/$/, '')
-        const optimizedUrl = `${baseUrl}/-/preview/-/format/auto/-/quality/smart/`
-        console.log('Adding URL from success event:', optimizedUrl)
+        // Extract UUID from cdnUrl
+        const uuid = file.uuid || file.cdnUrl.split('/').find((part: string) => part.match(/^[a-f0-9-]{36}$/i))
         
-        onChange([...images, optimizedUrl])
+        // Check if already added to prevent duplicates
+        if (uuid && addedUrls.current.has(uuid)) {
+          console.log('Image already added, skipping:', uuid)
+          return
+        }
+        
+        // Use simple CDN URL without transformations (Next.js will optimize)
+        const cleanUrl = `https://ucarecdn.com/${uuid}/`
+        console.log('Adding URL from success event:', cleanUrl)
+        
+        if (uuid) {
+          addedUrls.current.add(uuid)
+        }
+        onChange([...images, cleanUrl])
       }
     }
 
@@ -45,66 +58,21 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
 
   const handleChangeEvent = (e: any) => {
     console.log('=== UPLOADCARE CHANGE EVENT ===')
-    console.log('Full event:', e)
     console.log('Event type:', e.type)
-    console.log('Event detail:', e.detail)
     
-    // Try both e.detail and e directly (React wrapper differences)
+    // IMPORTANT: Don't process onChange - let file-upload-success handle it
+    // onChange fires multiple times (file added, uploading, success)
+    // We only want to add URLs when file-upload-success fires
+    
     const allEntries = e.detail?.allEntries || e.allEntries || []
-    console.log('All entries:', allEntries)
-    
-    if (allEntries.length === 0) {
-      console.log('No files in event')
-      return
-    }
-    
-    // Log all file statuses to debug
+    console.log('Change event - file count:', allEntries.length)
     console.log('File statuses:', allEntries.map((f: any) => ({
       name: f.name,
       status: f.status,
-      uuid: f.uuid,
-      cdnUrl: f.cdnUrl
+      uuid: f.uuid?.substring(0, 8) + '...'
     })))
     
-    // Filter only successful uploads
-    const successfulFiles = allEntries.filter((file: any) => file.status === 'success')
-    console.log('Successful files count:', successfulFiles.length)
-    
-    if (successfulFiles.length > 0) {
-      const newUrls = successfulFiles.map((file: any) => {
-        console.log('Processing file:', { uuid: file.uuid, cdnUrl: file.cdnUrl, status: file.status })
-        
-        // Uploadcare provides cdnUrl property with the full URL
-        if (file.cdnUrl) {
-          // Use the provided cdnUrl and add optimizations
-          const baseUrl = file.cdnUrl.replace(/\/$/, '')
-          const optimizedUrl = `${baseUrl}/-/preview/-/format/auto/-/quality/smart/`
-          console.log('Generated URL from cdnUrl:', optimizedUrl)
-          return optimizedUrl
-        }
-        
-        // Fallback: construct URL from uuid if cdnUrl is missing
-        if (file.uuid) {
-          const constructedUrl = `https://ucarecdn.com/${file.uuid}/-/preview/-/format/auto/-/quality/smart/`
-          console.log('Generated URL from uuid:', constructedUrl)
-          return constructedUrl
-        }
-        
-        console.warn('File missing both cdnUrl and uuid:', file)
-        return null
-      }).filter(Boolean) as string[]
-      
-      console.log('Final URLs to add:', newUrls)
-      
-      if (newUrls.length > 0) {
-        const updatedImages = [...images, ...newUrls]
-        console.log('Updated images array:', updatedImages)
-        onChange(updatedImages)
-      }
-    } else {
-      console.log('No successful uploads yet')
-      console.log('Current statuses:', allEntries.map((f: any) => f.status))
-    }
+    // Don't add images here - file-upload-success will handle it
   }
 
   const removeImage = (index: number) => {

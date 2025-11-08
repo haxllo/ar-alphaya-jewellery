@@ -34,11 +34,18 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '**.ucarecdn.net',
+        hostname: 'ucarecdn.com',
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'ucarecdn.com',
+        hostname: '**.ucarecdn.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.ucarecdn.net',
+        pathname: '/**',
       },
     ],
     // Enable advanced image optimization
