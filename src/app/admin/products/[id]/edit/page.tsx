@@ -13,33 +13,54 @@ import { CheckboxGrid } from '@/components/admin/CheckboxGrid'
 import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES } from '@/lib/admin/constants'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import type { Product, Size, Gemstone } from '@/types/admin'
 
-export default function EditProductPage({ params }: { params: { id: string } }) {
+export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const { toast } = useToast()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [product, setProduct] = useState<Partial<Product>>({})
+  const [productId, setProductId] = useState<string>('')
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
   useEffect(() => {
-    fetchProduct()
+    // Resolve params promise and fetch product
+    params.then(({ id }) => {
+      setProductId(id)
+      fetchProduct(id)
+    })
   }, [])
 
-  const fetchProduct = async () => {
+  const fetchProduct = async (id: string) => {
     try {
-      const response = await fetch(`/api/admin/products/${params.id}`)
+      const response = await fetch(`/api/admin/products/${id}`)
       const data = await response.json()
       setProduct(data)
     } catch (error) {
       console.error('Error fetching product:', error)
-      alert('Failed to load product')
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load product",
+      })
     } finally {
       setLoading(false)
     }
   }
 
   const handleSave = async (status?: 'draft' | 'published') => {
+    if (!productId) return
     setSaving(true)
 
     try {
@@ -48,7 +69,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         updateData.status = status
       }
 
-      const response = await fetch(`/api/admin/products/${params.id}`, {
+      const response = await fetch(`/api/admin/products/${productId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updateData)
@@ -70,18 +91,25 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
       setTimeout(() => router.push('/admin/products'), 1000)
     } catch (error) {
       console.error('Error saving product:', error)
-      alert(error instanceof Error ? error.message : 'Failed to save product')
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error instanceof Error ? error.message : 'Failed to save product',
+      })
       setSaving(false)
     }
   }
 
+  const confirmDelete = () => {
+    if (!productId) return
+    setDeleteDialogOpen(true)
+  }
+
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
-      return
-    }
+    if (!productId) return
 
     try {
-      const response = await fetch(`/api/admin/products/${params.id}`, {
+      const response = await fetch(`/api/admin/products/${productId}`, {
         method: 'DELETE'
       })
 
@@ -89,10 +117,20 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         throw new Error('Failed to delete product')
       }
 
-      router.push('/admin/products')
+      toast({
+        variant: "success",
+        title: "Product Deleted!",
+        description: "Product has been permanently deleted",
+      })
+
+      setTimeout(() => router.push('/admin/products'), 1000)
     } catch (error) {
       console.error('Error deleting product:', error)
-      alert('Failed to delete product')
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete product",
+      })
     }
   }
 
@@ -124,7 +162,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
               type="button"
               variant="destructive"
               size="sm"
-              onClick={handleDelete}
+              onClick={confirmDelete}
             >
               <Trash2 className="mr-2 h-4 w-4" />
               Delete Product
@@ -539,6 +577,30 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         </div>
       </div>
       <Toaster />
+      
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Product</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this product? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => {
+                handleDelete()
+                setDeleteDialogOpen(false)
+              }}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

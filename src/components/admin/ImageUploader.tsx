@@ -17,15 +17,43 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
   const [showUploader, setShowUploader] = useState(false)
 
   const handleChangeEvent = (e: any) => {
+    console.log('Upload event received:', e.detail)
     const files = e.detail?.allEntries || []
-    if (files.length > 0) {
-      const newUrls = files.map((file: any) => {
-        // Get the CDN URL with optimization
-        const uuid = file.uuid
-        return `https://ucarecdn.com/${uuid}/-/preview/1000x1000/`
-      })
-      onChange([...images, ...newUrls])
-      setShowUploader(false)
+    
+    if (files.length === 0) {
+      console.log('No files in event')
+      return
+    }
+    
+    // Filter only successful uploads
+    const successfulFiles = files.filter((file: any) => file.status === 'success')
+    console.log('Successful files:', successfulFiles)
+    
+    if (successfulFiles.length > 0) {
+      const newUrls = successfulFiles.map((file: any) => {
+        // Uploadcare provides cdnUrl property with the full URL
+        if (file.cdnUrl) {
+          // Use the provided cdnUrl and add optimizations
+          // Remove trailing slash if present, then add operations
+          const baseUrl = file.cdnUrl.replace(/\/$/, '')
+          return `${baseUrl}/-/preview/-/format/auto/-/quality/smart/`
+        }
+        // Fallback: construct URL from uuid if cdnUrl is missing
+        if (file.uuid) {
+          return `https://ucarecdn.com/${file.uuid}/-/preview/-/format/auto/-/quality/smart/`
+        }
+        console.warn('File missing both cdnUrl and uuid:', file)
+        return null
+      }).filter(Boolean) as string[]
+      
+      console.log('Generated URLs:', newUrls)
+      
+      if (newUrls.length > 0) {
+        onChange([...images, ...newUrls])
+        setShowUploader(false)
+      }
+    } else {
+      console.log('No successful uploads yet, statuses:', files.map((f: any) => f.status))
     }
   }
 
