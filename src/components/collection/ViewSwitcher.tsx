@@ -1,8 +1,10 @@
 'use client'
 
+export type ViewType = 'grid-2' | 'grid-3' | 'grid-4'
+
 interface ViewSwitcherProps {
-  view: 'grid-2' | 'grid-3' | 'grid-4' | 'list'
-  onViewChange: (view: 'grid-2' | 'grid-3' | 'grid-4' | 'list') => void
+  view: ViewType
+  onViewChange: (view: ViewType) => void
 }
 
 export default function ViewSwitcher({ view, onViewChange }: ViewSwitcherProps) {
@@ -47,18 +49,6 @@ export default function ViewSwitcher({ view, onViewChange }: ViewSwitcherProps) 
         </svg>
       </button>
       
-      <button
-        onClick={() => onViewChange('list')}
-        className={`p-2 rounded transition-colors ${
-          view === 'list' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-100'
-        }`}
-        aria-label="List view"
-        title="List"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
     </div>
   )
 }

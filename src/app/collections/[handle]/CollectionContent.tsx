@@ -18,7 +18,7 @@ interface CollectionContentProps {
 export default function CollectionContent({ handle, products }: CollectionContentProps) {
   const { formatPrice } = usePriceFormatter()
   const [activeFilter, setActiveFilter] = useState('all')
-  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4' | 'list'>('grid-3')
+  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4'>('grid-4')
   
   const descriptors: Record<string, string> = {
     rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
