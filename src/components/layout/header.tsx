@@ -87,21 +87,21 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/30 bg-white/80 backdrop-blur-xl supports-backdrop:bg-white/70 shadow-[0_1px_0_rgba(18,18,18,0.08)]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 gap-6">
-        <div className="flex items-center gap-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 py-2 sm:py-3 gap-2 sm:gap-4 md:gap-6">
+        <div className="flex items-center gap-6 md:gap-10">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
             <Image 
               src="/images/LOGO1.png" 
               alt="AR Alphaya Jewellery Logo" 
               width={40} 
               height={40}
               priority
-              className="h-10 w-10 md:h-12 md:w-12 object-contain"
+              className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 object-contain"
             />
             <div className="leading-tight">
-              <span className="font-serif text-[0.7rem] md:text-sm uppercase tracking-[0.85em] text-nocturne-900">AR ALPHAYA</span>
-              <span className="mt-1 block text-[0.55rem] tracking-[0.55em] uppercase text-nocturne-500">JEWELLERY</span>
+              <span className="font-serif text-[0.55rem] sm:text-[0.7rem] md:text-sm uppercase tracking-[0.6em] sm:tracking-[0.85em] text-nocturne-900">AR ALPHAYA</span>
+              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-nocturne-500">JEWELLERY</span>
             </div>
           </Link>
 
@@ -139,7 +139,7 @@ export default function Header() {
         </div>
 
         {/* Right actions */}
-        <div className="flex items-center justify-end gap-3 md:gap-5">
+        <div className="flex items-center justify-end gap-1.5 sm:gap-3 md:gap-5">
 
             {/* Currency Selector - Desktop */}
             {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
@@ -148,12 +148,12 @@ export default function Header() {
             </div> */}
 
             {/* Wishlist */}
-            <Link href="/wishlist" className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <Link href="/wishlist" className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
               </svg>
               {wishlistCount > 0 && (
-                <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-nocturne-900 text-xs font-medium text-white" aria-hidden="true">
+                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-nocturne-900 text-[10px] sm:text-xs font-medium text-white" aria-hidden="true">
                   {wishlistCount}
                 </span>
               )}
@@ -165,10 +165,10 @@ export default function Header() {
                 type="button"
                 aria-label="Search products"
                 aria-expanded={showSearch}
-                className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                 onClick={() => setShowSearch((v) => !v)}
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
               </button>
@@ -268,12 +268,12 @@ export default function Header() {
               <div className="relative user-dropdown-container">
                 <button 
                   onClick={() => setShowUserDropdown(!showUserDropdown)}
-                  className="flex items-center gap-2 rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                  className="flex items-center gap-2 rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                   aria-label="User account menu"
                   aria-expanded={showUserDropdown}
                   aria-haspopup="true"
                 >
-                  <div className="relative w-6 h-6 flex items-center justify-center">
+                  <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center">
                     {(user as any)?.picture ? (
                       <Image 
                         src={(user as any).picture} 
@@ -286,7 +286,7 @@ export default function Header() {
                         className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                       </svg>
                     )}
@@ -348,22 +348,22 @@ export default function Header() {
             ) : (
               <Link 
                 href="/auth/signin"
-                className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                 aria-label="Sign in to your account"
                 title="Sign In"
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
               </Link>
             )}
             
-            <Link href="/cart" className="relative rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <Link href="/cart" className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
               </svg>
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-xs font-medium text-white" aria-hidden="true">
+                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-foreground text-[10px] sm:text-xs font-medium text-white" aria-hidden="true">
                   {cartCount}
                 </span>
               )}
@@ -371,12 +371,12 @@ export default function Header() {
             
             {/* Mobile menu button */}
             <button
-              className="md:hidden rounded-full border border-transparent p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+              className="md:hidden rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Open mobile menu"
               aria-expanded={mobileMenuOpen}
             >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 6.75h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -385,7 +385,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-border/70 bg-white/95 px-6 py-6 backdrop-blur md:hidden">
+        <div className="border-t border-border/70 bg-white/95 px-4 sm:px-6 py-4 sm:py-6 backdrop-blur md:hidden">
             {/* Currency Selector - Mobile */}
             {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
             {/* <div className="mb-6 border-b border-border/60 pb-6">
@@ -394,8 +394,8 @@ export default function Header() {
             </div> */}
 
             {/* Search Bar - Mobile */}
-            <div className="mb-6 border-b border-border/60 pb-6">
-              <div className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Search</div>
+            <div className="mb-4 sm:mb-6 border-b border-border/60 pb-4 sm:pb-6">
+              <div className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Search</div>
               <form onSubmit={handleSearch}>
                 <div className="relative">
                   <input
@@ -403,7 +403,7 @@ export default function Header() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search jewelry..."
-                    className="w-full rounded-xl border border-border/70 bg-white/80 py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-nocturne-400 focus:border-gold-400/60 focus:outline-none focus:ring-2 focus:ring-gold-200/70"
+                    className="w-full rounded-xl border border-border/70 bg-white/80 py-2.5 sm:py-3 pl-10 sm:pl-11 pr-3 sm:pr-4 text-sm text-foreground placeholder:text-nocturne-400 focus:border-gold-400/60 focus:outline-none focus:ring-2 focus:ring-gold-200/70"
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg className="h-4 w-4 text-nocturne-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
