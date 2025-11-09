@@ -27,6 +27,7 @@ a {
 html {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
+  scroll-behavior: smooth;
 }
 
 @layer utilities {

@@ -195,7 +195,7 @@ export default async function Home() {
 
       <FeaturedProducts products={products} />
 
-      <section id="process" className="mx-auto max-w-7xl px-6">
+      <section id="process" className="mx-auto max-w-7xl px-6 scroll-mt-24">
         <div className="rounded-3xl border border-nocturne-100 bg-white/75 p-8 shadow-subtle lg:p-14">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -218,7 +218,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-7xl px-6">
+      <section id="faq" className="mx-auto max-w-7xl px-6 scroll-mt-24">
         <div className="grid gap-8 rounded-3xl bg-white/80 p-8 shadow-subtle lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
           <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">FAQ</p>

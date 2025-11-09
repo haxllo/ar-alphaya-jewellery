@@ -98,7 +98,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
             : 'No products match your filters. Try adjusting your selection.'}
         </div>
       ) : (
-        <div id="collection-grid" className={`grid ${gridClasses} gap-6`}>
+        <div id="collection-grid" className={`grid ${gridClasses} gap-6 scroll-mt-24`}>
           {filteredProducts.map((p) => (
             <div
               key={p.id}
