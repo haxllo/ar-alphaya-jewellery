@@ -95,15 +95,15 @@ export default async function Home() {
             <p className="max-w-xl text-base leading-relaxed text-nocturne-600">
               AR Alphaya Jewellery is a one-person studio creating bespoke pieces with Sri Lankan coloured gemstones and recycled gold. Each commission begins with a conversation—together we shape a design that feels true to you. <strong>No luxury markup, just artisan craftsmanship.</strong>
             </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+                className="inline-flex items-center justify-center rounded-full bg-foreground px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
                 href="/contact"
               >
                 Get a Quote—No Obligation
               </Link>
               <Link
-                className="inline-flex items-center justify-center rounded-full border border-nocturne-200 px-8 py-3 text-sm font-semibold tracking-[0.25em] text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
+                className="inline-flex items-center justify-center rounded-full border border-nocturne-200 px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.25em] text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
                 href="/collections/rings"
               >
                 See Affordable Bespoke Options
@@ -132,7 +132,7 @@ export default async function Home() {
               <p className="max-w-xs text-sm leading-relaxed">
                 Every design is drafted, cast, and finished by hand at my bench in Kandy. I work on a handful of pieces at a time so you receive obsessive attention at every stage.
               </p>
-              <Link href="/about" className="text-sm font-semibold text-white underline-offset-8 hover:underline">
+              <Link href="/about" className="inline-block text-xs sm:text-sm font-semibold text-white underline-offset-8 hover:underline">
                 Learn about the maker
               </Link>
             </div>
@@ -146,7 +146,7 @@ export default async function Home() {
             <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Current Creations</p>
             <h2 className="mt-2 font-serif text-3xl text-nocturne-900 md:text-4xl">Made-to-order pieces and bespoke inspiration</h2>
           </div>
-          <Link href="/collections/rings" className="text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline">
+          <Link href="/collections/rings" className="inline-block text-xs sm:text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline whitespace-nowrap">
             Browse the studio bench
           </Link>
         </div>
@@ -155,13 +155,13 @@ export default async function Home() {
             <Link
               key={collection.title}
               href={collection.href}
-              className="group relative overflow-hidden rounded-2xl border border-nocturne-100 bg-white/80 p-8 shadow-subtle transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/80 hover:shadow-luxe"
+              className="group relative overflow-hidden rounded-2xl border border-nocturne-100 bg-white/80 p-6 sm:p-8 shadow-subtle transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/80 hover:shadow-luxe"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-gold-100/30 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex h-full flex-col justify-between gap-6">
+              <div className="relative flex h-full flex-col justify-between gap-4 sm:gap-6 min-h-[200px]">
                 <div>
                   <span className="text-xs uppercase tracking-[0.35em] text-nocturne-400">Collection</span>
-                  <h3 className="mt-3 font-serif text-2xl text-nocturne-900">{collection.title}</h3>
+                  <h3 className="mt-3 font-serif text-xl sm:text-2xl text-nocturne-900">{collection.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-nocturne-600">{collection.copy}</p>
                 </div>
                 <span className="text-sm font-semibold text-nocturne-700 underline-offset-8 group-hover:underline">Explore now</span>
@@ -202,7 +202,7 @@ export default async function Home() {
               <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Custom Commissions</p>
               <h2 className="mt-2 font-serif text-3xl text-nocturne-900 md:text-4xl">Four stages from idea to finished piece</h2>
             </div>
-            <Link href="/contact" className="text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline">
+            <Link href="/contact" className="inline-block text-xs sm:text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline whitespace-nowrap">
               Book a consultation
             </Link>
           </div>
@@ -226,7 +226,7 @@ export default async function Home() {
             <p className="text-sm leading-relaxed text-nocturne-600">
               Every project starts with clarity. If you need details beyond what’s here, send a message and I’ll respond within two business days.
             </p>
-            <Link href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-foreground px-7 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition-all duration-300 hover:-translate-y-0.5">
+            <Link href="/contact" className="inline-flex w-full sm:w-fit items-center justify-center rounded-full bg-foreground px-6 sm:px-7 py-3 text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.28em] text-white transition-all duration-300 hover:-translate-y-0.5">
               Ask a question
             </Link>
           </div>

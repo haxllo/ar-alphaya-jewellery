@@ -68,11 +68,11 @@ export default function CollectionContent({ handle, products }: CollectionConten
                 {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
               </p>
             </div>
-            <div className="flex gap-3">
-              <a href="#collection-grid" className="rounded-full border border-nocturne-200 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a href="#collection-grid" className="text-center rounded-full border border-nocturne-200 px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground transition-all whitespace-nowrap">
                 View collection
               </a>
-              <a href="/contact" className="rounded-full bg-foreground px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5">
+              <a href="/contact" className="text-center rounded-full bg-foreground px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
                 Bespoke inquiry
               </a>
             </div>

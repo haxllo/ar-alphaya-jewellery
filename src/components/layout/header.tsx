@@ -415,8 +415,8 @@ export default function Header() {
             </div>
             
             <nav className="space-y-5">
-              <Link href="/" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Home</Link>
-              <Link href="/#process" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Custom Commissions</Link>
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Home</Link>
+              <Link href="/#process" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Custom Commissions</Link>
               <div>
                 <div className="text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Collections</div>
                 <div className="mt-3 pl-4 space-y-3">
@@ -424,6 +424,7 @@ export default function Header() {
                     <Link
                       key={collection.handle}
                       href={`/collections/${collection.handle}`}
+                      onClick={() => setMobileMenuOpen(false)}
                       className="block text-sm font-medium text-nocturne-500 transition-colors hover:text-foreground"
                     >
                       {collection.title}
@@ -431,12 +432,12 @@ export default function Header() {
                   ))}
                 </div>
               </div>
-              <Link href="/about" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">About</Link>
-              <Link href="/contact" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Contact</Link>
-              <Link href="/wishlist" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">About</Link>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Contact</Link>
+              <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">
                 Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
               </Link>
-              <Link href="/policies" className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Policies</Link>
+              <Link href="/policies" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Policies</Link>
               
               {/* Mobile Authentication */}
               <div className="mt-6 border-t border-border/60 pt-6">
