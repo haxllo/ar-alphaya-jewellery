@@ -18,7 +18,7 @@ interface CollectionContentProps {
 export default function CollectionContent({ handle, products }: CollectionContentProps) {
   const { formatPrice } = usePriceFormatter()
   const [activeFilter, setActiveFilter] = useState('all')
-  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4'>('grid-4')
+  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4' | 'grid-5'>('grid-4')
   
   const descriptors: Record<string, string> = {
     rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
@@ -98,7 +98,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
             : 'No products match your filters. Try adjusting your selection.'}
         </div>
       ) : (
-        <div id="collection-grid" className={`grid ${gridClasses[view]} gap-6`}>
+        <div id="collection-grid" className={`grid ${gridClasses} gap-6`}>
           {filteredProducts.map((p) => (
             <div
               key={p.id}

@@ -1,6 +1,6 @@
 'use client'
 
-export type ViewType = 'grid-2' | 'grid-3' | 'grid-4'
+export type ViewType = 'grid-2' | 'grid-3' | 'grid-4' | 'grid-5'
 
 interface ViewSwitcherProps {
   view: ViewType
@@ -49,6 +49,18 @@ export default function ViewSwitcher({ view, onViewChange }: ViewSwitcherProps) 
         </svg>
       </button>
       
+      <button
+        onClick={() => onViewChange('grid-5')}
+        className={`p-2 rounded transition-colors ${
+          view === 'grid-5' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-100'
+        }`}
+        aria-label="5 column grid view"
+        title="5 columns"
+      >
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M2 3h3v3H2V3zm4 0h3v3H6V3zm4 0h3v3h-3V3zm4 0h3v3h-3V3zm4 0h3v3h-3V3zM2 7h3v3H2V7zm4 0h3v3H6V7zm4 0h3v3h-3V7zm4 0h3v3h-3V7zm4 0h3v3h-3V7zM2 11h3v3H2v-3zm4 0h3v3H6v-3zm4 0h3v3h-3v-3zm4 0h3v3h-3v-3zm4 0h3v3h-3v-3zM2 15h3v3H2v-3zm4 0h3v3H6v-3zm4 0h3v3h-3v-3zm4 0h3v3h-3v-3zm4 0h3v3h-3v-3zM2 19h3v3H2v-3zm4 0h3v3H6v-3zm4 0h3v3h-3v-3zm4 0h3v3h-3v-3zm4 0h3v3h-3v-3z" />
+        </svg>
+      </button>
     </div>
   )
 }
