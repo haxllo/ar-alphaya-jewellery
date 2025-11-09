@@ -1,9 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import WishlistButton from '@/components/wishlist/WishlistButton'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
+import QuickFilters from '@/components/collection/QuickFilters'
+import ViewSwitcher from '@/components/collection/ViewSwitcher'
 import type { Product } from '@/types/product'
 
 interface CollectionContentProps {
@@ -13,6 +17,9 @@ interface CollectionContentProps {
 
 export default function CollectionContent({ handle, products }: CollectionContentProps) {
   const { formatPrice } = usePriceFormatter()
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4' | 'list'>('grid-3')
+  
   const descriptors: Record<string, string> = {
     rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
     earrings: 'Sculptural statements and easy, luminous studs for every day.',
@@ -21,43 +28,78 @@ export default function CollectionContent({ handle, products }: CollectionConten
   }
   const title = handle.replace('-', ' ')
   
+  // Filter products based on active filter
+  const filteredProducts = products.filter(product => {
+    if (activeFilter === 'all') return true
+    if (activeFilter === 'inStock') return product.inStock !== false
+    if (activeFilter === 'onSale') return false // No sale logic yet
+    if (activeFilter === 'new') {
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+      return product.createdAt && new Date(product.createdAt) > thirtyDaysAgo
+    }
+    if (activeFilter === 'featured') return product.featured === true
+    return true
+  })
+  
+  // Determine grid classes based on view
+  const gridClasses = {
+    'grid-2': 'grid-cols-1 sm:grid-cols-2',
+    'grid-3': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+    'grid-4': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+    'list': 'grid-cols-1'
+  }
+  
   return (
     <main className="mx-auto max-w-7xl px-6 py-14">
       <div className="mb-10 rounded-3xl bg-white/80 p-8 shadow-subtle">
-        <nav className="text-xs uppercase tracking-[0.3em] text-nocturne-500" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2">
-            <li>
-              <Link href="/" className="underline-offset-4 hover:underline">Home</Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li className="text-nocturne-400" aria-current="page">{title}</li>
-          </ol>
-        </nav>
-        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="font-serif text-3xl capitalize text-nocturne-900 md:text-4xl">{title}</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-nocturne-600">
-              {descriptors[handle] || 'Discover curated pieces finished by hand and tailored to your rituals.'}
-            </p>
+        <Breadcrumbs
+          items={[{ label: 'Home', href: '/' }]}
+          currentPage={title}
+        />
+        <div className="mt-6 space-y-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 className="font-serif text-3xl capitalize text-nocturne-900 md:text-4xl">{title}</h1>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-nocturne-600">
+                {descriptors[handle] || 'Discover curated pieces finished by hand and tailored to your rituals.'}
+              </p>
+              <p className="mt-2 text-sm text-gray-500">
+                {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <a href="#collection-grid" className="rounded-full border border-nocturne-200 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground">
+                View collection
+              </a>
+              <a href="/contact" className="rounded-full bg-foreground px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5">
+                Bespoke inquiry
+              </a>
+            </div>
           </div>
-          <div className="flex gap-3">
-            <a href="#collection-grid" className="rounded-full border border-nocturne-200 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground">
-              View collection
-            </a>
-            <a href="/contact" className="rounded-full bg-foreground px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5">
-              Bespoke inquiry
-            </a>
+
+          {/* Quick Filters */}
+          <QuickFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+
+          {/* View Switcher */}
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-gray-600">
+              Showing {filteredProducts.length} of {products.length} products
+            </div>
+            <ViewSwitcher view={view} onViewChange={setView} />
           </div>
         </div>
       </div>
 
-      {products.length === 0 ? (
+      {filteredProducts.length === 0 ? (
         <div className="rounded-3xl border border-nocturne-100 bg-white/80 p-12 text-center text-nocturne-500">
-          We are crafting new pieces for this collection. Join our waitlist to be the first to know.
+          {products.length === 0 
+            ? 'We are crafting new pieces for this collection. Join our waitlist to be the first to know.'
+            : 'No products match your filters. Try adjusting your selection.'}
         </div>
       ) : (
-        <div id="collection-grid" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {products.map((p) => (
+        <div id="collection-grid" className={`grid ${gridClasses[view]} gap-6`}>
+          {filteredProducts.map((p) => (
             <div
               key={p.id}
               className="group relative overflow-hidden rounded-3xl border border-nocturne-100 bg-white/75 transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/70 hover:shadow-luxe"

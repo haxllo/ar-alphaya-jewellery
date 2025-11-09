@@ -1,15 +1,20 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
+import { useState } from 'react'
 import { useWishlistStore } from '@/lib/store/wishlist'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import { useCartStore } from '@/lib/store/cart'
+import { Share2, ShoppingBag } from 'lucide-react'
 
 export default function WishlistPage() {
   const { items, clearWishlist } = useWishlistStore()
   const { formatPrice } = usePriceFormatter()
   const { addItem } = useCartStore()
+  const [shareSuccess, setShareSuccess] = useState(false)
+  const [addingAllToCart, setAddingAllToCart] = useState(false)
 
   const handleAddToCart = (item: any) => {
     // Create CartItem from wishlist item data
@@ -28,6 +33,44 @@ export default function WishlistPage() {
     if (window.confirm('Are you sure you want to clear your wishlist?')) {
       clearWishlist()
     }
+  }
+
+  const handleShareWishlist = async () => {
+    const wishlistText = items.map(item => 
+      `${item.name} - ${formatPrice(item.price)}\n${typeof window !== 'undefined' ? window.location.origin : ''}/products/${item.slug}`
+    ).join('\n\n')
+    
+    const shareData = {
+      title: 'My AR Alphaya Jewellery Wishlist',
+      text: `Check out my wishlist from AR Alphaya Jewellery:\n\n${wishlistText}`
+    }
+
+    try {
+      if (typeof navigator !== 'undefined' && navigator.share) {
+        await navigator.share(shareData)
+      } else if (typeof navigator !== 'undefined') {
+        await navigator.clipboard.writeText(`${shareData.title}\n\n${shareData.text}`)
+        setShareSuccess(true)
+        setTimeout(() => setShareSuccess(false), 2000)
+      }
+    } catch (err) {
+      console.error('Failed to share:', err)
+    }
+  }
+
+  const handleAddAllToCart = () => {
+    setAddingAllToCart(true)
+    items.forEach(item => {
+      addItem({
+        productId: item.productId,
+        slug: item.slug,
+        name: item.name,
+        price: item.price,
+        quantity: 1,
+        image: item.image
+      })
+    })
+    setTimeout(() => setAddingAllToCart(false), 1000)
   }
 
   if (items.length === 0) {
@@ -70,7 +113,7 @@ export default function WishlistPage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <div className="mb-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-semibold text-black mb-2">Your Wishlist</h1>
             <p className="text-gray-600">
@@ -79,12 +122,29 @@ export default function WishlistPage() {
           </div>
           
           {items.length > 0 && (
-            <button
-              onClick={handleClearWishlist}
-              className="text-sm text-gray-600 hover:text-red-600 transition-colors"
-            >
-              Clear All
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleAddAllToCart}
+                disabled={addingAllToCart}
+                className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium disabled:bg-gray-400"
+              >
+                <ShoppingBag className="h-4 w-4" />
+                {addingAllToCart ? 'Adding...' : 'Add All to Cart'}
+              </button>
+              <button
+                onClick={handleShareWishlist}
+                className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+              >
+                <Share2 className="h-4 w-4" />
+                {shareSuccess ? 'Copied!' : 'Share'}
+              </button>
+              <button
+                onClick={handleClearWishlist}
+                className="text-sm text-red-600 hover:text-red-800 px-4 py-2"
+              >
+                Clear All
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -112,10 +172,24 @@ export default function WishlistPage() {
             <div key={item.productId} className="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all">
               <div className="relative">
                 <Link href={`/products/${item.slug}`}>
-                  <div className="aspect-square bg-gray-100 flex items-center justify-center">
-                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
+                  <div className="relative aspect-square bg-gray-100 overflow-hidden">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        placeholder="blur"
+                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full">
+                        <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
                 </Link>
                 

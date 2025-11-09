@@ -1,9 +1,17 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { analytics } from '@/lib/analytics'
 import type { CartItem } from '@/types/product'
+
+interface PromoCode {
+  code: string
+  discount: number
+  type: 'percentage' | 'fixed'
+}
 
 export type CartState = {
   items: CartItem[]
+  promoCode: PromoCode | null
   isLoading: boolean
   isSyncing: boolean
   addItem: (item: CartItem) => void
@@ -13,6 +21,8 @@ export type CartState = {
   setQuantity: (productId: string, quantity: number, size?: string) => void
   syncToServer: (items: CartItem[], email?: string) => Promise<void>
   loadFromServer: () => Promise<void>
+  applyPromoCode: (code: string, discount: number, type: 'percentage' | 'fixed') => void
+  removePromoCode: () => void
 }
 
 // Debounced sync function to avoid too many API calls
@@ -39,6 +49,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      promoCode: null,
       isLoading: false,
       isSyncing: false,
       addItem: (item) => {
@@ -75,7 +86,7 @@ export const useCartStore = create<CartState>()(
       },
       clearImmediate: () => {
         // Force immediate clear with localStorage sync
-        set({ items: [] })
+        set({ items: [], promoCode: null })
         // Ensure localStorage is cleared immediately
         try {
           localStorage.removeItem('ar-alphaya-cart')
@@ -127,6 +138,12 @@ export const useCartStore = create<CartState>()(
         } finally {
           set({ isLoading: false })
         }
+      },
+      applyPromoCode: (code, discount, type) => {
+        set({ promoCode: { code, discount, type } })
+      },
+      removePromoCode: () => {
+        set({ promoCode: null })
       },
     }),
     { name: 'ar-alphaya-cart' },

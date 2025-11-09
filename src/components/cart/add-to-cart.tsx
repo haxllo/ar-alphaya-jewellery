@@ -5,7 +5,7 @@ import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useCartStore } from '@/lib/store/cart'
 import type { Product, GemstoneOption } from '@/types/product'
 import { ShoppingCart } from 'lucide-react'
-import { trackEvent } from '@/lib/analytics'
+import { analytics } from '@/lib/analytics'
 
 interface AddToCartProps {
   product: Product
@@ -50,7 +50,7 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
         // Store gemstone info in a way the cart can understand
         gemstone: selectedGemstone?.name,
       })
-      try { trackEvent('add_to_cart', { productId: product.id, slug: product.slug, price: getFinalPrice(), quantity, size: selectedSize, gemstone: selectedGemstone?.name }) } catch {}
+      try { analytics.addToCart({ id: product.id, name: product.name, category: product.category, price: getFinalPrice(), currency: product.currency || 'LKR' }, quantity) } catch {}
       
       // Brief loading state for better UX
       await new Promise(resolve => setTimeout(resolve, 500))

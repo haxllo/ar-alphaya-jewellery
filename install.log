@@ -1,0 +1,8 @@
+[23:40:59 2025-11-08] FETCHING Version 2.42.0
+[23:40:59 2025-11-08] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.42.0/spicetify-2.42.0-linux-amd64.tar.gz
+[23:41:01 2025-11-08] EXTRACTING /home/ciqada/.spicetify/spicetify.tar.gz
+[23:41:01 2025-11-08] SETTING EXECUTABLE PERMISSIONS TO /home/ciqada/.spicetify/spicetify
+[23:41:01 2025-11-08] REMOVING /home/ciqada/.spicetify/spicetify.tar.gz
+[23:41:01 2025-11-08] spicetify path already set in /home/ciqada/.bashrc, continuing...
+[23:41:01 2025-11-08] spicetify v2.42.0 was installed successfully to /home/ciqada/.spicetify
+[23:41:01 2025-11-08] Run 'spicetify --help' to get started

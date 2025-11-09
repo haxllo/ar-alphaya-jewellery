@@ -5,6 +5,11 @@ import { useState } from 'react'
 import { useCartStore } from '@/lib/store/cart'
 import CartItemComponent from '@/components/cart/cart-item'
 import CartSummary from '@/components/cart/cart-summary'
+import CartSkeleton from '@/components/ui/skeletons/CartSkeleton'
+import ShippingProgress from '@/components/cart/ShippingProgress'
+import DeliveryEstimate from '@/components/cart/DeliveryEstimate'
+import PromoCode from '@/components/cart/PromoCode'
+import TrustBadges from '@/components/cart/TrustBadges'
 import dynamic from 'next/dynamic'
 const ProductRecommendations = dynamic(() => import('@/components/recommendations/ProductRecommendations'), { ssr: false })
 import type { CartItem } from '@/types/product'
@@ -12,20 +17,54 @@ import type { CartItem } from '@/types/product'
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items) as CartItem[]
+  const promoCode = useCartStore((state) => state.promoCode)
   const addItem = useCartStore((state) => state.addItem)
   const removeItem = useCartStore((state) => state.removeItem)
   const setQuantity = useCartStore((state) => state.setQuantity)
   const clearImmediate = useCartStore((state) => state.clearImmediate)
+  const applyPromoCode = useCartStore((state) => state.applyPromoCode)
+  const removePromoCodeFromStore = useCartStore((state) => state.removePromoCode)
   const [removingItem, setRemovingItem] = useState<string | null>(null)
   
   const subtotal = items.reduce((acc, i) => acc + i.price * i.quantity, 0)
-  // Free delivery within Sri Lanka, international shipping charges apply
-  const shippingEstimate = 0 // Default: Free shipping within Sri Lanka
-  const taxEstimate = Math.round(subtotal * 0.02) // 2% tax estimate  
-  const total = subtotal + shippingEstimate + taxEstimate
+  
+  // Calculate discount
+  const discount = promoCode
+    ? promoCode.type === 'percentage'
+      ? Math.round((subtotal * promoCode.discount) / 100)
+      : promoCode.discount
+    : 0
+  
+  // Free delivery within Sri Lanka for orders above Rs.5,000
+  const freeShippingThreshold = 5000
+  const shippingEstimate = subtotal >= freeShippingThreshold ? 0 : 1000
+  const taxEstimate = Math.round((subtotal - discount) * 0.02) // 2% tax estimate  
+  const total = subtotal - discount + shippingEstimate + taxEstimate
 
   // Smart product recommendations: fetch contextual products from API (category/tags from cart)
   const [suggestedProducts, setSuggestedProducts] = useState<any[]>([])
+
+  // Promo code validation
+  const handleApplyPromoCode = async (code: string): Promise<{ success: boolean; message: string; discount?: number }> => {
+    // Simulated promo codes - in production, this would call an API
+    const validCodes: Record<string, { discount: number; type: 'percentage' | 'fixed'; message: string }> = {
+      'WELCOME10': { discount: 10, type: 'percentage', message: '10% discount applied!' },
+      'SAVE500': { discount: 500, type: 'fixed', message: 'Rs.500 discount applied!' },
+      'FREESHIP': { discount: 1000, type: 'fixed', message: 'Free shipping applied!' },
+    }
+
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+    const promoData = validCodes[code]
+    
+    if (promoData) {
+      applyPromoCode(code, promoData.discount, promoData.type)
+      return { success: true, message: promoData.message, discount: promoData.discount }
+    }
+    
+    return { success: false, message: 'Invalid promo code. Please try again.' }
+  }
 
   async function fetchRecommendations() {
     try {
@@ -127,6 +166,8 @@ export default function CartPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-8">
+          <ShippingProgress subtotal={subtotal} freeShippingThreshold={freeShippingThreshold} />
+          
           <div className="bg-white border border-gray-200 rounded-lg">
             <div className="p-6">
               <div className="space-y-6">
@@ -150,14 +191,41 @@ export default function CartPage() {
         </div>
         
         {/* Order Summary */}
-        <div className="lg:col-span-4">
-          <CartSummary 
-            subtotal={subtotal}
-            shippingEstimate={shippingEstimate}
-            taxEstimate={taxEstimate}
-            total={total}
-            itemCount={items.reduce((acc, i) => acc + i.quantity, 0)}
-          />
+        <div className="lg:col-span-4 space-y-4">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-black">Order Summary</h2>
+            
+            <DeliveryEstimate />
+            
+            <div className="border-t pt-4">
+              <PromoCode onApply={handleApplyPromoCode} />
+            </div>
+            
+            {promoCode && (
+              <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3 text-sm">
+                <span className="text-green-800 font-medium">
+                  {promoCode.code} Applied
+                </span>
+                <button
+                  onClick={removePromoCodeFromStore}
+                  className="text-green-600 hover:text-green-800 underline"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+            
+            <CartSummary 
+              subtotal={subtotal}
+              discount={discount}
+              shippingEstimate={shippingEstimate}
+              taxEstimate={taxEstimate}
+              total={total}
+              itemCount={items.reduce((acc, i) => acc + i.quantity, 0)}
+            />
+            
+            <TrustBadges />
+          </div>
         </div>
       </div>
       

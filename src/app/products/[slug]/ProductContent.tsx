@@ -8,6 +8,7 @@ import { usePriceFormatter } from '@/hooks/useCurrency'
 import { CurrencyService } from '@/lib/currency'
 import ReviewCard from '@/components/reviews/ReviewCard'
 import StarRating from '@/components/reviews/StarRating'
+import { useRecentlyViewedStore } from '@/lib/store/recentlyViewed'
 import type { Product, GemstoneOption, Review, ReviewSummary } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
 
@@ -21,6 +22,10 @@ const ProductRecommendations = dynamic(
   { ssr: false }
 )
 const CompareButton = dynamic(() => import('@/components/product/CompareButton'), { ssr: false })
+const RecentlyViewed = dynamic(() => import('@/components/product/RecentlyViewed'), { ssr: false })
+const ShareButtons = dynamic(() => import('@/components/product/ShareButtons'), { ssr: false })
+const TrustBadges = dynamic(() => import('@/components/product/TrustBadges'), { ssr: false })
+const AskQuestion = dynamic(() => import('@/components/product/AskQuestion'), { ssr: false })
 
 interface ProductContentProps {
   product: Product
@@ -30,6 +35,7 @@ interface ProductContentProps {
 
 export default function ProductContent({ product, reviewSummary, reviews = [] }: ProductContentProps) {
   const { formatPrice, currentCurrency } = usePriceFormatter() as any
+  const addToRecentlyViewed = useRecentlyViewedStore((state) => state.addProduct)
   const [selectedSize, setSelectedSize] = useState<string>('')
   const [selectedGemstone, setSelectedGemstone] = useState<GemstoneOption | null>(null)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
@@ -37,6 +43,18 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([] as unknown as Product[])
   const [waitlistEmail, setWaitlistEmail] = useState('')
   const [waitlistStatus, setWaitlistStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  // Track product view
+  useEffect(() => {
+    addToRecentlyViewed({
+      id: product.id,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.images?.[0],
+      category: product.category
+    })
+  }, [product.id, product.slug, product.name, product.price, product.category, product.images, addToRecentlyViewed])
 
   const formatAvailability = (value?: string) => {
     if (!value) return ''
@@ -64,6 +82,10 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
     const phoneNumber = '+94774293406'
     return `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
   }
+
+  const currentUrl = typeof window !== 'undefined' 
+    ? window.location.href 
+    : `${process.env.NEXT_PUBLIC_SITE_URL}/products/${product.slug}`
 
   return (
     <>
@@ -135,13 +157,16 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
                 </div>
               </div>
               
-              <div className="text-4xl font-semibold text-nocturne-900">
-                {formatPrice(getFinalPrice())}
-                {selectedGemstone && selectedGemstone.priceAdjustment !== undefined && selectedGemstone.priceAdjustment !== 0 && (
-                  <span className="ml-2 text-base text-nocturne-500">
-                    ({selectedGemstone.priceAdjustment > 0 ? '+' : ''}{formatPrice(selectedGemstone.priceAdjustment)} for {selectedGemstone.name})
-                  </span>
-                )}
+              <div className="flex items-center justify-between">
+                <div className="text-4xl font-semibold text-nocturne-900">
+                  {formatPrice(getFinalPrice())}
+                  {selectedGemstone && selectedGemstone.priceAdjustment !== undefined && selectedGemstone.priceAdjustment !== 0 && (
+                    <span className="ml-2 text-base text-nocturne-500">
+                      ({selectedGemstone.priceAdjustment > 0 ? '+' : ''}{formatPrice(selectedGemstone.priceAdjustment)} for {selectedGemstone.name})
+                    </span>
+                  )}
+                </div>
+                <ShareButtons productName={product.name} productUrl={currentUrl} />
               </div>
               <div className="mt-3 flex flex-col gap-2 rounded-3xl border border-nocturne-100 bg-white/70 p-4 text-sm text-nocturne-600">
                 <div className="flex flex-col gap-1">
@@ -173,6 +198,9 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
                 </div>
               )}
             </div>
+
+            {/* Trust Badges */}
+            <TrustBadges />
 
             {/* Product Description */}
             <div className="space-y-3 rounded-3xl border border-nocturne-100 bg-white/80 p-6 shadow-subtle">
@@ -286,6 +314,9 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
             {/* Action Buttons */}
             <div className="space-y-4">
               <AddToCart product={product} selectedSize={selectedSize} selectedGemstone={selectedGemstone} />
+              
+              {/* Ask Question Component */}
+              <AskQuestion productName={product.name} productSlug={product.slug} />
               {!product.inStock && (
                 <div className="rounded-3xl border border-nocturne-100 bg-white/70 p-5">
                   <div className="text-sm font-semibold uppercase tracking-[0.28em] text-nocturne-500">Out of stock — join the waitlist</div>

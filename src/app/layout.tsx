@@ -37,6 +37,9 @@ import Footer from '@/components/layout/footer'
 import Providers from './providers'
 import AbandonedCartTracker from '@/components/AbandonedCartTracker'
 import CartSync from '@/components/cart/CartSync'
+import BackToTop from '@/components/ui/BackToTop'
+import ComparisonBar from '@/components/product/ComparisonBar'
+import { OrganizationStructuredData } from '@/components/seo/StructuredData'
 
 export default function RootLayout({
   children,
@@ -48,6 +51,7 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#121212" />
         <link rel="manifest" href="/manifest.webmanifest" />
+        <OrganizationStructuredData />
         <link rel="apple-touch-icon" href="/images/LOGO1.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://2vhk07la2x.ucarecd.net" crossOrigin="anonymous" />
@@ -90,6 +94,8 @@ export default function RootLayout({
           </div>
           <AbandonedCartTracker />
           <CartSync />
+          <BackToTop />
+          <ComparisonBar />
         </Providers>
       </body>
     </html>

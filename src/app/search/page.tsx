@@ -9,6 +9,7 @@ import SearchFiltersComponent from '@/components/search/SearchFilters'
 import ProductGrid from '@/components/search/ProductGrid'
 import SearchPagination from '@/components/search/SearchPagination'
 import AdvancedSorting from '@/components/search/AdvancedSorting'
+import ProductGridSkeleton from '@/components/ui/skeletons/ProductGridSkeleton'
 import { useCurrency } from '@/hooks/useCurrency'
 
 interface SearchResult {
@@ -140,10 +141,20 @@ function SearchContent() {
   if (loading && !searchResult) {
     return (
       <main className="mx-auto max-w-7xl px-6 py-12">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-            <p className="text-gray-600">Searching products...</p>
+        <div className="mb-8">
+          <div className="h-8 bg-gray-200 rounded w-1/3 mb-2 animate-pulse" />
+          <div className="h-4 bg-gray-100 rounded w-1/4 animate-pulse" />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1">
+            <div className="space-y-4 animate-pulse">
+              <div className="h-10 bg-gray-200 rounded" />
+              <div className="h-10 bg-gray-200 rounded" />
+              <div className="h-10 bg-gray-200 rounded" />
+            </div>
+          </div>
+          <div className="lg:col-span-3">
+            <ProductGridSkeleton count={12} />
           </div>
         </div>
       </main>

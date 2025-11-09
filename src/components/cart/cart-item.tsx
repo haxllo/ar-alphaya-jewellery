@@ -1,9 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import type { CartItem } from '@/types/product'
 import { usePriceFormatter } from '@/hooks/useCurrency'
+import { useSavedItemsStore } from '@/lib/store/savedItems'
+import { useWishlistStore } from '@/lib/store/wishlist'
 
 interface CartItemProps {
   item: CartItem
@@ -20,6 +23,9 @@ export default function CartItemComponent({
 }: CartItemProps) {
   const { formatPrice } = usePriceFormatter()
   const [quantity, setQuantity] = useState(item.quantity)
+  const { addItem: addToSaved } = useSavedItemsStore()
+  const { addItem: addToWishlist } = useWishlistStore()
+  const [isSaving, setIsSaving] = useState(false)
 
   const handleQuantityChange = (newQuantity: number) => {
     setQuantity(newQuantity)
@@ -33,6 +39,33 @@ export default function CartItemComponent({
     }
   }
 
+  const handleSaveForLater = () => {
+    setIsSaving(true)
+    addToSaved(item)
+    setTimeout(() => {
+      onRemove(item.productId, item.size)
+      setIsSaving(false)
+    }, 300)
+  }
+
+  const handleMoveToWishlist = () => {
+    setIsSaving(true)
+    const wishlistItem: any = {
+      productId: item.productId,
+      slug: item.slug,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      category: (item as any).category || 'rings',
+      materials: (item as any).materials || []
+    }
+    addToWishlist(wishlistItem)
+    setTimeout(() => {
+      onRemove(item.productId, item.size)
+      setIsSaving(false)
+    }, 300)
+  }
+
   return (
     <div 
       className={`flex flex-col sm:flex-row gap-4 pb-6 border-b border-gray-200 last:border-b-0 last:pb-0 transition-all duration-300 ${
@@ -42,10 +75,24 @@ export default function CartItemComponent({
       {/* Product Image */}
       <div className="flex-shrink-0">
         <Link href={`/products/${item.slug}`}>
-          <div className="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer">
-            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
+          <div className="relative w-24 h-24 bg-gray-100 rounded-lg overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+            {item.image ? (
+              <Image
+                src={item.image}
+                alt={item.name}
+                fill
+                sizes="96px"
+                className="object-cover"
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YwZjBmMCIvPjwvc3ZnPg=="
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full h-full">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            )}
           </div>
         </Link>
       </div>
@@ -133,16 +180,18 @@ export default function CartItemComponent({
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div className="flex items-center gap-4">
             <button
-              className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-              disabled={isRemoving}
+              onClick={handleSaveForLater}
+              className="text-sm text-blue-600 hover:text-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isRemoving || isSaving}
             >
-              Save for later
+              {isSaving ? 'Saving...' : 'Save for later'}
             </button>
             <button
-              className="text-sm text-gray-600 hover:text-black transition-colors"
-              disabled={isRemoving}
+              onClick={handleMoveToWishlist}
+              className="text-sm text-gray-600 hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isRemoving || isSaving}
             >
-              Move to wishlist
+              {isSaving ? 'Moving...' : 'Move to wishlist'}
             </button>
           </div>
           

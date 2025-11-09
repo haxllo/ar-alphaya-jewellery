@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useCartStore } from '@/lib/store/cart'
 import SizeGuideModal from '@/components/ui/SizeGuideModal'
 import Link from 'next/link'
-import { trackEvent } from '@/lib/analytics'
+import { analytics } from '@/lib/analytics'
 import { useRouter } from 'next/navigation'
 
 type PaymentMethod = 'payhere' | 'bank_transfer'
@@ -161,11 +161,11 @@ function CheckoutPage() {
     if (!validate()) return
     
     if (paymentMethod === 'payhere') {
-      try { trackEvent('begin_checkout', { total, items: items.length }) } catch {}
+      try { analytics.beginCheckout(items, total) } catch {}
       await handlePayHerePayment()
     } else if (paymentMethod === 'bank_transfer') {
       alert('Bank transfer instructions will be sent to your email.')
-      try { trackEvent('purchase', { total, method: 'bank_transfer' }) } catch {}
+      try { analytics.purchase('bank_transfer_' + Date.now(), items, total) } catch {}
       clear()
     }
   }
