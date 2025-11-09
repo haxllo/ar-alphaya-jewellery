@@ -44,11 +44,11 @@ export default function CollectionContent({ handle, products }: CollectionConten
   
   // Determine grid classes based on view
   const gridClasses = {
-    'grid-2': 'grid-cols-1 sm:grid-cols-2',
-    'grid-3': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-    'grid-4': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
-    'list': 'grid-cols-1'
-  }
+    'grid-2': 'grid-cols-2',
+    'grid-3': 'grid-cols-2 lg:grid-cols-3',
+    'grid-4': 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+    'grid-5': 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+  }[view]
   
   return (
     <main className="mx-auto max-w-7xl px-6 py-14">
