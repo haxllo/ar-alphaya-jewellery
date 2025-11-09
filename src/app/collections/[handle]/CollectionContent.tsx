@@ -98,47 +98,42 @@ export default function CollectionContent({ handle, products }: CollectionConten
             : 'No products match your filters. Try adjusting your selection.'}
         </div>
       ) : (
-        <div id="collection-grid" className={`grid ${gridClasses} gap-6 scroll-mt-24`}>
+        <div id="collection-grid" className={`grid ${gridClasses} gap-4 sm:gap-6 scroll-mt-24`}>
           {filteredProducts.map((p) => (
             <div
               key={p.id}
-              className="group relative overflow-hidden rounded-3xl border border-nocturne-100 bg-white/75 transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/70 hover:shadow-luxe"
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-nocturne-100 bg-white/75 transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/70 hover:shadow-luxe"
             >
-              <div className="absolute right-4 top-4 z-10">
+              <div className="absolute right-2 top-2 sm:right-4 sm:top-4 z-10">
                 <WishlistButton product={p} size="sm" />
               </div>
               <Link href={`/products/${p.slug}`} className="flex h-full flex-col">
-                <div className="relative aspect-[4/5] overflow-hidden bg-nocturne-100">
+                <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-nocturne-100">
                   {p.images && p.images[0] ? (
                     <Image
                       src={p.images[0]}
                       alt={p.name}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="object-cover transition-transform duration-700 ease-luxe group-hover:scale-105"
                       loading="lazy"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-nocturne-300">
-                      <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-8 w-8 sm:h-10 sm:w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>
                   )}
                 </div>
-                <div className="flex flex-1 flex-col gap-1 p-5">
-                  <p className="text-xs uppercase tracking-[0.3em] text-nocturne-400">{title}</p>
-                  <h3 className="font-serif text-xl text-nocturne-900 transition-colors group-hover:text-foreground">{p.name}</h3>
-                  <span className="text-sm font-semibold text-nocturne-600">{formatPrice(p.price)}</span>
-                  {(p.availability || p.leadTime) && (
-                    <div className="mt-2 flex flex-col gap-1">
-                      {p.availability && (
-                        <span className="inline-flex w-fit items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
-                          {p.availability.split(/[-_\s]+/).filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
-                        </span>
-                      )}
-                      {p.leadTime && <span className="text-xs text-nocturne-500">Lead time: {p.leadTime}</span>}
-                    </div>
+                <div className="flex flex-1 flex-col gap-0.5 sm:gap-1 p-3 sm:p-5">
+                  <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-nocturne-400 hidden sm:block">{title}</p>
+                  <h3 className="font-serif text-sm sm:text-xl text-nocturne-900 transition-colors group-hover:text-foreground line-clamp-2">{p.name}</h3>
+                  <span className="text-sm sm:text-base font-semibold text-nocturne-600 mt-1">{formatPrice(p.price)}</span>
+                  {p.availability && (
+                    <span className="hidden sm:inline-flex w-fit items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-600 mt-2">
+                      {p.availability.split(/[-_\s]+/).filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
+                    </span>
                   )}
                 </div>
               </Link>
