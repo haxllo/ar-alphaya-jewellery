@@ -157,8 +157,8 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
                 </div>
               </div>
               
-              <div className="flex items-center justify-between">
-                <div className="text-4xl font-semibold text-nocturne-900">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                <div className="text-3xl sm:text-4xl font-semibold text-nocturne-900">
                   {formatPrice(getFinalPrice())}
                   {selectedGemstone && selectedGemstone.priceAdjustment !== undefined && selectedGemstone.priceAdjustment !== 0 && (
                     <span className="ml-2 text-base text-nocturne-500">

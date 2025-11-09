@@ -79,8 +79,8 @@ export default function ComparePage() {
                 Specification
               </th>
               {items.map((item) => (
-                <th key={item.id} className="p-3 sm:p-4 min-w-[200px] sm:min-w-[250px]">
-                  <div className="space-y-3">
+                <th key={item.id} className="p-2 sm:p-3 lg:p-4 min-w-[150px] sm:min-w-[200px] lg:min-w-[250px]">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
                       {item.image ? (
                         <Image
@@ -98,17 +98,17 @@ export default function ComparePage() {
                         </div>
                       )}
                     </div>
-                    <h3 className="font-medium text-gray-900 text-sm">{item.name}</h3>
-                    <div className="flex gap-2">
+                    <h3 className="font-medium text-gray-900 text-xs sm:text-sm line-clamp-2">{item.name}</h3>
+                    <div className="flex gap-1 sm:gap-2">
                       <Link
                         href={`/products/${item.slug}`}
-                        className="flex-1 text-xs text-blue-600 hover:text-blue-800 underline"
+                        className="flex-1 text-[10px] sm:text-xs text-blue-600 hover:text-blue-800 underline text-center"
                       >
-                        View Details
+                        View
                       </Link>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="text-xs text-red-600 hover:text-red-800 underline"
+                        className="text-[10px] sm:text-xs text-red-600 hover:text-red-800 underline"
                       >
                         Remove
                       </button>
@@ -121,19 +121,19 @@ export default function ComparePage() {
           <tbody>
             {/* Price Row */}
             <tr className="border-b border-gray-200">
-              <td className="p-4 font-medium text-gray-900 bg-gray-50 sticky left-0 z-10">Price</td>
+              <td className="p-2 sm:p-3 lg:p-4 font-medium text-gray-900 bg-gray-50 sticky left-0 z-10 text-xs sm:text-sm">Price</td>
               {items.map((item) => (
-                <td key={item.id} className="p-4 text-center">
-                  <span className="text-lg font-semibold text-black">{formatPrice(item.price)}</span>
+                <td key={item.id} className="p-2 sm:p-3 lg:p-4 text-center">
+                  <span className="text-sm sm:text-base lg:text-lg font-semibold text-black">{formatPrice(item.price)}</span>
                 </td>
               ))}
             </tr>
 
             {/* Category Row */}
             <tr className="border-b border-gray-200">
-              <td className="p-4 font-medium text-gray-900 bg-gray-50 sticky left-0 z-10">Category</td>
+              <td className="p-2 sm:p-3 lg:p-4 font-medium text-gray-900 bg-gray-50 sticky left-0 z-10 text-xs sm:text-sm">Category</td>
               {items.map((item) => (
-                <td key={item.id} className="p-4 text-center capitalize text-gray-700">
+                <td key={item.id} className="p-2 sm:p-3 lg:p-4 text-center capitalize text-gray-700 text-xs sm:text-sm">
                   {item.category.replace('-', ' ')}
                 </td>
               ))}
@@ -141,10 +141,10 @@ export default function ComparePage() {
 
             {/* Actions Row */}
             <tr>
-              <td className="p-4 font-medium text-gray-900 bg-gray-50 sticky left-0 z-10">Actions</td>
+              <td className="p-2 sm:p-3 lg:p-4 font-medium text-gray-900 bg-gray-50 sticky left-0 z-10 text-xs sm:text-sm">Actions</td>
               {items.map((item) => (
-                <td key={item.id} className="p-4">
-                  <div className="flex flex-col gap-2">
+                <td key={item.id} className="p-2 sm:p-3 lg:p-4">
+                  <div className="flex flex-col gap-1.5 sm:gap-2">
                     <button
                       onClick={() => {
                         addToCart({
@@ -156,15 +156,17 @@ export default function ComparePage() {
                           image: item.image
                         })
                       }}
-                      className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+                      className="w-full bg-black text-white py-1.5 sm:py-2 rounded-lg hover:bg-gray-800 transition-colors text-xs sm:text-sm font-medium"
                     >
-                      Add to Cart
+                      <span className="hidden sm:inline">Add to Cart</span>
+                      <span className="sm:hidden">Add</span>
                     </button>
                     <Link
                       href={`/products/${item.slug}`}
-                      className="w-full border border-gray-300 py-2 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium text-center"
+                      className="w-full border border-gray-300 py-1.5 sm:py-2 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm font-medium text-center"
                     >
-                      View Product
+                      <span className="hidden sm:inline">View Product</span>
+                      <span className="sm:hidden">View</span>
                     </Link>
                   </div>
                 </td>

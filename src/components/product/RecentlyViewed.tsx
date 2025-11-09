@@ -41,17 +41,17 @@ export default function RecentlyViewed({
 
   return (
     <div className={className}>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold text-black">Recently Viewed</h2>
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl font-semibold text-black">Recently Viewed</h2>
         <button
           onClick={clearHistory}
-          className="text-sm text-gray-500 hover:text-gray-700 underline"
+          className="text-xs sm:text-sm text-gray-500 hover:text-gray-700 underline"
         >
-          Clear History
+          Clear
         </button>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {filteredProducts.map((product) => (
           <Link
             key={product.id}
@@ -77,10 +77,10 @@ export default function RecentlyViewed({
                 </div>
               )}
             </div>
-            <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-2 group-hover:text-black transition-colors">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 line-clamp-2 group-hover:text-black transition-colors">
               {product.name}
             </h3>
-            <p className="text-sm font-semibold text-black">{formatPrice(product.price)}</p>
+            <p className="text-xs sm:text-sm font-semibold text-black">{formatPrice(product.price)}</p>
             <p className="text-xs text-gray-500 capitalize">{product.category.replace('-', ' ')}</p>
           </Link>
         ))}

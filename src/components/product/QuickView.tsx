@@ -79,17 +79,17 @@ export default function QuickView({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 sm:p-4"
       onClick={onClose}
     >
       <div 
-        className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+        className="relative bg-white rounded-xl sm:rounded-2xl max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-lg transition-colors"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-lg transition-colors"
           aria-label="Close quick view"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,14 +169,14 @@ export default function QuickView({
           </div>
 
           {/* Product Details */}
-          <div className="p-6 space-y-6">
+          <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
             <div>
               <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">
                 {product.category.replace('-', ' ')}
               </p>
-              <h2 className="text-2xl font-serif text-black mb-3">{product.name}</h2>
+              <h2 className="text-xl sm:text-2xl font-serif text-black mb-3">{product.name}</h2>
               <div className="flex items-center gap-3">
-                <p className="text-3xl font-semibold text-black">{formatPrice(product.price)}</p>
+                <p className="text-2xl sm:text-3xl font-semibold text-black">{formatPrice(product.price)}</p>
                 <WishlistButton product={product} size="sm" />
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function QuickView({
             {/* Size Selection */}
             {product.sizes && product.sizes.length > 0 && (
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-2">
                   Select Size
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -230,10 +230,10 @@ export default function QuickView({
 
             {/* Quantity */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">
+              <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-2">
                 Quantity
               </label>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center"

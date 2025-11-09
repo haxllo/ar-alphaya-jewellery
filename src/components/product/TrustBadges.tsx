@@ -39,14 +39,14 @@ export default function TrustBadges() {
   ]
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-6 border-y border-gray-200">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 py-4 sm:py-6 border-y border-gray-200">
       {badges.map((badge, index) => (
-        <div key={index} className="flex flex-col items-center text-center p-4">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-50 text-green-600 mb-3">
+        <div key={index} className="flex flex-col items-center text-center p-2 sm:p-4">
+          <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-50 text-green-600 mb-2 sm:mb-3">
             {badge.icon}
           </div>
-          <h3 className="text-sm font-semibold text-gray-900 mb-1">{badge.title}</h3>
-          <p className="text-xs text-gray-600">{badge.description}</p>
+          <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">{badge.title}</h3>
+          <p className="text-[10px] sm:text-xs text-gray-600">{badge.description}</p>
         </div>
       ))}
     </div>
