@@ -64,9 +64,9 @@ export default function AskQuestion({ productName, productSlug }: AskQuestionPro
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
+    <div className="border border-gray-200 rounded-lg p-4 sm:p-6 bg-gray-50">
       <div className="flex items-start justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Ask a Question</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900">Ask a Question</h3>
         <button
           onClick={() => setIsOpen(false)}
           className="text-gray-400 hover:text-gray-600"

@@ -24,17 +24,17 @@ export default function ComparisonBar() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-gray-200 shadow-2xl transition-transform duration-300">
-      <div className="mx-auto max-w-7xl px-4 py-3">
-        <div className="flex items-center justify-between gap-4">
+      <div className="mx-auto max-w-7xl px-2 sm:px-4 py-2 sm:py-3">
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
           {/* Header */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setIsMinimized(!isMinimized)}
-              className="text-gray-600 hover:text-gray-900"
+              className="text-gray-600 hover:text-gray-900 p-1"
               aria-label={isMinimized ? 'Expand comparison bar' : 'Minimize comparison bar'}
             >
               <svg 
-                className={`w-5 h-5 transition-transform ${isMinimized ? 'rotate-180' : ''}`} 
+                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${isMinimized ? 'rotate-180' : ''}`} 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -42,18 +42,18 @@ export default function ComparisonBar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <h3 className="text-sm font-semibold text-gray-900">
-              Compare Products ({items.length}/4)
+            <h3 className="text-xs sm:text-sm font-semibold text-gray-900 whitespace-nowrap">
+              Compare ({items.length}/4)
             </h3>
           </div>
 
           {/* Products */}
           {!isMinimized && (
-            <div className="flex-1 flex items-center gap-3 overflow-x-auto">
+            <div className="flex-1 flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-hide">
               {items.map((item) => (
                 <div 
                   key={item.id} 
-                  className="flex items-center gap-2 bg-gray-50 rounded-lg p-2 pr-3 min-w-[200px]"
+                  className="flex items-center gap-2 bg-gray-50 rounded-lg p-2 min-w-[160px] sm:min-w-[200px]"
                 >
                   <div className="relative w-12 h-12 bg-gray-100 rounded flex-shrink-0 overflow-hidden">
                     {item.image ? (
@@ -91,20 +91,20 @@ export default function ComparisonBar() {
           )}
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             {!isMinimized && (
               <>
                 <Link
                   href="/compare"
-                  className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium whitespace-nowrap"
+                  className="px-3 sm:px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-xs sm:text-sm font-medium whitespace-nowrap"
                 >
-                  Compare Now
+                  Compare
                 </Link>
                 <button
                   onClick={clearAll}
-                  className="px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors whitespace-nowrap"
+                  className="px-2 sm:px-3 py-2 text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors whitespace-nowrap"
                 >
-                  Clear All
+                  Clear
                 </button>
               </>
             )}

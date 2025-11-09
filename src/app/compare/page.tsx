@@ -59,9 +59,9 @@ export default function ComparePage() {
   ]
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-12">
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-semibold text-black">Compare Products</h1>
+    <main className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
+      <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-black">Compare Products</h1>
         <button
           onClick={clearAll}
           className="text-sm text-gray-500 hover:text-red-600 transition-colors"
@@ -71,15 +71,15 @@ export default function ComparePage() {
       </div>
 
       {/* Comparison Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
         <table className="w-full border-collapse bg-white rounded-lg shadow-sm">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="p-4 text-left bg-gray-50 font-semibold text-gray-900 sticky left-0 z-10">
+              <th className="p-3 sm:p-4 text-left bg-gray-50 font-semibold text-gray-900 sticky left-0 z-10 text-sm sm:text-base">
                 Specification
               </th>
               {items.map((item) => (
-                <th key={item.id} className="p-4 min-w-[250px]">
+                <th key={item.id} className="p-3 sm:p-4 min-w-[200px] sm:min-w-[250px]">
                   <div className="space-y-3">
                     <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
                       {item.image ? (
