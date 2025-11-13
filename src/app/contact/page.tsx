@@ -71,8 +71,7 @@ export default function ContactPage() {
         <div className="space-y-8 rounded-3xl border border-nocturne-100 bg-white/70 p-8 shadow-subtle">
           <div>
             <h2 className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Atelier details</h2>
-            <p className="mt-3 font-serif text-2xl text-nocturne-900">Visit our studio</p>
-            <p className="mt-2 text-sm text-nocturne-600">
+            <p className="mt-3 text-sm text-nocturne-600">
               143/5 Rainbow Park, Temple Road<br />
               Kengalla 20186, Sri Lanka
             </p>

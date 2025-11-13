@@ -21,7 +21,7 @@ export default function ReturnPolicyPage() {
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Returns</h2>
           <div className="bg-gray-50 rounded-lg p-6">
             <p className="text-gray-700 mb-4">
-              <strong>Return Timeframe:</strong> All returns must be postmarked within seven (7) days of the purchase date.
+              <strong>Return Timeframe:</strong> All returns must be initiated within seven (7) days of delivery receipt.
             </p>
             <p className="text-gray-700">
               <strong>Condition Requirement:</strong> All returned items must be in new and unused condition, with all original tags and labels attached.
@@ -33,17 +33,16 @@ export default function ReturnPolicyPage() {
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Return Process</h2>
           <div className="space-y-6">
             <p className="text-gray-700">
-              To return an item, place the item securely in its original packaging and include your proof of purchase, then mail your return to the following address:
+              To return an item, please contact us first at <a href="mailto:aralphayajewellery@gmail.com" className="text-blue-600 hover:underline font-semibold">aralphayajewellery@gmail.com</a> to receive return instructions.
             </p>
             
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-blue-900 mb-3">Mailing Address</h3>
-              <div className="text-blue-800">
-                <p><strong>Ar Alphaya Jewellery</strong></p>
-                <p>Attn: Returns</p>
-                <p>143/5 Rainbow park, Temple road, Kengalla</p>
-                <p>Kandy, Central 20186</p>
-                <p>Sri Lanka</p>
+              <h3 className="text-lg font-semibold text-blue-900 mb-3">Returns Contact</h3>
+              <div className="text-blue-800 space-y-2">
+                <p><strong>AR Alphaya Jewellery</strong></p>
+                <p><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="hover:underline">aralphayajewellery@gmail.com</a></p>
+                <p className="mt-3 pt-3 border-t border-blue-200"><strong>If shipping is required:</strong></p>
+                <p>143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka</p>
               </div>
             </div>
             
@@ -94,7 +93,7 @@ export default function ReturnPolicyPage() {
             <ul className="space-y-3 text-gray-700">
               <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></li>
               <li><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></li>
-              <li><strong>Address:</strong> 143/5 Rainbow park, Temple road, Kengalla, Kandy, Central 20186, Sri Lanka</li>
+              <li><strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka</li>
             </ul>
           </div>
         </section>

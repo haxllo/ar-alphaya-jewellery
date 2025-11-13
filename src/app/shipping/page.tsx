@@ -11,14 +11,14 @@ export default function ShippingPolicyPage() {
         </p>
 
         <p className="text-gray-700 mb-8">
-          At Ar Alphaya Jewellery, we are committed to delivering your precious jewelry safely and efficiently. This policy outlines our shipping methods, timeframes, and procedures.
+          At AR Alphaya Jewellery, we are committed to delivering your precious jewelry safely and efficiently. This policy outlines our shipping methods, timeframes, and procedures.
         </p>
 
         <div className="bg-gray-50 rounded-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">SHIPPING OVERVIEW</h2>
           <ul className="space-y-2 text-gray-700">
-            <li>✓ Commissions are handcrafted to order; please allow 4–6 weeks before dispatch.</li>
-            <li>✓ Island-wide delivery across Sri Lanka with tracked courier partners.</li>
+            <li>✓ Custom commissions require 4–6 weeks from design approval to completion before dispatch.</li>
+            <li>✓ Island-wide delivery across Sri Lanka with tracked courier partners (2–4 business days).</li>
             <li>✓ Studio collection in Kandy can be arranged by appointment.</li>
             <li>✓ International shipping is available on request and quoted individually.</li>
             <li>✓ Every piece ships in discreet, secure packaging with care instructions.</li>
@@ -32,7 +32,7 @@ export default function ShippingPolicyPage() {
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Standard Delivery</h3>
               <ul className="space-y-2 text-gray-700">
-                <li><strong>Dispatch:</strong> Orders leave the studio once bench work is completed (typically 4–6 weeks).</li>
+                <li><strong>Production:</strong> Custom commissions require 4–6 weeks from design approval to completion.</li>
                 <li><strong>Transit time:</strong> 2–4 business days with tracking updates.</li>
                 <li><strong>Coverage:</strong> All major cities and town centres in Sri Lanka.</li>
                 <li><strong>Cost:</strong> Rs 750 flat rate.</li>

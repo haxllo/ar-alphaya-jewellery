@@ -61,7 +61,7 @@ export default function PoliciesPage() {
               <ol className="space-y-3 text-sm text-blue-800">
                 <li><strong>1. Contact us</strong> via email or WhatsApp to initiate your return</li>
                 <li><strong>2. Package securely</strong> in original packaging with proof of purchase</li>
-                <li><strong>3. Ship to:</strong> Ar Alphaya Jewellery, 143/5 Rainbow Park, Temple Road, Kengalla, Kandy 20186, Sri Lanka</li>
+                <li><strong>3. Ship to:</strong> AR Alphaya Jewellery, 143/5 Rainbow Park, Temple Road, Kengalla, Kandy 20186, Sri Lanka</li>
                 <li><strong>4. Track your return</strong> — you're responsible for return shipping costs</li>
               </ol>
             </div>
@@ -160,11 +160,11 @@ export default function PoliciesPage() {
             <div className="my-6">
               <h3 className="text-xl font-semibold text-nocturne-900 mb-3">About Us</h3>
               <p>
-                AR Alphaya Jewellery is a sole proprietorship operating in Sri Lanka, specializing in bespoke and handcrafted jewelry with Sri Lankan gemstones and recycled gold.
+                AR Alphaya Jewellery operates in Sri Lanka, specializing in bespoke and handcrafted jewelry with Sri Lankan gemstones and recycled gold.
               </p>
               <div className="mt-3 rounded-2xl bg-nocturne-50 p-4 text-sm">
-                <p><strong>Business Address:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy 20186, Sri Lanka</p>
-                <p className="mt-1"><strong>Contact:</strong> <a href="tel:+94774293406" className="underline">+94 77 429 3406</a> | <a href="mailto:aralphayajewellery@gmail.com" className="underline">aralphayajewellery@gmail.com</a></p>
+                <p><strong>Contact Address:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy 20186, Sri Lanka</p>
+                <p className="mt-1"><strong>Phone:</strong> <a href="tel:+94774293406" className="underline">+94 77 429 3406</a> | <strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="underline">aralphayajewellery@gmail.com</a></p>
               </div>
             </div>
 
@@ -186,7 +186,7 @@ export default function PoliciesPage() {
 
             <div className="my-6">
               <h3 className="text-xl font-semibold text-nocturne-900 mb-3">Custom Commissions</h3>
-              <p>Custom-made pieces typically take 4-6 weeks from design approval to delivery. Timelines may vary based on complexity and gemstone sourcing. We'll keep you updated throughout the process.</p>
+              <p>Custom-made pieces typically require 4–6 weeks from design approval to completion, plus 2–4 business days for domestic delivery (Sri Lanka). Timelines may vary based on complexity and gemstone sourcing. We'll keep you updated throughout the process.</p>
             </div>
 
             <div className="my-6">

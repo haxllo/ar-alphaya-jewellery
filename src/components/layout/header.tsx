@@ -139,25 +139,13 @@ export default function Header() {
         </div>
 
         {/* Right actions */}
-        <div className="flex items-center justify-end gap-1.5 sm:gap-3 md:gap-5">
+        <div className="flex items-center justify-end gap-2 sm:gap-3 md:gap-5">
 
             {/* Currency Selector - Desktop */}
             {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
             {/* <div className="hidden md:block">
               <CurrencySelector compact={true} showLabel={false} />
             </div> */}
-
-            {/* Wishlist */}
-            <Link href="/wishlist" className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
-              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-              </svg>
-              {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-nocturne-900 text-[10px] sm:text-xs font-medium text-white" aria-hidden="true">
-                  {wishlistCount}
-                </span>
-              )}
-            </Link>
 
             {/* Search Icon with Dropdown - Desktop */}
             <div className="relative hidden md:block">
@@ -260,37 +248,61 @@ export default function Header() {
                 </div>
               )}
             </div>
+
+            {/* Wishlist - Desktop Only */}
+            <Link href="/wishlist" className="hidden md:flex relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}>
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+              </svg>
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-nocturne-900 text-[10px] sm:text-xs font-medium text-white" aria-hidden="true">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Cart - Desktop Only */}
+            <Link href="/cart" className="hidden md:flex relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-foreground text-[10px] sm:text-xs font-medium text-white" aria-hidden="true">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
             
             {/* Authentication */}
             {isLoading ? (
-              <div className="w-8 h-8 animate-pulse bg-gray-200 rounded-full"></div>
+              <div className="flex items-center justify-center p-1.5 sm:p-2">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse bg-gray-200 rounded-full"></div>
+              </div>
             ) : user ? (
               <div className="relative user-dropdown-container">
                 <button 
                   onClick={() => setShowUserDropdown(!showUserDropdown)}
-                  className="flex items-center gap-2 rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                  className="flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
                   aria-label="User account menu"
                   aria-expanded={showUserDropdown}
                   aria-haspopup="true"
                 >
-                  <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                    {(user as any)?.picture ? (
-                      <Image 
-                        src={(user as any).picture} 
-                        alt={(user as any).name || 'User'} 
-                        width={24}
-                        height={24}
-                        placeholder="blur"
-                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
-                        loading="lazy"
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                    ) : (
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                      </svg>
-                    )}
-                  </div>
+                  {(user as any)?.picture ? (
+                    <Image 
+                      src={(user as any).picture} 
+                      alt={(user as any).name || 'User'} 
+                      width={24}
+                      height={24}
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
+                      loading="lazy"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
+                    />
+                  ) : (
+                    <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                  )}
                 </button>
                 {showUserDropdown && (
                   <div className="absolute top-full right-0 z-50 mt-3 w-56 rounded-xl border border-border/70 bg-white shadow-luxe backdrop-blur-sm animate-in fade-in slide-in-from-top-2 duration-200">
@@ -358,17 +370,6 @@ export default function Header() {
               </Link>
             )}
             
-            <Link href="/cart" className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground" aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}>
-              <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-              </svg>
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-foreground text-[10px] sm:text-xs font-medium text-white" aria-hidden="true">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-            
             {/* Mobile menu button */}
             <button
               className="md:hidden rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
@@ -385,7 +386,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-border/70 bg-white/95 px-4 sm:px-6 py-4 sm:py-6 backdrop-blur md:hidden">
+        <div className="border-t border-border/70 bg-white/95 px-4 sm:px-6 py-4 sm:py-6 backdrop-blur md:hidden max-h-[calc(100vh-80px)] overflow-y-auto">
             {/* Currency Selector - Mobile */}
             {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
             {/* <div className="mb-6 border-b border-border/60 pb-6">
@@ -414,33 +415,69 @@ export default function Header() {
               </form>
             </div>
             
-            <nav className="space-y-5">
-              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Home</Link>
-              <Link href="/#process" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Custom Commissions</Link>
-              <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Collections</div>
-                <div className="mt-3 pl-4 space-y-3">
+            <nav className="space-y-1">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg">Home</Link>
+              <Link href="/#process" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg">Custom Commissions</Link>
+              <div className="py-2">
+                <div className="px-3 text-xs font-semibold uppercase tracking-[0.2em] text-nocturne-500 mb-2">Collections</div>
+                <div className="space-y-1">
                   {collections.map((collection) => (
                     <Link
                       key={collection.handle}
                       href={`/collections/${collection.handle}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block text-sm font-medium text-nocturne-500 transition-colors hover:text-foreground"
+                      className="block px-6 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
                     >
                       {collection.title}
                     </Link>
                   ))}
                 </div>
               </div>
-              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">About</Link>
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Contact</Link>
-              <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">
-                Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
-              </Link>
-              <Link href="/policies" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground">Policies</Link>
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg">About</Link>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg">Contact</Link>
+              <Link href="/policies" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg">Policies</Link>
+              
+              {/* Cart & Wishlist - Mobile Only */}
+              <div className="mt-4 border-t border-border/60 pt-4 space-y-1">
+                <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-nocturne-500">Shopping</div>
+                <Link 
+                  href="/cart" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                >
+                  <div className="flex items-center gap-3">
+                    <svg className="w-5 h-5 text-nocturne-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg>
+                    <span>Shopping Cart</span>
+                  </div>
+                  {cartCount > 0 && (
+                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-foreground px-2 text-xs font-semibold text-white">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
+                <Link 
+                  href="/wishlist" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                >
+                  <div className="flex items-center gap-3">
+                    <svg className="w-5 h-5 text-nocturne-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                    <span>Wishlist</span>
+                  </div>
+                  {wishlistCount > 0 && (
+                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-nocturne-900 px-2 text-xs font-semibold text-white">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </Link>
+              </div>
               
               {/* Mobile Authentication */}
-              <div className="mt-6 border-t border-border/60 pt-6">
+              <div className="mt-4 border-t border-border/60 pt-4">
                 {isLoading ? (
                   <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-50/30">
                     <div className="w-8 h-8 animate-pulse bg-nocturne-200 rounded-full"></div>

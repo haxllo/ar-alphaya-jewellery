@@ -44,12 +44,12 @@ export default function AboutPage() {
             </li>
           </ul>
           <div className="rounded-2xl border border-nocturne-100 bg-white/60 p-6">
-            <p className="text-sm uppercase tracking-[0.28em] text-nocturne-500">Atelier visits</p>
+            <p className="text-sm uppercase tracking-[0.28em] text-nocturne-500">Atelier Consultations</p>
             <p className="mt-3 text-sm leading-relaxed text-nocturne-600">
-              Visit the workshop in Kandy by appointment or schedule a private video consultation if you are based elsewhere.
+              Appointments available in Kandy or via video call. Contact us to arrange a private consultation to discuss your commission.
             </p>
             <a href="/contact" className="mt-4 inline-flex items-center text-sm font-semibold text-nocturne-700 underline-offset-6 hover:text-foreground hover:underline">
-              Schedule your visit
+              Book a consultation
             </a>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
       <section className="mt-16 rounded-3xl border border-nocturne-100 bg-white/70 p-10 shadow-subtle">
         <h3 className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Our promise</h3>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {[{ label: 'Average lead time', value: '4–6 weeks with check-ins every milestone' }, { label: 'Aftercare', value: 'Complimentary clean & polish within 6 months of delivery' }, { label: 'Made for you', value: 'Each commission is created one at a time from start to finish' }].map((item) => (
+          {[{ label: 'Average production time', value: '4–6 weeks from design approval, plus delivery' }, { label: 'Aftercare', value: 'Complimentary clean & polish within 6 months of delivery' }, { label: 'Made for you', value: 'Each commission is created one at a time from start to finish' }].map((item) => (
             <div key={item.label} className="rounded-3xl border border-nocturne-100 bg-white/60 p-6">
               <p className="text-xs uppercase tracking-[0.28em] text-nocturne-500">{item.label}</p>
               <p className="mt-3 font-serif text-xl text-nocturne-900">{item.value}</p>

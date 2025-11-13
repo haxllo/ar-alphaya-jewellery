@@ -39,7 +39,7 @@ export default async function Home() {
   const hallmarks = [
     'One-to-one consultations',
     'Handcrafted in Kandy, Sri Lanka',
-    'Coloured gemstones & recycled gold (no diamonds)',
+    'Ethically sourced Sri Lankan gemstones',
   ]
   const processSteps = [
     {
@@ -74,7 +74,7 @@ export default async function Home() {
     },
     {
       question: 'How long does a commission take?',
-      answer: 'A typical timeline is 4–6 weeks from deposit to delivery. Complex stone sourcing, engraving, or international shipping can add extra time, and I will flag this up front.',
+      answer: 'Custom pieces typically require 4–6 weeks from design approval to completion, plus 2–4 business days for domestic delivery. Complex stone sourcing, engraving, or international shipping may extend this timeline.',
     },
     {
       question: 'Can you resize or refresh older pieces?',
@@ -180,7 +180,7 @@ export default async function Home() {
               I source coloured gemstones from trusted Sri Lankan suppliers and carve every wax, casting, and bezel myself. Designs are refined through sketches, digital renders, and shared checkpoints so you can see each milestone before the final polish.
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
-              {[{ label: 'Average lead time', value: '4–6 weeks' }, { label: 'Design checkpoints', value: 'Sketch → 3D → Wax' }, { label: 'Support', value: 'Care refresh by appointment' }].map((item) => (
+              {[{ label: 'Production time', value: '4–6 weeks + delivery' }, { label: 'Design checkpoints', value: 'Sketch → 3D → Wax' }, { label: 'Support', value: 'Care refresh by appointment' }].map((item) => (
                 <div key={item.label} className="rounded-2xl border border-nocturne-100 bg-white/60 p-4">
                   <p className="text-xs uppercase tracking-[0.28em] text-nocturne-400">{item.label}</p>
                   <p className="mt-2 font-serif text-xl text-nocturne-900">{item.value}</p>

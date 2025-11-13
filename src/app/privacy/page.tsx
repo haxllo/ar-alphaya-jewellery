@@ -37,13 +37,13 @@ export default function PrivacyPolicyPage() {
               <p className="text-gray-700 mb-4">For the purposes of this Privacy Policy:</p>
               <ul className="space-y-3 text-gray-700">
                 <li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
-                <li><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Ar Alphaya Jewellery.</li>
+                <li><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to AR Alphaya Jewellery.</li>
                 <li><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</li>
                 <li><strong>Country</strong> refers to: Sri Lanka</li>
                 <li><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
                 <li><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</li>
                 <li><strong>Service</strong> refers to the Website.</li>
-                <li><strong>Website</strong> refers to Ar Alphaya Jewellery, accessible from <a href="https://aralphaya.netlify.app/" className="text-black hover:underline">https://aralphaya.netlify.app/</a></li>
+                <li><strong>Website</strong> refers to AR Alphaya Jewellery, accessible from <a href="https://aralphaya.netlify.app/" className="text-black hover:underline">https://aralphaya.netlify.app/</a></li>
                 <li><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
               </ul>
             </div>
@@ -216,8 +216,8 @@ export default function PrivacyPolicyPage() {
           <div className="bg-gray-50 rounded-lg p-6">
             <ul className="space-y-3 text-gray-700">
               <li><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></li>
-              <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">0774293406</a></li>
-              <li><strong>Address:</strong> 143/5 Rainbow park, Temple road, Kengalla - 20186</li>
+              <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></li>
+              <li><strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka</li>
             </ul>
           </div>
         </section>

@@ -48,3 +48,50 @@ html {
     line-height: 1;
   }
 }
+
+/* Mobile optimizations for better touch targets and high-DPI screens */
+@media only screen and (max-width: 768px) {
+  /* Improve touch targets on mobile */
+  button, a {
+    min-height: 44px; /* iOS recommended minimum */
+    min-width: 44px;
+  }
+  
+  /* Better text rendering on mobile */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Prevent text size adjustment on orientation change */
+  html {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* High-DPI screen optimizations - Modern syntax */
+@media only screen and (min-resolution: 2dppx),
+       only screen and (min-resolution: 192dpi) {
+  /* Sharper borders on high-DPI screens */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Ultra high-DPI screens (4x) - Modern syntax preferred */
+@media only screen and (min-resolution: 4dppx),
+       only screen and (min-resolution: 384dpi) {
+  /* Fine-tune for very high pixel density displays */
+  body {
+    font-weight: 400;
+  }
+  
+  /* Slightly thinner borders on ultra-high DPI */
+  .border {
+    border-width: 0.5px;
+  }
+}

@@ -16,20 +16,21 @@ export default function TermsOfServicePage() {
         <section className="mb-12">
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">Agreement to Our Legal Terms</h2>
           <p className="text-gray-700 mb-4">
-            We are Ar Alphaya jewellery ("Company", "we", "us", or "our"), a sole proprietorship operating in Sri Lanka at 143/5 Rainbow park, Temple road, Kengalla, Kandy, Central 20186.
+            We are AR Alphaya Jewellery ("Company", "we", "us", or "our"), operating in Sri Lanka.
           </p>
           <p className="text-gray-700 mb-4">
             We operate the website https://aralphaya.netlify.app (the "Site"), as well as any other related products and services that refer or link to these legal terms (the "Legal Terms") (collectively, the "Services").
           </p>
           <p className="text-gray-700 mb-4">
-            Ar Alphaya jewellery offers a curated collection of elegant and modern jewellery pieces. Discover unique necklaces, bracelets, rings, and earrings designed to add a touch of sophistication to any style.
+            AR Alphaya Jewellery offers a curated collection of elegant and modern jewellery pieces. Discover unique necklaces, bracelets, rings, and earrings designed to add a touch of sophistication to any style.
           </p>
           <p className="text-gray-700 mb-4">
-            You can contact us by phone at 0774293406, email at aralphayajewellery@gmail.com, or by mail to 143/5 Rainbow park, Temple road, Kengalla, Kandy, Central 20186, Sri Lanka.
+            <strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka<br />
+            Phone: +94 77 429 3406 | Email: aralphayajewellery@gmail.com
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
             <p className="text-blue-800 mb-4">
-              These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you"), and Ar Alphaya jewellery, concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms.
+              These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you"), and AR Alphaya Jewellery, concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms.
             </p>
             <p className="text-blue-800 font-semibold">
               IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
@@ -210,14 +211,12 @@ export default function TermsOfServicePage() {
           <h2 className="text-3xl font-semibold text-gray-900 mb-6">28. Contact Us</h2>
           <div className="bg-gray-50 rounded-lg p-6">
             <p className="text-gray-700 mb-4">
-              In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:
+              In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us:
             </p>
             <div className="space-y-2 text-gray-700">
-              <p><strong>Ar Alphaya Jewellery</strong></p>
-              <p>143/5 Rainbow park, Temple road, Kengalla</p>
-              <p>Kandy, Central 20186</p>
-              <p>Sri Lanka</p>
-              <p><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">0774293406</a></p>
+              <p><strong>AR Alphaya Jewellery</strong></p>
+              <p><strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka</p>
+              <p><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></p>
               <p><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></p>
             </div>
           </div>

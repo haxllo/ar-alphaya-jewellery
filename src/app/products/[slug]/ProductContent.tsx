@@ -66,7 +66,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
   }
   const availabilityFallback = product.inStock ? 'Ready to ship' : 'Made to order'
   const availabilityLabel = formatAvailability(product.availability) || availabilityFallback
-  const leadTimeCopy = product.leadTime || (product.inStock ? 'Dispatches within 3–5 business days' : 'Crafted to order in roughly 4–6 weeks')
+  const leadTimeCopy = product.leadTime || (product.inStock ? 'Dispatches within 3–5 business days' : '4–6 weeks production + 2–4 days delivery')
   const isCustomisable = product.customizable !== false
 
   // Calculate final price with gemstone adjustment
