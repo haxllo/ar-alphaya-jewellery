@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Plus, Search, Filter, CheckSquare, X } from 'lucide-react'
+import { Plus, Search, Filter, CheckSquare, X, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -207,12 +207,20 @@ export default function AdminProductsPage() {
               <h1 className="text-3xl font-bold text-gray-900">Products</h1>
               <p className="mt-1 text-sm text-gray-500">Manage your jewellery inventory</p>
             </div>
-            <Link href="/admin/products/new">
-              <Button>
-                <Plus className="mr-2 h-4 w-4" />
-                Add Product
-              </Button>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link href="/admin/guide">
+                <Button variant="outline">
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Help Guide
+                </Button>
+              </Link>
+              <Link href="/admin/products/new">
+                <Button>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Product
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

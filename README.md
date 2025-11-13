@@ -2,6 +2,17 @@
 
 A modern, customizable jewelry e-commerce website built with Next.js, TypeScript, and Tailwind CSS. This project is designed to allow easy product management without coding through a headless CMS system.
 
+## 📚 Documentation
+
+### For Administrators
+- **[Admin Portal Guide](docs/ADMIN_PORTAL_GUIDE.md)** - Complete guide for managing products, uploading images, and using the admin panel
+- **[Quick Start Card](docs/ADMIN_QUICK_START.md)** - Printable quick reference for daily tasks
+
+### For Developers
+- [Environment Variables Setup](docs/NETLIFY_ENV_VARIABLES.md)
+- [Database Schema](database/)
+- [Admin Roles Extension](docs/ADMIN_ROLES_EXTENSION_GUIDE.md)
+
 ## 🚀 Features
 
 - **Modern Tech Stack**: Next.js 15 with App Router, TypeScript, Tailwind CSS
