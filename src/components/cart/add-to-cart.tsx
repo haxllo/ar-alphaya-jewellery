@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useCartStore } from '@/lib/store/cart'
 import type { Product, GemstoneOption } from '@/types/product'
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart, Zap } from 'lucide-react'
 import { analytics } from '@/lib/analytics'
 
 interface AddToCartProps {
@@ -16,7 +17,9 @@ interface AddToCartProps {
 export default function AddToCart({ product, selectedSize = '', selectedGemstone }: AddToCartProps) {
   const quantity = 1 // Fixed quantity of 1
   const [isAdding, setIsAdding] = useState(false)
+  const [isBuyingNow, setIsBuyingNow] = useState(false)
   const addItem = useCartStore((state) => state.addItem)
+  const router = useRouter()
 
   // Calculate final price with gemstone adjustment
   const getFinalPrice = () => {
@@ -25,37 +28,73 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
     return basePrice + adjustment
   }
 
-  const handleAddToCart = async () => {
+  const validateSelection = () => {
     if (product.sizes && product.sizes.length > 0 && !selectedSize) {
       alert('Please select a size')
-      return
+      return false
     }
 
     if (product.gemstones && product.gemstones.length > 0 && !selectedGemstone) {
       alert('Please select a gemstone')
-      return
+      return false
     }
+
+    return true
+  }
+
+  const addToCartInternal = () => {
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      price: getFinalPrice(),
+      quantity,
+      size: selectedSize,
+      image: product.images?.[0],
+      gemstone: selectedGemstone?.name,
+    })
+    try { 
+      analytics.addToCart({ 
+        id: product.id, 
+        name: product.name, 
+        category: product.category, 
+        price: getFinalPrice(), 
+        currency: product.currency || 'LKR' 
+      }, quantity) 
+    } catch {}
+  }
+
+  const handleAddToCart = async () => {
+    if (!validateSelection()) return
 
     setIsAdding(true)
     
     try {
-      addItem({
-        productId: product.id,
-        slug: product.slug,
-        name: product.name,
-        price: getFinalPrice(),
-        quantity,
-        size: selectedSize,
-        image: product.images?.[0],
-        // Store gemstone info in a way the cart can understand
-        gemstone: selectedGemstone?.name,
-      })
-      try { analytics.addToCart({ id: product.id, name: product.name, category: product.category, price: getFinalPrice(), currency: product.currency || 'LKR' }, quantity) } catch {}
-      
+      addToCartInternal()
       // Brief loading state for better UX
       await new Promise(resolve => setTimeout(resolve, 500))
     } finally {
       setIsAdding(false)
+    }
+  }
+
+  const handleBuyNow = async () => {
+    if (!validateSelection()) return
+
+    setIsBuyingNow(true)
+    
+    try {
+      // Add to cart
+      addToCartInternal()
+      
+      // Brief delay for visual feedback
+      await new Promise(resolve => setTimeout(resolve, 300))
+      
+      // Redirect to checkout
+      router.push('/checkout')
+    } catch (error) {
+      console.error('Buy now error:', error)
+      setIsBuyingNow(false)
     }
   }
 
@@ -66,15 +105,34 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
   }
 
   return (
-    <div className="space-y-4">
-
+    <div className="space-y-3">
+      {/* Buy Now Button - Primary CTA */}
       <button
-        onClick={handleAddToCart}
-        disabled={!canAddToCart() || isAdding}
+        onClick={handleBuyNow}
+        disabled={!canAddToCart() || isBuyingNow}
         className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
-          canAddToCart() && !isAdding
+          canAddToCart() && !isBuyingNow
             ? 'bg-black hover:bg-gray-800 text-white shadow-lg hover:shadow-xl'
             : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+        }`}
+        aria-label={isBuyingNow ? 'Proceeding to checkout...' : 'Buy now'}
+      >
+        <Zap className={`h-5 w-5 ${isBuyingNow ? 'animate-pulse' : ''}`} />
+        {isBuyingNow ? (
+          'Proceeding to Checkout...'
+        ) : (
+          'Buy Now'
+        )}
+      </button>
+
+      {/* Add to Cart Button - Secondary */}
+      <button
+        onClick={handleAddToCart}
+        disabled={!canAddToCart() || isAdding || isBuyingNow}
+        className={`w-full flex items-center justify-center gap-3 py-3 px-6 rounded-lg font-semibold text-base transition-all border-2 ${
+          canAddToCart() && !isAdding && !isBuyingNow
+            ? 'border-black text-black hover:bg-gray-50'
+            : 'border-gray-200 text-gray-400 cursor-not-allowed'
         }`}
         aria-label={isAdding ? 'Adding to cart...' : 'Add to cart'}
       >
