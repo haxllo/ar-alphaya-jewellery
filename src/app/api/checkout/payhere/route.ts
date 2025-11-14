@@ -83,7 +83,8 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   // Generate hash using MD5 (required by PayHere)
   // Formula: MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret))
   const hashedSecret = crypto.createHash('md5').update(merchantSecret).digest('hex').toUpperCase()
-  const amountFormatted = parseFloat((total / 100).toFixed(2)) // Convert cents to LKR
+  // Prices are already in rupees (LKR), just format to 2 decimal places
+  const amountFormatted = parseFloat(total.toFixed(2))
   const hash = crypto.createHash('md5')
     .update(`${merchantId}${orderId}${amountFormatted}${currency}${hashedSecret}`)
     .digest('hex')
