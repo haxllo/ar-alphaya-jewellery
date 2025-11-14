@@ -7,7 +7,6 @@ import { usePriceFormatter } from '@/hooks/useCurrency'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import QuickFilters from '@/components/collection/QuickFilters'
-import ViewSwitcher from '@/components/collection/ViewSwitcher'
 import type { Product } from '@/types/product'
 
 interface CollectionContentProps {
@@ -18,7 +17,6 @@ interface CollectionContentProps {
 export default function CollectionContent({ handle, products }: CollectionContentProps) {
   const { formatPrice } = usePriceFormatter()
   const [activeFilter, setActiveFilter] = useState('all')
-  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4' | 'grid-5'>('grid-5')
   
   const descriptors: Record<string, string> = {
     rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
@@ -41,14 +39,6 @@ export default function CollectionContent({ handle, products }: CollectionConten
     if (activeFilter === 'featured') return product.featured === true
     return true
   })
-  
-  // Determine grid classes based on view
-  const gridClasses = {
-    'grid-2': 'grid-cols-2',
-    'grid-3': 'grid-cols-2 md:grid-cols-3',
-    'grid-4': 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
-    'grid-5': 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
-  }[view]
   
   return (
     <main className="mx-auto max-w-7xl px-6 py-14">
@@ -81,12 +71,9 @@ export default function CollectionContent({ handle, products }: CollectionConten
           {/* Quick Filters */}
           <QuickFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
 
-          {/* View Switcher */}
-          <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-600">
-              Showing {filteredProducts.length} of {products.length} products
-            </div>
-            <ViewSwitcher view={view} onViewChange={setView} />
+          {/* Product Count */}
+          <div className="text-sm text-gray-600">
+            Showing {filteredProducts.length} of {products.length} products
           </div>
         </div>
       </div>
@@ -98,7 +85,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
             : 'No products match your filters. Try adjusting your selection.'}
         </div>
       ) : (
-        <div id="collection-grid" className={`grid ${gridClasses} gap-4 sm:gap-6 scroll-mt-24`}>
+        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 scroll-mt-24">
           {filteredProducts.map((p) => (
             <div
               key={p.id}
