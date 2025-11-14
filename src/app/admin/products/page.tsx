@@ -201,23 +201,23 @@ export default function AdminProductsPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Products</h1>
-              <p className="mt-1 text-sm text-gray-500">Manage your jewellery inventory</p>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Products</h1>
+              <p className="mt-1 text-xs sm:text-sm text-gray-500 hidden xs:block">Manage your jewellery inventory</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Link href="/admin/guide">
-                <Button variant="outline">
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Help Guide
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link href="/admin/guide" className="flex-1 sm:flex-none">
+                <Button variant="outline" className="w-full sm:w-auto h-11 sm:h-10" title="Help Guide">
+                  <BookOpen className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Help Guide</span>
                 </Button>
               </Link>
-              <Link href="/admin/products/new">
-                <Button>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add Product
+              <Link href="/admin/products/new" className="flex-1 sm:flex-none">
+                <Button className="w-full sm:w-auto h-11 sm:h-10" title="Add Product">
+                  <Plus className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Add Product</span>
                 </Button>
               </Link>
             </div>
@@ -225,88 +225,94 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600">Total Products</p>
-            <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <p className="text-xs sm:text-sm text-gray-600">Total Products</p>
+            <p className="text-2xl sm:text-3xl font-bold text-gray-900">{stats.total}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600">Published</p>
-            <p className="text-3xl font-bold text-green-600">{stats.published}</p>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <p className="text-xs sm:text-sm text-gray-600">Published</p>
+            <p className="text-2xl sm:text-3xl font-bold text-green-600">{stats.published}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600">Drafts</p>
-            <p className="text-3xl font-bold text-gray-600">{stats.draft}</p>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <p className="text-xs sm:text-sm text-gray-600">Drafts</p>
+            <p className="text-2xl sm:text-3xl font-bold text-gray-600">{stats.draft}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600">Featured</p>
-            <p className="text-3xl font-bold text-yellow-600">{stats.featured}</p>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <p className="text-xs sm:text-sm text-gray-600">Featured</p>
+            <p className="text-2xl sm:text-3xl font-bold text-yellow-600">{stats.featured}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600">Out of Stock</p>
-            <p className="text-3xl font-bold text-red-600">{stats.outOfStock}</p>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <p className="text-xs sm:text-sm text-gray-600">Out of Stock</p>
+            <p className="text-2xl sm:text-3xl font-bold text-red-600">{stats.outOfStock}</p>
           </div>
         </div>
 
         {/* Search Bar */}
-        <div className="bg-white rounded-lg shadow p-4 mb-6">
-          <div className="flex gap-4">
+        <div className="bg-white rounded-lg shadow p-3 sm:p-4 mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 type="text"
-                placeholder="Search products by name, description, or SKU..."
-                className="pl-10"
+                placeholder="Search products..."
+                className="pl-10 h-11 sm:h-10"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <Button variant="outline">
-              <Filter className="mr-2 h-4 w-4" />
-              Filters
+            <Button variant="outline" className="w-full sm:w-auto h-11 sm:h-10" title="Filters">
+              <Filter className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Filters</span>
             </Button>
           </div>
         </div>
 
         {/* Bulk Actions Toolbar */}
         {selectedIds.size > 0 && (
-          <div className="bg-white border rounded-lg p-4 mb-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+          <div className="bg-white border rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
                 <div className="flex items-center gap-2">
                   <CheckSquare className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-xs sm:text-sm font-medium text-foreground">
                     {selectedIds.size} selected
                   </span>
                 </div>
-                <div className="h-4 w-px bg-border" />
-                <Button 
-                  variant="default"
-                  size="sm"
-                  onClick={() => handleBulkAction('publish')}
-                >
-                  Publish
-                </Button>
-                <Button 
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleBulkAction('draft')}
-                >
-                  Move to Draft
-                </Button>
-                <Button 
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleBulkAction('delete')}
-                >
-                  Delete
-                </Button>
+                <div className="hidden sm:block h-4 w-px bg-border" />
+                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                  <Button 
+                    variant="default"
+                    size="sm"
+                    className="flex-1 sm:flex-none text-xs sm:text-sm"
+                    onClick={() => handleBulkAction('publish')}
+                  >
+                    Publish
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 sm:flex-none text-xs sm:text-sm"
+                    onClick={() => handleBulkAction('draft')}
+                  >
+                    Draft
+                  </Button>
+                  <Button 
+                    variant="destructive"
+                    size="sm"
+                    className="flex-1 sm:flex-none text-xs sm:text-sm"
+                    onClick={() => handleBulkAction('delete')}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </div>
               <Button 
                 variant="ghost" 
                 size="sm"
+                className="w-full sm:w-auto text-xs sm:text-sm"
                 onClick={() => setSelectedIds(new Set())}
               >
                 <X className="h-4 w-4 mr-1" />
@@ -317,20 +323,23 @@ export default function AdminProductsPage() {
         )}
 
         {/* Products Table */}
-        <div className="bg-white rounded-lg shadow overflow-x-auto" style={{ minHeight: '600px', maxHeight: '70vh' }}>
+        <div className="bg-white rounded-lg shadow overflow-hidden">
           {loading ? (
-            <div className="p-12 text-center">
+            <div className="p-8 sm:p-12 text-center">
               <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-              <p className="mt-4 text-gray-600">Loading products...</p>
+              <p className="mt-4 text-sm sm:text-base text-gray-600">Loading products...</p>
             </div>
           ) : products.length === 0 ? (
-            <div className="p-12 text-center">
-              <p className="text-gray-600">No products found</p>
+            <div className="p-8 sm:p-12 text-center">
+              <p className="text-sm sm:text-base text-gray-600">No products found</p>
               <Link href="/admin/products/new">
                 <Button className="mt-4">Create your first product</Button>
               </Link>
             </div>
           ) : (
+            <>
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
@@ -432,6 +441,73 @@ export default function AdminProductsPage() {
                 ))}
               </tbody>
             </table>
+            </div>
+            
+            {/* Mobile Card View */}
+            <div className="md:hidden divide-y divide-gray-200">
+              {products.map((product) => (
+                <div key={product.id} className="p-4 hover:bg-gray-50">
+                  <div className="flex gap-3">
+                    {/* Checkbox */}
+                    <div className="flex items-start pt-1">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(product.id)}
+                        onChange={() => toggleSelect(product.id)}
+                        className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                    </div>
+                    
+                    {/* Image */}
+                    <div className="flex-shrink-0">
+                      {product.images[0] ? (
+                        <Image
+                          src={product.images[0]}
+                          alt={product.name}
+                          width={64}
+                          height={64}
+                          className="h-16 w-16 rounded object-cover"
+                        />
+                      ) : (
+                        <div className="h-16 w-16 rounded bg-gray-200" />
+                      )}
+                    </div>
+                    
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-medium text-gray-900 truncate">{product.name}</h3>
+                      <p className="text-xs text-gray-500 mt-0.5">{product.sku || 'No SKU'}</p>
+                      <p className="text-sm font-semibold text-gray-900 mt-1">
+                        Rs. {product.price.toLocaleString()}
+                      </p>
+                      <div className="flex gap-2 mt-2">
+                        <Badge variant={product.status === 'published' ? 'success' : 'secondary'} className="text-xs">
+                          {product.status}
+                        </Badge>
+                        <Badge variant={product.in_stock ? 'success' : 'destructive'} className="text-xs">
+                          {product.in_stock ? 'In Stock' : 'Out of Stock'}
+                        </Badge>
+                      </div>
+                      <div className="flex gap-3 mt-3">
+                        <Link
+                          href={`/admin/products/${product.id}/edit`}
+                          className="text-sm text-indigo-600 hover:text-indigo-900 font-medium"
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          onClick={() => deleteProduct(product.id)}
+                          className="text-sm text-red-600 hover:text-red-900 font-medium"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </>
           )}
         </div>
       </div>
