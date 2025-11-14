@@ -14,6 +14,8 @@ import CheckoutProgress from '@/components/checkout/CheckoutProgress'
 import BillingInfoCard from '@/components/checkout/BillingInfoCard'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
 import OrderSummaryCard from '@/components/checkout/OrderSummaryCard'
+import MobileOrderSummary from '@/components/checkout/MobileOrderSummary'
+import MobileCheckoutFooter from '@/components/checkout/MobileCheckoutFooter'
 import { Button } from '@/components/ui/button'
 import type { PayHerePayment } from '@/types/payhere'
 import type { PaymentMethod } from '@/components/checkout/checkout-types'
@@ -181,9 +183,18 @@ function CheckoutPage() {
     <CheckoutContainer>
       <CheckoutProgress currentStep={2} />
       
+      {/* Mobile Order Summary - Collapsible */}
+      <MobileOrderSummary
+        items={items}
+        subtotal={subtotal}
+        shipping={shipping}
+        total={total}
+        formatPrice={formatPrice}
+      />
+      
       <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
         {/* Left Column: Form Sections */}
-        <div className="space-y-6">
+        <div className="space-y-6 pb-24 lg:pb-0">
           <BillingInfoCard
             customerInfo={customerInfo}
             errors={errors}
@@ -197,19 +208,20 @@ function CheckoutPage() {
             onChange={setPaymentMethod}
           />
 
+          {/* Desktop Place Order Button */}
           <Button
             type="submit"
             size="lg"
             disabled={isProcessing}
             onClick={handleSubmit}
-            className="w-full"
+            className="hidden w-full lg:flex"
           >
             {isProcessing ? 'Processing...' : `Place Order - ${formatPrice(total)}`}
           </Button>
         </div>
 
-        {/* Right Column: Order Summary (Sticky) */}
-        <div className="lg:sticky lg:top-24 lg:h-fit">
+        {/* Right Column: Order Summary (Sticky) - Desktop Only */}
+        <div className="hidden lg:sticky lg:top-24 lg:h-fit lg:block">
           <OrderSummaryCard
             items={items}
             subtotal={subtotal}
@@ -219,6 +231,14 @@ function CheckoutPage() {
           />
         </div>
       </div>
+      
+      {/* Mobile Sticky Footer with Place Order Button */}
+      <MobileCheckoutFooter
+        total={total}
+        formatPrice={formatPrice}
+        isProcessing={isProcessing}
+        onSubmit={handleSubmit}
+      />
 
       {/* PayHere Checkout Component - Hidden until payment initiated */}
       <PayHereCheckout

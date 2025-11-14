@@ -58,3 +58,59 @@ export async function sendAbandonedCartEmail(
     html,
   })
 }
+
+export interface OrderConfirmationEmailData {
+  orderId: string
+  customerEmail: string
+  customerName: string
+  orderDate: string
+  items: Array<{
+    name: string
+    price: number
+    quantity: number
+    size?: string
+    gemstone?: string
+    image?: string
+  }>
+  subtotal: number
+  shipping: number
+  total: number
+  paymentId?: string
+}
+
+export async function sendOrderConfirmationEmail(data: OrderConfirmationEmailData) {
+  const { renderOrderConfirmationEmail } = await import('./orderConfirmationTemplate')
+  
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-LK', {
+      style: 'currency',
+      currency: 'LKR',
+    }).format(price)
+  }
+  
+  const html = renderOrderConfirmationEmail({
+    orderNumber: data.orderId,
+    customerName: data.customerName,
+    orderDate: data.orderDate,
+    items: data.items.map(item => ({
+      name: item.name,
+      price: formatPrice(item.price * item.quantity),
+      quantity: item.quantity,
+      size: item.size,
+      gemstone: item.gemstone,
+      image: item.image,
+    })),
+    subtotal: formatPrice(data.subtotal),
+    shipping: formatPrice(data.shipping),
+    total: formatPrice(data.total),
+    paymentMethod: data.paymentId ? `PayHere (${data.paymentId})` : 'PayHere',
+    trackingUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/account/orders`,
+    supportEmail: process.env.EMAIL_FROM || 'support@alphayajewellery.com',
+  })
+
+  return sendEmail({
+    to: data.customerEmail,
+    subject: `Order Confirmation #${data.orderId} - AR Alphaya Jewellery`,
+    html,
+  })
+}

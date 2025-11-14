@@ -95,22 +95,63 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     updateData.cancelled_at = now
   }
 
-  const { error: updateError } = await supabase
+  const { data: updatedOrder, error: updateError } = await supabase
     .from('orders')
     .update(updateData)
     .eq('order_number', orderId)
+    .select()
+    .single()
 
   if (updateError) {
     console.error('Error updating order status:', updateError)
     // Don't fail the webhook, but log the error
   } else {
     console.log('Order status updated:', { orderId, orderStatus, paymentStatus })
+    
+    // Send email notification when payment is successful
+    if (statusCode === '2' && updatedOrder && !updatedOrder.email_sent) {
+      try {
+        const { sendOrderConfirmationEmail } = await import('@/lib/email/sender')
+        
+        // Get order items for email
+        const { data: orderItems } = await supabase
+          .from('order_items')
+          .select('*')
+          .eq('order_id', updatedOrder.id)
+        
+        await sendOrderConfirmationEmail({
+          orderId: orderId,
+          customerEmail: updatedOrder.email,
+          customerName: `${updatedOrder.customer_first_name} ${updatedOrder.customer_last_name}`,
+          orderDate: new Date(updatedOrder.created_at).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }),
+          items: orderItems || [],
+          subtotal: updatedOrder.subtotal,
+          shipping: updatedOrder.shipping || 0,
+          total: updatedOrder.total,
+          paymentId: paymentId,
+        })
+        
+        // Mark email as sent
+        await supabase
+          .from('orders')
+          .update({ email_sent: true })
+          .eq('order_number', orderId)
+        
+        console.log('Order confirmation email sent:', orderId)
+      } catch (emailError) {
+        console.error('Failed to send confirmation email:', emailError)
+        // Don't fail the webhook if email fails
+      }
+    }
   }
 
   // TODO: In production, also implement:
-  // 1. Send confirmation emails (when status = 'paid')
-  // 2. Update inventory
-  // 3. Trigger fulfillment process
+  // 1. Update inventory
+  // 2. Trigger fulfillment process
 
   const response = NextResponse.json({ status: 'ok' })
   return applySecurityHeaders(response);
