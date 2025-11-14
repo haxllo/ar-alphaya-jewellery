@@ -13,19 +13,19 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({ items, currentPage }: BreadcrumbsProps) {
   return (
     <nav className="text-xs uppercase tracking-[0.3em] text-nocturne-500" aria-label="Breadcrumb">
-      <ol className="flex items-center gap-2 flex-wrap">
+      <ol className="flex items-center gap-2 flex-wrap leading-none">
         {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-2">
+          <li key={index} className="flex items-center gap-2 leading-none">
             <Link 
               href={item.href} 
-              className="underline-offset-4 hover:underline hover:text-nocturne-700 transition-colors"
+              className="underline-offset-4 hover:underline hover:text-nocturne-700 transition-colors leading-none"
             >
               {item.label}
             </Link>
-            <span aria-hidden="true">/</span>
+            <span aria-hidden="true" className="leading-none">/</span>
           </li>
         ))}
-        <li className="text-nocturne-400" aria-current="page">
+        <li className="text-nocturne-400 leading-none" aria-current="page">
           {currentPage}
         </li>
       </ol>

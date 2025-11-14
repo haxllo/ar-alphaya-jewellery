@@ -18,7 +18,7 @@ interface CollectionContentProps {
 export default function CollectionContent({ handle, products }: CollectionContentProps) {
   const { formatPrice } = usePriceFormatter()
   const [activeFilter, setActiveFilter] = useState('all')
-  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4' | 'grid-5'>('grid-4')
+  const [view, setView] = useState<'grid-2' | 'grid-3' | 'grid-4' | 'grid-5'>('grid-5')
   
   const descriptors: Record<string, string> = {
     rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
@@ -45,9 +45,9 @@ export default function CollectionContent({ handle, products }: CollectionConten
   // Determine grid classes based on view
   const gridClasses = {
     'grid-2': 'grid-cols-2',
-    'grid-3': 'grid-cols-2 lg:grid-cols-3',
-    'grid-4': 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
-    'grid-5': 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+    'grid-3': 'grid-cols-3',
+    'grid-4': 'grid-cols-4',
+    'grid-5': 'grid-cols-5'
   }[view]
   
   return (
@@ -69,10 +69,10 @@ export default function CollectionContent({ handle, products }: CollectionConten
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#collection-grid" className="text-center rounded-full border border-nocturne-200 px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground transition-all whitespace-nowrap">
+              <a href="#collection-grid" className="flex items-center justify-center rounded-full border border-nocturne-200 px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground transition-all whitespace-nowrap">
                 View collection
               </a>
-              <a href="/contact" className="text-center rounded-full bg-foreground px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
+              <a href="/contact" className="flex items-center justify-center rounded-full bg-foreground px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
                 Bespoke inquiry
               </a>
             </div>
