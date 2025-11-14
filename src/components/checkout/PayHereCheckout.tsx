@@ -53,11 +53,15 @@ export default function PayHereCheckout({
         onCancel?.()
       },
       onError: (error: string) => {
-        console.error('Payment error:', error)
+        console.error('PayHere error:', error)
         setIsInitializing(false)
         onError?.(error)
-        // Show error to user
-        alert(`Payment failed: ${error}. Please try again.`)
+        // Show detailed error to user
+        if (error.includes('Unauthorized') || error.includes('unauthorized')) {
+          alert('❌ Payment Authorization Failed\n\nPossible causes:\n1. Domain not registered in PayHere sandbox\n2. Merchant ID mismatch\n3. Hash verification failed\n\n👉 Check PayHere Merchant Portal:\n   https://sandbox.payhere.lk/merchant/\n   Settings → Integrations → Add "localhost"')
+        } else {
+          alert(`Payment failed: ${error}.\n\nPlease try again or contact support.`)
+        }
       },
     }
 
