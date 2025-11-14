@@ -119,7 +119,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <main className="mx-auto max-w-4xl px-6 py-12">
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="text-center">
           <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
             <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,9 +151,9 @@ export default function CartPage() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-semibold text-black">Shopping Cart</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Shopping Cart</h1>
         <button
           onClick={handleClearCart}
           className="text-sm text-gray-500 hover:text-red-600 transition-colors"
@@ -162,9 +162,9 @@ export default function CartPage() {
         </button>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8">
         {/* Cart Items */}
-        <div className="lg:col-span-8">
+        <div>
           <ShippingProgress subtotal={subtotal} freeShippingThreshold={freeShippingThreshold} />
           
           <div className="bg-white border border-gray-200 rounded-lg">
@@ -189,8 +189,8 @@ export default function CartPage() {
           </div>
         </div>
         
-        {/* Order Summary */}
-        <div className="lg:col-span-4 space-y-4">
+        {/* Order Summary - Sticky on Desktop */}
+        <div className="lg:sticky lg:top-24 lg:h-fit space-y-4">
           <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
             <h2 className="text-xl font-semibold text-black">Order Summary</h2>
             
@@ -228,11 +228,14 @@ export default function CartPage() {
       </div>
       
       {/* Smart Recommendations */}
-      <ProductRecommendations 
-        products={suggestedProducts}
-        title={items.length > 0 ? "Frequently bought together" : "Trending now"}
-        className="mt-16"
-      />
+      {suggestedProducts.length > 0 && (
+        <div className="mt-16">
+          <ProductRecommendations 
+            products={suggestedProducts}
+            title={items.length > 0 ? "Frequently bought together" : "Trending now"}
+          />
+        </div>
+      )}
     </main>
   )
 }
