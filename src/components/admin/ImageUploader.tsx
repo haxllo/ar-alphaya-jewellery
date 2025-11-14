@@ -4,8 +4,14 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { X, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { FileUploaderRegular } from '@uploadcare/react-uploader/next'
+import dynamic from 'next/dynamic'
 import '@uploadcare/react-uploader/core.css'
+
+// Dynamically import FileUploaderRegular to avoid SSR issues
+const FileUploaderRegular = dynamic(
+  () => import('@uploadcare/react-uploader/next').then((mod) => mod.FileUploaderRegular),
+  { ssr: false }
+)
 
 interface ImageUploaderProps {
   images: string[]
