@@ -488,16 +488,16 @@ export default function AdminProductsPage() {
                           {product.in_stock ? 'In Stock' : 'Out of Stock'}
                         </Badge>
                       </div>
-                      <div className="flex gap-2 mt-3">
+                      <div className="flex items-stretch gap-2 mt-3">
                         <Link
                           href={`/admin/products/${product.id}/edit`}
-                          className="flex-1 text-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
+                          className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
                         >
                           Edit
                         </Link>
                         <button
                           onClick={() => deleteProduct(product.id)}
-                          className="flex-1 px-3 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                          className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
                         >
                           Delete
                         </button>
