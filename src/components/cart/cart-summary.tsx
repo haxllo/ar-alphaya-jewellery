@@ -7,7 +7,6 @@ interface CartSummaryProps {
   subtotal: number
   discount?: number
   shippingEstimate: number
-  taxEstimate: number
   total: number
   itemCount: number
 }
@@ -16,7 +15,6 @@ export default function CartSummary({
   subtotal, 
   discount = 0,
   shippingEstimate, 
-  taxEstimate, 
   total, 
   itemCount 
 }: CartSummaryProps) {
@@ -41,11 +39,6 @@ export default function CartSummary({
         <span className={shippingEstimate === 0 ? 'text-green-600 font-medium' : ''}>
           {shippingEstimate === 0 ? 'FREE' : formatPrice(shippingEstimate)}
         </span>
-      </div>
-      
-      <div className="flex justify-between text-xs sm:text-sm text-gray-600">
-        <span>Tax estimate</span>
-        <span>{formatPrice(taxEstimate)}</span>
       </div>
       
       <div className="border-t border-gray-300 pt-2 sm:pt-3 mt-2 sm:mt-3">

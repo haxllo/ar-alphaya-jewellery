@@ -38,8 +38,7 @@ export default function CartPage() {
   // Free delivery within Sri Lanka for orders above Rs.5,000
   const freeShippingThreshold = 5000
   const shippingEstimate = subtotal >= freeShippingThreshold ? 0 : 1000
-  const taxEstimate = Math.round((subtotal - discount) * 0.02) // 2% tax estimate  
-  const total = subtotal - discount + shippingEstimate + taxEstimate
+  const total = subtotal - discount + shippingEstimate
 
   // Smart product recommendations: fetch contextual products from API (category/tags from cart)
   const [suggestedProducts, setSuggestedProducts] = useState<any[]>([])
@@ -219,7 +218,6 @@ export default function CartPage() {
               subtotal={subtotal}
               discount={discount}
               shippingEstimate={shippingEstimate}
-              taxEstimate={taxEstimate}
               total={total}
               itemCount={items.reduce((acc, i) => acc + i.quantity, 0)}
             />
