@@ -45,9 +45,9 @@ export default function CollectionContent({ handle, products }: CollectionConten
   // Determine grid classes based on view
   const gridClasses = {
     'grid-2': 'grid-cols-2',
-    'grid-3': 'grid-cols-3',
-    'grid-4': 'grid-cols-4',
-    'grid-5': 'grid-cols-5'
+    'grid-3': 'grid-cols-2 md:grid-cols-3',
+    'grid-4': 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+    'grid-5': 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
   }[view]
   
   return (
