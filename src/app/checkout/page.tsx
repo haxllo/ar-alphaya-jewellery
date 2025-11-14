@@ -85,8 +85,20 @@ function CheckoutPage() {
   }, [user])
   
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
-  const shipping = 1000 // Fixed shipping cost (LKR)
-  const total = subtotal + shipping
+  
+  // Free delivery within Sri Lanka for orders above Rs.5,000
+  const freeShippingThreshold = 5000
+  const shipping = subtotal >= freeShippingThreshold ? 0 : 1000
+  
+  // Get discount from cart store (if promo code applied)
+  const promoCode = useCartStore((state) => state.promoCode)
+  const discount = promoCode
+    ? promoCode.type === 'percentage'
+      ? Math.round((subtotal * promoCode.discount) / 100)
+      : promoCode.discount
+    : 0
+  
+  const total = subtotal - discount + shipping
   
   if (isLoading) {
     return (
@@ -187,9 +199,11 @@ function CheckoutPage() {
       <MobileOrderSummary
         items={items}
         subtotal={subtotal}
+        discount={discount}
         shipping={shipping}
         total={total}
         formatPrice={formatPrice}
+        promoCode={promoCode}
       />
       
       <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
@@ -225,9 +239,11 @@ function CheckoutPage() {
           <OrderSummaryCard
             items={items}
             subtotal={subtotal}
+            discount={discount}
             shipping={shipping}
             total={total}
             formatPrice={formatPrice}
+            promoCode={promoCode}
           />
         </div>
       </div>

@@ -12,23 +12,27 @@ import type { CartItem } from './checkout-types'
 interface OrderSummaryCardProps {
   items: CartItem[]
   subtotal: number
+  discount?: number
   shipping: number
   total: number
   formatPrice: (price: number) => string
+  promoCode?: { code: string; discount: number; type: 'percentage' | 'fixed' } | null
 }
 
 export default function OrderSummaryCard({
   items,
   subtotal,
+  discount = 0,
   shipping,
   total,
   formatPrice,
+  promoCode,
 }: OrderSummaryCardProps) {
-  const [promoCode, setPromoCode] = useState('')
+  const [promoCodeInput, setPromoCodeInput] = useState('')
   const [isApplying, setIsApplying] = useState(false)
 
   const handleApplyPromo = () => {
-    if (!promoCode.trim()) return
+    if (!promoCodeInput.trim()) return
     setIsApplying(true)
     // TODO: Implement promo code API call
     setTimeout(() => {
@@ -114,8 +118,8 @@ export default function OrderSummaryCard({
           <div className="flex gap-2">
             <Input
               type="text"
-              value={promoCode}
-              onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+              value={promoCodeInput}
+              onChange={(e) => setPromoCodeInput(e.target.value.toUpperCase())}
               placeholder="PROMO CODE"
               className="flex-1 uppercase"
               disabled={isApplying}
@@ -124,11 +128,14 @@ export default function OrderSummaryCard({
               type="button"
               variant="outline"
               onClick={handleApplyPromo}
-              disabled={!promoCode.trim() || isApplying}
+              disabled={!promoCodeInput.trim() || isApplying}
             >
               {isApplying ? 'Applying...' : 'Apply'}
             </Button>
           </div>
+          <p className="text-xs text-gray-500">
+            Apply promo codes in your cart before checkout
+          </p>
         </div>
 
         <Separator />
@@ -140,9 +147,18 @@ export default function OrderSummaryCard({
             <span className="tabular-nums">{formatPrice(subtotal)}</span>
           </div>
           
+          {discount > 0 && promoCode && (
+            <div className="flex justify-between text-sm text-green-600 font-medium">
+              <span>Discount ({promoCode.code})</span>
+              <span className="tabular-nums">-{formatPrice(discount)}</span>
+            </div>
+          )}
+          
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">Shipping</span>
-            <span className="tabular-nums">{formatPrice(shipping)}</span>
+            <span className={`tabular-nums ${shipping === 0 ? 'text-green-600 font-medium' : ''}`}>
+              {shipping === 0 ? 'FREE' : formatPrice(shipping)}
+            </span>
           </div>
 
           <Separator />
