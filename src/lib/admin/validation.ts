@@ -27,7 +27,7 @@ export const productSchema = z.object({
   sku: z.string().max(100, 'SKU too long').optional().nullable(),
   materials: z.array(z.string()).optional().nullable(),
   tags: z.array(z.string()).optional().nullable(),
-  weight: z.number().min(0, 'Weight must be positive').optional().nullable(),
+  weight: z.union([z.number().min(0, 'Weight must be positive'), z.string().max(50, 'Weight too long')]).optional().nullable(),
   dimensions: z.string().max(255, 'Dimensions too long').optional().nullable(),
   sizes: z.array(sizeSchema).optional().nullable(),
   gemstones: z.array(gemstoneSchema).optional().nullable(),

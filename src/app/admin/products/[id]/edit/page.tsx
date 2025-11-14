@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Save, Trash2 } from 'lucide-react'
+import { ArrowLeft, Save, Trash2, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,6 +13,7 @@ import { CheckboxGrid } from '@/components/admin/CheckboxGrid'
 import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES } from '@/lib/admin/constants'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import { useProductValidation } from '@/hooks/useProductValidation'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +29,7 @@ import type { Product, Size, Gemstone } from '@/types/admin'
 export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const { toast } = useToast()
+  const { errors, validateForm, validateField, clearError, setFieldError } = useProductValidation()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [product, setProduct] = useState<Partial<Product>>({})
@@ -59,8 +61,35 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     }
   }
 
+  const handleFieldBlur = (field: keyof Product, value: any) => {
+    const error = validateField(field as any, value)
+    if (error) {
+      setFieldError(field as any, error)
+    } else {
+      clearError(field as any)
+    }
+  }
+
   const handleSave = async (status?: 'draft' | 'published') => {
     if (!productId) return
+
+    // Validate form before submission
+    const isValid = validateForm(product)
+    
+    if (!isValid) {
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        description: "Please fix all errors before saving the product.",
+      })
+      // Scroll to first error
+      const firstErrorElement = document.querySelector('.border-red-500')
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      return
+    }
+
     setSaving(true)
 
     try {
@@ -181,9 +210,20 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 <Input
                   id="name"
                   value={product.name}
-                  onChange={(e) => setProduct(prev => ({ ...prev, name: e.target.value }))}
+                  onChange={(e) => {
+                    setProduct(prev => ({ ...prev, name: e.target.value }))
+                    clearError('name')
+                  }}
+                  onBlur={(e) => handleFieldBlur('name', e.target.value)}
+                  className={errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   required
                 />
+                {errors.name && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.name}</span>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -191,9 +231,20 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 <Input
                   id="slug"
                   value={product.slug}
-                  onChange={(e) => setProduct(prev => ({ ...prev, slug: e.target.value }))}
+                  onChange={(e) => {
+                    setProduct(prev => ({ ...prev, slug: e.target.value }))
+                    clearError('slug')
+                  }}
+                  onBlur={(e) => handleFieldBlur('slug', e.target.value)}
+                  className={errors.slug ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   required
                 />
+                {errors.slug && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.slug}</span>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -201,9 +252,20 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 <Textarea
                   id="description"
                   value={product.description || ''}
-                  onChange={(e) => setProduct(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={(e) => {
+                    setProduct(prev => ({ ...prev, description: e.target.value }))
+                    clearError('description')
+                  }}
+                  onBlur={(e) => handleFieldBlur('description', e.target.value)}
+                  className={errors.description ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   rows={6}
                 />
+                {errors.description && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.description}</span>
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -211,22 +273,43 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                   <Label htmlFor="category">Category *</Label>
                   <select
                     id="category"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className={`flex h-10 w-full rounded-md border ${errors.category ? 'border-red-500' : 'border-input'} bg-background px-3 py-2 text-sm`}
                     value={product.category}
-                    onChange={(e) => setProduct(prev => ({ ...prev, category: e.target.value }))}
+                    onChange={(e) => {
+                      setProduct(prev => ({ ...prev, category: e.target.value }))
+                      clearError('category')
+                    }}
+                    onBlur={(e) => handleFieldBlur('category', e.target.value)}
                   >
                     {PRODUCT_CATEGORIES.map(cat => (
                       <option key={cat.value} value={cat.value}>{cat.label}</option>
                     ))}
                   </select>
+                  {errors.category && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.category}</span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="sku">SKU</Label>
                   <Input
                     id="sku"
                     value={product.sku || ''}
-                    onChange={(e) => setProduct(prev => ({ ...prev, sku: e.target.value }))}
+                    onChange={(e) => {
+                      setProduct(prev => ({ ...prev, sku: e.target.value }))
+                      clearError('sku')
+                    }}
+                    onBlur={(e) => handleFieldBlur('sku', e.target.value)}
+                    className={errors.sku ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   />
+                  {errors.sku && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.sku}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -242,10 +325,21 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                   id="price"
                   type="number"
                   value={product.price}
-                  onChange={(e) => setProduct(prev => ({ ...prev, price: Number(e.target.value) }))}
+                  onChange={(e) => {
+                    setProduct(prev => ({ ...prev, price: Number(e.target.value) }))
+                    clearError('price')
+                  }}
+                  onBlur={(e) => handleFieldBlur('price', Number(e.target.value))}
                   min="0"
+                  className={errors.price ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   required
                 />
+                {errors.price && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.price}</span>
+                  </div>
+                )}
               </div>
               <div>
                 <Label>Currency</Label>
@@ -268,25 +362,45 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="weight">Weight (grams)</Label>
+                  <Label htmlFor="weight">Weight</Label>
                   <Input
                     id="weight"
-                    type="number"
+                    type="text"
                     value={product.weight || ''}
-                    onChange={(e) => setProduct(prev => ({ ...prev, weight: e.target.value ? Number(e.target.value) : null }))}
-                    min="0"
-                    step="0.01"
-                    placeholder="e.g., 5.25"
+                    onChange={(e) => {
+                      setProduct(prev => ({ ...prev, weight: e.target.value || null }))
+                      clearError('weight')
+                    }}
+                    onBlur={(e) => handleFieldBlur('weight', e.target.value)}
+                    placeholder="e.g., 5.25g or 2.3 grams"
+                    className={errors.weight ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   />
+                  {errors.weight && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.weight}</span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="dimensions">Dimensions</Label>
                   <Input
                     id="dimensions"
                     value={product.dimensions || ''}
-                    onChange={(e) => setProduct(prev => ({ ...prev, dimensions: e.target.value }))}
+                    onChange={(e) => {
+                      setProduct(prev => ({ ...prev, dimensions: e.target.value }))
+                      clearError('dimensions')
+                    }}
+                    onBlur={(e) => handleFieldBlur('dimensions', e.target.value)}
                     placeholder="e.g., 20mm x 15mm"
+                    className={errors.dimensions ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   />
+                  {errors.dimensions && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.dimensions}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -305,8 +419,18 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Product Images *</h2>
             <ImageUploader
               images={product.images || []}
-              onChange={(images) => setProduct(prev => ({ ...prev, images }))}
+              onChange={(images) => {
+                setProduct(prev => ({ ...prev, images }))
+                clearError('images')
+                handleFieldBlur('images', images)
+              }}
             />
+            {errors.images && (
+              <div className="flex items-center gap-1 mt-2 text-sm text-red-600">
+                <AlertCircle className="h-4 w-4" />
+                <span>{errors.images}</span>
+              </div>
+            )}
           </div>
 
           {/* Sizes Section */}

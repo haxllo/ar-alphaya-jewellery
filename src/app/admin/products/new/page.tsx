@@ -309,25 +309,45 @@ export default function NewProductPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="weight">Weight (grams)</Label>
+                  <Label htmlFor="weight">Weight</Label>
                   <Input
                     id="weight"
-                    type="number"
+                    type="text"
                     value={formData.weight || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, weight: e.target.value ? Number(e.target.value) : null }))}
-                    min="0"
-                    step="0.01"
-                    placeholder="e.g., 5.25"
+                    onChange={(e) => {
+                      setFormData(prev => ({ ...prev, weight: e.target.value || null }))
+                      clearError('weight')
+                    }}
+                    onBlur={(e) => handleFieldBlur('weight', e.target.value)}
+                    placeholder="e.g., 5.25g or 2.3 grams"
+                    className={errors.weight ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   />
+                  {errors.weight && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.weight}</span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="dimensions">Dimensions</Label>
                   <Input
                     id="dimensions"
                     value={formData.dimensions || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, dimensions: e.target.value }))}
+                    onChange={(e) => {
+                      setFormData(prev => ({ ...prev, dimensions: e.target.value }))
+                      clearError('dimensions')
+                    }}
+                    onBlur={(e) => handleFieldBlur('dimensions', e.target.value)}
                     placeholder="e.g., 20mm x 15mm"
+                    className={errors.dimensions ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   />
+                  {errors.dimensions && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.dimensions}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 

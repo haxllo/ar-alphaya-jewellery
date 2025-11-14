@@ -72,7 +72,12 @@ export function useProductValidation() {
 
       case 'weight':
         if (value !== null && value !== undefined && value !== '') {
-          if (isNaN(Number(value)) || Number(value) < 0) {
+          // Allow strings like "5.5g" or "2.3 grams" - just check max length
+          if (typeof value === 'string' && value.length > 50) {
+            return 'Weight must be less than 50 characters'
+          }
+          // If it's a number, validate it's positive
+          if (typeof value === 'number' && value < 0) {
             return 'Weight must be a positive number'
           }
         }
