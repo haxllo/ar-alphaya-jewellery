@@ -86,22 +86,22 @@ export default function NewProductPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Link href="/admin/products">
-            <Button variant="ghost" size="sm" className="mb-4">
-              <ArrowLeft className="mr-2 h-4 w-4" />
+            <Button variant="ghost" size="sm" className="mb-3 sm:mb-4 h-11 sm:h-10">
+              <ArrowLeft className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
               Back to Products
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Create New Product</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Create New Product</h1>
         </div>
 
-        <form className="space-y-8">
+        <form className="space-y-6 sm:space-y-8 pb-20 sm:pb-0">
           {/* Basic Info Section */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Basic Information</h2>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Basic Information</h2>
             <div className="space-y-4">
               <div>
                 <Label htmlFor="name">Product Name *</Label>
@@ -139,7 +139,7 @@ export default function NewProductPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="category">Category *</Label>
                   <select
@@ -167,9 +167,9 @@ export default function NewProductPage() {
           </div>
 
           {/* Pricing Section */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Pricing</h2>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Pricing</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="price">Price (LKR) *</Label>
                 <Input
@@ -195,8 +195,8 @@ export default function NewProductPage() {
           </div>
 
           {/* Materials & Physical Details */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Materials & Physical Details</h2>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Materials & Physical Details</h2>
             <div className="space-y-4">
               <CheckboxGrid
                 label="Materials"
@@ -206,7 +206,7 @@ export default function NewProductPage() {
                 columns={4}
               />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="weight">Weight (grams)</Label>
                   <Input
@@ -241,8 +241,8 @@ export default function NewProductPage() {
           </div>
 
           {/* Images Section */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Product Images *</h2>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Product Images *</h2>
             <ImageUploader
               images={formData.images || []}
               onChange={(images) => setFormData(prev => ({ ...prev, images }))}
@@ -250,8 +250,8 @@ export default function NewProductPage() {
           </div>
 
           {/* Sizes Section */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Sizes (Optional)</h2>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Sizes (Optional)</h2>
             <div className="space-y-3">
               {(formData.sizes || []).map((size, index) => (
                 <div key={index} className="flex gap-3">
@@ -300,8 +300,8 @@ export default function NewProductPage() {
           </div>
 
           {/* Gemstones Section */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Gemstones (Optional)</h2>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Gemstones (Optional)</h2>
             <div className="space-y-4">
               {(formData.gemstones || []).map((gemstone, index) => (
                 <div key={index} className="p-4 border rounded-lg space-y-3">
@@ -393,8 +393,8 @@ export default function NewProductPage() {
           </div>
 
           {/* Availability & Lead Time */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Availability & Lead Time</h2>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Availability & Lead Time</h2>
             <div className="space-y-4">
               <div>
                 <Label htmlFor="availability">Availability Status</Label>
@@ -448,9 +448,9 @@ export default function NewProductPage() {
           </div>
 
           {/* Status Section */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Visibility & Stock</h2>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Visibility & Stock</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -478,25 +478,27 @@ export default function NewProductPage() {
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="flex justify-between items-center bg-white rounded-lg shadow p-6">
+          {/* Actions - Fixed on Mobile, Inline on Desktop */}
+          <div className="hidden sm:flex justify-between items-center bg-white rounded-lg shadow p-4 sm:p-6">
             <Link href="/admin/products">
-              <Button type="button" variant="outline">
+              <Button type="button" variant="outline" className="h-11 sm:h-10">
                 Cancel
               </Button>
             </Link>
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <Button
                 type="button"
                 variant="outline"
+                className="h-11 sm:h-10"
                 onClick={(e) => handleSubmit(e, 'draft')}
                 disabled={saving}
               >
-                <Save className="mr-2 h-4 w-4" />
+                <Save className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
                 Save as Draft
               </Button>
               <Button
                 type="button"
+                className="h-11 sm:h-10"
                 onClick={(e) => handleSubmit(e, 'published')}
                 disabled={saving}
               >
@@ -505,6 +507,35 @@ export default function NewProductPage() {
             </div>
           </div>
         </form>
+
+        {/* Mobile Fixed Action Bar */}
+        <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 safe-area-pb">
+          <div className="flex flex-col gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-11"
+              onClick={(e) => handleSubmit(e, 'draft')}
+              disabled={saving}
+            >
+              <Save className="mr-2 h-5 w-5" />
+              Save as Draft
+            </Button>
+            <Button
+              type="button"
+              className="w-full h-11"
+              onClick={(e) => handleSubmit(e, 'published')}
+              disabled={saving}
+            >
+              {saving ? 'Publishing...' : 'Publish Product'}
+            </Button>
+            <Link href="/admin/products" className="block">
+              <Button type="button" variant="ghost" className="w-full h-11">
+                Cancel
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
       <Toaster />
     </div>
