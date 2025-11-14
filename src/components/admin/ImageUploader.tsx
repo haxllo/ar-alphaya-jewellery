@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { X, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import dynamic from 'next/dynamic'
-import '@uploadcare/react-uploader/core.css'
 
 // Polyfill for crypto.randomUUID if not available
 if (typeof window !== 'undefined' && !crypto.randomUUID) {
@@ -18,12 +16,6 @@ if (typeof window !== 'undefined' && !crypto.randomUUID) {
   }
 }
 
-// Dynamically import FileUploaderRegular to avoid SSR issues
-const FileUploaderRegular = dynamic(
-  () => import('@uploadcare/react-uploader/next').then((mod) => mod.FileUploaderRegular),
-  { ssr: false }
-)
-
 interface ImageUploaderProps {
   images: string[]
   onChange: (images: string[]) => void
@@ -31,81 +23,45 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploaderProps) {
-  const ctxProviderRef = useRef<any>(null)
-  const addedUrls = useRef<Set<string>>(new Set())
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    // Listen for file-upload-success event
-    const handleUploadSuccess = (e: any) => {
-      console.log('=== FILE UPLOAD SUCCESS EVENT ===')
-      console.log('Success event detail:', e.detail)
-      
-      const file = e.detail
-      if (file) {
-        console.log('File object:', file)
-        console.log('cdnUrl:', file.cdnUrl)
-        console.log('uuid:', file.uuid)
-        
-        // Extract UUID for deduplication
-        const uuid = file.uuid || (file.cdnUrl ? file.cdnUrl.split('/').find((part: string) => part.match(/^[a-f0-9-]{36}$/i)) : null)
-        
-        // Check if already added to prevent duplicates
-        if (uuid && addedUrls.current.has(uuid)) {
-          console.log('Image already added, skipping:', uuid)
-          return
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+
+    setUploading(true)
+
+    try {
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('UPLOADCARE_PUB_KEY', '5eb856a1c841f37fa95c')
+
+        const response = await fetch('https://upload.uploadcare.com/base/', {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (!response.ok) {
+          throw new Error('Upload failed')
         }
-        
-        // Use the cdnUrl directly from Uploadcare API response
-        // According to docs: https://ucarecdn.com/{uuid}/ is the correct format
-        let imageUrl = file.cdnUrl
-        
-        if (!imageUrl && uuid) {
-          // Fallback: construct URL with trailing slash (Uploadcare docs format)
-          imageUrl = `https://ucarecdn.com/${uuid}/`
-          console.log('Constructed URL from UUID:', imageUrl)
-        } else {
-          console.log('Using cdnUrl from API:', imageUrl)
-        }
-        
-        if (imageUrl) {
-          if (uuid) {
-            addedUrls.current.add(uuid)
-          }
-          onChange([...images, imageUrl])
-        } else {
-          console.error('No valid URL found for file:', file)
-        }
+
+        const data = await response.json()
+        return `https://ucarecdn.com/${data.file}/`
+      })
+
+      const uploadedUrls = await Promise.all(uploadPromises)
+      onChange([...images, ...uploadedUrls])
+    } catch (error) {
+      console.error('Error uploading images:', error)
+      alert('Failed to upload images. Please try again.')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
       }
     }
-
-    const provider = document.querySelector('uc-upload-ctx-provider')
-    if (provider) {
-      ctxProviderRef.current = provider
-      provider.addEventListener('file-upload-success', handleUploadSuccess)
-      
-      return () => {
-        provider.removeEventListener('file-upload-success', handleUploadSuccess)
-      }
-    }
-  }, [images, onChange])
-
-  const handleChangeEvent = (e: any) => {
-    console.log('=== UPLOADCARE CHANGE EVENT ===')
-    console.log('Event type:', e.type)
-    
-    // IMPORTANT: Don't process onChange - let file-upload-success handle it
-    // onChange fires multiple times (file added, uploading, success)
-    // We only want to add URLs when file-upload-success fires
-    
-    const allEntries = e.detail?.allEntries || e.allEntries || []
-    console.log('Change event - file count:', allEntries.length)
-    console.log('File statuses:', allEntries.map((f: any) => ({
-      name: f.name,
-      status: f.status,
-      uuid: f.uuid?.substring(0, 8) + '...'
-    })))
-    
-    // Don't add images here - file-upload-success will handle it
   }
 
   const removeImage = (index: number) => {
@@ -188,17 +144,30 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
               {images.length} / {maxImages} uploaded
             </p>
           </div>
-          <FileUploaderRegular
-            ctxName="product-uploader"
-            pubkey="5eb856a1c841f37fa95c"
-            classNameUploader="uc-light"
-            sourceList="local, camera, url"
-            multiple={true}
-            multipleMax={maxImages - images.length}
-            imgOnly={true}
-            userAgentIntegration="llm-nextjs"
-            onChange={handleChangeEvent}
-          />
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleFileSelect}
+              disabled={uploading}
+              className="hidden"
+              id="file-upload"
+            />
+            <label
+              htmlFor="file-upload"
+              className={`cursor-pointer inline-flex flex-col items-center ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <Upload className="h-12 w-12 text-gray-400 mb-3" />
+              <span className="text-sm font-medium text-gray-700 mb-1">
+                {uploading ? 'Uploading...' : 'Click to upload or drag and drop'}
+              </span>
+              <span className="text-xs text-gray-500">
+                PNG, JPG, GIF up to 10MB
+              </span>
+            </label>
+          </div>
         </div>
       )}
       
