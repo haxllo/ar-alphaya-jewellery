@@ -14,8 +14,13 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploaderProps) {
+  const [isMounted, setIsMounted] = useState(false)
   const ctxProviderRef = useRef<any>(null)
   const addedUrls = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   useEffect(() => {
     // Listen for file-upload-success event
@@ -171,17 +176,23 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
               {images.length} / {maxImages} uploaded
             </p>
           </div>
-          <FileUploaderRegular
-            ctxName="product-uploader"
-            pubkey="5eb856a1c841f37fa95c"
-            classNameUploader="uc-light"
-            sourceList="local, camera, url"
-            multiple={true}
-            multipleMax={maxImages - images.length}
-            imgOnly={true}
-            userAgentIntegration="llm-nextjs"
-            onChange={handleChangeEvent}
-          />
+          {isMounted ? (
+            <FileUploaderRegular
+              ctxName="product-uploader"
+              pubkey="5eb856a1c841f37fa95c"
+              classNameUploader="uc-light"
+              sourceList="local, camera, url"
+              multiple={true}
+              multipleMax={maxImages - images.length}
+              imgOnly={true}
+              userAgentIntegration="llm-nextjs"
+              onChange={handleChangeEvent}
+            />
+          ) : (
+            <div className="flex items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+              <p className="text-sm text-gray-500">Loading uploader...</p>
+            </div>
+          )}
         </div>
       )}
       
