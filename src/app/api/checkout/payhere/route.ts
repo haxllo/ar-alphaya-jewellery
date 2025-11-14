@@ -80,37 +80,49 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     // Don't fail the request, but log the error
   }
   
-  // Generate secure hash using SHA-256 instead of MD5
-  const hashedSecret = crypto.createHash('sha256').update(merchantSecret).digest('hex').toUpperCase()
+  // Generate hash using MD5 (required by PayHere)
+  // Formula: MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret))
+  const hashedSecret = crypto.createHash('md5').update(merchantSecret).digest('hex').toUpperCase()
   const amountFormatted = parseFloat((total / 100).toFixed(2)) // Convert cents to LKR
-  const hash = crypto.createHash('sha256')
+  const hash = crypto.createHash('md5')
     .update(`${merchantId}${orderId}${amountFormatted}${currency}${hashedSecret}`)
     .digest('hex')
     .toUpperCase()
+  
+  // Debug logging (remove in production)
+  console.log('PayHere Payment Details:', {
+    merchantId,
+    orderId,
+    amount: amountFormatted,
+    currency,
+    hashPreview: hash.substring(0, 10) + '...',
+    totalRaw: total,
+    itemCount: items.length
+  })
     
-    // Prepare payment data for PayHere
-    const paymentData = {
-      sandbox: process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === 'true',
-      merchant_id: merchantId,
-      return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
-      notify_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/checkout/payhere/notify`,
-      order_id: orderId,
-      items: items.map((item: any) => item.name).join(', '),
-      amount: amountFormatted,
-      currency: currency,
-      hash: hash,
-      first_name: customer.firstName,
-      last_name: customer.lastName,
-      email: customer.email,
-      phone: customer.phone,
-      address: customer.address,
-      city: customer.city,
-      country: 'Sri Lanka',
-      delivery_address: customer.address,
-      delivery_city: customer.city,
-      delivery_country: 'Sri Lanka'
-    }
+  // Prepare payment data for PayHere
+  const paymentData = {
+    sandbox: process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === 'true',
+    merchant_id: merchantId,
+    return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+    notify_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/checkout/payhere/notify`,
+    order_id: orderId,
+    items: items.map((item: any) => item.name).join(', '),
+    amount: amountFormatted,
+    currency: currency,
+    hash: hash,
+    first_name: customer.firstName,
+    last_name: customer.lastName,
+    email: customer.email,
+    phone: customer.phone,
+    address: customer.address,
+    city: customer.city,
+    country: 'Sri Lanka',
+    delivery_address: customer.address,
+    delivery_city: customer.city,
+    delivery_country: 'Sri Lanka'
+  }
     
   const response = NextResponse.json({ paymentData, orderId: order.id })
   return applySecurityHeaders(response);

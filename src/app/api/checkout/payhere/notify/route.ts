@@ -24,21 +24,23 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   const statusCode = formData.get('status_code') as string
   const receivedSignature = formData.get('md5sig') as string
 
-  // Verify the signature using SHA-256
+  // Verify the signature using MD5 (PayHere uses MD5)
   const merchantSecret = process.env.PAYHERE_MERCHANT_SECRET
   if (!merchantSecret) {
     throw new Error('PayHere merchant secret not configured')
   }
 
-  // Generate expected signature using SHA-256
-  const hashedSecret = crypto.createHash('sha256').update(merchantSecret).digest('hex').toUpperCase()
-  const expectedSignature = crypto.createHash('sha256')
+  // Generate expected signature using MD5
+  // Formula: MD5(merchant_id + order_id + payhere_amount + MD5(merchant_secret))
+  const hashedSecret = crypto.createHash('md5').update(merchantSecret).digest('hex').toUpperCase()
+  const expectedSignature = crypto.createHash('md5')
     .update(`${merchantId}${orderId}${payhereAmount}${hashedSecret}`)
     .digest('hex')
     .toUpperCase()
 
   // Verify signature
   if (receivedSignature !== expectedSignature) {
+    console.error('Signature mismatch:', { received: receivedSignature, expected: expectedSignature })
     throw new Error('Invalid payment signature')
   }
 

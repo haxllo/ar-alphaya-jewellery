@@ -65,6 +65,13 @@ export const initializePayment = async (
       throw new Error('PayHere SDK not available')
     }
 
+    // Debug: Log payment data (remove in production)
+    console.log('Initializing PayHere with data:', {
+      ...payment,
+      hash: payment.hash ? `${payment.hash.substring(0, 10)}...` : 'missing',
+      merchant_secret: '***hidden***'
+    })
+
     // Set up callbacks
     window.payhere.onCompleted = callbacks.onCompleted
     window.payhere.onDismissed = callbacks.onDismissed
