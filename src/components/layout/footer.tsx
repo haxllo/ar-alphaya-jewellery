@@ -58,7 +58,8 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => setShowSizeGuide(true)}
-                  className="text-left w-full p-0 m-0 bg-transparent border-0 inline transition-colors hover:text-white cursor-pointer font-normal"
+                  className="p-0 m-0 bg-transparent border-0 transition-colors hover:text-white cursor-pointer font-inherit text-inherit leading-inherit appearance-none"
+                  style={{ display: 'contents' }}
                   aria-label="Open size guide modal"
                 >
                   Size Guide
