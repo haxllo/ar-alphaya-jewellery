@@ -185,9 +185,10 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 ## Security Features
 
 ### Hash Verification
-- All payments use SHA-256 hashing (PayHere docs mention MD5, but we use SHA-256 for better security)
+- All payments use MD5 hashing (required by PayHere API)
+- Hash formula: `MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret))`
 - Merchant secret never exposed to client
-- Webhook signatures verified on server
+- Webhook signatures verified on server using the same MD5 formula
 
 ### Rate Limiting
 - Payment endpoints protected by rate limiting
