@@ -8,6 +8,8 @@ import SizeGuideModal from '@/components/ui/SizeGuideModal'
 import Link from 'next/link'
 import { analytics } from '@/lib/analytics'
 import { useRouter } from 'next/navigation'
+import PayHereCheckout from '@/components/checkout/PayHereCheckout'
+import type { PayHerePayment } from '@/types/payhere'
 
 type PaymentMethod = 'payhere' | 'bank_transfer'
 
@@ -60,6 +62,7 @@ function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [paymentData, setPaymentData] = useState<PayHerePayment | null>(null)
   
   // Pre-fill form with user data
   useEffect(() => {
@@ -140,18 +143,17 @@ function CheckoutPage() {
         })
       })
       
-      const { paymentData } = await response.json()
-      
-      // Initialize PayHere payment
-      if (window.payhere) {
-        window.payhere.startPayment(paymentData)
-      } else {
-        alert('PayHere not loaded. Please try again.')
+      if (!response.ok) {
+        throw new Error('Failed to create payment')
       }
+      
+      const { paymentData: payment } = await response.json()
+      
+      // Set payment data - PayHereCheckout component will handle the rest
+      setPaymentData(payment)
     } catch (error) {
       console.error('Payment error:', error)
       alert('Payment failed. Please try again.')
-    } finally {
       setIsProcessing(false)
     }
   }
@@ -421,8 +423,23 @@ function CheckoutPage() {
         </div>
       </div>
 
-      {/* PayHere Script */}
-      <script src="https://www.payhere.lk/lib/payhere.js" async />
+      {/* PayHere Checkout Component */}
+      <PayHereCheckout 
+        paymentData={paymentData}
+        onSuccess={(orderId) => {
+          console.log('Payment successful:', orderId)
+          clear() // Clear cart on success
+        }}
+        onCancel={() => {
+          setIsProcessing(false)
+          setPaymentData(null)
+        }}
+        onError={(error) => {
+          console.error('Payment error:', error)
+          setIsProcessing(false)
+          setPaymentData(null)
+        }}
+      />
       
       <SizeGuideModal
         isOpen={showSizeGuide}
