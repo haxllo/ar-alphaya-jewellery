@@ -13,7 +13,7 @@ export interface Product {
   sku: string | null
   materials: string[] | null
   tags: string[] | null
-  weight: number | null
+  weight: number | string | null
   dimensions: string | null
   sizes: Size[] | null
   gemstones: Gemstone[] | null
@@ -54,7 +54,7 @@ export interface ProductFormData {
   sku: string
   materials: string[]
   tags: string[]
-  weight: number | null
+  weight: number | string | null
   dimensions: string
   sizes: Size[]
   gemstones: Gemstone[]

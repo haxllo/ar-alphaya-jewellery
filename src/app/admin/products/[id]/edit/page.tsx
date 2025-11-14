@@ -73,8 +73,24 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   const handleSave = async (status?: 'draft' | 'published') => {
     if (!productId) return
 
+    // Prepare data for validation - convert null to undefined
+    const dataToValidate = {
+      ...product,
+      description: product.description ?? undefined,
+      sku: product.sku ?? undefined,
+      materials: product.materials ?? undefined,
+      tags: product.tags ?? undefined,
+      weight: product.weight ?? undefined,
+      dimensions: product.dimensions ?? undefined,
+      sizes: product.sizes ?? undefined,
+      gemstones: product.gemstones ?? undefined,
+      availability: product.availability ?? undefined,
+      lead_time: product.lead_time ?? undefined,
+      status_note: product.status_note ?? undefined,
+    }
+
     // Validate form before submission
-    const isValid = validateForm(product)
+    const isValid = validateForm(dataToValidate)
     
     if (!isValid) {
       toast({
