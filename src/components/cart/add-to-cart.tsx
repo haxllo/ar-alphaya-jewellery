@@ -90,8 +90,8 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
       // Brief delay for visual feedback
       await new Promise(resolve => setTimeout(resolve, 300))
       
-      // Redirect to checkout
-      router.push('/checkout')
+      // Redirect to cart page (user can review before checkout)
+      router.push('/cart')
     } catch (error) {
       console.error('Buy now error:', error)
       setIsBuyingNow(false)
@@ -115,11 +115,11 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
             ? 'bg-black hover:bg-gray-800 text-white shadow-lg hover:shadow-xl'
             : 'bg-gray-200 text-gray-400 cursor-not-allowed'
         }`}
-        aria-label={isBuyingNow ? 'Proceeding to checkout...' : 'Buy now'}
+        aria-label={isBuyingNow ? 'Adding to cart...' : 'Buy now'}
       >
-        <Zap className={`h-5 w-5 ${isBuyingNow ? 'animate-pulse' : ''}`} />
+        <ShoppingCart className={`h-5 w-5 ${isBuyingNow ? 'animate-pulse' : ''}`} />
         {isBuyingNow ? (
-          'Proceeding to Checkout...'
+          'Adding to Cart...'
         ) : (
           'Buy Now'
         )}
