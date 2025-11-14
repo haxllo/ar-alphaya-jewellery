@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ArrowLeft, Save, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,11 +14,13 @@ import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMST
 import { generateSlugFromName } from '@/lib/admin/validation'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import { useProductValidation } from '@/hooks/useProductValidation'
 import type { ProductFormData, Size, Gemstone } from '@/types/admin'
 
 export default function NewProductPage() {
   const router = useRouter()
   const { toast } = useToast()
+  const { errors, validateForm, validateField, clearError, setFieldError } = useProductValidation()
   const [saving, setSaving] = useState(false)
   const [formData, setFormData] = useState<Partial<ProductFormData>>({
     name: '',
@@ -50,10 +52,40 @@ export default function NewProductPage() {
       name,
       slug: generateSlugFromName(name)
     }))
+    // Clear errors when field is modified
+    clearError('name')
+    clearError('slug')
+  }
+
+  const handleFieldBlur = (field: keyof ProductFormData, value: any) => {
+    const error = validateField(field, value)
+    if (error) {
+      setFieldError(field as any, error)
+    } else {
+      clearError(field as any)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent, status: 'draft' | 'published') => {
     e.preventDefault()
+
+    // Validate form before submission
+    const isValid = validateForm(formData)
+    
+    if (!isValid) {
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        description: "Please fix all errors before submitting the form.",
+      })
+      // Scroll to first error
+      const firstErrorElement = document.querySelector('.border-red-500')
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      return
+    }
+
     setSaving(true)
 
     try {
@@ -79,7 +111,11 @@ export default function NewProductPage() {
       setTimeout(() => router.push('/admin/products'), 1000)
     } catch (error) {
       console.error('Error saving product:', error)
-      alert(error instanceof Error ? error.message : 'Failed to save product')
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error instanceof Error ? error.message : 'Failed to save product',
+      })
       setSaving(false)
     }
   }
@@ -108,10 +144,21 @@ export default function NewProductPage() {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => handleNameChange(e.target.value)}
+                  onChange={(e) => {
+                    handleNameChange(e.target.value)
+                    clearError('name')
+                  }}
+                  onBlur={(e) => handleFieldBlur('name', e.target.value)}
                   placeholder="e.g., Diamond Engagement Ring"
+                  className={errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   required
                 />
+                {errors.name && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.name}</span>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -119,10 +166,21 @@ export default function NewProductPage() {
                 <Input
                   id="slug"
                   value={formData.slug}
-                  onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, slug: e.target.value }))
+                    clearError('slug')
+                  }}
+                  onBlur={(e) => handleFieldBlur('slug', e.target.value)}
                   placeholder="diamond-engagement-ring"
+                  className={errors.slug ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   required
                 />
+                {errors.slug && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.slug}</span>
+                  </div>
+                )}
                 <p className="mt-1 text-xs text-gray-500">
                   https://aralphayajewellery.com/products/{formData.slug || 'product-slug'}
                 </p>
@@ -133,10 +191,21 @@ export default function NewProductPage() {
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, description: e.target.value }))
+                    clearError('description')
+                  }}
+                  onBlur={(e) => handleFieldBlur('description', e.target.value)}
                   placeholder="Describe the product in detail..."
                   rows={6}
+                  className={errors.description ? 'border-red-500 focus-visible:ring-red-500' : ''}
                 />
+                {errors.description && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.description}</span>
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -144,23 +213,44 @@ export default function NewProductPage() {
                   <Label htmlFor="category">Category *</Label>
                   <select
                     id="category"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className={`flex h-10 w-full rounded-md border ${errors.category ? 'border-red-500' : 'border-input'} bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 ${errors.category ? 'focus-visible:ring-red-500' : 'focus-visible:ring-ring'}`}
                     value={formData.category}
-                    onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                    onChange={(e) => {
+                      setFormData(prev => ({ ...prev, category: e.target.value }))
+                      clearError('category')
+                    }}
+                    onBlur={(e) => handleFieldBlur('category', e.target.value)}
                   >
                     {PRODUCT_CATEGORIES.map(cat => (
                       <option key={cat.value} value={cat.value}>{cat.label}</option>
                     ))}
                   </select>
+                  {errors.category && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.category}</span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="sku">SKU</Label>
                   <Input
                     id="sku"
                     value={formData.sku}
-                    onChange={(e) => setFormData(prev => ({ ...prev, sku: e.target.value }))}
+                    onChange={(e) => {
+                      setFormData(prev => ({ ...prev, sku: e.target.value }))
+                      clearError('sku')
+                    }}
+                    onBlur={(e) => handleFieldBlur('sku', e.target.value)}
                     placeholder="RING-001"
+                    className={errors.sku ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   />
+                  {errors.sku && (
+                    <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{errors.sku}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -176,11 +266,22 @@ export default function NewProductPage() {
                   id="price"
                   type="number"
                   value={formData.price}
-                  onChange={(e) => setFormData(prev => ({ ...prev, price: Number(e.target.value) }))}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, price: Number(e.target.value) }))
+                    clearError('price')
+                  }}
+                  onBlur={(e) => handleFieldBlur('price', Number(e.target.value))}
                   min="0"
                   step="1"
+                  className={errors.price ? 'border-red-500 focus-visible:ring-red-500' : ''}
                   required
                 />
+                {errors.price && (
+                  <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>{errors.price}</span>
+                  </div>
+                )}
               </div>
               <div>
                 <Label htmlFor="currency">Currency</Label>
@@ -245,8 +346,19 @@ export default function NewProductPage() {
             <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Product Images *</h2>
             <ImageUploader
               images={formData.images || []}
-              onChange={(images) => setFormData(prev => ({ ...prev, images }))}
+              onChange={(images) => {
+                setFormData(prev => ({ ...prev, images }))
+                clearError('images')
+                // Validate images when changed
+                handleFieldBlur('images', images)
+              }}
             />
+            {errors.images && (
+              <div className="flex items-center gap-1 mt-2 text-sm text-red-600">
+                <AlertCircle className="h-4 w-4" />
+                <span>{errors.images}</span>
+              </div>
+            )}
           </div>
 
           {/* Sizes Section */}
