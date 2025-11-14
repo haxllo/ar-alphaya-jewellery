@@ -83,8 +83,8 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   // Generate hash using MD5 (required by PayHere)
   // Formula: MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret))
   const hashedSecret = crypto.createHash('md5').update(merchantSecret).digest('hex').toUpperCase()
-  // Prices are already in rupees (LKR), just format to 2 decimal places
-  const amountFormatted = parseFloat(total.toFixed(2))
+  // IMPORTANT: Amount must be string with exactly 2 decimal places for hash
+  const amountFormatted = total.toFixed(2)
   const hash = crypto.createHash('md5')
     .update(`${merchantId}${orderId}${amountFormatted}${currency}${hashedSecret}`)
     .digest('hex')
@@ -95,10 +95,13 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     merchantId,
     orderId,
     amount: amountFormatted,
+    amountType: typeof amountFormatted,
     currency,
+    hash: hash,
     hashPreview: hash.substring(0, 10) + '...',
     totalRaw: total,
-    itemCount: items.length
+    itemCount: items.length,
+    hashInput: `${merchantId}${orderId}${amountFormatted}${currency}${hashedSecret.substring(0, 10)}...`
   })
     
   // Prepare payment data for PayHere
@@ -110,7 +113,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     notify_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/checkout/payhere/notify`,
     order_id: orderId,
     items: items.map((item: any) => item.name).join(', '),
-    amount: amountFormatted,
+    amount: parseFloat(amountFormatted),
     currency: currency,
     hash: hash,
     first_name: customer.firstName,

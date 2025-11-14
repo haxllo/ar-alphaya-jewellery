@@ -33,8 +33,10 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   // Generate expected signature using MD5
   // Formula: MD5(merchant_id + order_id + payhere_amount + MD5(merchant_secret))
   const hashedSecret = crypto.createHash('md5').update(merchantSecret).digest('hex').toUpperCase()
+  // IMPORTANT: Amount must be formatted with exactly 2 decimal places
+  const amountFormatted = parseFloat(payhereAmount).toFixed(2)
   const expectedSignature = crypto.createHash('md5')
-    .update(`${merchantId}${orderId}${payhereAmount}${hashedSecret}`)
+    .update(`${merchantId}${orderId}${amountFormatted}${hashedSecret}`)
     .digest('hex')
     .toUpperCase()
 
