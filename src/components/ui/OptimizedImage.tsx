@@ -53,14 +53,20 @@ const getUploadcareUrl = (url: string, width?: number): string => {
   
   // Apply transformations for optimization
   if (width) {
-    // Format: https://ucarecdn.com/uuid/-/preview/800x800/-/format/auto/
+    // Format: https://2vhk07la2x.ucarecd.net/uuid/-/preview/800x800/-/format/auto/
     // - preview: Resizes image to specified dimensions
     // - format/auto: Automatically converts HEIC/HEIF and selects best format (AVIF/WebP/JPEG/PNG)
     // - Adaptive Quality: Enabled by default, intelligently compresses each image for optimal quality/size
-    const uuid = url.split('ucarecdn.com/')[1]?.split('/')[0]
+    const uuid = url.match(/ucarecd\.net\/([^/-]+)/)?.[1]
     if (uuid) {
-      return `https://ucarecdn.com/${uuid}/-/preview/${width}x${width}/-/format/auto/`
+      return `https://2vhk07la2x.ucarecd.net/${uuid}/-/preview/${width}x${width}/-/format/auto/`
     }
+  }
+  
+  // If no width specified, still apply format/auto for HEIC support
+  const uuid = url.match(/ucarecd\.net\/([^/-]+)/)?.[1]
+  if (uuid) {
+    return `https://2vhk07la2x.ucarecd.net/${uuid}/-/format/auto/`
   }
   
   return url

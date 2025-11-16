@@ -6,16 +6,23 @@ import Image from 'next/image'
 import { Plus, Search, Filter, CheckSquare, X, BookOpen } from 'lucide-react'
 
 // Helper to normalize Uploadcare URLs to project-specific CDN subdomain
-// Generic ucarecdn.com doesn't work with Vercel Image Optimization
+// Also adds format/auto to convert HEIC/HEIF files to browser-compatible formats
 const fixImageUrl = (url: string) => {
   if (!url) return ''
-  // Convert generic ucarecdn.com to project-specific subdomain
+  
+  // Extract UUID from any Uploadcare URL format
+  let uuid = ''
   if (url.includes('ucarecdn.com/')) {
-    const uuid = url.match(/ucarecdn\.com\/([^/]+)/)?.[1]
-    if (uuid) {
-      return `https://2vhk07la2x.ucarecd.net/${uuid}/`
-    }
+    uuid = url.match(/ucarecdn\.com\/([^/]+)/)?.[1] || ''
+  } else if (url.includes('ucarecd.net/')) {
+    uuid = url.match(/ucarecd\.net\/([^/]+)/)?.[1] || ''
   }
+  
+  // Return with format/auto to convert HEIC files
+  if (uuid) {
+    return `https://2vhk07la2x.ucarecd.net/${uuid}/-/format/auto/`
+  }
+  
   return url
 }
 import { Button } from '@/components/ui/button'
