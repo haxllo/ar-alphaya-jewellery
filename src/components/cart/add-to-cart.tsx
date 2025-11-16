@@ -146,8 +146,10 @@ export default function AddToCart({ product, selectedSize = '', selectedGemstone
 
       {!canAddToCart() && (
         <div className="text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-lg p-3">
-          {product.sizes && product.sizes.length > 0 && !selectedSize && 'Please select a size'}
-          {product.gemstones && product.gemstones.length > 0 && !selectedGemstone && 'Please select a gemstone'}
+          {[
+            product.sizes && product.sizes.length > 0 && !selectedSize && 'Please select a size',
+            product.gemstones && product.gemstones.length > 0 && !selectedGemstone && 'Please select a gemstone'
+          ].filter(Boolean).join('. ')}
         </div>
       )}
     </div>
