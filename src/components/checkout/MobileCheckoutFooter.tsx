@@ -43,7 +43,7 @@ export default function MobileCheckoutFooter({
             size="lg"
             disabled={isProcessing}
             onClick={(e) => onSubmit(e)}
-            className="flex-1 h-12 text-base font-semibold"
+            className="flex-1 h-12 text-base font-semibold bg-black hover:bg-gray-800 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:bg-gray-400"
           >
             {isProcessing ? (
               <span className="flex items-center gap-2">

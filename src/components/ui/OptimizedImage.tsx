@@ -44,10 +44,13 @@ const getUploadcareUrl = (url: string, width?: number): string => {
   
   // Apply transformations for optimization
   if (width) {
-    // Format: https://ucarecdn.com/uuid/-/preview/800x800/-/format/auto/-/quality/smart/
+    // Format: https://ucarecdn.com/uuid/-/preview/800x800/-/format/auto/
+    // - preview: Resizes image to specified dimensions
+    // - format/auto: Automatically converts HEIC/HEIF and selects best format (AVIF/WebP/JPEG/PNG)
+    // - Adaptive Quality: Enabled by default, intelligently compresses each image for optimal quality/size
     const uuid = url.split('ucarecdn.com/')[1]?.split('/')[0]
     if (uuid) {
-      return `https://ucarecdn.com/${uuid}/-/preview/${width}x${width}/-/format/auto/-/quality/smart/`
+      return `https://ucarecdn.com/${uuid}/-/preview/${width}x${width}/-/format/auto/`
     }
   }
   
