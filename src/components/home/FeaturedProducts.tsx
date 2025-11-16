@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import type { Product } from '@/types/product'
+import { fixUploadcareUrl } from '@/lib/fix-uploadcare-url'
 
 interface FeaturedProductsProps {
   products: Product[]

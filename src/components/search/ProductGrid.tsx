@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Product } from '@/lib/cms'
 import { useCurrency } from '@/hooks/useCurrency'
 import QuickView from '@/components/product/QuickView'
+import { fixUploadcareUrl } from '@/lib/fix-uploadcare-url'
 
 interface ProductGridProps {
   products: Product[]
@@ -54,7 +55,7 @@ function ProductGridComponent({ products }: ProductGridProps) {
             <div className="aspect-square relative overflow-hidden bg-gray-100">
               {product.images && product.images.length > 0 ? (
                 <Image
-                  src={product.images[0]}
+                  src={fixUploadcareUrl(product.images[0])}
                   alt={product.name}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"

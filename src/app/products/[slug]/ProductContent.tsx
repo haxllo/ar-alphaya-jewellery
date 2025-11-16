@@ -11,6 +11,7 @@ import StarRating from '@/components/reviews/StarRating'
 import { useRecentlyViewedStore } from '@/lib/store/recentlyViewed'
 import type { Product, GemstoneOption, Review, ReviewSummary } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
+import { fixUploadcareUrl } from '@/lib/fix-uploadcare-url'
 
 // Lazy-load below-the-fold/heavy components to improve TTI
 const WishlistButton = dynamic(() => import('@/components/wishlist/WishlistButton'), { ssr: false })
@@ -112,7 +113,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
             <div className="relative aspect-square overflow-hidden rounded-3xl border border-nocturne-100 bg-white/70 shadow-subtle">
               {product.images && product.images[0] ? (
                 <Image 
-                  src={product.images[0]}
+                  src={fixUploadcareUrl(product.images[0])}
                   alt={product.name}
                   fill
                   className="object-cover"
@@ -129,7 +130,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
               {product.images?.slice(1, 5).map((image, index) => (
                 <div key={index} className="relative aspect-square overflow-hidden rounded-2xl border border-transparent bg-white/60 transition-all duration-300 hover:border-gold-200">
                   <Image 
-                    src={image}
+                    src={fixUploadcareUrl(image)}
                     alt={`${product.name} view ${index + 2}`}
                     fill
                     className="cursor-pointer object-cover transition-opacity duration-300 hover:opacity-80"
