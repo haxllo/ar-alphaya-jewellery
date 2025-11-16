@@ -4,6 +4,20 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Plus, Search, Filter, CheckSquare, X, BookOpen } from 'lucide-react'
+
+// Helper to normalize Uploadcare URLs to project-specific CDN subdomain
+// Generic ucarecdn.com doesn't work with Vercel Image Optimization
+const fixImageUrl = (url: string) => {
+  if (!url) return ''
+  // Convert generic ucarecdn.com to project-specific subdomain
+  if (url.includes('ucarecdn.com/')) {
+    const uuid = url.match(/ucarecdn\.com\/([^/]+)/)?.[1]
+    if (uuid) {
+      return `https://2vhk07la2x.ucarecd.net/${uuid}/`
+    }
+  }
+  return url
+}
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -387,7 +401,7 @@ export default function AdminProductsPage() {
                         <div className="h-10 w-10 flex-shrink-0">
                           {product.images[0] ? (
                             <Image
-                              src={product.images[0]}
+                              src={fixImageUrl(product.images[0])}
                               alt={product.name}
                               width={40}
                               height={40}
@@ -462,7 +476,7 @@ export default function AdminProductsPage() {
                     <div className="flex-shrink-0">
                       {product.images[0] ? (
                         <Image
-                          src={product.images[0]}
+                          src={fixImageUrl(product.images[0])}
                           alt={product.name}
                           width={64}
                           height={64}

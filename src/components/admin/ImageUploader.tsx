@@ -37,7 +37,8 @@ export function ImageUploader({ images, onChange, maxImages = 10 }: ImageUploade
         }
 
         const data = await response.json()
-        return `https://ucarecdn.com/${data.file}/`
+        // Use project-specific CDN subdomain (required for Vercel Image Optimization)
+        return `https://2vhk07la2x.ucarecd.net/${data.file}/`
       })
 
       const uploadedUrls = await Promise.all(uploadPromises)

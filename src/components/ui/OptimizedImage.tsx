@@ -39,8 +39,17 @@ const toBase64 = (str: string) =>
 const getUploadcareUrl = (url: string, width?: number): string => {
   if (!url) return ''
   
+  // Normalize Uploadcare URLs to use project-specific CDN subdomain
+  // Generic ucarecdn.com doesn't work with Vercel Image Optimization
+  if (url.includes('ucarecdn.com/')) {
+    const uuid = url.match(/ucarecdn\.com\/([^/]+)/)?.[1]
+    if (uuid) {
+      url = `https://2vhk07la2x.ucarecd.net/${uuid}/`
+    }
+  }
+  
   // Check if it's an Uploadcare URL
-  if (!url.includes('ucarecdn.com')) return url
+  if (!url.includes('ucarecd.net')) return url
   
   // Apply transformations for optimization
   if (width) {
