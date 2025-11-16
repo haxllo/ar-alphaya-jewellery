@@ -7,6 +7,7 @@ import type { CartItem } from '@/types/product'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useSavedItemsStore } from '@/lib/store/savedItems'
 import { useWishlistStore } from '@/lib/store/wishlist'
+import { fixUploadcareUrl } from '@/lib/fix-uploadcare-url'
 
 interface CartItemProps {
   item: CartItem
