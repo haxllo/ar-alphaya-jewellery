@@ -24,3 +24,13 @@ CREATE INDEX IF NOT EXISTS idx_webhook_events_payment_id
 
 CREATE INDEX IF NOT EXISTS idx_webhook_events_status
   ON webhook_events(status);
+
+-- Enable Row Level Security
+ALTER TABLE webhook_events ENABLE ROW LEVEL SECURITY;
+
+-- Restrictive policy: No public access (backend service role only)
+-- This table is for internal audit logging and should not be accessible via PostgREST
+CREATE POLICY webhook_events_no_public_access
+  ON webhook_events
+  FOR ALL
+  USING (false);
