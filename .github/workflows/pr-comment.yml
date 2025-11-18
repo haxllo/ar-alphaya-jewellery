@@ -50,6 +50,7 @@ jobs:
           # Server-side env vars needed for build
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
       
       - name: Comment PR with results
         uses: actions/github-script@v7
