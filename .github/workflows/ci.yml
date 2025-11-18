@@ -41,6 +41,9 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_PAYHERE_MERCHANT_ID: ${{ secrets.NEXT_PUBLIC_PAYHERE_MERCHANT_ID }}
           NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          # Server-side env vars needed for build
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
