@@ -105,11 +105,13 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   })
     
   // Prepare payment data for PayHere
+  // Note: return_url and cancel_url are undefined for JS SDK modal
+  // Payment flow is handled via callbacks (onCompleted, onDismissed)
   const paymentData = {
     sandbox: process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === 'true',
     merchant_id: merchantId,
-    return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+    return_url: undefined,  // Not needed with JS SDK modal
+    cancel_url: undefined,  // Not needed with JS SDK modal
     notify_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/checkout/payhere/notify`,
     order_id: orderId,
     items: items.map((item: any) => item.name).join(', '),

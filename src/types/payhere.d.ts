@@ -3,8 +3,8 @@
 export interface PayHerePayment {
   sandbox: boolean
   merchant_id: string
-  return_url: string
-  cancel_url: string
+  return_url?: string | undefined  // Optional with JS SDK modal
+  cancel_url?: string | undefined  // Optional with JS SDK modal
   notify_url: string
   order_id: string
   items: string

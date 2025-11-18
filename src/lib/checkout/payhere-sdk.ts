@@ -49,7 +49,79 @@ export const loadPayHereSDK = (): Promise<void> => {
 }
 
 /**
- * Initialize PayHere payment with callbacks
+ * Create custom modal wrapper for PayHere
+ */
+const createModalWrapper = (): HTMLDivElement => {
+  const backdrop = document.createElement('div')
+  backdrop.id = 'payhere-custom-backdrop'
+  backdrop.className = 'payhere-modal-backdrop'
+  
+  backdrop.innerHTML = `
+    <div class="payhere-modal-container">
+      <div class="payhere-secure-badge">
+        <svg class="payhere-lock-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <span>Secure Payment by PayHere</span>
+      </div>
+      <div class="payhere-loading-skeleton" id="payhere-loading">
+        <div class="skeleton-header"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+        <div class="skeleton-footer"></div>
+      </div>
+      <div class="payhere-iframe-wrapper" id="payhere-iframe-wrapper"></div>
+    </div>
+  `
+  
+  return backdrop
+}
+
+/**
+ * Show modal wrapper with animation
+ */
+const showModalWrapper = (): void => {
+  const existing = document.getElementById('payhere-custom-backdrop')
+  if (existing) return
+  
+  const wrapper = createModalWrapper()
+  document.body.appendChild(wrapper)
+  document.body.style.overflow = 'hidden'
+  
+  // Trigger animation
+  requestAnimationFrame(() => {
+    wrapper.classList.add('active')
+  })
+  
+  // Hide loading skeleton after PayHere iframe loads (estimate 2s)
+  setTimeout(() => {
+    const loading = document.getElementById('payhere-loading')
+    if (loading) {
+      loading.style.opacity = '0'
+      setTimeout(() => loading.remove(), 300)
+    }
+  }, 2000)
+}
+
+/**
+ * Hide modal wrapper with animation
+ */
+const hideModalWrapper = (): void => {
+  const wrapper = document.getElementById('payhere-custom-backdrop')
+  if (wrapper) {
+    wrapper.classList.remove('active')
+    setTimeout(() => {
+      wrapper.remove()
+      document.body.style.overflow = ''
+    }, 300)
+  }
+}
+
+/**
+ * Initialize PayHere payment with callbacks and custom modal
  * @param payment - Payment data from backend
  * @param callbacks - Payment event callbacks
  */
@@ -72,14 +144,34 @@ export const initializePayment = async (
       merchant_secret: '***hidden***'
     })
 
+    // Show custom modal wrapper
+    showModalWrapper()
+
+    // Wrap callbacks with modal cleanup
+    const wrappedCallbacks = {
+      onCompleted: (orderId: string) => {
+        hideModalWrapper()
+        callbacks.onCompleted(orderId)
+      },
+      onDismissed: () => {
+        hideModalWrapper()
+        callbacks.onDismissed()
+      },
+      onError: (error: string) => {
+        hideModalWrapper()
+        callbacks.onError(error)
+      }
+    }
+
     // Set up callbacks
-    window.payhere.onCompleted = callbacks.onCompleted
-    window.payhere.onDismissed = callbacks.onDismissed
-    window.payhere.onError = callbacks.onError
+    window.payhere.onCompleted = wrappedCallbacks.onCompleted
+    window.payhere.onDismissed = wrappedCallbacks.onDismissed
+    window.payhere.onError = wrappedCallbacks.onError
 
     // Start payment
     window.payhere.startPayment(payment)
   } catch (error) {
+    hideModalWrapper()
     console.error('PayHere initialization error:', error)
     throw error
   }
