@@ -40,17 +40,16 @@
 
 ---
 
-#### 3. **Fixed: Lighthouse Workflow** ✅
-**File:** `.github/workflows/lighthouse.yml`
+#### 3. **Removed: Lighthouse Workflow** ❌
+**File:** `.github/workflows/lighthouse.yml` (REMOVED)
 
-**Changes:**
-- Use actual Next.js build (`npm run build` + `npm run start`)
-- Added wait-on for server readiness
-- Test correct URLs (localhost:3000 instead of 4173)
-- Properly terminate server after tests
-- Added all required environment variables
+**Reason:**
+- Not actively monitored
+- Adds 2-3 minutes to CI time
+- Can be run manually via web tools when needed
+- Listed in BACKLOG as future feature, not current requirement
 
-**Impact:** Accurate performance testing of production build
+**Impact:** Faster CI runs, simpler maintenance
 
 ---
 
@@ -111,7 +110,6 @@
 | **Testing Branch CI** | ✅ Push | ❌ | ❌ | ✅ | ✅ (to testing) |
 | **Main CI** | ❌ | ✅ Push | ❌ | ❌ | ✅ (to main) |
 | **Security Audit** | ❌ | ✅ (package changes) | ✅ Weekly Mon 2AM | ✅ | ❌ |
-| **Lighthouse** | ❌ | ✅ Push | ❌ | ✅ | ✅ (to main) |
 | **Abandoned Cart** | ❌ | ❌ | ✅ Every 30min | ✅ | ❌ |
 | **PR Comment** | ✅ PR | ✅ PR | ❌ | ❌ | ✅ |
 
@@ -158,12 +156,7 @@ You should see an automated comment with test results!
 ### 3. **Test Main CI** (After Merge)
 Once you merge testing → main, the main CI will run automatically
 
-### 4. **Test Lighthouse** (Manual)
-```bash
-gh workflow run lighthouse.yml
-```
-
-### 5. **Test Security Audit** (Manual)
+### 4. **Test Security Audit** (Manual)
 ```bash
 gh workflow run security.yml
 ```
@@ -175,19 +168,19 @@ gh workflow run security.yml
 ### Before:
 - ❌ No CI validation on testing branch
 - ❌ Bugs could merge to main without checks
-- ❌ Lighthouse tests failing (wrong build method)
 - ❌ Abandoned cart workflow not running (wrong env var)
 - ❌ No E2E tests in CI
 - ⚠️ Manual PR review without automated feedback
+- ⚠️ Lighthouse workflow exists but not used
 
 ### After:
 - ✅ All code validated on testing before merge
 - ✅ E2E tests run automatically (catches UI bugs)
-- ✅ Lighthouse tests work correctly
 - ✅ Abandoned cart workflow configured correctly
 - ✅ Automatic PR comments with test results
 - ✅ Security issues auto-reported
 - ✅ Better deployment confidence
+- ✅ Removed unused Lighthouse workflow (faster CI)
 
 ---
 
@@ -255,8 +248,6 @@ gh workflow run security.yml
 - **GitHub Actions Docs:** https://docs.github.com/en/actions
 - **Workflow Run History:** https://github.com/haxllo/ar-alphaya-jewellery/actions
 - **Playwright Docs:** https://playwright.dev/
-- **Lighthouse CI Docs:** https://github.com/GoogleChrome/lighthouse-ci
-
 ---
 
 ## 🐛 Troubleshooting
@@ -269,10 +260,6 @@ gh workflow run security.yml
 ### If PR Comment workflow doesn't post:
 1. Check GitHub Actions permissions: Settings → Actions → General
 2. Ensure "Read and write permissions" is enabled for GITHUB_TOKEN
-
-### If Lighthouse fails:
-1. Verify all NEXT_PUBLIC_* secrets are set
-2. Check server starts successfully: `npm run build && npm run start`
 
 ### If Abandoned Cart workflow doesn't run:
 1. Verify `ENABLE_ABANDONED_CART` secret is set to `'true'`
