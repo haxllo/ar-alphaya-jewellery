@@ -140,6 +140,7 @@ export default function RootLayout({
           <BackToTop />
           <ComparisonBar />
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   )
