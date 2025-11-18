@@ -21,6 +21,7 @@ export default function PayHereCheckout({
   const router = useRouter()
   const [isSDKLoaded, setIsSDKLoaded] = useState(false)
   const [isInitializing, setIsInitializing] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
 
   // Load PayHere SDK on mount
   useEffect(() => {
@@ -43,9 +44,13 @@ export default function PayHereCheckout({
     const callbacks = {
       onCompleted: (orderId: string) => {
         console.log('Payment completed:', orderId)
+        setShowSuccess(true)
         onSuccess?.(orderId)
-        // Redirect to success page
-        router.push(`/checkout/success?order_id=${orderId}`)
+        
+        // Show success animation for 1.5 seconds before redirect
+        setTimeout(() => {
+          router.push(`/checkout/success?order_id=${orderId}`)
+        }, 1500)
       },
       onDismissed: () => {
         console.log('Payment dismissed')
@@ -56,12 +61,6 @@ export default function PayHereCheckout({
         console.error('PayHere error:', error)
         setIsInitializing(false)
         onError?.(error)
-        // Show detailed error to user
-        if (error.includes('Unauthorized') || error.includes('unauthorized')) {
-          alert('❌ Payment Authorization Failed\n\nPossible causes:\n1. Domain not registered in PayHere sandbox\n2. Merchant ID mismatch\n3. Hash verification failed\n\n👉 Check PayHere Merchant Portal:\n   https://sandbox.payhere.lk/merchant/\n   Settings → Integrations → Add "localhost"')
-        } else {
-          alert(`Payment failed: ${error}.\n\nPlease try again or contact support.`)
-        }
       },
     }
 
@@ -83,5 +82,22 @@ export default function PayHereCheckout({
     )
   }
 
-  return null // PayHere SDK handles the UI
+  // Success animation overlay
+  if (showSuccess) {
+    return (
+      <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl text-center max-w-sm mx-4 animate-in fade-in zoom-in duration-300">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Payment Successful!</h3>
+          <p className="text-gray-600 text-sm">Redirecting to confirmation...</p>
+        </div>
+      </div>
+    )
+  }
+
+  return null // PayHere SDK handles the UI with custom modal wrapper
 }
