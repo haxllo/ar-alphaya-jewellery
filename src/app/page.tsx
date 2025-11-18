@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getProducts } from '@/lib/cms'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import DynamicHeroImage from '@/components/home/DynamicHeroImage'
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 export const revalidate = 60;
 
 export const metadata: Metadata = {

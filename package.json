@@ -29,6 +29,7 @@
     "@sentry/nextjs": "^10.23.0",
     "@supabase/supabase-js": "^2.80.0",
     "@uploadcare/react-uploader": "^1.11.0",
+    "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
