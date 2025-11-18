@@ -1,7 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { generateNonce, getSecurityHeaders } from "@/lib/security";
-export async function middleware(request: NextRequest) {
+
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Admin routes are now protected by Supabase auth in the layout
