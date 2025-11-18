@@ -16,16 +16,53 @@ const playfair = Playfair_Display({
   variable: "--font-serif",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 export const metadata: Metadata = {
   title: "AR Alphaya Jewellery | Bespoke Sri Lankan Jewellery",
   description: "A one-person atelier crafting custom jewellery in Kandy, Sri Lanka. Explore limited studio creations and commission coloured gemstone pieces made just for you.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(siteUrl),
   icons: {
     icon: '/images/LOGO1.png',
     shortcut: '/images/LOGO1.png',
     apple: '/images/LOGO2.png',
   },
   manifest: '/manifest.webmanifest',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    siteName: 'AR Alphaya Jewellery',
+    title: 'AR Alphaya Jewellery | Bespoke Sri Lankan Jewellery',
+    description: 'A one-person atelier crafting custom jewellery in Kandy, Sri Lanka. Explore limited studio creations and commission coloured gemstone pieces made just for you.',
+    images: [
+      {
+        url: `${siteUrl}/images/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'AR Alphaya Jewellery - Bespoke Gemstone Jewellery from Kandy, Sri Lanka',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AR Alphaya Jewellery | Bespoke Sri Lankan Jewellery',
+    description: 'A one-person atelier crafting custom jewellery in Kandy, Sri Lanka. Explore limited studio creations and commission coloured gemstone pieces.',
+    images: [`${siteUrl}/images/og-image.jpg`],
+  },
+  keywords: [
+    'Sri Lankan jewellery',
+    'bespoke jewellery',
+    'custom jewellery Kandy',
+    'gemstone jewellery',
+    'handcrafted jewellery',
+    'coloured gemstones',
+    'Sri Lanka artisan jewellery',
+    'made to order jewellery',
+  ],
+  authors: [{ name: 'AR Alphaya Jewellery' }],
+  creator: 'AR Alphaya Jewellery',
+  publisher: 'AR Alphaya Jewellery',
 };
 
 export const viewport = {
@@ -40,6 +77,7 @@ import CartSync from '@/components/cart/CartSync'
 import BackToTop from '@/components/ui/BackToTop'
 import ComparisonBar from '@/components/product/ComparisonBar'
 import { OrganizationStructuredData } from '@/components/seo/StructuredData'
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
 
 export default function RootLayout({
   children,
@@ -85,6 +123,11 @@ export default function RootLayout({
             })
           }}
         />
+        {/* Google Analytics */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
+        
         <Providers>
           <div className="relative flex min-h-screen flex-col">
             <div className="pointer-events-none absolute inset-0 bg-hero-radial" aria-hidden="true" />
