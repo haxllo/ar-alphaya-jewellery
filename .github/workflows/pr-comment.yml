@@ -26,10 +26,11 @@ jobs:
         run: npm run type-check 2>&1 | tee type-check.log
         continue-on-error: true
       
-      - name: Run lint
-        id: lint
-        run: npm run lint 2>&1 | tee lint.log
-        continue-on-error: true
+      # TODO: Fix lint - Next.js lint has directory resolution issue
+      # - name: Run lint
+      #   id: lint
+      #   run: npm run lint 2>&1 | tee lint.log
+      #   continue-on-error: true
       
       - name: Validate products
         id: validate
@@ -63,12 +64,10 @@ jobs:
             }
             
             const typeCheck = readLog('type-check.log');
-            const lint = readLog('lint.log');
             const validate = readLog('validate.log');
             const build = readLog('build.log');
             
             const typeCheckStatus = '${{ steps.typecheck.outcome }}' === 'success' ? '✅' : '❌';
-            const lintStatus = '${{ steps.lint.outcome }}' === 'success' ? '✅' : '❌';
             const validateStatus = '${{ steps.validate.outcome }}' === 'success' ? '✅' : '❌';
             const buildStatus = '${{ steps.build.outcome }}' === 'success' ? '✅' : '❌';
             
@@ -77,7 +76,6 @@ jobs:
             | Check | Status |
             |-------|--------|
             | Type Check | ${typeCheckStatus} |
-            | Lint | ${lintStatus} |
             | Product Validation | ${validateStatus} |
             | Build | ${buildStatus} |
             
@@ -86,14 +84,6 @@ jobs:
             
             \`\`\`
             ${typeCheck}
-            \`\`\`
-            </details>
-            
-            <details>
-            <summary>📝 Lint Output</summary>
-            
-            \`\`\`
-            ${lint}
             \`\`\`
             </details>
             
