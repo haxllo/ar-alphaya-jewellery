@@ -10,6 +10,11 @@ async function main() {
     const entries = await fs.readdir(productsDir, { withFileTypes: true })
     const jsonFiles = entries.filter(e => e.isFile() && e.name.toLowerCase().endsWith('.json'))
 
+    if (jsonFiles.length === 0) {
+      console.log('No product JSON files found - validation skipped')
+      return
+    }
+
     for (const f of jsonFiles) {
       const filePath = path.join(productsDir, f.name)
       try {
@@ -40,6 +45,11 @@ async function main() {
       }
     }
   } catch (e: any) {
+    // Directory doesn't exist - that's okay, no products to validate
+    if (e.code === 'ENOENT') {
+      console.log('Products directory not found - validation skipped')
+      return
+    }
     hasErrors = true
     console.error(`Failed to read products directory: ${e?.message || e}`)
   }

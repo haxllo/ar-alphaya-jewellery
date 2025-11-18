@@ -1,38 +1,39 @@
-name: CI
+name: Testing Branch CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ testing ]
   pull_request:
-    branches: [ main ]
+    branches: [ testing ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: npm
-
+      
       - name: Install dependencies
         run: npm ci
-
+      
       - name: Validate product JSON files
         run: npm run validate:products
-
+      
       - name: Type check
         run: npm run type-check
-
+      
       # TODO: Fix lint - Next.js lint has directory resolution issue
       # - name: Lint
       #   run: npm run lint
-
+      
       - name: Build
         run: npm run build
         env:
@@ -40,10 +41,9 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_PAYHERE_MERCHANT_ID: ${{ secrets.NEXT_PUBLIC_PAYHERE_MERCHANT_ID }}
+          NEXT_PUBLIC_PAYHERE_SANDBOX: true
           NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
           # Server-side env vars needed for build
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-
-
