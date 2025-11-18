@@ -208,7 +208,7 @@ function CheckoutPage() {
       
       <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
         {/* Left Column: Form Sections */}
-        <div className={`space-y-6 pb-24 lg:pb-0 transition-opacity duration-300 ${isProcessing ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+        <div className="space-y-6 pb-24 lg:pb-0">
           <BillingInfoCard
             customerInfo={customerInfo}
             errors={errors}
@@ -270,17 +270,6 @@ function CheckoutPage() {
         isProcessing={isProcessing}
         onSubmit={handleSubmit}
       />
-
-      {/* Payment Processing Overlay */}
-      {isProcessing && !paymentData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl p-8 shadow-2xl text-center max-w-sm mx-4">
-            <div className="w-16 h-16 border-4 border-gray-200 border-t-black rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Preparing Payment</h3>
-            <p className="text-gray-600 text-sm">Please wait while we initialize secure payment...</p>
-          </div>
-        </div>
-      )}
 
       {/* PayHere Checkout Component - Hidden until payment initiated */}
       <PayHereCheckout
