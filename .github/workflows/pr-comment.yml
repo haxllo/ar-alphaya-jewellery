@@ -1,0 +1,125 @@
+name: PR Test Results
+
+on:
+  pull_request:
+    branches: [ main, testing ]
+
+jobs:
+  test-and-comment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run type check
+        id: typecheck
+        run: npm run type-check 2>&1 | tee type-check.log
+        continue-on-error: true
+      
+      - name: Run lint
+        id: lint
+        run: npm run lint 2>&1 | tee lint.log
+        continue-on-error: true
+      
+      - name: Validate products
+        id: validate
+        run: npm run validate:products 2>&1 | tee validate.log
+        continue-on-error: true
+      
+      - name: Build
+        id: build
+        run: npm run build 2>&1 | tee build.log
+        continue-on-error: true
+        env:
+          NEXT_PUBLIC_SITE_URL: https://www.aralphayajewellery.com
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_PAYHERE_MERCHANT_ID: ${{ secrets.NEXT_PUBLIC_PAYHERE_MERCHANT_ID }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+      
+      - name: Comment PR with results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            function readLog(file) {
+              try {
+                const content = fs.readFileSync(file, 'utf8');
+                return content.slice(-1500) || 'No output';
+              } catch {
+                return 'Log file not found';
+              }
+            }
+            
+            const typeCheck = readLog('type-check.log');
+            const lint = readLog('lint.log');
+            const validate = readLog('validate.log');
+            const build = readLog('build.log');
+            
+            const typeCheckStatus = '${{ steps.typecheck.outcome }}' === 'success' ? '✅' : '❌';
+            const lintStatus = '${{ steps.lint.outcome }}' === 'success' ? '✅' : '❌';
+            const validateStatus = '${{ steps.validate.outcome }}' === 'success' ? '✅' : '❌';
+            const buildStatus = '${{ steps.build.outcome }}' === 'success' ? '✅' : '❌';
+            
+            const body = `## 🧪 Test Results
+            
+            | Check | Status |
+            |-------|--------|
+            | Type Check | ${typeCheckStatus} |
+            | Lint | ${lintStatus} |
+            | Product Validation | ${validateStatus} |
+            | Build | ${buildStatus} |
+            
+            <details>
+            <summary>📝 Type Check Output</summary>
+            
+            \`\`\`
+            ${typeCheck}
+            \`\`\`
+            </details>
+            
+            <details>
+            <summary>📝 Lint Output</summary>
+            
+            \`\`\`
+            ${lint}
+            \`\`\`
+            </details>
+            
+            <details>
+            <summary>📝 Product Validation Output</summary>
+            
+            \`\`\`
+            ${validate}
+            \`\`\`
+            </details>
+            
+            <details>
+            <summary>📝 Build Output (last 1500 chars)</summary>
+            
+            \`\`\`
+            ${build}
+            \`\`\`
+            </details>
+            
+            ---
+            *Workflow: ${context.workflow} • Run: ${context.runId}*
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

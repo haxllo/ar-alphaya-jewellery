@@ -11,18 +11,53 @@ jobs:
   lhci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build --if-present
+          cache: npm
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build Next.js
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://www.aralphayajewellery.com
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_PAYHERE_MERCHANT_ID: ${{ secrets.NEXT_PUBLIC_PAYHERE_MERCHANT_ID }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+      
+      - name: Start Next.js server
+        run: |
+          npm run start &
+          echo $! > .next-server.pid
+        env:
+          PORT: 3000
+      
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:3000 --timeout 60000
+      
       - name: Install Lighthouse CI
         run: npm i -g @lhci/cli@0.13.x
+      
       - name: Run Lighthouse CI
         run: |
-          npx serve -s out -l 4173 &
-          sleep 3
-          lhci autorun --collect.url=http://localhost:4173/ --collect.url=http://localhost:4173/products/sample --collect.numberOfRuns=1 || echo "LHCI completed with non-zero exit"
+          lhci autorun \
+            --collect.url=http://localhost:3000/ \
+            --collect.url=http://localhost:3000/products/dadwa \
+            --collect.numberOfRuns=1 \
+            --assert.preset=lighthouse:no-pwa || echo "LHCI completed with warnings"
+      
+      - name: Stop Next.js server
+        if: always()
+        run: |
+          if [ -f .next-server.pid ]; then
+            kill $(cat .next-server.pid) || true
+          fi
 
 
