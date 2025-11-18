@@ -8,8 +8,8 @@ on:
 jobs:
   process:
     runs-on: ubuntu-latest
-    # Check if abandoned cart feature is enabled
-    if: ${{ secrets.ENABLE_ABANDONED_CART == 'true' }}
+    # Secrets cannot be used in job-level if conditions
+    # Run the job and check the secret in a step instead
     
     steps:
       - name: Checkout repository
@@ -21,10 +21,22 @@ jobs:
           node-version: 20
           cache: npm
       
+      - name: Check if feature is enabled
+        id: check-enabled
+        run: |
+          if [ "${{ secrets.ENABLE_ABANDONED_CART }}" = "true" ]; then
+            echo "enabled=true" >> $GITHUB_OUTPUT
+          else
+            echo "enabled=false" >> $GITHUB_OUTPUT
+            echo "Abandoned cart feature is disabled"
+          fi
+      
       - name: Install dependencies
+        if: steps.check-enabled.outputs.enabled == 'true'
         run: npm ci
       
       - name: Process abandoned carts
+        if: steps.check-enabled.outputs.enabled == 'true'
         run: node scripts/process-abandoned-carts.js
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL || 'https://www.aralphayajewellery.com' }}
