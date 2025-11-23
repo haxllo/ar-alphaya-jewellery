@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Plus, Search, Filter, CheckSquare, X, BookOpen } from 'lucide-react'
+import { Plus, Search, Filter, CheckSquare, X, BookOpen, Download } from 'lucide-react'
 
 // Helper to normalize Uploadcare URLs to project-specific CDN subdomain
 // Also adds format/auto to convert HEIC/HEIF files to browser-compatible formats
@@ -65,6 +65,7 @@ export default function AdminProductsPage() {
     actionLabel: string
     variant?: 'default' | 'destructive'
   } | null>(null)
+  const [isExporting, setIsExporting] = useState(false)
 
   useEffect(() => {
     fetchProducts()
@@ -141,6 +142,47 @@ export default function AdminProductsPage() {
       newSelected.add(id)
     }
     setSelectedIds(newSelected)
+  }
+
+  const exportToShopify = async () => {
+    setIsExporting(true)
+    try {
+      const response = await fetch('/api/admin/products/export')
+      if (!response.ok) {
+        throw new Error('Export failed')
+      }
+      
+      // Get filename from response headers or use default
+      const contentDisposition = response.headers.get('Content-Disposition')
+      const filenameMatch = contentDisposition?.match(/filename="(.+)"/)
+      const filename = filenameMatch ? filenameMatch[1] : `shopify-products-${new Date().toISOString().split('T')[0]}.csv`
+      
+      // Download file
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+      
+      toast({
+        variant: "success",
+        title: "Export Successful",
+        description: `Exported ${products.length} products to Shopify CSV format`,
+      })
+    } catch (error) {
+      console.error('Export error:', error)
+      toast({
+        variant: "destructive",
+        title: "Export Failed",
+        description: "Failed to export products. Please try again.",
+      })
+    } finally {
+      setIsExporting(false)
+    }
   }
 
   const handleBulkAction = (actionType: string) => {
@@ -235,6 +277,16 @@ export default function AdminProductsPage() {
                   <span className="hidden sm:inline">Help Guide</span>
                 </Button>
               </Link>
+              <Button 
+                variant="outline" 
+                className="flex-1 sm:flex-none w-full sm:w-auto h-11 sm:h-10" 
+                onClick={exportToShopify}
+                disabled={isExporting || products.length === 0}
+                title="Export to Shopify CSV"
+              >
+                <Download className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">{isExporting ? 'Exporting...' : 'Export to Shopify'}</span>
+              </Button>
               <Link href="/admin/products/new" className="flex-1 sm:flex-none">
                 <Button className="w-full sm:w-auto h-11 sm:h-10" title="Add Product">
                   <Plus className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-2" />
