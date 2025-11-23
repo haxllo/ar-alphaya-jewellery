@@ -49,14 +49,23 @@ function convertPriceToShopify(priceInCents: number): string {
   return (priceInCents / 100).toFixed(2);
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    
+    // Get query parameters for selected product IDs
+    const { searchParams } = new URL(request.url);
+    const idsParam = searchParams.get('ids');
+    const selectedIds = idsParam ? idsParam.split(',') : null;
 
-    const { data: products, error } = await supabase
-      .from('products')
-      .select('*')
-      .order('created_at', { ascending: true });
+    // Build query based on whether specific IDs are requested
+    let query = supabase.from('products').select('*');
+    
+    if (selectedIds && selectedIds.length > 0) {
+      query = query.in('id', selectedIds);
+    }
+    
+    const { data: products, error } = await query.order('created_at', { ascending: true });
 
     if (error) {
       return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
@@ -137,47 +146,61 @@ export async function GET() {
       const hasVariants = hasSizes || hasGemstones;
 
       if (!hasVariants) {
-        // Single product without variants
+        // Single product without variants - leave Option columns blank for default
         const row = [
-          escapeCSV(product.name),
-          escapeCSV(product.slug),
-          escapeCSV(product.description),
-          escapeCSV(vendor),
-          escapeCSV(productCategory),
-          escapeCSV(product.category),
-          escapeCSV(tags),
-          'TRUE',
-          escapeCSV(shopifyStatus),
-          escapeCSV(product.sku || product.product_id),
-          '',
-          '', '', '', '', '', '',
-          escapeCSV(basePrice),
-          '', '',
-          'TRUE',
-          '', '', '', '', '',
-          'shopify',
-          product.in_stock ? '100' : '0',
-          'deny',
-          escapeCSV(product.weight || ''),
-          'g',
-          'TRUE',
-          'manual',
-          escapeCSV(product.images?.[0] || ''),
-          '1',
-          escapeCSV(product.name),
-          '',
-          'FALSE',
-          escapeCSV(product.name),
-          escapeCSV(product.description?.substring(0, 320)),
-          escapeCSV(productCategory),
-          'Unisex',
-          'Adult',
-          escapeCSV(product.sku || ''),
-          escapeCSV(product.category),
-          escapeCSV(tags),
-          'new',
-          'FALSE',
-          '', '', '', '', '',
+          escapeCSV(product.name), // Title
+          escapeCSV(product.slug), // URL handle
+          escapeCSV(product.description), // Description
+          escapeCSV(vendor), // Vendor
+          escapeCSV(productCategory), // Product category
+          escapeCSV(product.category), // Type
+          escapeCSV(tags), // Tags
+          'TRUE', // Published on online store
+          escapeCSV(shopifyStatus), // Status
+          escapeCSV(product.sku || product.product_id), // SKU
+          '', // Barcode
+          '', // Option1 name - blank for non-variant products
+          '', // Option1 value - blank for non-variant products
+          '', // Option2 name
+          '', // Option2 value
+          '', // Option3 name
+          '', // Option3 value
+          escapeCSV(basePrice), // Price
+          '', // Compare-at price
+          '', // Cost per item
+          'TRUE', // Charge tax
+          '', // Tax code
+          '', // Unit price total measure
+          '', // Unit price total measure unit
+          '', // Unit price base measure
+          '', // Unit price base measure unit
+          'shopify', // Inventory tracker
+          product.in_stock ? '100' : '0', // Inventory quantity
+          'deny', // Continue selling when out of stock
+          escapeCSV(product.weight || ''), // Weight value (grams)
+          'g', // Weight unit for display
+          'TRUE', // Requires shipping
+          'manual', // Fulfillment service
+          escapeCSV(product.images?.[0] || ''), // Product image URL
+          '1', // Image position
+          escapeCSV(product.name), // Image alt text
+          '', // Variant image URL
+          'FALSE', // Gift card
+          escapeCSV(product.name), // SEO title
+          escapeCSV(product.description?.substring(0, 320)), // SEO description
+          escapeCSV(productCategory), // Google Shopping / Google product category
+          'Unisex', // Google Shopping / Gender
+          'Adult', // Google Shopping / Age group
+          escapeCSV(product.sku || ''), // Google Shopping / MPN
+          escapeCSV(product.category), // Google Shopping / AdWords Grouping
+          escapeCSV(tags), // Google Shopping / AdWords labels
+          'new', // Google Shopping / Condition
+          'FALSE', // Google Shopping / Custom product
+          '', // Google Shopping / Custom label 0
+          '', // Google Shopping / Custom label 1
+          '', // Google Shopping / Custom label 2
+          '', // Google Shopping / Custom label 3
+          '', // Google Shopping / Custom label 4
         ];
         rows.push(row);
 
@@ -269,13 +292,14 @@ export async function GET() {
       }
     });
 
-    // Convert rows to CSV string
-    const csvContent = rows.map((row) => row.join(',')).join('\n');
+    // Convert rows to CSV string with UTF-8 BOM for Excel compatibility
+    // The BOM (Byte Order Mark) helps Excel recognize UTF-8 encoding
+    const csvContent = '\uFEFF' + rows.map((row) => row.join(',')).join('\n');
 
-    // Return CSV file as download
+    // Return CSV file as download with UTF-8 encoding
     return new NextResponse(csvContent, {
       headers: {
-        'Content-Type': 'text/csv',
+        'Content-Type': 'text/csv; charset=utf-8',
         'Content-Disposition': `attachment; filename="shopify-products-${new Date().toISOString().split('T')[0]}.csv"`,
       },
     });

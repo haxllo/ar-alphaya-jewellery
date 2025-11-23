@@ -144,10 +144,17 @@ export default function AdminProductsPage() {
     setSelectedIds(newSelected)
   }
 
-  const exportToShopify = async () => {
+  const exportToShopify = async (exportSelected: boolean = false) => {
     setIsExporting(true)
     try {
-      const response = await fetch('/api/admin/products/export')
+      // Build URL with query params for selected items
+      let url = '/api/admin/products/export'
+      if (exportSelected && selectedIds.size > 0) {
+        const ids = Array.from(selectedIds).join(',')
+        url += `?ids=${encodeURIComponent(ids)}`
+      }
+      
+      const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Export failed')
       }
@@ -159,20 +166,26 @@ export default function AdminProductsPage() {
       
       // Download file
       const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
+      const downloadUrl = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
-      a.href = url
+      a.href = downloadUrl
       a.download = filename
       document.body.appendChild(a)
       a.click()
-      window.URL.revokeObjectURL(url)
+      window.URL.revokeObjectURL(downloadUrl)
       document.body.removeChild(a)
       
+      const count = exportSelected ? selectedIds.size : products.length
       toast({
         variant: "success",
         title: "Export Successful",
-        description: `Exported ${products.length} products to Shopify CSV format`,
+        description: `Exported ${count} product(s) to Shopify CSV format`,
       })
+      
+      // Clear selection after export
+      if (exportSelected) {
+        setSelectedIds(new Set())
+      }
     } catch (error) {
       console.error('Export error:', error)
       toast({
@@ -280,12 +293,12 @@ export default function AdminProductsPage() {
               <Button 
                 variant="outline" 
                 className="flex-1 sm:flex-none w-full sm:w-auto h-11 sm:h-10" 
-                onClick={exportToShopify}
+                onClick={() => exportToShopify(false)}
                 disabled={isExporting || products.length === 0}
-                title="Export to Shopify CSV"
+                title="Export all products to Shopify CSV"
               >
                 <Download className="h-5 w-5 sm:h-4 sm:w-4 sm:mr-2" />
-                <span className="hidden sm:inline">{isExporting ? 'Exporting...' : 'Export to Shopify'}</span>
+                <span className="hidden sm:inline">{isExporting ? 'Exporting...' : 'Export All'}</span>
               </Button>
               <Link href="/admin/products/new" className="flex-1 sm:flex-none">
                 <Button className="w-full sm:w-auto h-11 sm:h-10" title="Add Product">
@@ -356,6 +369,16 @@ export default function AdminProductsPage() {
                 </div>
                 <div className="hidden sm:block h-4 w-px bg-border" />
                 <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                  <Button 
+                    variant="default"
+                    size="sm"
+                    className="flex-1 sm:flex-none text-xs sm:text-sm"
+                    onClick={() => exportToShopify(true)}
+                    disabled={isExporting}
+                  >
+                    <Download className="h-3 w-3 mr-1" />
+                    Export
+                  </Button>
                   <Button 
                     variant="default"
                     size="sm"
