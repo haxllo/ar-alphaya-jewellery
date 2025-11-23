@@ -75,61 +75,51 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'No products found' }, { status: 404 });
     }
 
-    // Shopify CSV headers
+    // Shopify CSV headers - matching Shopify's export format exactly
     const headers = [
+      'Handle',
       'Title',
-      'URL handle',
-      'Description',
+      'Body (HTML)',
       'Vendor',
-      'Product category',
+      'Product Category',
       'Type',
       'Tags',
-      'Published on online store',
-      'Status',
-      'SKU',
-      'Barcode',
-      'Option1 name',
-      'Option1 value',
-      'Option2 name',
-      'Option2 value',
-      'Option3 name',
-      'Option3 value',
-      'Price',
-      'Compare-at price',
+      'Published',
+      'Option1 Name',
+      'Option1 Value',
+      'Option1 Linked To',
+      'Option2 Name',
+      'Option2 Value',
+      'Option2 Linked To',
+      'Option3 Name',
+      'Option3 Value',
+      'Option3 Linked To',
+      'Variant SKU',
+      'Variant Grams',
+      'Variant Inventory Tracker',
+      'Variant Inventory Qty',
+      'Variant Inventory Policy',
+      'Variant Fulfillment Service',
+      'Variant Price',
+      'Variant Compare At Price',
+      'Variant Requires Shipping',
+      'Variant Taxable',
+      'Unit Price Total Measure',
+      'Unit Price Total Measure Unit',
+      'Unit Price Base Measure',
+      'Unit Price Base Measure Unit',
+      'Variant Barcode',
+      'Image Src',
+      'Image Position',
+      'Image Alt Text',
+      'Gift Card',
+      'SEO Title',
+      'SEO Description',
+      'Variant Image',
+      'Variant Weight Unit',
+      'Variant Tax Code',
       'Cost per item',
-      'Charge tax',
-      'Tax code',
-      'Unit price total measure',
-      'Unit price total measure unit',
-      'Unit price base measure',
-      'Unit price base measure unit',
-      'Inventory tracker',
-      'Inventory quantity',
-      'Continue selling when out of stock',
-      'Weight value (grams)',
-      'Weight unit for display',
-      'Requires shipping',
-      'Fulfillment service',
-      'Product image URL',
-      'Image position',
-      'Image alt text',
-      'Variant image URL',
-      'Gift card',
-      'SEO title',
-      'SEO description',
-      'Google Shopping / Google product category',
-      'Google Shopping / Gender',
-      'Google Shopping / Age group',
-      'Google Shopping / MPN',
-      'Google Shopping / AdWords Grouping',
-      'Google Shopping / AdWords labels',
-      'Google Shopping / Condition',
-      'Google Shopping / Custom product',
-      'Google Shopping / Custom label 0',
-      'Google Shopping / Custom label 1',
-      'Google Shopping / Custom label 2',
-      'Google Shopping / Custom label 3',
-      'Google Shopping / Custom label 4',
+      'Status',
     ];
 
     const rows: string[][] = [headers];
@@ -146,61 +136,51 @@ export async function GET(request: Request) {
       const hasVariants = hasSizes || hasGemstones;
 
       if (!hasVariants) {
-        // Single product without variants - leave Option columns blank for default
+        // Single product without variants
         const row = [
+          escapeCSV(product.slug), // Handle
           escapeCSV(product.name), // Title
-          escapeCSV(product.slug), // URL handle
-          escapeCSV(product.description), // Description
+          escapeCSV(product.description), // Body (HTML)
           escapeCSV(vendor), // Vendor
-          escapeCSV(productCategory), // Product category
+          escapeCSV(productCategory), // Product Category
           escapeCSV(product.category), // Type
           escapeCSV(tags), // Tags
-          'TRUE', // Published on online store
-          escapeCSV(shopifyStatus), // Status
-          escapeCSV(product.sku || product.product_id), // SKU
-          '', // Barcode
-          '', // Option1 name - blank for non-variant products
-          '', // Option1 value - blank for non-variant products
-          '', // Option2 name
-          '', // Option2 value
-          '', // Option3 name
-          '', // Option3 value
-          escapeCSV(basePrice), // Price
-          '', // Compare-at price
+          'true', // Published
+          'Title', // Option1 Name
+          'Default Title', // Option1 Value
+          '', // Option1 Linked To
+          '', // Option2 Name
+          '', // Option2 Value
+          '', // Option2 Linked To
+          '', // Option3 Name
+          '', // Option3 Value
+          '', // Option3 Linked To
+          escapeCSV(product.sku || product.product_id), // Variant SKU
+          escapeCSV(product.weight || '0.0'), // Variant Grams
+          'shopify', // Variant Inventory Tracker
+          product.in_stock ? '100' : '0', // Variant Inventory Qty
+          'deny', // Variant Inventory Policy
+          'manual', // Variant Fulfillment Service
+          escapeCSV(basePrice), // Variant Price
+          '', // Variant Compare At Price
+          'true', // Variant Requires Shipping
+          'true', // Variant Taxable
+          '', // Unit Price Total Measure
+          '', // Unit Price Total Measure Unit
+          '', // Unit Price Base Measure
+          '', // Unit Price Base Measure Unit
+          '', // Variant Barcode
+          escapeCSV(product.images?.[0] || ''), // Image Src
+          '1', // Image Position
+          escapeCSV(product.name), // Image Alt Text
+          'false', // Gift Card
+          escapeCSV(product.name), // SEO Title
+          escapeCSV(product.description?.substring(0, 320)), // SEO Description
+          '', // Variant Image
+          'kg', // Variant Weight Unit
+          '', // Variant Tax Code
           '', // Cost per item
-          'TRUE', // Charge tax
-          '', // Tax code
-          '', // Unit price total measure
-          '', // Unit price total measure unit
-          '', // Unit price base measure
-          '', // Unit price base measure unit
-          'shopify', // Inventory tracker
-          product.in_stock ? '100' : '0', // Inventory quantity
-          'deny', // Continue selling when out of stock
-          escapeCSV(product.weight || ''), // Weight value (grams)
-          'g', // Weight unit for display
-          'TRUE', // Requires shipping
-          'manual', // Fulfillment service
-          escapeCSV(product.images?.[0] || ''), // Product image URL
-          '1', // Image position
-          escapeCSV(product.name), // Image alt text
-          '', // Variant image URL
-          'FALSE', // Gift card
-          escapeCSV(product.name), // SEO title
-          escapeCSV(product.description?.substring(0, 320)), // SEO description
-          escapeCSV(productCategory), // Google Shopping / Google product category
-          'Unisex', // Google Shopping / Gender
-          'Adult', // Google Shopping / Age group
-          escapeCSV(product.sku || ''), // Google Shopping / MPN
-          escapeCSV(product.category), // Google Shopping / AdWords Grouping
-          escapeCSV(tags), // Google Shopping / AdWords labels
-          'new', // Google Shopping / Condition
-          'FALSE', // Google Shopping / Custom product
-          '', // Google Shopping / Custom label 0
-          '', // Google Shopping / Custom label 1
-          '', // Google Shopping / Custom label 2
-          '', // Google Shopping / Custom label 3
-          '', // Google Shopping / Custom label 4
+          escapeCSV(shopifyStatus), // Status
         ];
         rows.push(row);
 
@@ -208,10 +188,10 @@ export async function GET(request: Request) {
         if (product.images && product.images.length > 1) {
           product.images.slice(1).forEach((imageUrl, index) => {
             const imageRow = Array(headers.length).fill('');
-            imageRow[1] = escapeCSV(product.slug);
-            imageRow[33] = escapeCSV(imageUrl);
-            imageRow[34] = String(index + 2);
-            imageRow[35] = escapeCSV(product.name);
+            imageRow[0] = escapeCSV(product.slug); // Handle
+            imageRow[32] = escapeCSV(imageUrl); // Image Src
+            imageRow[33] = String(index + 2); // Image Position
+            imageRow[34] = escapeCSV(product.name); // Image Alt Text
             rows.push(imageRow);
           });
         }
@@ -229,49 +209,49 @@ export async function GET(request: Request) {
             const variantSKU = `${product.sku || product.product_id}-${size.value}-${gemstone.value}`.toUpperCase();
 
             const row = [
-              isFirstVariant ? escapeCSV(product.name) : '',
-              escapeCSV(product.slug),
-              isFirstVariant ? escapeCSV(product.description) : '',
-              isFirstVariant ? escapeCSV(vendor) : '',
-              isFirstVariant ? escapeCSV(productCategory) : '',
-              isFirstVariant ? escapeCSV(product.category) : '',
-              isFirstVariant ? escapeCSV(tags) : '',
-              isFirstVariant ? 'TRUE' : '',
-              isFirstVariant ? escapeCSV(shopifyStatus) : '',
-              escapeCSV(variantSKU),
-              '',
-              hasSizes ? 'Size' : '',
-              hasSizes ? escapeCSV(size.label) : '',
-              hasGemstones ? 'Gemstone' : '',
-              hasGemstones ? escapeCSV(gemstone.name) : '',
-              '', '',
-              escapeCSV(variantPriceFormatted),
-              '', '',
-              'TRUE',
-              '', '', '', '', '',
-              'shopify',
-              product.in_stock && (gemstone.available !== false) ? '100' : '0',
-              'deny',
-              escapeCSV(product.weight || ''),
-              'g',
-              'TRUE',
-              'manual',
-              isFirstVariant && product.images?.[0] ? escapeCSV(product.images[0]) : '',
-              isFirstVariant && product.images?.[0] ? '1' : '',
-              isFirstVariant && product.images?.[0] ? escapeCSV(product.name) : '',
-              '',
-              'FALSE',
-              isFirstVariant ? escapeCSV(product.name) : '',
-              isFirstVariant ? escapeCSV(product.description?.substring(0, 320)) : '',
-              isFirstVariant ? escapeCSV(productCategory) : '',
-              isFirstVariant ? 'Unisex' : '',
-              isFirstVariant ? 'Adult' : '',
-              isFirstVariant ? escapeCSV(product.sku || '') : '',
-              isFirstVariant ? escapeCSV(product.category) : '',
-              isFirstVariant ? escapeCSV(tags) : '',
-              isFirstVariant ? 'new' : '',
-              isFirstVariant ? 'FALSE' : '',
-              '', '', '', '', '',
+              escapeCSV(product.slug), // Handle
+              isFirstVariant ? escapeCSV(product.name) : '', // Title
+              isFirstVariant ? escapeCSV(product.description) : '', // Body (HTML)
+              isFirstVariant ? escapeCSV(vendor) : '', // Vendor
+              isFirstVariant ? escapeCSV(productCategory) : '', // Product Category
+              isFirstVariant ? escapeCSV(product.category) : '', // Type
+              isFirstVariant ? escapeCSV(tags) : '', // Tags
+              isFirstVariant ? 'true' : '', // Published
+              hasSizes ? 'Size' : '', // Option1 Name
+              hasSizes ? escapeCSV(size.label) : '', // Option1 Value
+              '', // Option1 Linked To
+              hasGemstones ? 'Gemstone' : '', // Option2 Name
+              hasGemstones ? escapeCSV(gemstone.name) : '', // Option2 Value
+              '', // Option2 Linked To
+              '', // Option3 Name
+              '', // Option3 Value
+              '', // Option3 Linked To
+              escapeCSV(variantSKU), // Variant SKU
+              escapeCSV(product.weight || '0.0'), // Variant Grams
+              'shopify', // Variant Inventory Tracker
+              product.in_stock && (gemstone.available !== false) ? '100' : '0', // Variant Inventory Qty
+              'deny', // Variant Inventory Policy
+              'manual', // Variant Fulfillment Service
+              escapeCSV(variantPriceFormatted), // Variant Price
+              '', // Variant Compare At Price
+              'true', // Variant Requires Shipping
+              'true', // Variant Taxable
+              '', // Unit Price Total Measure
+              '', // Unit Price Total Measure Unit
+              '', // Unit Price Base Measure
+              '', // Unit Price Base Measure Unit
+              '', // Variant Barcode
+              isFirstVariant && product.images?.[0] ? escapeCSV(product.images[0]) : '', // Image Src
+              isFirstVariant && product.images?.[0] ? '1' : '', // Image Position
+              isFirstVariant && product.images?.[0] ? escapeCSV(product.name) : '', // Image Alt Text
+              'false', // Gift Card
+              isFirstVariant ? escapeCSV(product.name) : '', // SEO Title
+              isFirstVariant ? escapeCSV(product.description?.substring(0, 320)) : '', // SEO Description
+              '', // Variant Image
+              'kg', // Variant Weight Unit
+              '', // Variant Tax Code
+              '', // Cost per item
+              isFirstVariant ? escapeCSV(shopifyStatus) : '', // Status
             ];
             rows.push(row);
             isFirstVariant = false;
@@ -282,10 +262,10 @@ export async function GET(request: Request) {
         if (product.images && product.images.length > 1) {
           product.images.slice(1).forEach((imageUrl, index) => {
             const imageRow = Array(headers.length).fill('');
-            imageRow[1] = escapeCSV(product.slug);
-            imageRow[33] = escapeCSV(imageUrl);
-            imageRow[34] = String(index + 2);
-            imageRow[35] = escapeCSV(product.name);
+            imageRow[0] = escapeCSV(product.slug); // Handle
+            imageRow[32] = escapeCSV(imageUrl); // Image Src
+            imageRow[33] = String(index + 2); // Image Position
+            imageRow[34] = escapeCSV(product.name); // Image Alt Text
             rows.push(imageRow);
           });
         }
