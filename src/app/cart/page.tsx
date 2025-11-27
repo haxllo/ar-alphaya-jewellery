@@ -153,12 +153,12 @@ export default function CartPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Shopping Cart</h1>
+        <h1 className="text-3xl font-serif font-bold tracking-tight text-amber-mirage-brown">Your Selection</h1>
         <button
           onClick={handleClearCart}
-          className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+          className="text-xs text-amber-mirage-600 hover:text-red-600 transition-colors underline underline-offset-2"
         >
-          Clear all items
+          Clear cart
         </button>
       </div>
       
@@ -188,7 +188,7 @@ export default function CartPage() {
         {/* Order Summary - Sticky on Desktop */}
         <div className="lg:sticky lg:top-24 lg:h-fit space-y-4">
           <div className="border border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber rounded-lg p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-amber-mirage-brown">Order Summary</h2>
+            <h2 className="text-xl font-serif font-semibold text-amber-mirage-brown">Summary</h2>
             
             <DeliveryEstimate />
             

@@ -30,7 +30,7 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 	};
 
 	return (
-		<Card className="w-full max-w-[320px] border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe">
+		<Card className="w-full max-w-[320px] border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-luxe hover:bg-gradient-to-br hover:from-white hover:to-amber-mirage-50">
 			<CardContent className="p-4">
 				{/* Product Image */}
 				<Link href={`/products/${product.slug}`} className="block relative mb-4">
@@ -54,21 +54,21 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 								e.preventDefault();
 								handleWishlistToggle();
 							}}
-							className="absolute top-2 right-2 bg-amber-mirage-soft/90 hover:bg-amber-mirage-warm/20"
+							className="absolute top-2 right-2 bg-amber-mirage-soft/90 hover:bg-amber-mirage-warm/20 transition-all"
 							aria-label={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
 						>
 							<Heart
 								className={cn(
-									"w-5 h-5 transition-colors",
+									"w-5 h-5 transition-all duration-300",
 									isFavorited
-										? "fill-amber-mirage-gold text-amber-mirage-gold"
-										: "text-amber-mirage-brown hover:text-amber-mirage-gold",
+										? "fill-amber-mirage-gold text-amber-mirage-gold scale-110"
+										: "text-amber-mirage-brown hover:text-amber-mirage-gold hover:scale-110 hover:rotate-6",
 								)}
 							/>
 						</Button>
 
 						{product.featured && (
-							<div className="absolute top-2 left-2 bg-amber-mirage-gold text-amber-mirage-soft px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+							<div className="absolute top-2 left-2 bg-amber-mirage-gold/90 text-amber-mirage-soft px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider shadow-sm">
 								Featured
 							</div>
 						)}
@@ -93,7 +93,7 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 				</div>
 
 				<div className="flex items-center justify-between gap-2">
-					<p className="text-xl sm:text-2xl font-bold text-amber-mirage-brown">
+					<p className="text-2xl font-bold text-amber-mirage-brown">
 						{formatPrice(product.price)}
 					</p>
 
