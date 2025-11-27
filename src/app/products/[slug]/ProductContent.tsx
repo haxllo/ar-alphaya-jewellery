@@ -9,7 +9,7 @@ import { CurrencyService } from '@/lib/currency'
 import ReviewCard from '@/components/reviews/ReviewCard'
 import StarRating from '@/components/reviews/StarRating'
 import { useRecentlyViewedStore } from '@/lib/store/recentlyViewed'
-import type { Product, GemstoneOption, Review, ReviewSummary } from '@/types/product'
+import type { Product, GemstoneOption, PlatingOption, Review, ReviewSummary } from '@/types/product'
 import { Ruler, Truck, MessageCircle, Scale, Gem } from 'lucide-react'
 import { fixUploadcareUrl } from '@/lib/fix-uploadcare-url'
 
@@ -39,6 +39,9 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
   const addToRecentlyViewed = useRecentlyViewedStore((state) => state.addProduct)
   const [selectedSize, setSelectedSize] = useState<string>('')
   const [selectedGemstone, setSelectedGemstone] = useState<GemstoneOption | null>(null)
+  const [selectedPlating, setSelectedPlating] = useState<PlatingOption | null>(
+    product.plating?.[0] || null
+  )
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const [showShippingReturns, setShowShippingReturns] = useState(false)
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([] as unknown as Product[])
@@ -70,16 +73,17 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
   const leadTimeCopy = product.leadTime || (product.inStock ? 'Dispatches within 3–5 business days' : '4–6 weeks production + 2–4 days delivery')
   const isCustomisable = product.customizable !== false
 
-  // Calculate final price with gemstone adjustment
+  // Calculate final price with gemstone and plating adjustments
   const getFinalPrice = () => {
     const basePrice = product.price
-    const adjustment = selectedGemstone?.priceAdjustment || 0
-    return basePrice + adjustment
+    const gemstoneAdjustment = selectedGemstone?.priceAdjustment || 0
+    const platingAdjustment = selectedPlating?.priceAdjustment || 0
+    return basePrice + gemstoneAdjustment + platingAdjustment
   }
 
   // WhatsApp link generator
   const getWhatsAppLink = () => {
-    const message = `Hi! I'm interested in the ${product.name}. ${selectedSize ? `Size: ${selectedSize}. ` : ''}${selectedGemstone ? `Gemstone: ${selectedGemstone.name}. ` : ''}Please provide more details.`
+    const message = `Hi! I'm interested in the ${product.name}. ${selectedSize ? `Size: ${selectedSize}. ` : ''}${selectedGemstone ? `Gemstone: ${selectedGemstone.name}. ` : ''}${selectedPlating ? `Plating: ${selectedPlating.type}. ` : ''}Please provide more details.`
     const phoneNumber = '+94774293406'
     return `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
   }
@@ -276,6 +280,36 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
                         </div>
                       </div>
                     </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Plating Selection */}
+            {product.plating && product.plating.length > 0 && (
+              <div>
+                <h3 className="mb-3 text-xs uppercase tracking-[0.3em] text-nocturne-500">Plating Finish</h3>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                  {product.plating.map((plating) => (
+                    <button
+                      key={plating.type}
+                      onClick={() => setSelectedPlating(plating)}
+                      disabled={!plating.available}
+                      className={`flex items-center gap-3 p-3 border-2 rounded-lg text-sm font-medium transition-all ${
+                        selectedPlating?.type === plating.type 
+                          ? 'border-gold-500 bg-gold-50/70 text-nocturne-900' 
+                          : 'border-nocturne-100 text-nocturne-700 hover:border-gold-200'
+                      } ${!plating.available ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'}`}
+                    >
+                      <span className="text-left flex-1">
+                        {plating.type}
+                        {plating.priceAdjustment && plating.priceAdjustment !== 0 && (
+                          <span className="block text-xs text-nocturne-500 mt-0.5">
+                            {plating.priceAdjustment > 0 ? '+' : ''}{formatPrice(plating.priceAdjustment)}
+                          </span>
+                        )}
+                      </span>
+                    </button>
                   ))}
                 </div>
               </div>

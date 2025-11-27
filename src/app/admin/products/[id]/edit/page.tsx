@@ -84,6 +84,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       dimensions: product.dimensions ?? undefined,
       sizes: product.sizes ?? undefined,
       gemstones: product.gemstones ?? undefined,
+      plating: product.plating ?? undefined,
       availability: product.availability ?? undefined,
       lead_time: product.lead_time ?? undefined,
       status_note: product.status_note ?? undefined,
