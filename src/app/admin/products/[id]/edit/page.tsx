@@ -48,6 +48,38 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     try {
       const response = await fetch(`/api/admin/products/${id}`)
       const data = await response.json()
+      
+      // Convert old size format to new format for backward compatibility
+      if (data.sizes && Array.isArray(data.sizes)) {
+        data.sizes = data.sizes.map((size: any) => {
+          // If it's an object with value property, extract the value
+          if (typeof size === 'object' && size !== null && 'value' in size) {
+            return size.value as Size
+          }
+          // Otherwise assume it's already in the new format
+          return size
+        })
+      }
+      
+      // Convert old plating format to new format
+      if (data.plating && Array.isArray(data.plating)) {
+        data.plating = data.plating.map((plating: any) => {
+          // If it's old format without label, convert it
+          if (!plating.label) {
+            const platingMap: Record<string, PlatingOption> = {
+              'Silver': { type: '925-silver', label: 'None (925 Sterling Silver)', priceAdjustment: 0, available: plating.available || true },
+              'Gold': { type: '24k-gold', label: '24K Gold Plated', priceAdjustment: 5000, available: plating.available || true },
+              'Rose Gold': { type: '18k-rose-gold', label: '18K Rose Gold Plated', priceAdjustment: 3000, available: plating.available || true },
+            }
+            return platingMap[plating.type] || plating
+          }
+          return plating
+        })
+      }
+      
+      // Remove tags if they exist (no longer supported)
+      delete data.tags
+      
       setProduct(data)
     } catch (error) {
       console.error('Error fetching product:', error)
