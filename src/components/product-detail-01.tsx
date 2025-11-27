@@ -184,29 +184,22 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 					{/* Plating Options */}
 					<div>
-						<h3 className="text-sm font-medium mb-3">Plating Options</h3>
-						<div className="space-y-2">
+						<h3 className="text-sm font-medium mb-3">Plating</h3>
+						<div className="flex flex-wrap gap-2">
 							{platingOptions.map((plating) => (
 								<button
 									key={plating.type}
 									onClick={() => setSelectedPlating(plating)}
 									disabled={!plating.available}
 									className={cn(
-										"w-full text-left px-4 py-3 rounded-lg border-2 transition-all",
+										"px-4 py-2 text-sm rounded-lg border-2 transition-all hover:border-amber-mirage-gold",
 										selectedPlating.type === plating.type
-											? "border-gray-900 bg-gray-50"
-											: "border-gray-200 hover:border-gray-300",
+											? "border-amber-mirage-gold bg-amber-mirage-50 text-amber-mirage-brown font-medium"
+											: "border-gray-200 hover:bg-amber-mirage-50",
 										!plating.available && "opacity-50 cursor-not-allowed"
 									)}
 								>
-									<div className="flex items-center justify-between">
-										<span className="font-medium">{getPlatingLabel(plating)}</span>
-										{(plating.priceAdjustment || 0) > 0 && (
-											<span className="text-sm text-gray-600">
-												+{formatPrice(plating.priceAdjustment)}
-											</span>
-										)}
-									</div>
+									{getPlatingLabel(plating)}
 								</button>
 							))}
 						</div>
@@ -223,12 +216,12 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					{/* Quantity & Add to Cart */}
 					<div className="space-y-3">
 						<h3 className="text-sm font-medium">Quantity</h3>
-						<div className="flex items-center gap-4">
-							<div className="flex items-center border border-gray-300 rounded-lg">
+						<div className="flex items-center gap-3">
+							<div className="flex items-center border-2 border-gray-200 rounded-lg">
 								<Button
 									variant="ghost"
 									size="icon"
-									className="h-10 w-10 rounded-lg hover:bg-gray-100"
+									className="h-10 w-10 rounded-lg hover:bg-amber-mirage-50 transition-colors"
 									onClick={decrementQuantity}
 								>
 									<MinusIcon className="w-4 h-4" />
@@ -237,36 +230,35 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 								<Button
 									variant="ghost"
 									size="icon"
-									className="h-10 w-10 rounded-lg hover:bg-gray-100"
+									className="h-10 w-10 rounded-lg hover:bg-amber-mirage-50 transition-colors"
 									onClick={incrementQuantity}
 								>
 									<PlusIcon className="w-4 h-4" />
 								</Button>
 							</div>
+						</div>
+						
+						<div className="flex gap-3">
 							<Button 
-								size="lg" 
 								onClick={handleAddToCart}
-								className="flex-1"
+								className="flex-1 bg-amber-mirage-brown hover:bg-amber-mirage-brown/90 text-amber-mirage-soft transition-all"
 							>
 								Add to cart
+							</Button>
+							<Button 
+								variant="outline"
+								onClick={handleAddToCart}
+								className="flex-1 border-2 border-amber-mirage-gold text-amber-mirage-brown hover:bg-amber-mirage-50 transition-all"
+							>
+								Buy now
 							</Button>
 						</div>
 					</div>
 
-					{/* Buy it now button - optional */}
-					<Button 
-						size="lg" 
-						variant="outline"
-						className="w-full"
-						onClick={handleAddToCart}
-					>
-						Buy it now
-					</Button>
-
 					{/* Share button */}
 					<button
 						onClick={handleShare}
-						className="flex items-center gap-2 text-sm text-muted-foreground hover:text-gray-900 transition-colors"
+						className="flex items-center gap-2 text-sm text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
 					>
 						<Share2 className="w-4 h-4" />
 						Share
