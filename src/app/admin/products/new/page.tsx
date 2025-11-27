@@ -10,12 +10,12 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ImageUploader } from '@/components/admin/ImageUploader'
 import { CheckboxGrid } from '@/components/admin/CheckboxGrid'
-import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES } from '@/lib/admin/constants'
+import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES, PLATING_TYPES } from '@/lib/admin/constants'
 import { generateSlugFromName } from '@/lib/admin/validation'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 import { useProductValidation } from '@/hooks/useProductValidation'
-import type { ProductFormData, Size, Gemstone } from '@/types/admin'
+import type { ProductFormData, Size, Gemstone, PlatingOption } from '@/types/admin'
 
 export default function NewProductPage() {
   const router = useRouter()
@@ -37,6 +37,7 @@ export default function NewProductPage() {
     dimensions: '',
     sizes: [],
     gemstones: [],
+    plating: [],
     in_stock: true,
     featured: false,
     status: 'draft',
@@ -358,6 +359,48 @@ export default function NewProductPage() {
                 onChange={(tags) => setFormData(prev => ({ ...prev, tags }))}
                 columns={3}
               />
+            </div>
+          </div>
+
+          {/* Plating Options Section */}
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Plating Options</h2>
+            <p className="text-sm text-gray-600 mb-4">Select plating finishes available for this product (optional)</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {PLATING_TYPES.map((plating) => (
+                <label
+                  key={plating.value}
+                  className={`flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                    formData.plating?.some(p => p.type === plating.value)
+                      ? 'border-gold-500 bg-gold-50/50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={formData.plating?.some(p => p.type === plating.value) || false}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setFormData(prev => ({
+                          ...prev,
+                          plating: [...(prev.plating || []), { type: plating.value as any, available: true }]
+                        }));
+                      } else {
+                        setFormData(prev => ({
+                          ...prev,
+                          plating: prev.plating?.filter(p => p.type !== plating.value)
+                        }));
+                      }
+                    }}
+                    className="h-4 w-4 rounded border-gray-300 text-gold-600 focus:ring-gold-500"
+                  />
+                  <span 
+                    className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0" 
+                    style={{ backgroundColor: plating.color }}
+                  />
+                  <span className="text-sm font-medium">{plating.label}</span>
+                </label>
+              ))}
             </div>
           </div>
 
