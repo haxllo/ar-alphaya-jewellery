@@ -105,7 +105,7 @@ export default function Header() {
   }, [searchQuery, showSearch, fetchSuggestions]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/30 bg-white/80 backdrop-blur-xl supports-backdrop:bg-white/70 shadow-[0_1px_0_rgba(18,18,18,0.08)]">
+    <header className="sticky top-0 z-50 border-b border-amber-mirage-200/50 bg-amber-mirage-soft/90 backdrop-blur-xl supports-backdrop:bg-amber-mirage-soft/80 shadow-[0_1px_0_rgba(196,139,40,0.1)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 py-2 sm:py-3 gap-2 sm:gap-4 md:gap-6">
         {/* Left: Logo */}
         <div className="flex-1">
@@ -119,10 +119,10 @@ export default function Header() {
               className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 object-contain"
             />
             <div className="leading-tight">
-              <span className="font-serif text-[0.55rem] sm:text-[0.7rem] md:text-sm uppercase tracking-[0.6em] sm:tracking-[0.85em] text-nocturne-900">
+              <span className="font-serif text-[0.55rem] sm:text-[0.7rem] md:text-sm uppercase tracking-[0.6em] sm:tracking-[0.85em] text-amber-mirage-brown">
                 AR ALPHAYA
               </span>
-              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-nocturne-500">
+              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-amber-mirage-600">
                 JEWELLERY
               </span>
             </div>
@@ -133,19 +133,19 @@ export default function Header() {
         <nav className="hidden md:flex items-center justify-center gap-8 flex-1">
           <Link
             href="/"
-            className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
           >
             Home
           </Link>
           <Link
             href="/#process"
-            className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
           >
             Custom
           </Link>
           <div className="relative group">
             <button
-              className="flex items-center text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+              className="flex items-center text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
               aria-label="Collections menu"
               aria-expanded="false"
               aria-haspopup="true"
@@ -166,12 +166,12 @@ export default function Header() {
                 />
               </svg>
             </button>
-            <div className="absolute top-full left-0 mt-3 w-56 rounded-xl border border-border/60 bg-white/95 shadow-luxe backdrop-blur transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+            <div className="absolute top-full left-0 mt-3 w-56 rounded-xl border border-amber-mirage-200 bg-amber-mirage-soft/95 shadow-luxe backdrop-blur transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
               {collections.map((collection) => (
                 <Link
                   key={collection.handle}
                   href={`/collections/${collection.handle}`}
-                  className="block px-4 py-3 text-sm font-medium text-nocturne-600 hover:bg-gold-50/70 hover:text-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
+                  className="block px-4 py-3 text-sm font-medium text-amber-mirage-700 hover:bg-amber-mirage-100 hover:text-amber-mirage-brown transition-colors first:rounded-t-xl last:rounded-b-xl"
                 >
                   {collection.title}
                 </Link>
@@ -180,13 +180,13 @@ export default function Header() {
           </div>
           <Link
             href="/about"
-            className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
           >
             Contact
           </Link>
