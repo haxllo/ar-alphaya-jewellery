@@ -52,9 +52,6 @@ function SignInContent() {
         <div className="bg-white/90 backdrop-blur-sm shadow-luxe border border-amber-mirage-200 rounded-2xl p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-mirage-soft mb-4">
-              <LogIn className="w-6 h-6 text-amber-mirage-gold" />
-            </div>
             <h1 className="text-3xl font-serif font-bold text-amber-mirage-brown mb-2">Sign In</h1>
             <p className="text-amber-mirage-600">Welcome back to AR Alphaya</p>
           </div>
