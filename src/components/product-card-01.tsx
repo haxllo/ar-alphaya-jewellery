@@ -92,16 +92,17 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 					)}
 				</div>
 
-				<div className="flex items-center justify-between">
-					<p className="text-2xl font-bold text-amber-mirage-brown">
+				<div className="flex items-center justify-between gap-2">
+					<p className="text-xl sm:text-2xl font-bold text-amber-mirage-brown">
 						{formatPrice(product.price)}
 					</p>
 
 					<Button 
 						onClick={() => onAddToCart?.(product)}
-						className="bg-amber-mirage-gold hover:bg-amber-mirage-600 text-amber-mirage-soft"
+						className="bg-amber-mirage-gold hover:bg-amber-mirage-600 text-amber-mirage-soft text-xs sm:text-sm px-3 sm:px-4 py-2 whitespace-nowrap shrink-0"
 					>
-						Add to Cart
+						<span className="hidden sm:inline">Add to Cart</span>
+						<span className="sm:hidden">Add</span>
 					</Button>
 				</div>
 			</CardContent>

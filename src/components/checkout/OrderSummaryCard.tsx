@@ -42,10 +42,10 @@ export default function OrderSummaryCard({
   }
 
   return (
-    <Card className="lg:sticky lg:top-24 lg:h-fit">
+    <Card className="lg:sticky lg:top-24 lg:h-fit border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Package className="h-5 w-5" />
+        <CardTitle className="flex items-center gap-2 text-amber-mirage-brown">
+          <Package className="h-5 w-5 text-amber-mirage-gold" />
           Order Summary
         </CardTitle>
       </CardHeader>
@@ -58,7 +58,7 @@ export default function OrderSummaryCard({
               className="flex gap-4"
             >
               {/* Product Image */}
-              <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+              <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-amber-mirage-200">
                 {item.image ? (
                   <Image
                     src={item.image}
@@ -68,7 +68,7 @@ export default function OrderSummaryCard({
                     sizes="80px"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-gray-100 text-gray-400">
+                  <div className="flex h-full w-full items-center justify-center bg-amber-mirage-100 text-amber-mirage-400">
                     <Package className="h-8 w-8" />
                   </div>
                 )}
@@ -77,17 +77,17 @@ export default function OrderSummaryCard({
               {/* Product Details */}
               <div className="flex flex-1 flex-col justify-between">
                 <div>
-                  <h4 className="text-sm font-medium leading-tight">
+                  <h4 className="text-sm font-medium leading-tight text-amber-mirage-brown">
                     {item.name}
                   </h4>
-                  <div className="mt-1 flex flex-wrap gap-2 text-xs text-gray-600">
+                  <div className="mt-1 flex flex-wrap gap-2 text-xs text-amber-mirage-600">
                     {item.size && (
-                      <span className="rounded bg-gray-100 px-2 py-0.5">
+                      <span className="rounded bg-amber-mirage-100 px-2 py-0.5">
                         Size: {item.size}
                       </span>
                     )}
                     {item.gemstone && (
-                      <span className="rounded bg-gray-100 px-2 py-0.5">
+                      <span className="rounded bg-amber-mirage-100 px-2 py-0.5">
                         {item.gemstone}
                       </span>
                     )}
@@ -95,10 +95,10 @@ export default function OrderSummaryCard({
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-amber-mirage-600">
                     Qty: {item.quantity}
                   </span>
-                  <span className="text-sm font-semibold tabular-nums">
+                  <span className="text-sm font-semibold tabular-nums text-amber-mirage-brown">
                     {formatPrice(item.price * item.quantity)}
                   </span>
                 </div>
@@ -111,8 +111,8 @@ export default function OrderSummaryCard({
 
         {/* Promo Code */}
         <div className="space-y-2">
-          <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-            <Tag className="h-4 w-4" />
+          <label className="flex items-center gap-2 text-sm font-medium text-amber-mirage-700">
+            <Tag className="h-4 w-4 text-amber-mirage-gold" />
             Have a promo code?
           </label>
           <div className="flex gap-2">
@@ -121,7 +121,7 @@ export default function OrderSummaryCard({
               value={promoCodeInput}
               onChange={(e) => setPromoCodeInput(e.target.value.toUpperCase())}
               placeholder="PROMO CODE"
-              className="flex-1 uppercase"
+              className="flex-1 uppercase border-amber-mirage-200 focus:border-amber-mirage-gold"
               disabled={isApplying}
             />
             <Button
@@ -129,11 +129,12 @@ export default function OrderSummaryCard({
               variant="outline"
               onClick={handleApplyPromo}
               disabled={!promoCodeInput.trim() || isApplying}
+              className="border-amber-mirage-200 hover:bg-amber-mirage-100 hover:text-amber-mirage-gold"
             >
               {isApplying ? 'Applying...' : 'Apply'}
             </Button>
           </div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-amber-mirage-500">
             Apply promo codes in your cart before checkout
           </p>
         </div>
@@ -143,8 +144,8 @@ export default function OrderSummaryCard({
         {/* Price Breakdown */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Subtotal</span>
-            <span className="tabular-nums">{formatPrice(subtotal)}</span>
+            <span className="text-amber-mirage-600">Subtotal</span>
+            <span className="tabular-nums text-amber-mirage-brown">{formatPrice(subtotal)}</span>
           </div>
           
           {discount > 0 && promoCode && (
@@ -155,30 +156,30 @@ export default function OrderSummaryCard({
           )}
           
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Shipping</span>
-            <span className={`tabular-nums ${shipping === 0 ? 'text-green-600 font-medium' : ''}`}>
+            <span className="text-amber-mirage-600">Shipping</span>
+            <span className={`tabular-nums ${shipping === 0 ? 'text-green-600 font-medium' : 'text-amber-mirage-brown'}`}>
               {shipping === 0 ? 'FREE' : formatPrice(shipping)}
             </span>
           </div>
 
-          <Separator />
+          <Separator className="bg-amber-mirage-200" />
 
           <div className="flex justify-between text-lg font-semibold">
-            <span>Total</span>
-            <span className="tabular-nums">{formatPrice(total)}</span>
+            <span className="text-amber-mirage-brown">Total</span>
+            <span className="tabular-nums text-amber-mirage-brown">{formatPrice(total)}</span>
           </div>
         </div>
 
-        <Separator />
+        <Separator className="bg-amber-mirage-200" />
 
         {/* Trust Badges */}
         <div className="space-y-2 text-center">
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-            <Lock className="h-4 w-4" />
+          <div className="flex items-center justify-center gap-2 text-sm text-amber-mirage-600">
+            <Lock className="h-4 w-4 text-amber-mirage-gold" />
             <span>Secure checkout • SSL encrypted</span>
           </div>
           
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-amber-mirage-500">
             Your payment information is protected
           </p>
         </div>
