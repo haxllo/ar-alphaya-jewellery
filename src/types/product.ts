@@ -52,6 +52,7 @@ export type CartItem = {
   quantity: number;
   size?: string;
   gemstone?: string;
+  plating?: string;
   image?: string;
 };
 

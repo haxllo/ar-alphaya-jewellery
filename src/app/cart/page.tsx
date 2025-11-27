@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useCartStore } from '@/lib/store/cart'
-import CartItemComponent from '@/components/cart/cart-item'
+import { CartItemOne } from '@/components/cart-item-01'
 import CartSummary from '@/components/cart/cart-summary'
 import CartSkeleton from '@/components/ui/skeletons/CartSkeleton'
 import ShippingProgress from '@/components/cart/ShippingProgress'
@@ -167,25 +167,21 @@ export default function CartPage() {
         <div>
           <ShippingProgress subtotal={subtotal} freeShippingThreshold={freeShippingThreshold} />
           
-          <div className="bg-white border border-gray-200 rounded-lg">
-            <div className="p-6">
-              <div className="space-y-6">
-                {items.map((item) => {
-                  const itemKey = `${item.productId}-${item.size}`
-                  const isRemoving = removingItem === itemKey
-                  
-                  return (
-                    <CartItemComponent
-                      key={itemKey}
-                      item={item}
-                      isRemoving={isRemoving}
-                      onQuantityChange={handleQuantityChange}
-                      onRemove={handleRemoveItem}
-                    />
-                  )
-                })}
-              </div>
-            </div>
+          <div className="space-y-4">
+            {items.map((item) => {
+              const itemKey = `${item.productId}-${item.size}`
+              const isRemoving = removingItem === itemKey
+              
+              return (
+                <CartItemOne
+                  key={itemKey}
+                  item={item}
+                  isRemoving={isRemoving}
+                  onQuantityChange={handleQuantityChange}
+                  onRemove={handleRemoveItem}
+                />
+              )
+            })}
           </div>
         </div>
         
