@@ -1,68 +1,108 @@
+'use client'
+
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
-import {
-	Card,
-	CardContent,
-	CardTitle,
-	CardDescription,
-} from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
+import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { usePriceFormatter } from "@/hooks/useCurrency";
+import { useWishlistStore } from "@/lib/store/wishlist";
+import type { Product } from "@/types/product";
+import { fixUploadcareUrl } from "@/lib/fix-uploadcare-url";
 
-const productData = {
-	name: "Vintage Denim Jacket",
-	description:
-		"A classic denim jacket with a vintage wash and durable stitching. Perfect for everyday streetwear.",
-	price: 180.0,
-	image:
-		"https://images.unsplash.com/photo-1649937408746-4d2f603f91c8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1226",
-	isBestSeller: true,
-	isFavorited: false,
-};
+interface ProductCardOneProps {
+	product: Product;
+	onAddToCart?: (product: Product) => void;
+}
 
-export function ProductCardOne() {
+export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
+	const { formatPrice } = usePriceFormatter() as any;
+	const { addItem, removeItem, isInWishlist } = useWishlistStore();
+	const isFavorited = isInWishlist(product.id);
+
+	const handleWishlistToggle = () => {
+		if (isFavorited) {
+			removeItem(product.id);
+		} else {
+			addItem(product);
+		}
+	};
+
 	return (
-		<Card className="w-full max-w-[320px]">
-			<CardContent>
+		<Card className="w-full max-w-[320px] border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe">
+			<CardContent className="p-4">
 				{/* Product Image */}
-				<div className="relative mb-6">
-					<div className="bg-gray-100 rounded-2xl flex items-center justify-center h-[280px] relative overflow-hidden">
-						<img
-							src={productData.image}
-							alt={productData.name}
-							className="w-full h-full object-fit"
-						/>
+				<Link href={`/products/${product.slug}`} className="block relative mb-4">
+					<div className="bg-amber-mirage-100 rounded-2xl flex items-center justify-center h-[280px] relative overflow-hidden border border-amber-mirage-200">
+						{product.images && product.images[0] ? (
+							<Image
+								src={fixUploadcareUrl(product.images[0])}
+								alt={product.name}
+								fill
+								className="object-cover transition-transform duration-300 hover:scale-105"
+								sizes="(max-width: 768px) 100vw, 320px"
+							/>
+						) : (
+							<div className="text-amber-mirage-400 text-sm">No image</div>
+						)}
 
 						<Button
 							variant="ghost"
 							size="icon"
-							className="absolute top-2 right-2"
+							onClick={(e) => {
+								e.preventDefault();
+								handleWishlistToggle();
+							}}
+							className="absolute top-2 right-2 bg-amber-mirage-soft/90 hover:bg-amber-mirage-warm/20"
+							aria-label={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
 						>
 							<Heart
 								className={cn(
-									"w-6 h-6 transition-colors",
-									productData.isFavorited
-										? "fill-red-500 text-red-500"
-										: "text-gray-800 hover:text-red-500",
+									"w-5 h-5 transition-colors",
+									isFavorited
+										? "fill-amber-mirage-gold text-amber-mirage-gold"
+										: "text-amber-mirage-brown hover:text-amber-mirage-gold",
 								)}
 							/>
 						</Button>
+
+						{product.featured && (
+							<div className="absolute top-2 left-2 bg-amber-mirage-gold text-amber-mirage-soft px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+								Featured
+							</div>
+						)}
 					</div>
-				</div>
+				</Link>
 
 				{/* Product Info */}
 				<div className="mb-4">
-					<CardTitle className="text-xl leading-tight mb-2">
-						{productData.name}
-					</CardTitle>
-					<CardDescription className="text-sm">
-						{productData.description}
+					<Link href={`/products/${product.slug}`}>
+						<CardTitle className="text-lg leading-tight mb-2 text-amber-mirage-brown hover:text-amber-mirage-gold transition-colors line-clamp-2">
+							{product.name}
+						</CardTitle>
+					</Link>
+					<CardDescription className="text-sm text-amber-mirage-700 line-clamp-2">
+						{product.description}
 					</CardDescription>
+					{product.materials && product.materials.length > 0 && (
+						<p className="text-xs text-amber-mirage-600 mt-1">
+							{product.materials.slice(0, 2).join(", ")}
+						</p>
+					)}
 				</div>
 
 				<div className="flex items-center justify-between">
-					<p className="text-2xl font-bold">${productData.price.toFixed(2)}</p>
+					<p className="text-2xl font-bold text-amber-mirage-brown">
+						{formatPrice(product.price)}
+					</p>
 
-					<Button>Add to Cart</Button>
+					<Button 
+						onClick={() => onAddToCart?.(product)}
+						className="bg-amber-mirage-gold hover:bg-amber-mirage-600 text-amber-mirage-soft"
+					>
+						Add to Cart
+					</Button>
 				</div>
 			</CardContent>
 		</Card>
