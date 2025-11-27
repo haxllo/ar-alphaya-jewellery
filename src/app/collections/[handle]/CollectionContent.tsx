@@ -19,10 +19,10 @@ export default function CollectionContent({ handle, products }: CollectionConten
   const { addItem } = useCartStore()
   
   const descriptors: Record<string, string> = {
-    rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
-    earrings: 'Sculptural statements and easy, luminous studs for every day.',
-    pendants: 'Keepsakes designed to rest close to the heart.',
-    'bracelets-bangles': 'Articulated bracelets and hand-forged bangles made to move with you.',
+    rings: 'Timeless symbols of forever, handcrafted with intention and care.',
+    earrings: 'Elegant statements and luminous accents for every occasion.',
+    pendants: 'Treasured keepsakes designed to rest close to your heart.',
+    'bracelets-bangles': 'Gracefully articulated pieces that move beautifully with you.',
   }
   const title = handle.replace('-', ' ')
   
@@ -55,38 +55,37 @@ export default function CollectionContent({ handle, products }: CollectionConten
   
   return (
     <main className="mx-auto max-w-7xl px-6 py-14">
-      <div className="mb-10 rounded-3xl bg-white/80 p-8 shadow-subtle">
+      <div className="mb-10 rounded-3xl bg-gradient-to-br from-amber-mirage-50 to-white/80 p-8 shadow-subtle border border-amber-mirage-100">
+        {/* Breadcrumb */}
         <Breadcrumbs
           items={[{ label: 'Home', href: '/' }]}
           currentPage={title}
         />
-        <div className="mt-6 space-y-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h1 className="font-serif text-3xl capitalize text-nocturne-900 md:text-4xl">{title}</h1>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-nocturne-600">
-                {descriptors[handle] || 'Discover curated pieces finished by hand and tailored to your rituals.'}
-              </p>
-              <p className="mt-2 text-sm text-gray-500">
-                {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#collection-grid" className="flex items-center justify-center rounded-full border border-nocturne-200 px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-nocturne-500 hover:border-gold-200 hover:text-foreground transition-all whitespace-nowrap">
-                View collection
-              </a>
-              <a href="/contact" className="flex items-center justify-center rounded-full bg-foreground px-4 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
-                Bespoke inquiry
-              </a>
-            </div>
+        
+        {/* Title and Bespoke Button Row */}
+        <div className="mt-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div className="flex-1">
+            <h1 className="font-serif text-4xl md:text-5xl capitalize text-amber-mirage-brown tracking-tight">{title}</h1>
           </div>
+          <a 
+            href="/contact" 
+            className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-amber-mirage-brown text-amber-mirage-soft text-xs font-medium uppercase tracking-widest hover:bg-amber-mirage-brown/90 transition-all duration-300 hover:shadow-lg whitespace-nowrap"
+          >
+            Custom Design
+          </a>
+        </div>
 
-          {/* Quick Filters */}
+        {/* Description */}
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-amber-mirage-700">
+          {descriptors[handle] || 'Discover curated pieces finished by hand and tailored to your rituals.'}
+        </p>
+
+        {/* Filters and Product Count Row */}
+        <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <QuickFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-
-          {/* Product Count */}
-          <div className="text-sm text-gray-600">
-            Showing {filteredProducts.length} of {products.length} products
+          
+          <div className="text-sm text-amber-mirage-600 whitespace-nowrap">
+            {filteredProducts.length} of {products.length} {products.length === 1 ? 'piece' : 'pieces'}
           </div>
         </div>
       </div>
