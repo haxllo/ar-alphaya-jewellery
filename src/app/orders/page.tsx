@@ -97,41 +97,41 @@ export default function OrdersPage() {
 
   if (sessionStatus === 'loading' || isLoading) {
     return (
-      <main className="mx-auto max-w-4xl px-6 py-12">
+      <main className="mx-auto max-w-4xl px-6 py-12 min-h-screen bg-gradient-to-br from-amber-mirage-50 via-white to-amber-mirage-soft">
         <div className="text-center py-12">
-          <p className="text-gray-600">Loading orders...</p>
+          <p className="text-amber-mirage-600">Loading orders...</p>
         </div>
       </main>
     )
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
+    <main className="mx-auto max-w-4xl px-6 py-12 min-h-screen bg-gradient-to-br from-amber-mirage-50 via-white to-amber-mirage-soft">
       <div className="mb-6">
         <Link 
           href="/" 
-          className="inline-flex items-center text-gray-600 hover:text-gray-800 mb-4"
+          className="inline-flex items-center text-amber-mirage-600 hover:text-amber-mirage-gold mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Link>
-        <h1 className="text-3xl font-semibold text-gray-900">Your Orders</h1>
+        <h1 className="text-3xl font-serif font-semibold text-amber-mirage-brown">Your Orders</h1>
       </div>
       
       {orders.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-            <Package className="w-8 h-8 text-gray-400" />
+        <div className="text-center py-12 bg-white/90 backdrop-blur-sm shadow-luxe border border-amber-mirage-200 rounded-2xl p-8">
+          <div className="w-16 h-16 mx-auto mb-6 bg-amber-mirage-50 rounded-full flex items-center justify-center">
+            <Package className="w-8 h-8 text-amber-mirage-400" />
           </div>
           
-          <h2 className="text-xl font-medium text-gray-900 mb-4">No orders yet</h2>
-          <p className="text-gray-600 mb-8">
+          <h2 className="text-xl font-serif font-medium text-amber-mirage-brown mb-4">No orders yet</h2>
+          <p className="text-amber-mirage-600 mb-8">
             When you place your first order, it will appear here.
           </p>
           
           <Link 
             href="/" 
-            className="inline-block bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
+            className="inline-block bg-amber-mirage-brown text-amber-mirage-soft px-6 py-3 rounded-lg hover:bg-amber-mirage-brown/90 transition-all"
           >
             Start Shopping
           </Link>
@@ -139,56 +139,56 @@ export default function OrdersPage() {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="border border-gray-200 rounded-lg p-6">
+            <div key={order.id} className="bg-white/90 backdrop-blur-sm border border-amber-mirage-200 rounded-2xl p-6 shadow-amber hover:shadow-luxe transition-shadow">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="font-medium text-gray-900">{order.order_number}</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="font-serif font-medium text-amber-mirage-brown">{order.order_number}</h3>
+                  <p className="text-sm text-amber-mirage-600">
                     Placed on {formatDate(order.created_at)}
                   </p>
                   {order.paid_at && (
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-amber-mirage-500">
                       Paid on {formatDate(order.paid_at)}
                     </p>
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-amber-mirage-brown">
                     {formatPrice(order.total, order.currency)}
                   </p>
                   <p className={`text-sm font-medium ${getStatusColor(order.status)}`}>
                     {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                   </p>
                   {order.payment_status !== order.status && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-amber-mirage-500 mt-1">
                       Payment: {order.payment_status}
                     </p>
                   )}
                 </div>
               </div>
               
-              <div className="space-y-3 mt-4 pt-4 border-t border-gray-100">
+              <div className="space-y-3 mt-4 pt-4 border-t border-amber-mirage-100">
                 {order.order_items.map((item) => (
                   <div key={item.id} className="flex items-center">
                     {item.image && (
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-12 h-12 object-cover rounded mr-4"
+                        className="w-12 h-12 object-cover rounded mr-4 border border-amber-mirage-200"
                       />
                     )}
                     {!item.image && (
-                      <div className="w-12 h-12 bg-gray-100 rounded mr-4"></div>
+                      <div className="w-12 h-12 bg-amber-mirage-50 rounded mr-4 border border-amber-mirage-200"></div>
                     )}
                     <div className="flex-1">
-                      <p className="font-medium text-gray-900">{item.name}</p>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <p className="font-medium text-amber-mirage-brown">{item.name}</p>
+                      <div className="flex items-center gap-2 text-sm text-amber-mirage-600">
                         <span>Quantity: {item.quantity}</span>
                         {item.size && <span>• Size: {item.size}</span>}
                         {item.gemstone && <span>• {item.gemstone}</span>}
                       </div>
                     </div>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-amber-mirage-brown">
                       {formatPrice(item.price * item.quantity, order.currency)}
                     </p>
                   </div>
