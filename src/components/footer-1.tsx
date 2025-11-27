@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
 
@@ -81,17 +80,16 @@ export function FooterOne() {
             </p>
             <div className="flex gap-2">
               {socialLinks.map((item, index) => (
-                <Button
+                <a
                   key={`social-${item.link}-${index}`}
-                  size="icon"
-                  variant="outline"
-                  className="h-9 w-9 border-amber-mirage-200 hover:bg-amber-mirage-100 hover:text-amber-mirage-gold hover:border-amber-mirage-gold"
-                  asChild
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-md border border-amber-mirage-200 bg-transparent text-amber-mirage-brown transition-colors hover:bg-amber-mirage-100 hover:text-amber-mirage-gold hover:border-amber-mirage-gold"
                 >
-                  <a href={item.link} target="_blank" rel="noopener noreferrer" aria-label={item.label}>
-                    <item.icon className="size-4" />
-                  </a>
-                </Button>
+                  <item.icon className="size-4" />
+                </a>
               ))}
             </div>
           </div>
