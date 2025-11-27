@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useCartStore } from '@/lib/store/cart'
-import CartItemComponent from '@/components/cart/cart-item'
+import { CartItemOne } from '@/components/cart-item-01'
 import CartSummary from '@/components/cart/cart-summary'
 import CartSkeleton from '@/components/ui/skeletons/CartSkeleton'
 import ShippingProgress from '@/components/cart/ShippingProgress'
@@ -167,36 +167,32 @@ export default function CartPage() {
         <div>
           <ShippingProgress subtotal={subtotal} freeShippingThreshold={freeShippingThreshold} />
           
-          <div className="bg-white border border-gray-200 rounded-lg">
-            <div className="p-6">
-              <div className="space-y-6">
-                {items.map((item) => {
-                  const itemKey = `${item.productId}-${item.size}`
-                  const isRemoving = removingItem === itemKey
-                  
-                  return (
-                    <CartItemComponent
-                      key={itemKey}
-                      item={item}
-                      isRemoving={isRemoving}
-                      onQuantityChange={handleQuantityChange}
-                      onRemove={handleRemoveItem}
-                    />
-                  )
-                })}
-              </div>
-            </div>
+          <div className="space-y-4">
+            {items.map((item) => {
+              const itemKey = `${item.productId}-${item.size}`
+              const isRemoving = removingItem === itemKey
+              
+              return (
+                <CartItemOne
+                  key={itemKey}
+                  item={item}
+                  isRemoving={isRemoving}
+                  onQuantityChange={handleQuantityChange}
+                  onRemove={handleRemoveItem}
+                />
+              )
+            })}
           </div>
         </div>
         
         {/* Order Summary - Sticky on Desktop */}
         <div className="lg:sticky lg:top-24 lg:h-fit space-y-4">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-black">Order Summary</h2>
+          <div className="border border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber rounded-lg p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-amber-mirage-brown">Order Summary</h2>
             
             <DeliveryEstimate />
             
-            <div className="border-t pt-4">
+            <div className="border-t border-amber-mirage-200 pt-4">
               <PromoCode onApply={handleApplyPromoCode} />
             </div>
             

@@ -70,7 +70,7 @@ export const viewport = {
 };
 
 import Header from '@/components/layout/header'
-import Footer from '@/components/layout/footer'
+import { FooterOne } from '@/components/footer-1'
 import Providers from './providers'
 import AbandonedCartTracker from '@/components/AbandonedCartTracker'
 import CartSync from '@/components/cart/CartSync'
@@ -133,7 +133,7 @@ export default function RootLayout({
             <div className="pointer-events-none absolute inset-0 bg-hero-radial" aria-hidden="true" />
             <Header />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <FooterOne />
           </div>
           <AbandonedCartTracker />
           <CartSync />

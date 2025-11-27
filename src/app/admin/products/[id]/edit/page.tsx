@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ImageUploader } from '@/components/admin/ImageUploader'
 import { CheckboxGrid } from '@/components/admin/CheckboxGrid'
-import { PRODUCT_CATEGORIES, MATERIALS, COMMON_TAGS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES, PLATING_TYPES } from '@/lib/admin/constants'
+import { PRODUCT_CATEGORIES, MATERIALS, SIZE_OPTIONS, AVAILABILITY_OPTIONS, GEMSTONE_TYPES, PLATING_TYPES } from '@/lib/admin/constants'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 import { useProductValidation } from '@/hooks/useProductValidation'
@@ -77,9 +77,9 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     const dataToValidate = {
       ...product,
       description: product.description ?? undefined,
+      cardDescription: product.cardDescription ?? undefined,
       sku: product.sku ?? undefined,
       materials: product.materials ?? undefined,
-      tags: product.tags ?? undefined,
       weight: product.weight ?? undefined,
       dimensions: product.dimensions ?? undefined,
       sizes: product.sizes ?? undefined,
@@ -285,6 +285,21 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 )}
               </div>
 
+              <div>
+                <Label htmlFor="cardDescription">Card Description (Short)</Label>
+                <Textarea
+                  id="cardDescription"
+                  value={product.cardDescription || ''}
+                  onChange={(e) => setProduct(prev => ({ ...prev, cardDescription: e.target.value }))}
+                  placeholder="Brief description for product cards (1-2 lines)"
+                  maxLength={150}
+                  rows={2}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Shown only on product cards. {150 - (product.cardDescription?.length || 0)} characters remaining
+                </p>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="category">Category *</Label>
@@ -422,11 +437,11 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
               </div>
 
               <CheckboxGrid
-                label="Tags"
-                options={COMMON_TAGS}
-                selected={product.tags || []}
-                onChange={(tags) => setProduct(prev => ({ ...prev, tags }))}
-                columns={3}
+                label="Available Sizes"
+                options={SIZE_OPTIONS}
+                selected={product.sizes || []}
+                onChange={(sizes) => setProduct(prev => ({ ...prev, sizes: sizes as Size[] }))}
+                columns={4}
               />
             </div>
           </div>
@@ -435,40 +450,39 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">
             <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Plating Options</h2>
             <p className="text-sm text-gray-600 mb-4">Select plating finishes available for this product (optional)</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="space-y-3">
               {PLATING_TYPES.map((plating) => (
-                <label
-                  key={plating.value}
-                  className={`flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer transition-all ${
-                    product.plating?.some(p => p.type === plating.value)
-                      ? 'border-gold-500 bg-gold-50/50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={product.plating?.some(p => p.type === plating.value) || false}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setProduct(prev => ({
-                          ...prev,
-                          plating: [...(prev.plating || []), { type: plating.value as any, available: true }]
-                        }));
-                      } else {
-                        setProduct(prev => ({
-                          ...prev,
-                          plating: prev.plating?.filter(p => p.type !== plating.value)
-                        }));
-                      }
-                    }}
-                    className="h-4 w-4 rounded border-gray-300 text-gold-600 focus:ring-gold-500"
-                  />
-                  <span 
-                    className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0" 
-                    style={{ backgroundColor: plating.color }}
-                  />
-                  <span className="text-sm font-medium">{plating.label}</span>
-                </label>
+                <div key={plating.value} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={product.plating?.some(p => p.type === plating.value) || false}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setProduct(prev => ({
+                            ...prev,
+                            plating: [...(prev.plating || []), { 
+                              type: plating.value as any, 
+                              label: plating.label,
+                              priceAdjustment: plating.priceAdjustment,
+                              available: true 
+                            }]
+                          }));
+                        } else {
+                          setProduct(prev => ({
+                            ...prev,
+                            plating: prev.plating?.filter(p => p.type !== plating.value)
+                          }));
+                        }
+                      }}
+                      className="h-4 w-4 rounded border-gray-300 text-amber-mirage-gold focus:ring-amber-mirage-gold"
+                    />
+                    <span className="font-medium">{plating.label}</span>
+                  </div>
+                  <span className="text-sm text-gray-600">
+                    {plating.priceAdjustment === 0 ? 'Base price' : `+Rs. ${plating.priceAdjustment.toLocaleString()}`}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
@@ -492,55 +506,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             )}
           </div>
 
-          {/* Sizes Section */}
-          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Sizes (Optional)</h2>
-            <div className="space-y-3">
-              {(product.sizes || []).map((size, index) => (
-                <div key={index} className="flex gap-3">
-                  <Input
-                    placeholder="Size label (e.g., Small, 7, M)"
-                    value={size.label}
-                    onChange={(e) => {
-                      const newSizes = [...(product.sizes || [])]
-                      newSizes[index] = { ...size, label: e.target.value }
-                      setProduct(prev => ({ ...prev, sizes: newSizes }))
-                    }}
-                  />
-                  <Input
-                    placeholder="Value"
-                    value={size.value}
-                    onChange={(e) => {
-                      const newSizes = [...(product.sizes || [])]
-                      newSizes[index] = { ...size, value: e.target.value }
-                      setProduct(prev => ({ ...prev, sizes: newSizes }))
-                    }}
-                  />
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => {
-                      const newSizes = (product.sizes || []).filter((_, i) => i !== index)
-                      setProduct(prev => ({ ...prev, sizes: newSizes }))
-                    }}
-                  >
-                    Remove
-                  </Button>
-                </div>
-              ))}
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  const newSizes = [...(product.sizes || []), { label: '', value: '' }]
-                  setProduct(prev => ({ ...prev, sizes: newSizes }))
-                }}
-              >
-                Add Size
-              </Button>
-            </div>
-          </div>
+
 
           {/* Gemstones Section */}
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">

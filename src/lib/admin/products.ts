@@ -269,7 +269,6 @@ export async function duplicateProduct(id: string, userId: string): Promise<Prod
     category: original.category,
     sku: original.sku ? `${original.sku}-COPY` : '',
     materials: original.materials || [],
-    tags: original.tags || [],
     weight: original.weight,
     dimensions: original.dimensions || '',
     sizes: original.sizes || [],

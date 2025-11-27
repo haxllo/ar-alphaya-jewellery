@@ -44,7 +44,7 @@ export default function PromoCode({ onApply }: PromoCodeProps) {
 
   return (
     <div className="space-y-2">
-      <label htmlFor="promo-code" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="promo-code" className="block text-sm font-medium text-amber-mirage-700">
         Promo Code
       </label>
       
@@ -56,14 +56,14 @@ export default function PromoCode({ onApply }: PromoCodeProps) {
           onChange={(e) => setCode(e.target.value.toUpperCase())}
           onKeyPress={handleKeyPress}
           placeholder="Enter code"
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent uppercase"
+          className="flex-1 px-3 py-2 border border-amber-mirage-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-mirage-gold focus:border-transparent uppercase text-amber-mirage-brown"
           disabled={isApplying}
         />
         
         <button
           onClick={handleApply}
           disabled={isApplying || !code.trim()}
-          className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+          className="px-4 py-2 bg-amber-mirage-gold text-amber-mirage-soft rounded-lg hover:bg-amber-mirage-600 disabled:bg-amber-mirage-200 disabled:cursor-not-allowed transition-colors font-medium text-sm"
         >
           {isApplying ? 'Applying...' : 'Apply'}
         </button>

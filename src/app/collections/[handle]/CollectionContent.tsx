@@ -1,12 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 import { usePriceFormatter } from '@/hooks/useCurrency'
-import WishlistButton from '@/components/wishlist/WishlistButton'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import QuickFilters from '@/components/collection/QuickFilters'
+import { ProductCardOne } from '@/components/product-card-01'
+import { useCartStore } from '@/lib/store/cart'
 import type { Product } from '@/types/product'
 
 interface CollectionContentProps {
@@ -17,6 +16,7 @@ interface CollectionContentProps {
 export default function CollectionContent({ handle, products }: CollectionContentProps) {
   const { formatPrice } = usePriceFormatter()
   const [activeFilter, setActiveFilter] = useState('all')
+  const { addItem } = useCartStore()
   
   const descriptors: Record<string, string> = {
     rings: 'Modern proposals, anniversaries, and self-led declarations of love.',
@@ -39,6 +39,19 @@ export default function CollectionContent({ handle, products }: CollectionConten
     if (activeFilter === 'featured') return product.featured === true
     return true
   })
+
+  const handleAddToCart = (product: Product, quantity: number = 1, plating?: string) => {
+    const platingPrice = plating === '24k-gold' ? 5000 : plating === '18k-rose-gold' ? 3000 : 0
+    addItem({
+      productId: product.id,
+      name: product.name,
+      price: product.price + platingPrice,
+      quantity,
+      image: product.images?.[0] || '',
+      slug: product.slug,
+      plating,
+    })
+  }
   
   return (
     <main className="mx-auto max-w-7xl px-6 py-14">
@@ -87,44 +100,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
       ) : (
         <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 scroll-mt-24">
           {filteredProducts.map((p) => (
-            <div
-              key={p.id}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-nocturne-100 bg-white/75 transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/70 hover:shadow-luxe"
-            >
-              <div className="absolute right-2 top-2 sm:right-4 sm:top-4 z-10">
-                <WishlistButton product={p} size="sm" />
-              </div>
-              <Link href={`/products/${p.slug}`} className="flex h-full flex-col">
-                <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-nocturne-100">
-                  {p.images && p.images[0] ? (
-                    <Image
-                      src={p.images[0]}
-                      alt={p.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover transition-transform duration-700 ease-luxe group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-nocturne-300">
-                      <svg className="h-8 w-8 sm:h-10 sm:w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col gap-0.5 sm:gap-1 p-3 sm:p-5">
-                  <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-nocturne-400 hidden sm:block">{title}</p>
-                  <h3 className="font-serif text-sm sm:text-xl text-nocturne-900 transition-colors group-hover:text-foreground line-clamp-2">{p.name}</h3>
-                  <span className="text-sm sm:text-base font-semibold text-nocturne-600 mt-1">{formatPrice(p.price)}</span>
-                  {p.availability && (
-                    <span className="hidden sm:inline-flex w-fit items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-600 mt-2">
-                      {p.availability.split(/[-_\s]+/).filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            </div>
+            <ProductCardOne key={p.id} product={p} onAddToCart={handleAddToCart} />
           ))}
         </div>
       )}

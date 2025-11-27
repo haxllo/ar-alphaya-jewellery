@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 18, 18, 18;
-  --background-rgb: 255, 255, 255;
-  --border-rgb: 229, 231, 235;
+  --foreground-rgb: 90, 60, 11;
+  --background-rgb: 255, 245, 225;
+  --border-rgb: 235, 193, 118;
+  --amber-soft: #FFF5E1;
+  --amber-warm: #EBC176;
+  --amber-gold: #C48B28;
+  --amber-brown: #5A3C0B;
 }
 
 body {
