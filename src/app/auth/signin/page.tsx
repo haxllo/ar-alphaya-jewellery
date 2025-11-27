@@ -4,14 +4,20 @@ import { useState, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react'
 
 function SignInContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/profile'
+  const message = searchParams.get('message')
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -41,82 +47,102 @@ function SignInContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-gradient-to-br from-amber-mirage-50 via-white to-amber-mirage-soft">
       <div className="max-w-md w-full">
-        <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign In</h1>
-          <p className="text-gray-600 mb-8">Sign in to your account to continue</p>
+        <div className="bg-white/90 backdrop-blur-sm shadow-luxe border border-amber-mirage-200 rounded-2xl p-8">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-mirage-soft mb-4">
+              <LogIn className="w-6 h-6 text-amber-mirage-gold" />
+            </div>
+            <h1 className="text-3xl font-serif font-bold text-amber-mirage-brown mb-2">Sign In</h1>
+            <p className="text-amber-mirage-600">Welcome back to AR Alphaya</p>
+          </div>
 
+          {/* Success Message */}
+          {message && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+              {message}
+            </div>
+          )}
+
+          {/* Error Message */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email Field */}
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium text-amber-mirage-700">
+                Email
+              </Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-mirage-400" />
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10 border-amber-mirage-200 focus:border-amber-mirage-gold focus:ring-amber-mirage-gold/30"
+                  placeholder="Enter your email"
                 />
-                <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
-                  Remember me
-                </label>
               </div>
-              <Link
-                href="/auth/forgot-password"
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                Forgot password?
-              </Link>
             </div>
 
-            <button
+            {/* Password Field */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="text-sm font-medium text-amber-mirage-700">
+                  Password
+                </Label>
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-xs text-amber-mirage-600 hover:text-amber-mirage-gold transition-colors font-medium"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-mirage-400" />
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10 pr-10 border-amber-mirage-200 focus:border-amber-mirage-gold focus:ring-amber-mirage-gold/30"
+                  placeholder="Enter your password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-amber-mirage-400 hover:text-amber-mirage-600 transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full bg-amber-mirage-brown hover:bg-amber-mirage-brown/90 text-amber-mirage-soft py-6 text-base font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 mt-6"
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
-            </button>
+              {isLoading ? 'Signing In...' : 'Sign In'}
+            </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+          {/* Footer */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-amber-mirage-600">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="text-black font-medium hover:underline">
-                Sign up
+              <Link href="/auth/signup" className="font-semibold text-amber-mirage-brown hover:text-amber-mirage-gold transition-colors underline underline-offset-2">
+                Sign Up
               </Link>
             </p>
           </div>
