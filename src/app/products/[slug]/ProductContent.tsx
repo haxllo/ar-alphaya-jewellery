@@ -48,7 +48,21 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
       image: prod.images?.[0],
       gemstone: undefined,
       size: undefined,
+      plating: options.plating?.type,
     })
+    
+    // Show success feedback
+    if (typeof window !== 'undefined') {
+      // Simple visual feedback - could be enhanced with toast library
+      const notification = document.createElement('div')
+      notification.className = 'fixed top-4 right-4 bg-amber-mirage-brown text-amber-mirage-soft px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in'
+      notification.textContent = `Added ${options.quantity}x ${prod.name} to cart`
+      document.body.appendChild(notification)
+      setTimeout(() => {
+        notification.classList.add('opacity-0', 'transition-opacity')
+        setTimeout(() => notification.remove(), 300)
+      }, 3000)
+    }
   }
 
   return (

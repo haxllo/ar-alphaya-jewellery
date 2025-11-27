@@ -85,39 +85,16 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 		<div className="w-full max-w-6xl mx-auto p-6 not-prose">
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				{/* Image Section */}
-				<div className="flex gap-2">
-					{/* Thumbnail column */}
-					<div className="flex flex-col w-28 gap-2">
-						{images.slice(0, 4).map((image, index) => (
-							<button
-								key={index}
-								onClick={() => setCurrentImageIndex(index)}
-								className={cn(
-									"aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-colors",
-									currentImageIndex === index
-										? "border-gray-900"
-										: "border-transparent hover:border-gray-300",
-								)}
-							>
-								<Image
-									src={fixUploadcareUrl(image)}
-									alt={`${product.name} ${index + 1}`}
-									width={112}
-									height={112}
-									className="w-full h-full object-cover"
-								/>
-							</button>
-						))}
-					</div>
-
+				<div className="flex flex-col gap-4">
 					{/* Main image */}
-					<div className="flex-1 relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
+					<div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
 						{images.length > 0 ? (
 							<Image
 								src={fixUploadcareUrl(images[currentImageIndex])}
 								alt={product.name}
-								fill
-								className="object-cover"
+								width={600}
+								height={600}
+								className="object-cover w-full h-full"
 								sizes="(max-width: 768px) 100vw, 50vw"
 								priority
 							/>
@@ -149,6 +126,32 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 							</>
 						)}
 					</div>
+
+					{/* Thumbnail row */}
+					{images.length > 1 && (
+						<div className="flex gap-2 overflow-x-auto pb-2">
+							{images.map((image, index) => (
+								<button
+									key={index}
+									onClick={() => setCurrentImageIndex(index)}
+									className={cn(
+										"flex-shrink-0 w-20 h-20 bg-gray-100 rounded-lg overflow-hidden border-2 transition-colors",
+										currentImageIndex === index
+											? "border-amber-mirage-gold"
+											: "border-transparent hover:border-gray-300",
+									)}
+								>
+									<Image
+										src={fixUploadcareUrl(image)}
+										alt={`${product.name} ${index + 1}`}
+										width={80}
+										height={80}
+										className="w-full h-full object-cover"
+									/>
+								</button>
+							))}
+						</div>
+					)}
 				</div>
 
 				{/* Product Info Section */}
