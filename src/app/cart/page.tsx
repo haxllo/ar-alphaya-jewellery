@@ -187,12 +187,12 @@ export default function CartPage() {
         
         {/* Order Summary - Sticky on Desktop */}
         <div className="lg:sticky lg:top-24 lg:h-fit space-y-4">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-black">Order Summary</h2>
+          <div className="border border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber rounded-lg p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-amber-mirage-brown">Order Summary</h2>
             
             <DeliveryEstimate />
             
-            <div className="border-t pt-4">
+            <div className="border-t border-amber-mirage-200 pt-4">
               <PromoCode onApply={handleApplyPromoCode} />
             </div>
             
