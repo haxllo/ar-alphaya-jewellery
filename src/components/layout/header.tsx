@@ -88,8 +88,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/30 bg-white/80 backdrop-blur-xl supports-backdrop:bg-white/70 shadow-[0_1px_0_rgba(18,18,18,0.08)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 py-2 sm:py-3 gap-2 sm:gap-4 md:gap-6">
-        <div className="flex items-center gap-6 md:gap-10">
-          {/* Logo */}
+        {/* Left: Logo */}
+        <div className="flex-1">
           <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
             <Image 
               src="/images/LOGO1.png" 
@@ -104,42 +104,42 @@ export default function Header() {
               <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-nocturne-500">JEWELLERY</span>
             </div>
           </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Home</Link>
-            <Link href="/#process" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Custom Commissions</Link>
-            <div className="relative group">
-              <button 
-                className="flex items-center text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
-                aria-label="Collections menu"
-                aria-expanded="false"
-                aria-haspopup="true"
-              >
-                Collections
-                <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div className="absolute top-full left-0 mt-3 w-56 rounded-xl border border-border/60 bg-white/95 shadow-luxe backdrop-blur transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
-                {collections.map((collection) => (
-                  <Link
-                    key={collection.handle}
-                    href={`/collections/${collection.handle}`}
-                    className="block px-4 py-3 text-sm font-medium text-nocturne-600 hover:bg-gold-50/70 hover:text-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
-                  >
-                    {collection.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <Link href="/about" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">About</Link>
-            <Link href="/contact" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Contact</Link>
-          </nav>
         </div>
 
-        {/* Right actions */}
-        <div className="flex items-center justify-end gap-2 sm:gap-3 md:gap-5">
+        {/* Center: Desktop Navigation */}
+        <nav className="hidden md:flex items-center justify-center gap-8 flex-1">
+          <Link href="/" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Home</Link>
+          <Link href="/#process" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Custom Commissions</Link>
+          <div className="relative group">
+            <button 
+              className="flex items-center text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors"
+              aria-label="Collections menu"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              Collections
+              <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div className="absolute top-full left-0 mt-3 w-56 rounded-xl border border-border/60 bg-white/95 shadow-luxe backdrop-blur transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+              {collections.map((collection) => (
+                <Link
+                  key={collection.handle}
+                  href={`/collections/${collection.handle}`}
+                  className="block px-4 py-3 text-sm font-medium text-nocturne-600 hover:bg-gold-50/70 hover:text-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
+                >
+                  {collection.title}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <Link href="/about" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">About</Link>
+          <Link href="/contact" className="text-sm font-medium text-nocturne-600 hover:text-foreground transition-colors">Contact</Link>
+        </nav>
+
+        {/* Right: Actions */}
+        <div className="flex items-center justify-end gap-2 sm:gap-3 md:gap-5 flex-1">
 
             {/* Currency Selector - Desktop */}
             {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}

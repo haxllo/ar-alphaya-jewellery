@@ -13,19 +13,23 @@ export const PRODUCT_STATUSES = [
 ] as const
 
 export const MATERIALS = [
-  'Gold',
-  'Silver',
-  'Platinum',
-  'Rose Gold',
-  'White Gold',
-  'Yellow Gold',
   '18K Gold',
   '22K Gold',
+  'White Gold',
+  'Rose Gold',
+  'Yellow Gold',
+  'Sterling Silver (925)',
+  'Fine Silver (999)',
+  'Platinum',
+  'Brass',
+  'Copper',
   'Stainless Steel',
   'Titanium',
+  'Mixed Metals',
   'Diamond',
   'Pearl',
-  'Gemstone'
+  'Gemstone',
+  'Other'
 ] as const
 
 export const COMMON_TAGS = [
@@ -91,4 +95,14 @@ export const GEMSTONE_TYPES = [
   'Tanzanite',
   'Spinel',
   'Zircon'
+] as const
+
+export const PLATING_TYPES = [
+  { value: 'Gold', label: 'Gold Plated', color: '#FFD700' },
+  { value: 'Rose Gold', label: 'Rose Gold Plated', color: '#B76E79' },
+  { value: 'Silver', label: 'Silver Plated', color: '#C0C0C0' },
+  { value: 'Rhodium', label: 'Rhodium Plated', color: '#E8E8E8' },
+  { value: 'Platinum', label: 'Platinum Plated', color: '#E5E4E2' },
+  { value: 'Two-Tone', label: 'Two-Tone Plating', color: '#DAA520' },
+  { value: 'Unplated', label: 'No Plating', color: '#8B7355' }
 ] as const

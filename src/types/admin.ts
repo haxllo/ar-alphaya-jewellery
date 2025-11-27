@@ -17,6 +17,7 @@ export interface Product {
   dimensions: string | null
   sizes: Size[] | null
   gemstones: Gemstone[] | null
+  plating: PlatingOption[] | null
   in_stock: boolean
   featured: boolean
   status: 'draft' | 'published'
@@ -43,6 +44,12 @@ export interface Gemstone {
   available?: boolean
 }
 
+export interface PlatingOption {
+  type: 'Gold' | 'Rose Gold' | 'Silver' | 'Rhodium' | 'Platinum' | 'Two-Tone' | 'Unplated'
+  priceAdjustment?: number
+  available?: boolean
+}
+
 export interface ProductFormData {
   name: string
   slug: string
@@ -58,6 +65,7 @@ export interface ProductFormData {
   dimensions: string
   sizes: Size[]
   gemstones: Gemstone[]
+  plating: PlatingOption[]
   in_stock: boolean
   featured: boolean
   status: 'draft' | 'published'

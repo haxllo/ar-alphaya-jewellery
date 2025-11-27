@@ -274,6 +274,7 @@ export async function duplicateProduct(id: string, userId: string): Promise<Prod
     dimensions: original.dimensions || '',
     sizes: original.sizes || [],
     gemstones: original.gemstones || [],
+    plating: original.plating || [],
     in_stock: original.in_stock,
     featured: false, // Don't duplicate featured status
     status: 'draft', // Always start as draft

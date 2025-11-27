@@ -43,6 +43,12 @@ export const productSchema = z.object({
     available: z.boolean().optional(),
   })).optional(),
   
+  plating: z.array(z.object({
+    type: z.enum(['Gold', 'Rose Gold', 'Silver', 'Rhodium', 'Platinum', 'Two-Tone', 'Unplated']),
+    priceAdjustment: z.number().optional(),
+    available: z.boolean().optional().default(true),
+  })).optional(),
+  
   inStock: z.boolean().optional(),
   featured: z.boolean().optional(),
   tags: z.array(z.string().max(30, 'Tag too long')).optional(),

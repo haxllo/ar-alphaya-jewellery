@@ -11,6 +11,12 @@ export type GemstoneOption = {
   available?: boolean;
 };
 
+export type PlatingOption = {
+  type: 'Gold' | 'Rose Gold' | 'Silver' | 'Rhodium' | 'Platinum' | 'Two-Tone' | 'Unplated';
+  priceAdjustment?: number; // price difference in cents
+  available?: boolean;
+};
+
 export type Product = {
   id: string;
   slug: string;
@@ -24,6 +30,7 @@ export type Product = {
   materials?: string[];
   sizes?: SizeOption[];
   gemstones?: GemstoneOption[]; // available gemstone options
+  plating?: PlatingOption[]; // available plating finishes
   weight?: number; // weight in grams
   dimensions?: string; // dimensions description
   inStock?: boolean;
