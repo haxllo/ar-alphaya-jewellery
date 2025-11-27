@@ -172,7 +172,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						<p className="text-3xl font-bold">
 							{formatPrice(finalPrice)}
 						</p>
-						{selectedPlating.priceAdjustment && selectedPlating.priceAdjustment > 0 && (
+						{(selectedPlating.priceAdjustment || 0) > 0 && (
 							<p className="text-gray-500 line-through text-xl mb-1">
 								{formatPrice(product.price)}
 							</p>
@@ -198,7 +198,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 								>
 									<div className="flex items-center justify-between">
 										<span className="font-medium">{getPlatingLabel(plating)}</span>
-										{plating.priceAdjustment && plating.priceAdjustment > 0 && (
+										{(plating.priceAdjustment || 0) > 0 && (
 											<span className="text-sm text-gray-600">
 												+{formatPrice(plating.priceAdjustment)}
 											</span>
