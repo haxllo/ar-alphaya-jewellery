@@ -11,9 +11,9 @@ import { fixUploadcareUrl } from "@/lib/fix-uploadcare-url";
 
 // Standard plating options for jewelry (925 Sterling Silver base)
 const STANDARD_PLATING_OPTIONS: PlatingOption[] = [
-	{ type: "Silver", priceAdjustment: 0, available: true }, // None (will be in 925 Sterling Silver)
-	{ type: "Gold", priceAdjustment: 50000, available: true }, // 24K Gold Plated (+LKR 500)
-	{ type: "Rose Gold", priceAdjustment: 50000, available: true }, // 18K Rose Gold Plated (+LKR 500)
+	{ type: "925-silver", label: "None (925 Sterling Silver)", priceAdjustment: 0, available: true },
+	{ type: "24k-gold", label: "24K Gold Plated", priceAdjustment: 5000, available: true },
+	{ type: "18k-rose-gold", label: "18K Rose Gold Plated", priceAdjustment: 3000, available: true },
 ];
 
 interface ProductDetailOneProps {
@@ -78,10 +78,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 	// Helper function to format plating option text
 	const getPlatingLabel = (plating: PlatingOption) => {
-		if (plating.type === "Silver") return "None (will be in 925 Sterling Silver)";
-		if (plating.type === "Gold") return "24K Gold Plated";
-		if (plating.type === "Rose Gold") return "18K Rose Gold Plated";
-		return plating.type;
+		return plating.label || plating.type;
 	};
 
 	return (

@@ -6,13 +6,13 @@ export interface Product {
   name: string
   slug: string
   description: string | null
+  cardDescription?: string | null
   price: number
   currency: string
   images: string[]
   category: string
   sku: string | null
   materials: string[] | null
-  tags: string[] | null
   weight: number | string | null
   dimensions: string | null
   sizes: Size[] | null
@@ -31,10 +31,7 @@ export interface Product {
   updated_by: string | null
 }
 
-export interface Size {
-  label: string
-  value: string
-}
+export type Size = 'S' | 'M' | 'L' | 'XL'
 
 export interface Gemstone {
   name: string
@@ -45,22 +42,23 @@ export interface Gemstone {
 }
 
 export interface PlatingOption {
-  type: 'Gold' | 'Rose Gold' | 'Silver' | 'Rhodium' | 'Platinum' | 'Two-Tone' | 'Unplated'
-  priceAdjustment?: number
-  available?: boolean
+  type: '925-silver' | '24k-gold' | '18k-rose-gold'
+  label: string
+  priceAdjustment: number
+  available: boolean
 }
 
 export interface ProductFormData {
   name: string
   slug: string
   description: string
+  cardDescription?: string
   price: number
   currency: string
   images: string[]
   category: string
   sku: string
   materials: string[]
-  tags: string[]
   weight: number | string | null
   dimensions: string
   sizes: Size[]

@@ -108,9 +108,6 @@ function RelatedProducts({ product }: { product: Product }) {
           sortBy: 'createdAt',
           sortOrder: 'desc',
         }
-        if (product.tags && product.tags.length > 0) {
-          body.tags = product.tags.slice(0, 3)
-        }
         const res = await fetch('/api/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

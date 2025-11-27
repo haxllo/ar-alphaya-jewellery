@@ -11,10 +11,9 @@ const mockProducts: Product[] = [
     category: 'rings',
     images: ['/images/placeholders/placeholder-1.jpg'],
     materials: ['gold', 'sapphire', 'diamond'],
-    sizes: [{ label: 'Size 6', value: '6' }, { label: 'Size 7', value: '7' }],
+    sizes: ['M', 'L'],
     inStock: true,
     featured: true,
-    tags: ['luxury', 'engagement', 'blue-stone']
   },
   {
     id: 'demo-002',
@@ -27,7 +26,6 @@ const mockProducts: Product[] = [
     materials: ['gold', 'diamond'],
     inStock: true,
     featured: true,
-    tags: ['classic', 'everyday', 'diamond']
   },
   {
     id: 'demo-003',
@@ -39,7 +37,6 @@ const mockProducts: Product[] = [
     images: ['/images/placeholders/placeholder-1.jpg'],
     materials: ['gold', 'ruby'],
     inStock: true,
-    tags: ['romantic', 'red-stone', 'heart']
   },
   {
     id: 'demo-004',
@@ -52,7 +49,6 @@ const mockProducts: Product[] = [
     materials: ['white-gold', 'emerald'],
     inStock: true,
     featured: true,
-    tags: ['luxury', 'green-stone', 'tennis']
   },
   {
     id: 'demo-005',
@@ -64,7 +60,6 @@ const mockProducts: Product[] = [
     images: ['/images/placeholders/placeholder-2.jpg'],
     materials: ['gold', 'pearl'],
     inStock: true,
-    tags: ['classic', 'elegant', 'pearl']
   },
   {
     id: 'demo-006',
@@ -76,7 +71,6 @@ const mockProducts: Product[] = [
     images: ['/images/placeholders/placeholder-3.jpg'],
     materials: ['gold'],
     inStock: true,
-    tags: ['casual', 'everyday', 'hoops']
   }
 ]
 
@@ -164,12 +158,6 @@ export class RecommendationService {
     const priceDiff = Math.abs(product1.price - product2.price)
     const priceScore = Math.max(0, 20 - (priceDiff / 10000))
     score += priceScore
-
-    // Tag overlap
-    const tags1 = product1.tags || []
-    const tags2 = product2.tags || []
-    const tagOverlap = tags1.filter(t => tags2.includes(t)).length
-    score += tagOverlap * 10
 
     return score
   }

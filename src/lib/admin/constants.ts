@@ -32,22 +32,7 @@ export const MATERIALS = [
   'Other'
 ] as const
 
-export const COMMON_TAGS = [
-  'Wedding',
-  'Engagement',
-  'Anniversary',
-  'Birthday',
-  'Everyday',
-  'Special Occasion',
-  'Bridal',
-  'Vintage',
-  'Modern',
-  'Classic',
-  'Minimalist',
-  'Statement',
-  'Custom Design',
-  'Limited Edition'
-] as const
+export const SIZE_OPTIONS = ['S', 'M', 'L', 'XL'] as const
 
 export const SORT_OPTIONS = [
   { value: 'created_at-desc', label: 'Newest First', sortBy: 'created_at', sortOrder: 'desc' },
@@ -98,11 +83,7 @@ export const GEMSTONE_TYPES = [
 ] as const
 
 export const PLATING_TYPES = [
-  { value: 'Gold', label: 'Gold Plated', color: '#FFD700' },
-  { value: 'Rose Gold', label: 'Rose Gold Plated', color: '#B76E79' },
-  { value: 'Silver', label: 'Silver Plated', color: '#C0C0C0' },
-  { value: 'Rhodium', label: 'Rhodium Plated', color: '#E8E8E8' },
-  { value: 'Platinum', label: 'Platinum Plated', color: '#E5E4E2' },
-  { value: 'Two-Tone', label: 'Two-Tone Plating', color: '#DAA520' },
-  { value: 'Unplated', label: 'No Plating', color: '#8B7355' }
+  { value: '925-silver', label: 'None (925 Sterling Silver)', priceAdjustment: 0 },
+  { value: '24k-gold', label: '24K Gold Plated', priceAdjustment: 5000 },
+  { value: '18k-rose-gold', label: '18K Rose Gold Plated', priceAdjustment: 3000 }
 ] as const

@@ -196,15 +196,15 @@ export default function QuickView({
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size) => (
                     <button
-                      key={size.value}
-                      onClick={() => setSelectedSize(size.value)}
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
                       className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
-                        selectedSize === size.value
+                        selectedSize === size
                           ? 'border-black bg-black text-white'
                           : 'border-gray-300 hover:border-gray-400'
                       }`}
                     >
-                      {size.label}
+                      {size}
                     </button>
                   ))}
                 </div>

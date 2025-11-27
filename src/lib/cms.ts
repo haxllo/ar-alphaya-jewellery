@@ -2,10 +2,7 @@ import { cache } from 'react';
 import { createServerClient } from '@/lib/supabase';
 
 // Types
-export interface Size {
-  label: string;
-  value: string;
-}
+export type Size = 'S' | 'M' | 'L' | 'XL';
 
 export interface Gemstone {
   name: string;

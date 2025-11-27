@@ -83,7 +83,7 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 						</CardTitle>
 					</Link>
 					<CardDescription className="text-sm text-amber-mirage-700 line-clamp-2">
-						{product.description}
+						{product.cardDescription || product.description}
 					</CardDescription>
 					{product.materials && product.materials.length > 0 && (
 						<p className="text-xs text-amber-mirage-600 mt-1">

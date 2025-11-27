@@ -1,7 +1,4 @@
-export type SizeOption = {
-  label: string;
-  value: string;
-};
+export type SizeOption = 'S' | 'M' | 'L' | 'XL';
 
 export type GemstoneOption = {
   name: string;
@@ -12,9 +9,10 @@ export type GemstoneOption = {
 };
 
 export type PlatingOption = {
-  type: 'Gold' | 'Rose Gold' | 'Silver' | 'Rhodium' | 'Platinum' | 'Two-Tone' | 'Unplated';
-  priceAdjustment?: number; // price difference in cents
-  available?: boolean;
+  type: '925-silver' | '24k-gold' | '18k-rose-gold';
+  label: string;
+  priceAdjustment: number; // 0, 5000, 3000
+  available: boolean;
 };
 
 export type Product = {
@@ -22,6 +20,7 @@ export type Product = {
   slug: string;
   name: string;
   description: string;
+  cardDescription?: string; // Short description for product cards only (not shown on detail page)
   price: number; // price in LKR cents / or integer
   currency?: string; // default LKR
   images: string[]; // image URLs or paths under /public/images
@@ -35,7 +34,6 @@ export type Product = {
   dimensions?: string; // dimensions description
   inStock?: boolean;
   featured?: boolean;
-  tags?: string[];
   createdAt?: string;
   updatedAt?: string;
   availability?: string; // e.g. made-to-order, ready-to-ship, sample
