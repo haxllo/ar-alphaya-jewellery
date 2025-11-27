@@ -4,6 +4,38 @@ import { validateProductData, validateProductUpdate } from './validation'
 import { ITEMS_PER_PAGE } from './constants'
 
 /**
+ * Convert camelCase object keys to snake_case for database
+ */
+function toSnakeCase(obj: any): any {
+  if (Array.isArray(obj)) {
+    return obj.map(toSnakeCase)
+  } else if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).reduce((acc, key) => {
+      const snakeKey = key.replace(/([A-Z])/g, '_$1').toLowerCase()
+      acc[snakeKey] = toSnakeCase(obj[key])
+      return acc
+    }, {} as any)
+  }
+  return obj
+}
+
+/**
+ * Convert snake_case object keys to camelCase from database
+ */
+function toCamelCase(obj: any): any {
+  if (Array.isArray(obj)) {
+    return obj.map(toCamelCase)
+  } else if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).reduce((acc, key) => {
+      const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())
+      acc[camelKey] = toCamelCase(obj[key])
+      return acc
+    }, {} as any)
+  }
+  return obj
+}
+
+/**
  * Get paginated list of products with filters
  */
 export async function getProducts(filters: ProductFilters = {}): Promise<ProductListResponse> {
@@ -135,14 +167,17 @@ export async function createProduct(
     throw new Error('A product with this slug already exists')
   }
   
+  // Convert to snake_case for database
+  const dbData = toSnakeCase({
+    product_id,
+    ...validated,
+    created_by: userId,
+    updated_by: userId
+  })
+  
   const { data, error } = await supabase
     .from('products')
-    .insert({
-      product_id,
-      ...validated,
-      created_by: userId,
-      updated_by: userId
-    })
+    .insert(dbData)
     .select()
     .single()
   
@@ -175,12 +210,15 @@ export async function updateProduct(
     }
   }
   
+  // Convert to snake_case for database
+  const dbData = toSnakeCase({
+    ...validated,
+    updated_by: userId
+  })
+  
   const { data, error } = await supabase
     .from('products')
-    .update({
-      ...validated,
-      updated_by: userId
-    })
+    .update(dbData)
     .eq('id', id)
     .select()
     .single()
