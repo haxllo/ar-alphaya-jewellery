@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-14 bg-neutral-soft">
@@ -6,6 +8,42 @@ export default function AboutPage() {
         <h1 className="mt-4 font-serif font-normal text-4xl text-deep-black md:text-5xl">The artistry behind AR Alphaya Jewellery</h1>
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-deep-black/70">
           AR Alphaya Jewellery is a solo atelier based in Kandy, Sri Lanka. I design, carve, cast, and finish each piece by hand, partnering with local gemstone cutters to showcase the colour and character of Sri Lankan stones in modern, wearable forms. <strong>I believe everyone deserves meaningful, bespoke jewellery—without luxury prices.</strong>
+        </p>
+      </section>
+
+      {/* Atelier Images - Crossfade Animation */}
+      <section className="mt-14">
+        <div className="text-center mb-8">
+          <p className="text-xs uppercase tracking-wider text-deep-black/40">Our Atelier</p>
+          <h2 className="mt-2 font-serif font-normal text-2xl text-deep-black">
+            Handcrafted in Kandy
+          </h2>
+        </div>
+        
+        <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl border border-metal-gold/10 shadow-luxe">
+          {/* Image 1 - Fades in/out */}
+          <Image
+            src="/images/001.jpg"
+            alt="Artisan hands finishing a custom gemstone ring at AR Alphaya atelier in Kandy, Sri Lanka"
+            fill
+            className="object-cover animate-crossfade"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            quality={90}
+            priority
+          />
+          {/* Image 2 - Fades in/out with delay */}
+          <Image
+            src="/images/002.jpg"
+            alt="Jeweler crafting bespoke jewellery at the bench in our Kandy workshop"
+            fill
+            className="object-cover animate-crossfade-alt"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            quality={90}
+          />
+        </div>
+        
+        <p className="mt-6 text-center text-sm leading-relaxed text-deep-black/60">
+          Every piece hand-finished at our atelier in Kandy, Sri Lanka
         </p>
       </section>
 

@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Atelier Image Crossfade Animation */
+@keyframes crossfade {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .animate-crossfade {
+    animation: crossfade 8s ease-in-out infinite;
+  }
+  
+  .animate-crossfade-alt {
+    animation: crossfade 8s ease-in-out infinite;
+    animation-delay: 4s;
+  }
+}
+
 :root {
   /* New Minimal Luxury Palette */
   --foreground-rgb: 17, 17, 17;
