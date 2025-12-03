@@ -181,12 +181,15 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-10 rounded-3xl bg-nocturne-900 p-10 text-white/90 shadow-luxe lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-5">
+      <SectionDivider />
 
-            <h2 className="font-serif text-3xl md:text-4xl">From first chat to final polish, we keep the process personal.</h2>
-            <p className="text-sm uppercase tracking-[0.3em] text-white/50">Here’s how a typical commission unfolds</p>
+      {/* Commission Process CTA */}
+      <section className="mx-auto max-w-7xl px-8">
+        <div className="grid gap-10 rounded-2xl bg-forest-deep p-10 lg:p-16 text-white/90 shadow-luxe lg:grid-cols-[1fr_1.2fr]">
+          <div className="space-y-6">
+            <p className="text-xs uppercase tracking-wider text-metal-gold-light">Personal Process</p>
+            <h2 className="font-serif font-normal text-3xl lg:text-4xl text-white leading-tight">From first chat to final polish, we keep the process personal.</h2>
+            <p className="text-sm text-white/60">Here’s how a typical commission unfolds</p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
             {[{
@@ -199,9 +202,9 @@ export default async function Home() {
               title: 'Hand-finishing & delivery',
               copy: 'Your piece is cast, stone-set, and polished by hand. We arrange careful delivery within Sri Lanka or discuss options for abroad.',
             }].map((card) => (
-              <div key={card.title} className="rounded-3xl border border-white/15 bg-white/5 p-6 transition-all duration-500 hover:border-white/35">
-                <h3 className="font-serif text-xl text-white">{card.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/70">{card.copy}</p>
+              <div key={card.title} className="rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:border-metal-gold/30 hover:bg-white/10">
+                <h3 className="font-serif text-lg text-white mb-3">{card.title}</h3>
+                <p className="text-sm leading-relaxed text-white/70">{card.copy}</p>
               </div>
             ))}
           </div>
