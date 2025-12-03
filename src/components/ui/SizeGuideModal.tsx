@@ -49,8 +49,12 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
       <div
         role="dialog"
         aria-modal="true"
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-metal-gold/20 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.3)] mx-auto my-auto"
+        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-metal-gold/20 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.3)] mx-auto my-auto scrollbar-hide"
         onClick={(event) => event.stopPropagation()}
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
       >
         {/* Header */}
         <header className="flex items-center justify-between border-b border-metal-gold/20 bg-neutral-soft px-6 sm:px-8 py-5">
