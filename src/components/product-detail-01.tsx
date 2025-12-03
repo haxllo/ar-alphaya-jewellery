@@ -113,13 +113,13 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 									onClick={prevImage}
 									className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-metal-gold/20 hover:border-metal-gold rounded-full h-10 w-10 flex items-center justify-center shadow-subtle transition-all"
 								>
-									<ChevronLeftIcon className="w-5 h-5 text-deep-black" />
+									<ChevronLeftIcon className="w-4 h-4 text-deep-black" />
 								</button>
 								<button
 									onClick={nextImage}
 									className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-metal-gold/20 hover:border-metal-gold rounded-full h-10 w-10 flex items-center justify-center shadow-subtle transition-all"
 								>
-									<ChevronRightIcon className="w-5 h-5 text-deep-black" />
+									<ChevronRightIcon className="w-4 h-4 text-deep-black" />
 								</button>
 							</>
 						)}
@@ -153,7 +153,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 				{/* Product Info Section */}
 				<div className="space-y-6">
 					{/* Category */}
-					<p className="text-xs uppercase tracking-wider text-deep-black/60">
+					<p className="text-xs uppercase tracking-wider text-deep-black/60 mb-2">
 						{product.category.replace('-', ' ')}
 					</p>
 
@@ -188,7 +188,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 									const selected = platingOptions.find(p => p.type === e.target.value)
 									if (selected) setSelectedPlating(selected)
 								}}
-								className="w-full px-4 py-3 pr-10 rounded-lg border border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
+								className="w-full h-12 px-4 pr-10 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
 							>
 								{platingOptions.map((plating) => (
 									<option 
@@ -211,35 +211,37 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					</div>
 
 					{/* Size and Quantity Row */}
-					<div className="grid grid-cols-2 gap-4">
+					<div className="grid grid-cols-2 gap-6">
 						{/* Size Selection */}
 						<div>
-							<label className="block text-sm font-medium mb-3 text-deep-black">Size</label>
+							<div className="flex items-center justify-between mb-3">
+								<label className="block text-sm font-medium text-deep-black">Size</label>
+								<button
+									onClick={() => setShowSizeGuide(true)}
+									className="text-xs text-deep-black/60 hover:text-foreground underline underline-offset-2 transition-colors"
+								>
+									Size Guide
+								</button>
+							</div>
 							<button
 								onClick={() => setShowSizeGuide(true)}
-								className="w-full px-4 py-3 rounded-lg border border-metal-gold/20 bg-white text-deep-black font-medium hover:border-metal-gold transition-all text-left flex items-center justify-between"
+								className="w-full h-12 px-4 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium hover:border-metal-gold transition-all text-left flex items-center justify-between"
 							>
 								<span>US {selectedSize}</span>
 								<svg className="w-4 h-4 text-deep-black/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 								</svg>
 							</button>
-							<button
-								onClick={() => setShowSizeGuide(true)}
-								className="mt-2 text-xs text-deep-black/60 hover:text-foreground underline underline-offset-2 transition-colors"
-							>
-								Size Guide
-							</button>
 						</div>
 
 						{/* Quantity */}
 						<div>
 							<label className="block text-sm font-medium mb-3 text-deep-black">Quantity</label>
-							<div className="flex items-center gap-2 sm:gap-3">
+							<div className="flex items-center gap-3">
 								<button
 									onClick={decrementQuantity}
 									disabled={quantity <= 1}
-									className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+									className="h-12 w-12 rounded-xl border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 									aria-label="Decrease quantity"
 								>
 									<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,7 +251,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 								<span className="w-12 text-center font-medium">{quantity}</span>
 								<button
 									onClick={incrementQuantity}
-									className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
+									className="h-12 w-12 rounded-xl border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
 									aria-label="Increase quantity"
 								>
 									<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -283,7 +285,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					</div>
 
 					{/* Feature Badges - Like modal */}
-					<div className="grid grid-cols-2 gap-4 pt-6 border-t border-metal-gold/10">
+					<div className="grid grid-cols-2 gap-6 pt-8 border-t border-metal-gold/10">
 						<div className="flex items-center gap-2 text-sm text-deep-black/70">
 							<CheckCircle className="w-4 h-4 flex-shrink-0" />
 							<span>Authentic Gemstones</span>
