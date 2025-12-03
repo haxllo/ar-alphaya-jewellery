@@ -159,7 +159,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             href="https://wa.me/94774293406" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="w-full sm:w-auto text-center px-6 py-2.5 rounded-lg bg-deep-black text-neutral-soft text-sm font-medium hover:bg-deep-black/90 transition-colors"
+            className="w-full sm:w-auto text-center px-6 py-2.5 rounded-lg border border-metal-gold/30 text-sm font-medium text-deep-black hover:bg-white hover:border-metal-gold transition-colors"
           >
             WhatsApp Us
           </a>
