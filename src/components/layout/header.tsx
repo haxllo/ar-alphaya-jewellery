@@ -105,7 +105,7 @@ export default function Header() {
   }, [searchQuery, showSearch, fetchSuggestions]);
 
   return (
-    <header className="sticky top-0 z-50 border-t border-b border-amber-mirage-200/50 bg-amber-mirage-soft/90 backdrop-blur-xl supports-backdrop:bg-amber-mirage-soft/80 shadow-[0_1px_0_rgba(196,139,40,0.1)]">
+    <header className="sticky top-0 z-50 border-t border-b border-metal-gold/20 bg-neutral-soft/90 backdrop-blur-xl supports-backdrop:bg-neutral-soft/80 shadow-[0_1px_0_rgba(214,195,158,0.1)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 py-2 sm:py-3 gap-2 sm:gap-4 md:gap-6">
         {/* Left: Logo */}
         <div className="flex-1">
@@ -122,7 +122,7 @@ export default function Header() {
               <span className="font-serif text-[0.55rem] sm:text-[0.7rem] md:text-sm uppercase tracking-[0.6em] sm:tracking-[0.85em] text-deep-black">
                 AR ALPHAYA
               </span>
-              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-deep-black/50">
+              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-deep-black/60">
                 JEWELLERY
               </span>
             </div>
@@ -166,7 +166,7 @@ export default function Header() {
                 />
               </svg>
             </button>
-            <div className="absolute top-full left-0 mt-3 w-56 rounded-xl border border-amber-mirage-200 bg-amber-mirage-soft/95 shadow-luxe backdrop-blur transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+            <div className="absolute top-full left-0 mt-3 w-56 rounded-xl border border-metal-gold/20 bg-neutral-soft/95 shadow-luxe backdrop-blur transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
               {collections.map((collection) => (
                 <Link
                   key={collection.handle}
@@ -255,11 +255,11 @@ export default function Header() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search jewelry..."
-                      className="w-full rounded-xl border border-border/70 bg-white/70 py-3 pl-12 pr-4 text-sm text-foreground placeholder:text-deep-black/40 focus:border-foreground/40 focus:outline-none focus:ring-2 focus:ring-gold-300/60"
+                      className="w-full rounded-xl border border-border/70 bg-white/70 py-3 pl-12 pr-4 text-sm text-foreground placeholder:text-deep-black/60 focus:border-foreground/40 focus:outline-none focus:ring-2 focus:ring-gold-300/60"
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="h-4 w-4 text-deep-black/40"
+                        className="h-4 w-4 text-deep-black/60"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -278,7 +278,7 @@ export default function Header() {
                 {(loadingSuggest || suggestions.length > 0) && (
                   <div className="mt-3 max-h-64 overflow-y-auto border-t border-border/60 pt-3">
                     {loadingSuggest && (
-                      <div className="px-2 py-2 text-xs text-deep-black/50">
+                      <div className="px-2 py-2 text-xs text-deep-black/60">
                         Searching…
                       </div>
                     )}
@@ -291,7 +291,7 @@ export default function Header() {
                         onClick={() => setShowSearch(false)}
                       >
                         <span className="truncate mr-2">{s.name}</span>
-                        <span className="whitespace-nowrap text-xs text-deep-black/40">
+                        <span className="whitespace-nowrap text-xs text-deep-black/60">
                           {formatPrice(s.price)}
                         </span>
                       </Link>
@@ -299,13 +299,13 @@ export default function Header() {
                     {!loadingSuggest &&
                       suggestions.length === 0 &&
                       searchQuery.length >= 2 && (
-                        <div className="px-2 py-2 text-xs text-deep-black/50">
+                        <div className="px-2 py-2 text-xs text-deep-black/60">
                           No results
                         </div>
                       )}
                     {!loadingSuggest && suggestions.length > 0 && (
                       <button
-                        className="mt-2 w-full px-2 py-1 text-left text-xs font-medium text-deep-black/50 underline-offset-4 hover:text-foreground"
+                        className="mt-2 w-full px-2 py-1 text-left text-xs font-medium text-deep-black/60 underline-offset-4 hover:text-foreground"
                         onClick={() => {
                           router.push(
                             `/search?q=${encodeURIComponent(searchQuery.trim())}`,
@@ -585,7 +585,7 @@ export default function Header() {
 
           {/* Search Bar - Mobile */}
           <div className="mb-4 sm:mb-6 border-b border-border/60 pb-4 sm:pb-6">
-            <div className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-deep-black/50">
+            <div className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-deep-black/60">
               Search
             </div>
             <form onSubmit={handleSearch}>
@@ -595,11 +595,11 @@ export default function Header() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search jewelry..."
-                  className="w-full rounded-xl border border-border/70 bg-white/80 py-2.5 sm:py-3 pl-10 sm:pl-11 pr-3 sm:pr-4 text-sm text-foreground placeholder:text-deep-black/40 focus:border-gold-400/60 focus:outline-none focus:ring-2 focus:ring-gold-200/70"
+                  className="w-full rounded-xl border border-border/70 bg-white/80 py-2.5 sm:py-3 pl-10 sm:pl-11 pr-3 sm:pr-4 text-sm text-foreground placeholder:text-deep-black/60 focus:border-gold-400/60 focus:outline-none focus:ring-2 focus:ring-gold-200/70"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
-                    className="h-4 w-4 text-deep-black/40"
+                    className="h-4 w-4 text-deep-black/60"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -632,7 +632,7 @@ export default function Header() {
               Custom Commissions
             </Link>
             <div className="py-2">
-              <div className="px-3 text-xs font-semibold uppercase tracking-[0.2em] text-deep-black/50 mb-2">
+              <div className="px-3 text-xs font-semibold uppercase tracking-[0.2em] text-deep-black/60 mb-2">
                 Collections
               </div>
               <div className="space-y-1">
@@ -672,7 +672,7 @@ export default function Header() {
 
             {/* Cart & Wishlist - Mobile Only */}
             <div className="mt-4 border-t border-border/60 pt-4 space-y-1">
-              <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-deep-black/50">
+              <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-deep-black/60">
                 Shopping
               </div>
               <Link
@@ -682,7 +682,7 @@ export default function Header() {
               >
                 <div className="flex items-center gap-3">
                   <svg
-                    className="w-5 h-5 text-deep-black/50"
+                    className="w-5 h-5 text-deep-black/60"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -709,7 +709,7 @@ export default function Header() {
               >
                 <div className="flex items-center gap-3">
                   <svg
-                    className="w-5 h-5 text-deep-black/50"
+                    className="w-5 h-5 text-deep-black/60"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -755,7 +755,7 @@ export default function Header() {
                         />
                       ) : (
                         <svg
-                          className="w-5 h-5 text-deep-black/50"
+                          className="w-5 h-5 text-deep-black/60"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -773,7 +773,7 @@ export default function Header() {
                       <div className="text-sm font-semibold text-deep-black truncate">
                         {(user as any)?.name || "My Account"}
                       </div>
-                      <div className="text-xs text-deep-black/50 truncate">
+                      <div className="text-xs text-deep-black/60 truncate">
                         {(user as any)?.email}
                       </div>
                     </div>
@@ -784,7 +784,7 @@ export default function Header() {
                     className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-deep-black/80 transition-colors hover:bg-metal-gold/5 rounded-lg"
                   >
                     <svg
-                      className="w-5 h-5 text-deep-black/50"
+                      className="w-5 h-5 text-deep-black/60"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -804,7 +804,7 @@ export default function Header() {
                     className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-deep-black/80 transition-colors hover:bg-metal-gold/5 rounded-lg"
                   >
                     <svg
-                      className="w-5 h-5 text-deep-black/50"
+                      className="w-5 h-5 text-deep-black/60"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
