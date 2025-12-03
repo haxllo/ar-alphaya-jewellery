@@ -91,8 +91,8 @@ export default function WishlistPage() {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
               />
             </svg>
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">Your Wishlist is Empty</h1>
-            <p className="text-gray-600 mb-8">
+            <h1 className="text-3xl font-semibold text-deep-black mb-2">Your Wishlist is Empty</h1>
+            <p className="text-deep-black/70 mb-8">
               Save items you love to your wishlist and shop them later
             </p>
           </div>

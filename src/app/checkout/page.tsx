@@ -46,7 +46,7 @@ function CheckoutPage() {
           <Link
             href="/auth/signin?callbackUrl=/checkout"
             prefetch={false}
-            className="inline-block rounded-full bg-foreground px-6 py-3 text-sm font-semibold tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-nocturne-900"
+            className="inline-block rounded-full bg-deep-black px-6 py-3 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep"
           >
             Sign In
           </Link>
