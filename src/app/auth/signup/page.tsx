@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClientClient } from '@/lib/supabase'
+import { Switch } from '@/components/ui/switch'
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -143,32 +144,30 @@ export default function SignUpPage() {
             </div>
 
             {/* Terms & Conditions Agreement */}
-            <div className="space-y-3">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={agreedToTerms}
-                  onChange={(e) => setAgreedToTerms(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-metal-gold/20 text-metal-gold focus:ring-2 focus:ring-metal-gold/20 cursor-pointer"
-                />
-                <span className="text-sm text-deep-black/70">
-                  I agree to the{' '}
-                  <Link 
-                    href="/terms" 
-                    target="_blank"
-                    className="text-metal-gold hover:text-forest-deep underline"
-                  >
-                    Terms & Conditions
-                  </Link>
-                  {' '}and{' '}
-                  <Link 
-                    href="/privacy" 
-                    target="_blank"
-                    className="text-metal-gold hover:text-forest-deep underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                </span>
+            <div className="flex items-start gap-3">
+              <Switch
+                id="terms-agreement"
+                checked={agreedToTerms}
+                onCheckedChange={setAgreedToTerms}
+                className="mt-0.5"
+              />
+              <label htmlFor="terms-agreement" className="text-sm text-deep-black/70 cursor-pointer">
+                I agree to the{' '}
+                <Link 
+                  href="/terms" 
+                  target="_blank"
+                  className="text-metal-gold hover:text-forest-deep underline"
+                >
+                  Terms & Conditions
+                </Link>
+                {' '}and{' '}
+                <Link 
+                  href="/privacy" 
+                  target="_blank"
+                  className="text-metal-gold hover:text-forest-deep underline"
+                >
+                  Privacy Policy
+                </Link>
               </label>
             </div>
 
