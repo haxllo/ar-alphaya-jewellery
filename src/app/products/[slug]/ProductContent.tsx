@@ -88,7 +88,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
       </section>
 
       {/* Related Products */}
-      <section className="mx-auto max-w-7xl px-6 mt-16">
+      <section className="mx-auto max-w-7xl px-6 mt-16 mb-16">
         <RelatedProducts product={product} />
       </section>
     </>
