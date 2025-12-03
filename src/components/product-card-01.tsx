@@ -30,11 +30,11 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 	};
 
 	return (
-		<Card className="w-full max-w-[320px] border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe">
+		<Card className="w-full max-w-[320px] border-metal-gold/20 bg-white/80 shadow-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe hover:scale-[1.02]">
 			<CardContent className="p-4">
 				{/* Product Image */}
 				<Link href={`/products/${product.slug}`} className="block relative mb-4">
-					<div className="bg-amber-mirage-100 rounded-2xl flex items-center justify-center h-[280px] relative overflow-hidden border border-amber-mirage-200">
+					<div className="bg-neutral-soft rounded-2xl flex items-center justify-center h-[280px] relative overflow-hidden border border-metal-gold/10">
 						{product.images && product.images[0] ? (
 							<Image
 								src={fixUploadcareUrl(product.images[0])}
@@ -44,7 +44,7 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 								sizes="(max-width: 768px) 100vw, 320px"
 							/>
 						) : (
-							<div className="text-amber-mirage-400 text-sm">No image</div>
+							<div className="text-deep-black/30 text-sm">No image</div>
 						)}
 
 						<Button
@@ -54,21 +54,21 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 								e.preventDefault();
 								handleWishlistToggle();
 							}}
-							className="absolute top-2 right-2 bg-amber-mirage-soft/90 hover:bg-amber-mirage-warm/20"
+							className="absolute top-2 right-2 bg-white/90 hover:bg-white transition-all"
 							aria-label={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
 						>
 							<Heart
 								className={cn(
-									"w-5 h-5 transition-colors",
+									"w-5 h-5 transition-all",
 									isFavorited
-										? "fill-amber-mirage-gold text-amber-mirage-gold"
-										: "text-amber-mirage-brown hover:text-amber-mirage-gold",
+										? "fill-metal-gold text-metal-gold scale-110"
+										: "text-deep-black/60 hover:text-metal-gold hover:scale-110",
 								)}
 							/>
 						</Button>
 
 						{product.featured && (
-							<div className="absolute top-2 left-2 bg-amber-mirage-gold text-amber-mirage-soft px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+							<div className="absolute top-2 left-2 bg-metal-gold text-deep-black px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider">
 								Featured
 							</div>
 						)}
@@ -78,29 +78,29 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 				{/* Product Info */}
 				<div className="mb-4">
 					<Link href={`/products/${product.slug}`}>
-						<CardTitle className="text-lg leading-tight mb-2 text-amber-mirage-brown hover:text-amber-mirage-gold transition-colors line-clamp-2">
+						<CardTitle className="text-lg leading-tight mb-2 text-deep-black hover:text-metal-gold transition-colors line-clamp-2 font-serif font-normal">
 							{product.name}
 						</CardTitle>
 					</Link>
-					<CardDescription className="text-sm text-amber-mirage-700 line-clamp-2">
+					<CardDescription className="text-sm text-deep-black/60 line-clamp-2">
 						{product.cardDescription || product.description}
 					</CardDescription>
 					{product.materials && product.materials.length > 0 && (
-						<p className="text-xs text-amber-mirage-600 mt-1">
+						<p className="text-xs text-deep-black/40 mt-1">
 							{product.materials.slice(0, 2).join(", ")}
 						</p>
 					)}
 				</div>
 
 				<div className="flex items-center justify-between gap-2">
-					<p className="text-xl sm:text-2xl font-bold text-amber-mirage-brown">
+					<p className="text-xl sm:text-2xl font-semibold text-deep-black">
 						{formatPrice(product.price)}
 					</p>
 
 					<Button 
 						onClick={() => onAddToCart?.(product)}
 						size="icon"
-						className="bg-amber-mirage-gold hover:bg-amber-mirage-600 text-amber-mirage-soft shrink-0"
+						className="bg-deep-black hover:bg-forest-deep text-white shrink-0 transition-all"
 						aria-label="Add to cart"
 						title="Add to cart"
 					>
