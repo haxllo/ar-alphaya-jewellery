@@ -177,31 +177,36 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 					{/* Plating Options */}
 					<div>
-						<h3 className="text-sm font-medium mb-3 text-deep-black">Plating Options</h3>
-						<div className="space-y-2">
-							{platingOptions.map((plating) => (
-								<button
-									key={plating.type}
-									onClick={() => setSelectedPlating(plating)}
-									disabled={!plating.available}
-									className={cn(
-										"w-full text-left px-4 py-3 rounded-xl border-2 transition-all",
-										selectedPlating.type === plating.type
-											? "border-metal-gold bg-neutral-soft"
-											: "border-metal-gold/20 hover:border-metal-gold/40",
-										!plating.available && "opacity-50 cursor-not-allowed"
-									)}
-								>
-									<div className="flex items-center justify-between">
-										<span className="font-medium text-deep-black">{getPlatingLabel(plating)}</span>
-										{plating.priceAdjustment && plating.priceAdjustment > 0 && (
-											<span className="text-sm text-deep-black/70">
-												+{formatPrice(plating.priceAdjustment)}
-											</span>
-										)}
-									</div>
-								</button>
-							))}
+						<label htmlFor="plating-select" className="block text-sm font-medium mb-3 text-deep-black">
+							Plating Options
+						</label>
+						<div className="relative">
+							<select
+								id="plating-select"
+								value={selectedPlating.type}
+								onChange={(e) => {
+									const selected = platingOptions.find(p => p.type === e.target.value)
+									if (selected) setSelectedPlating(selected)
+								}}
+								className="w-full px-4 py-3 pr-10 rounded-xl border-2 border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
+							>
+								{platingOptions.map((plating) => (
+									<option 
+										key={plating.type} 
+										value={plating.type}
+										disabled={!plating.available}
+									>
+										{getPlatingLabel(plating)}
+										{plating.priceAdjustment > 0 && ` (+${formatPrice(plating.priceAdjustment)})`}
+									</option>
+								))}
+							</select>
+							{/* Custom Dropdown Arrow */}
+							<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-deep-black/50">
+								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+								</svg>
+							</div>
 						</div>
 					</div>
 
