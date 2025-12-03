@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { Switch } from '@/components/ui/switch'
 
 function SignInContent() {
   const router = useRouter()
@@ -12,6 +13,7 @@ function SignInContent() {
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -109,9 +111,37 @@ function SignInContent() {
               </Link>
             </div>
 
+            {/* Terms & Conditions Agreement */}
+            <div className="flex items-start gap-3">
+              <Switch
+                id="terms-agreement"
+                checked={agreedToTerms}
+                onCheckedChange={setAgreedToTerms}
+                className="mt-0.5"
+              />
+              <label htmlFor="terms-agreement" className="text-sm text-deep-black/70 cursor-pointer">
+                I agree to the{' '}
+                <Link 
+                  href="/terms" 
+                  target="_blank"
+                  className="text-metal-gold hover:text-forest-deep underline"
+                >
+                  Terms & Conditions
+                </Link>
+                {' '}and{' '}
+                <Link 
+                  href="/privacy" 
+                  target="_blank"
+                  className="text-metal-gold hover:text-forest-deep underline"
+                >
+                  Privacy Policy
+                </Link>
+              </label>
+            </div>
+
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !agreedToTerms}
               className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Signing in...' : 'Sign In'}
