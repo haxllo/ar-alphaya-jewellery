@@ -13,19 +13,13 @@ function SignInContent() {
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-
-    if (!agreedToTerms) {
-      setError('Please agree to the Terms & Conditions and Privacy Policy')
-      return
-    }
-
     setIsLoading(true)
 
     try {
@@ -93,13 +87,13 @@ function SignInContent() {
             </div>
 
             <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
+              <div className="flex items-center gap-2">
+                <Switch
                   id="remember"
-                  type="checkbox"
-                  className="h-4 w-4 text-deep-black focus:ring-metal-gold border-metal-gold/20 rounded"
+                  checked={rememberMe}
+                  onCheckedChange={setRememberMe}
                 />
-                <label htmlFor="remember" className="ml-2 block text-sm text-deep-black/70">
+                <label htmlFor="remember" className="text-sm text-deep-black/70 cursor-pointer">
                   Remember me
                 </label>
               </div>
@@ -111,37 +105,9 @@ function SignInContent() {
               </Link>
             </div>
 
-            {/* Terms & Conditions Agreement */}
-            <div className="flex items-start gap-3">
-              <Switch
-                id="terms-agreement"
-                checked={agreedToTerms}
-                onCheckedChange={setAgreedToTerms}
-                className="mt-0.5"
-              />
-              <label htmlFor="terms-agreement" className="text-sm text-deep-black/70 cursor-pointer">
-                I agree to the{' '}
-                <Link 
-                  href="/terms" 
-                  target="_blank"
-                  className="text-metal-gold hover:text-forest-deep underline"
-                >
-                  Terms & Conditions
-                </Link>
-                {' '}and{' '}
-                <Link 
-                  href="/privacy" 
-                  target="_blank"
-                  className="text-metal-gold hover:text-forest-deep underline"
-                >
-                  Privacy Policy
-                </Link>
-              </label>
-            </div>
-
             <button
               type="submit"
-              disabled={isLoading || !agreedToTerms}
+              disabled={isLoading}
               className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Signing in...' : 'Sign In'}
