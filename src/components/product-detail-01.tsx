@@ -82,42 +82,42 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 	};
 
 	return (
-		<div className="w-full max-w-6xl mx-auto p-6 not-prose">
+		<div className="w-full max-w-6xl mx-auto px-6 py-14 not-prose">
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				{/* Image Section */}
-				<div className="flex gap-2">
+				<div className="flex gap-3">
 					{/* Thumbnail column */}
-					<div className="flex flex-col w-28 gap-2">
+					<div className="flex flex-col w-32 gap-3">
 						{images.slice(0, 4).map((image, index) => (
 							<button
 								key={index}
 								onClick={() => setCurrentImageIndex(index)}
 								className={cn(
-									"aspect-square bg-neutral-soft rounded-lg overflow-hidden border-2 transition-colors",
+									"aspect-square bg-white rounded-xl overflow-hidden border-2 transition-colors shadow-subtle",
 									currentImageIndex === index
 										? "border-metal-gold"
-										: "border-transparent hover:border-metal-gold/30",
+										: "border-metal-gold/10 hover:border-metal-gold/30",
 								)}
 							>
 								<Image
 									src={fixUploadcareUrl(image)}
 									alt={`${product.name} ${index + 1}`}
-									width={112}
-									height={112}
-									className="w-full h-full object-contain"
+									width={128}
+									height={128}
+									className="w-full h-full object-contain p-2"
 								/>
 							</button>
 						))}
 					</div>
 
 					{/* Main image */}
-					<div className="flex-1 relative aspect-square bg-neutral-soft rounded-lg overflow-hidden">
+					<div className="flex-1 relative aspect-[4/5] bg-white border border-metal-gold/10 rounded-2xl overflow-hidden shadow-subtle">
 						{images.length > 0 ? (
 							<Image
 								src={fixUploadcareUrl(images[currentImageIndex])}
 								alt={product.name}
 								fill
-								className="object-contain"
+								className="object-contain p-6"
 								sizes="(max-width: 768px) 100vw, 50vw"
 								priority
 							/>
@@ -130,22 +130,18 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						{/* Navigation Arrows */}
 						{images.length > 1 && (
 							<>
-								<Button
-									variant="outline"
-									size="icon"
-									className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full"
+								<button
 									onClick={prevImage}
+									className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-metal-gold/20 hover:border-metal-gold rounded-full h-10 w-10 flex items-center justify-center shadow-subtle transition-all"
 								>
-									<ChevronLeftIcon className="w-4 h-4" />
-								</Button>
-								<Button
-									variant="outline"
-									size="icon"
-									className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full"
+									<ChevronLeftIcon className="w-5 h-5 text-deep-black" />
+								</button>
+								<button
 									onClick={nextImage}
+									className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-metal-gold/20 hover:border-metal-gold rounded-full h-10 w-10 flex items-center justify-center shadow-subtle transition-all"
 								>
-									<ChevronRightIcon className="w-4 h-4" />
-								</Button>
+									<ChevronRightIcon className="w-5 h-5 text-deep-black" />
+								</button>
 							</>
 						)}
 					</div>
@@ -157,23 +153,23 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					<div>
 						<a
 							href={`/collections/${product.category}`}
-							className="text-muted-foreground hover:text-gray-900 inline-block mb-2 text-sm uppercase tracking-wider"
+							className="text-deep-black/40 hover:text-metal-gold inline-block mb-2 text-xs uppercase tracking-wider transition-colors"
 						>
 							{product.category.replace('-', ' ')}
 						</a>
-						<h1 className="text-3xl font-bold mb-3">{product.name}</h1>
+						<h1 className="font-serif text-3xl font-normal mb-3 text-deep-black">{product.name}</h1>
 						
 						{/* Description at top */}
-						<p className="text-muted-foreground leading-relaxed">{product.description}</p>
+						<p className="text-deep-black/70 leading-relaxed">{product.description}</p>
 					</div>
 
 					{/* Price */}
 					<div className="flex items-end gap-3">
-						<p className="text-3xl font-bold">
+						<p className="text-3xl font-semibold text-deep-black">
 							{formatPrice(finalPrice)}
 						</p>
 						{selectedPlating.priceAdjustment && selectedPlating.priceAdjustment > 0 && (
-							<p className="text-gray-500 line-through text-xl mb-1">
+							<p className="text-deep-black/50 line-through text-xl mb-1">
 								{formatPrice(product.price)}
 							</p>
 						)}
@@ -181,7 +177,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 					{/* Plating Options */}
 					<div>
-						<h3 className="text-sm font-medium mb-3">Plating Options</h3>
+						<h3 className="text-sm font-medium mb-3 text-deep-black">Plating Options</h3>
 						<div className="space-y-2">
 							{platingOptions.map((plating) => (
 								<button
@@ -189,17 +185,17 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 									onClick={() => setSelectedPlating(plating)}
 									disabled={!plating.available}
 									className={cn(
-										"w-full text-left px-4 py-3 rounded-lg border-2 transition-all",
+										"w-full text-left px-4 py-3 rounded-xl border-2 transition-all",
 										selectedPlating.type === plating.type
-											? "border-gray-900 bg-gray-50"
-											: "border-gray-200 hover:border-gray-300",
+											? "border-metal-gold bg-neutral-soft"
+											: "border-metal-gold/20 hover:border-metal-gold/40",
 										!plating.available && "opacity-50 cursor-not-allowed"
 									)}
 								>
 									<div className="flex items-center justify-between">
-										<span className="font-medium">{getPlatingLabel(plating)}</span>
+										<span className="font-medium text-deep-black">{getPlatingLabel(plating)}</span>
 										{plating.priceAdjustment && plating.priceAdjustment > 0 && (
-											<span className="text-sm text-gray-600">
+											<span className="text-sm text-deep-black/70">
 												+{formatPrice(plating.priceAdjustment)}
 											</span>
 										)}
@@ -212,58 +208,51 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					{/* Materials - if available */}
 					{product.materials && product.materials.length > 0 && (
 						<div>
-							<h3 className="text-sm font-medium mb-2">Metal</h3>
-							<p className="text-sm text-muted-foreground">{product.materials.join(", ")}</p>
+							<h3 className="text-sm font-medium mb-2 text-deep-black">Metal</h3>
+							<p className="text-sm text-deep-black/70">{product.materials.join(", ")}</p>
 						</div>
 					)}
 
 					{/* Quantity & Add to Cart */}
 					<div className="space-y-3">
-						<h3 className="text-sm font-medium">Quantity</h3>
+						<h3 className="text-sm font-medium text-deep-black">Quantity</h3>
 						<div className="flex items-center gap-4">
-							<div className="flex items-center border border-gray-300 rounded-lg">
-								<Button
-									variant="ghost"
-									size="icon"
-									className="h-10 w-10 rounded-lg hover:bg-gray-100"
+							<div className="flex items-center border border-metal-gold/20 rounded-xl">
+								<button
 									onClick={decrementQuantity}
+									className="h-10 w-10 rounded-xl hover:bg-neutral-soft transition-colors flex items-center justify-center"
 								>
-									<MinusIcon className="w-4 h-4" />
-								</Button>
-								<span className="w-12 text-center font-medium">{quantity}</span>
-								<Button
-									variant="ghost"
-									size="icon"
-									className="h-10 w-10 rounded-lg hover:bg-gray-100"
+									<MinusIcon className="w-4 h-4 text-deep-black" />
+								</button>
+								<span className="w-12 text-center font-medium text-deep-black">{quantity}</span>
+								<button
 									onClick={incrementQuantity}
+									className="h-10 w-10 rounded-xl hover:bg-neutral-soft transition-colors flex items-center justify-center"
 								>
-									<PlusIcon className="w-4 h-4" />
-								</Button>
+									<PlusIcon className="w-4 h-4 text-deep-black" />
+								</button>
 							</div>
-							<Button 
-								size="lg" 
+							<button
 								onClick={handleAddToCart}
-								className="flex-1"
+								className="flex-1 rounded-full bg-metal-gold py-3 px-6 text-sm font-semibold tracking-wider text-neutral-soft transition-all duration-300 hover:bg-forest-deep hover:-translate-y-0.5"
 							>
 								Add to cart
-							</Button>
+							</button>
 						</div>
 					</div>
 
 					{/* Buy it now button - optional */}
-					<Button 
-						size="lg" 
-						variant="outline"
-						className="w-full"
+					<button
 						onClick={handleAddToCart}
+						className="w-full rounded-full border border-metal-gold/20 py-3 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:border-metal-gold hover:-translate-y-0.5"
 					>
 						Buy it now
-					</Button>
+					</button>
 
 					{/* Share button */}
 					<button
 						onClick={handleShare}
-						className="flex items-center gap-2 text-sm text-muted-foreground hover:text-gray-900 transition-colors"
+						className="flex items-center gap-2 text-sm text-deep-black/50 hover:text-metal-gold transition-colors"
 					>
 						<Share2 className="w-4 h-4" />
 						Share
@@ -271,26 +260,26 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 					{/* Additional info - badges/icons like your example */}
 					{(product.statusNote || product.inStock === false || product.customizable) && (
-						<div className="space-y-2 pt-4 border-t">
+						<div className="space-y-2 pt-6 border-t border-metal-gold/20">
 							{product.statusNote && (
-								<div className="flex items-start gap-2 text-sm text-muted-foreground">
+								<div className="flex items-start gap-2 text-sm text-deep-black/70">
 									<span>✨</span>
 									<span>{product.statusNote}</span>
 								</div>
 							)}
 							{product.inStock === false && (
-								<div className="flex items-start gap-2 text-sm text-muted-foreground">
+								<div className="flex items-start gap-2 text-sm text-deep-black/70">
 									<span>💎</span>
 									<span>Made to order • {product.leadTime || "4-6 weeks production time"}</span>
 								</div>
 							)}
 							{product.customizable !== false && (
-								<div className="flex items-start gap-2 text-sm text-muted-foreground">
+								<div className="flex items-start gap-2 text-sm text-deep-black/70">
 									<span>🎨</span>
 									<span>Handcrafted with care</span>
 								</div>
 							)}
-							<div className="flex items-start gap-2 text-sm text-muted-foreground">
+							<div className="flex items-start gap-2 text-sm text-deep-black/70">
 								<span>♾️</span>
 								<span>Lifetime silver warranty</span>
 							</div>
