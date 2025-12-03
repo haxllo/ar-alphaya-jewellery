@@ -9,8 +9,12 @@ export default function Footer() {
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   
   return (
-    <footer className="relative overflow-hidden bg-forest-deep text-white/90">
-      <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true">
+    <>
+      {/* Divider before footer */}
+      <div className="w-full h-px bg-deep-black/5" />
+      
+      <footer className="relative overflow-hidden bg-forest-deep text-white/90">
+        <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true">
         <div className="absolute -left-24 top-[-10%] h-72 w-72 rounded-full bg-metal-gold/20 blur-3xl" />
         <div className="absolute bottom-[-30%] right-[-10%] h-96 w-96 rounded-full bg-white/10 blur-3xl" />
       </div>
@@ -123,10 +127,11 @@ export default function Footer() {
         </div>
       </div>
       
-      <SizeGuideModal
-        isOpen={showSizeGuide}
-        onClose={() => setShowSizeGuide(false)}
-      />
-    </footer>
+        <SizeGuideModal
+          isOpen={showSizeGuide}
+          onClose={() => setShowSizeGuide(false)}
+        />
+      </footer>
+    </>
   )
 }
