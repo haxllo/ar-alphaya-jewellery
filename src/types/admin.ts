@@ -6,7 +6,6 @@ export interface Product {
   name: string
   slug: string
   description: string | null
-  cardDescription?: string | null
   price: number
   currency: string
   images: string[]

@@ -23,7 +23,7 @@ export async function sendEmail(options: EmailOptions) {
 
   try {
     // Get from email from environment variable or use default
-    const fromEmail = options.from || process.env.EMAIL_FROM || 'AR Alphaya Jewellery <noreply@alphayajewellery.com>'
+    const fromEmail = options.from || process.env.EMAIL_FROM || 'AR Alphaya Jewellery <noreply@aralphayajewellery.com>'
     
     const result = await resend.emails.send({
       from: fromEmail,
@@ -105,7 +105,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationEmailDat
     total: formatPrice(data.total),
     paymentMethod: data.paymentId ? `PayHere (${data.paymentId})` : 'PayHere',
     trackingUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/account/orders`,
-    supportEmail: process.env.EMAIL_FROM || 'support@alphayajewellery.com',
+    supportEmail: process.env.EMAIL_FROM || 'info@aralphayajewellery.com',
   })
 
   return sendEmail({

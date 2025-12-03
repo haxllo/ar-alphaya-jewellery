@@ -5,6 +5,7 @@ import { getProducts } from '@/lib/cms'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import DynamicHeroImage from '@/components/home/DynamicHeroImage'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SectionDivider } from '@/components/ui/divider'
 export const revalidate = 60;
 
 export const metadata: Metadata = {
@@ -19,28 +20,7 @@ export default async function Home() {
     .slice()
     .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
     .slice(0, 8)
-  const curatedCollections = [
-    {
-      title: 'Current Creations',
-      copy: 'Limited coloured gemstone pieces ready to tailor to your story.',
-      href: '/collections/rings',
-    },
-    {
-      title: 'Design Archive',
-      copy: 'Past one-of-a-kind commissions to inspire your next request.',
-      href: '/collections/earrings',
-    },
-    {
-      title: 'Custom Atelier',
-      copy: 'Begin a one-to-one collaboration from sketch to final polish.',
-      href: '/contact',
-    },
-  ]
-  const hallmarks = [
-    'One-to-one consultations',
-    'Handcrafted in Kandy, Sri Lanka',
-    'Ethically sourced Sri Lankan gemstones',
-  ]
+
   const processSteps = [
     {
       title: 'Share your story',
@@ -82,148 +62,108 @@ export default async function Home() {
     },
   ]
   return (
-    <div className="min-h-screen space-y-24 pb-24 pt-10">
-      <section className="relative overflow-hidden">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
-          <div className="relative z-10 space-y-8">
-            <p className="inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.3em] text-nocturne-500 backdrop-blur">
-              Bespoke Jewellery Atelier
-            </p>
-            <h1 className="font-serif text-4xl leading-tight text-nocturne-900 sm:text-5xl lg:text-6xl">
-              Custom jewellery at everyday prices—affordable, personal, and crafted just for you.
-            </h1>
-            <p className="max-w-xl text-base leading-relaxed text-nocturne-600">
-              AR Alphaya Jewellery is a one-person studio creating bespoke pieces with Sri Lankan coloured gemstones and recycled gold. Each commission begins with a conversation—together we shape a design that feels true to you. <strong>No luxury markup, just artisan craftsmanship.</strong>
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-              <Link
-                className="inline-flex items-center justify-center rounded-full bg-foreground px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
-                href="/contact"
-              >
-                Get a Quote—No Obligation
-              </Link>
-              <Link
-                className="inline-flex items-center justify-center rounded-full border border-nocturne-200 px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.25em] text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
-                href="/collections/rings"
-              >
-                See Affordable Bespoke Options
-              </Link>
-            </div>
-            <div className="flex flex-wrap gap-6 pt-4 text-sm text-nocturne-500">
-              {hallmarks.map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-gold-400" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative h-[360px] overflow-hidden rounded-3xl bg-nocturne-900/90 shadow-luxe sm:h-[420px]">
-            <Image
-              src="/images/auth0bg.png"
-              alt="Crafted jewellery"
-              fill
-              priority
-              className="object-cover opacity-90 mix-blend-luminosity"
-            />
-            <div className="absolute inset-0 bg-hero-linear" />
-            <div className="absolute inset-0 flex flex-col justify-end gap-4 p-8 text-white/90">
-              <p className="text-xs uppercase tracking-[0.4em] text-white/60">THE STUDIO</p>
-              <p className="max-w-xs text-sm leading-relaxed">
-                Every design is drafted, cast, and finished by hand at my bench in Kandy. I work on a handful of pieces at a time so you receive obsessive attention at every stage.
-              </p>
-              <Link href="/about" className="inline-block text-xs sm:text-sm font-semibold text-white underline-offset-8 hover:underline">
-                Learn about the maker
-              </Link>
-            </div>
-          </div>
+    <div className="min-h-screen space-y-32 md:space-y-40 pb-40 bg-neutral-soft">
+      {/* Hero Section - Minimal */}
+      <section className="relative overflow-hidden min-h-[50vh] flex items-center">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/auth0bg.png"
+            alt="Bespoke jewellery"
+            fill
+            priority
+            className="object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-hero-linear" />
         </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Current Creations</p>
-            <h2 className="mt-2 font-serif text-3xl text-nocturne-900 md:text-4xl">Made-to-order pieces and bespoke inspiration</h2>
-          </div>
-          <Link href="/collections/rings" className="inline-block text-xs sm:text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline whitespace-nowrap">
-            Browse the studio bench
-          </Link>
-        </div>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {curatedCollections.map((collection) => (
+        <div className="relative z-10 mx-auto max-w-7xl px-8 py-24 text-center">
+          <p className="inline-block text-sm uppercase tracking-wider text-metal-gold mb-8">
+            Bespoke Jewellery Atelier
+          </p>
+          <h1 className="font-serif font-medium text-5xl md:text-6xl lg:text-7xl leading-tight text-white max-w-4xl mx-auto tracking-tight mb-10">
+            Bespoke jewellery at everyday prices
+          </h1>
+          <div className="flex flex-col sm:flex-row gap-5 justify-center mt-14">
             <Link
-              key={collection.title}
-              href={collection.href}
-              className="group relative overflow-hidden rounded-2xl border border-nocturne-100 bg-white/80 p-6 sm:p-8 shadow-subtle transition-all duration-500 ease-luxe hover:-translate-y-1 hover:border-gold-200/80 hover:shadow-luxe"
+              className="inline-flex items-center justify-center rounded-full bg-deep-black px-8 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep"
+              href="/collections/rings"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-gold-100/30 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex h-full flex-col justify-between gap-4 sm:gap-6 min-h-[200px]">
-                <div>
-                  <span className="text-xs uppercase tracking-[0.35em] text-nocturne-400">Collection</span>
-                  <h3 className="mt-3 font-serif text-xl sm:text-2xl text-nocturne-900">{collection.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-nocturne-600">{collection.copy}</p>
-                </div>
-                <span className="text-sm font-semibold text-nocturne-700 underline-offset-8 group-hover:underline">Explore now</span>
-              </div>
+              Browse Jewellery
             </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-12 rounded-3xl bg-white/80 p-8 shadow-subtle lg:grid-cols-[1.05fr_0.95fr] lg:p-14">
-          <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">How we work together</p>
-            <h2 className="font-serif text-3xl text-nocturne-900 md:text-4xl">Slow-made jewellery shaped around your story.</h2>
-            <p className="text-base leading-relaxed text-nocturne-600">
-              I source coloured gemstones from trusted Sri Lankan suppliers and carve every wax, casting, and bezel myself. Designs are refined through sketches, digital renders, and shared checkpoints so you can see each milestone before the final polish.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {[{ label: 'Production time', value: '4–6 weeks + delivery' }, { label: 'Design checkpoints', value: 'Sketch → 3D → Wax' }, { label: 'Support', value: 'Care refresh by appointment' }].map((item) => (
-                <div key={item.label} className="rounded-2xl border border-nocturne-100 bg-white/60 p-4">
-                  <p className="text-xs uppercase tracking-[0.28em] text-nocturne-400">{item.label}</p>
-                  <p className="mt-2 font-serif text-xl text-nocturne-900">{item.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative overflow-hidden rounded-3xl border border-nocturne-100 h-[400px]">`n            <DynamicHeroImage />
+            <Link
+              className="inline-flex items-center justify-center rounded-full bg-forest-deep px-8 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep-light"
+              href="/contact"
+            >
+              Custom Design
+            </Link>
           </div>
         </div>
       </section>
 
+      {/* Featured Products - MOVED UP */}
       <FeaturedProducts products={products} />
 
-      <section id="process" className="mx-auto max-w-7xl px-6 scroll-mt-24">
-        <div className="rounded-3xl border border-nocturne-100 bg-white/75 p-8 shadow-subtle lg:p-14">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Custom Commissions</p>
-              <h2 className="mt-2 font-serif text-3xl text-nocturne-900 md:text-4xl">Four stages from idea to finished piece</h2>
-            </div>
-            <Link href="/contact" className="inline-block text-xs sm:text-sm font-semibold text-nocturne-600 underline-offset-6 hover:text-foreground hover:underline whitespace-nowrap">
-              Book a consultation
-            </Link>
+      <SectionDivider />
+
+      {/* Value Props - 3 Column */}
+      <section className="mx-auto max-w-7xl px-8">
+        <div className="grid gap-10 md:grid-cols-3">
+          <div className="text-center space-y-5 p-10">
+            <h3 className="font-serif font-medium text-2xl text-deep-black">Handcrafted</h3>
+            <p className="text-sm text-deep-black/70 leading-relaxed">
+              Every piece shaped by hand in Kandy, Sri Lanka
+            </p>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {processSteps.map((step, index) => (
-              <div key={step.title} className="relative overflow-hidden rounded-3xl border border-nocturne-100 bg-white/70 p-6">
-                <span className="absolute -top-6 right-8 text-7xl font-serif text-gold-100/80">{String(index + 1).padStart(2, '0')}</span>
-                <h3 className="font-serif text-2xl text-nocturne-900">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-nocturne-600">{step.description}</p>
-              </div>
-            ))}
+          <div className="text-center space-y-5 p-10 border-x border-metal-gold/20">
+            <h3 className="font-serif font-medium text-2xl text-deep-black">Sri Lankan Gems</h3>
+            <p className="text-sm text-deep-black/70 leading-relaxed">
+              Ethically sourced coloured gemstones from local suppliers
+            </p>
+          </div>
+          <div className="text-center space-y-5 p-10">
+            <h3 className="font-serif font-medium text-2xl text-deep-black">Affordable Custom</h3>
+            <p className="text-sm text-deep-black/70 leading-relaxed">
+              Bespoke quality without luxury markup
+            </p>
           </div>
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-7xl px-6 scroll-mt-24">
-        <div className="grid gap-8 rounded-3xl bg-white/80 p-8 shadow-subtle lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
+      <SectionDivider />
+
+      {/* Process Section - Compact */}
+      <section id="process" className="mx-auto max-w-7xl px-8 scroll-mt-24">
+        <div className="text-center space-y-4 mb-16">
+          <p className="text-xs uppercase tracking-wider text-deep-black/40">Custom Process</p>
+          <h2 className="font-serif font-normal text-4xl text-deep-black">Four steps to your piece</h2>
+        </div>
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {processSteps.map((step, index) => (
+            <div key={step.title} className="space-y-5 p-6">
+              <span className="text-5xl font-serif text-metal-gold/40">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="font-serif font-medium text-xl text-deep-black">{step.title}</h3>
+              <p className="text-sm leading-relaxed text-deep-black/70">{step.description}</p>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-14">
+          <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-deep-black px-10 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep">
+            Start Your Commission
+          </Link>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      <section id="faq" className="mx-auto max-w-7xl px-8 scroll-mt-24">
+        <div className="text-center space-y-4 mb-16">
+          <p className="text-xs uppercase tracking-wider text-deep-black/40">FAQ</p>
+          <h2 className="font-serif font-normal text-4xl text-deep-black">Common Questions</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">FAQ</p>
-            <h2 className="font-serif text-3xl text-nocturne-900 md:text-4xl">Answers to the questions I’m asked most</h2>
-            <p className="text-sm leading-relaxed text-nocturne-600">
+            <p className="text-xs uppercase tracking-[0.35em] text-deep-black-500">FAQ</p>
+            <h2 className="font-serif text-3xl text-deep-black-900 md:text-4xl">Answers to the questions I’m asked most</h2>
+            <p className="text-sm leading-relaxed text-deep-black-600">
               Every project starts with clarity. If you need details beyond what’s here, send a message and I’ll respond within two business days.
             </p>
             <Link href="/contact" className="inline-flex w-full sm:w-fit items-center justify-center rounded-full bg-foreground px-6 sm:px-7 py-3 text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.28em] text-white transition-all duration-300 hover:-translate-y-0.5">
@@ -231,22 +171,25 @@ export default async function Home() {
             </Link>
           </div>
           <div className="space-y-4">
-            {faqs.map((faq) => (
-              <div key={faq.question} className="rounded-3xl border border-nocturne-100 bg-white/70 p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.28em] text-nocturne-500">{faq.question}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-nocturne-600">{faq.answer}</p>
+            {faqs.slice(0, 4).map((faq) => (
+              <div key={faq.question} className="p-8 space-y-4 bg-white/80 border border-metal-gold/20 rounded-2xl shadow-subtle hover:border-metal-gold/40 hover:shadow-luxe transition-all duration-300">
+                <h3 className="text-base font-semibold text-deep-black">{faq.question}</h3>
+                <p className="text-sm leading-relaxed text-deep-black/70">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-10 rounded-3xl bg-nocturne-900 p-10 text-white/90 shadow-luxe lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-5">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">Collaboration</p>
-            <h2 className="font-serif text-3xl md:text-4xl">From first chat to final polish, we keep the process personal.</h2>
-            <p className="text-sm uppercase tracking-[0.3em] text-white/50">Here’s how a typical commission unfolds</p>
+      <SectionDivider />
+
+      {/* Commission Process CTA */}
+      <section className="mx-auto max-w-7xl px-8">
+        <div className="grid gap-10 rounded-2xl bg-forest-deep p-10 lg:p-16 text-white/90 shadow-luxe lg:grid-cols-[1fr_1.2fr]">
+          <div className="space-y-6">
+            <p className="text-xs uppercase tracking-wider text-metal-gold-light">Personal Process</p>
+            <h2 className="font-serif font-normal text-3xl lg:text-4xl text-white leading-tight">From first chat to final polish, we keep the process personal.</h2>
+            <p className="text-sm text-white/60">Here’s how a typical commission unfolds</p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
             {[{
@@ -259,9 +202,9 @@ export default async function Home() {
               title: 'Hand-finishing & delivery',
               copy: 'Your piece is cast, stone-set, and polished by hand. We arrange careful delivery within Sri Lanka or discuss options for abroad.',
             }].map((card) => (
-              <div key={card.title} className="rounded-3xl border border-white/15 bg-white/5 p-6 transition-all duration-500 hover:border-white/35">
-                <h3 className="font-serif text-xl text-white">{card.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/70">{card.copy}</p>
+              <div key={card.title} className="rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:border-metal-gold/30 hover:bg-white/10">
+                <h3 className="font-serif text-lg text-white mb-3">{card.title}</h3>
+                <p className="text-sm leading-relaxed text-white/70">{card.copy}</p>
               </div>
             ))}
           </div>

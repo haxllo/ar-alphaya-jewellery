@@ -109,7 +109,6 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     const dataToValidate = {
       ...product,
       description: product.description ?? undefined,
-      cardDescription: product.cardDescription ?? undefined,
       sku: product.sku ?? undefined,
       materials: product.materials ?? undefined,
       weight: product.weight ?? undefined,
@@ -317,21 +316,6 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 )}
               </div>
 
-              <div>
-                <Label htmlFor="cardDescription">Card Description (Short)</Label>
-                <Textarea
-                  id="cardDescription"
-                  value={product.cardDescription || ''}
-                  onChange={(e) => setProduct(prev => ({ ...prev, cardDescription: e.target.value }))}
-                  placeholder="Brief description for product cards (1-2 lines)"
-                  maxLength={150}
-                  rows={2}
-                />
-                <p className="mt-1 text-xs text-gray-500">
-                  Shown only on product cards. {150 - (product.cardDescription?.length || 0)} characters remaining
-                </p>
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="category">Category *</Label>
@@ -507,7 +491,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                           }));
                         }
                       }}
-                      className="h-4 w-4 rounded border-gray-300 text-amber-mirage-gold focus:ring-amber-mirage-gold"
+                      className="h-4 w-4 rounded border-gray-300 text-metal-gold-gold focus:ring-metal-gold-gold"
                     />
                     <span className="font-medium">{plating.label}</span>
                   </div>

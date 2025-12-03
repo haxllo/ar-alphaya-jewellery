@@ -38,13 +38,13 @@ export function CartItemOne({
 
   return (
     <div 
-      className={`group flex gap-4 rounded-2xl border border-amber-mirage-200 bg-white/80 p-4 transition-all duration-300 ${
+      className={`group flex gap-4 rounded-2xl border border-metal-gold/20 bg-white/80 p-4 transition-all duration-300 ${
         isRemoving ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
       }`}
     >
       {/* Product Image */}
       <Link href={`/products/${item.slug}`} className="flex-shrink-0">
-        <div className="relative h-24 w-24 overflow-hidden rounded-xl bg-amber-mirage-100 transition-transform duration-300 hover:scale-105">
+        <div className="relative h-24 w-24 overflow-hidden rounded-xl bg-neutral-soft transition-transform duration-300 hover:scale-105">
           {item.image ? (
             <Image
               src={fixUploadcareUrl(item.image)}
@@ -54,7 +54,7 @@ export function CartItemOne({
               className="object-cover"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-amber-mirage-300">
+            <div className="flex h-full w-full items-center justify-center text-deep-black/20">
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
@@ -68,26 +68,26 @@ export function CartItemOne({
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <Link href={`/products/${item.slug}`}>
-              <h3 className="font-serif text-lg text-amber-mirage-brown transition-colors hover:text-amber-mirage-gold">
+              <h3 className="font-serif text-lg text-deep-black transition-colors hover:text-metal-gold">
                 {item.name}
               </h3>
             </Link>
             <div className="mt-1 space-y-0.5">
               {item.size && (
-                <p className="text-sm text-amber-mirage-600">Size: {item.size}</p>
+                <p className="text-sm text-deep-black/70">Size: {item.size}</p>
               )}
               {item.plating && (
-                <p className="text-sm text-amber-mirage-600">Plating: {platingLabel}</p>
+                <p className="text-sm text-deep-black/70">Plating: {platingLabel}</p>
               )}
             </div>
           </div>
           
           {/* Price */}
           <div className="text-right">
-            <p className="text-lg font-semibold text-amber-mirage-brown">
+            <p className="text-lg font-semibold text-metal-gold-brown">
               {formatPrice(item.price)}
             </p>
-            <p className="text-sm text-amber-mirage-500">
+            <p className="text-sm text-metal-gold-500">
               {formatPrice(item.price * quantity)} total
             </p>
           </div>
@@ -95,10 +95,10 @@ export function CartItemOne({
         
         {/* Quantity Controls & Remove */}
         <div className="mt-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 rounded-lg border border-amber-mirage-200 bg-white">
+          <div className="flex items-center gap-2 rounded-lg border border-metal-gold-200 bg-white">
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
-              className="flex h-9 w-9 items-center justify-center text-amber-mirage-600 transition-colors hover:bg-amber-mirage-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-9 w-9 items-center justify-center text-metal-gold-600 transition-colors hover:bg-metal-gold-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isRemoving || quantity <= 1}
               aria-label="Decrease quantity"
             >
@@ -107,13 +107,13 @@ export function CartItemOne({
               </svg>
             </button>
             
-            <span className="min-w-[2rem] text-center text-sm font-medium text-amber-mirage-brown">
+            <span className="min-w-[2rem] text-center text-sm font-medium text-metal-gold-brown">
               {quantity}
             </span>
             
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
-              className="flex h-9 w-9 items-center justify-center text-amber-mirage-600 transition-colors hover:bg-amber-mirage-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-9 w-9 items-center justify-center text-metal-gold-600 transition-colors hover:bg-metal-gold-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isRemoving || quantity >= 99}
               aria-label="Increase quantity"
             >
@@ -126,7 +126,7 @@ export function CartItemOne({
           {/* Remove Button */}
           <button
             onClick={() => onRemove(item.productId, item.size)}
-            className="text-sm text-amber-mirage-500 transition-colors hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="text-sm text-deep-black/50 transition-colors hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isRemoving}
           >
             Remove

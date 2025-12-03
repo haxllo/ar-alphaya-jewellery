@@ -20,13 +20,13 @@ export default function ValueProposition() {
 
   return (
     <section className="mx-auto max-w-7xl px-6">
-      <div className="rounded-3xl border border-gold-200/60 bg-gradient-to-br from-gold-50/80 to-white/80 p-10 shadow-luxe">
+      <div className="rounded-2xl border border-metal-gold/20 bg-gradient-to-br from-metal-gold/5 to-white/80 p-10 shadow-luxe">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-nocturne-500">Our Promise</p>
-          <h2 className="mt-3 font-serif text-3xl text-nocturne-900 md:text-4xl">
+          <p className="text-xs uppercase tracking-wider text-deep-black/40">Our Promise</p>
+          <h2 className="mt-3 font-serif font-normal text-3xl text-deep-black md:text-4xl">
             Why choose AR Alphaya?
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-nocturne-600">
+          <p className="mt-4 text-base leading-relaxed text-deep-black/70">
             I believe everyone deserves meaningful, bespoke jewellery—without luxury prices.
           </p>
         </div>
@@ -35,24 +35,24 @@ export default function ValueProposition() {
           {values.map((value) => (
             <div
               key={value.title}
-              className="rounded-3xl border border-nocturne-100 bg-white/70 p-8 shadow-subtle transition-all duration-300 hover:shadow-luxe"
+              className="rounded-2xl border border-metal-gold/20 bg-white/70 p-8 shadow-subtle transition-all duration-300 hover:shadow-luxe"
             >
               <div className="flex items-start gap-4">
-                <span className="mt-1 h-3 w-3 flex-shrink-0 rounded-full bg-gold-400" />
+                <span className="mt-1 h-3 w-3 flex-shrink-0 rounded-full bg-metal-gold" />
                 <div>
-                  <h3 className="font-serif text-xl text-nocturne-900">{value.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-nocturne-600">{value.description}</p>
+                  <h3 className="font-serif font-normal text-xl text-deep-black">{value.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-deep-black/70">{value.description}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 rounded-3xl border border-gold-300/70 bg-white/80 p-8 text-center">
-          <p className="font-serif text-2xl text-nocturne-900">
+        <div className="mt-10 rounded-2xl border border-metal-gold/30 bg-white/80 p-8 text-center">
+          <p className="font-serif font-normal text-2xl text-deep-black">
             Free no-pressure design call for all budgets
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-nocturne-600">
+          <p className="mt-3 text-sm leading-relaxed text-deep-black/70">
             Just tell us your dream and budget—we'll work with you to create something beautiful within your means.
           </p>
         </div>

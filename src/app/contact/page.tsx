@@ -57,37 +57,37 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-14">
-      <div className="rounded-3xl bg-gradient-to-br from-amber-mirage-50 to-white/80 p-10 shadow-subtle border border-amber-mirage-200">
-        <p className="text-xs uppercase tracking-[0.3em] text-amber-mirage-600">Connect with our atelier</p>
-        <h1 className="mt-3 font-serif text-4xl text-amber-mirage-brown md:text-5xl">We would love to craft with you</h1>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-amber-mirage-700">
+    <div className="mx-auto max-w-7xl px-6 py-14 bg-neutral-soft">
+      <div className="rounded-2xl bg-white/80 p-10 shadow-subtle border border-metal-gold/10">
+        <p className="text-xs uppercase tracking-wider text-deep-black/40">Connect with our atelier</p>
+        <h1 className="mt-3 font-serif font-normal text-4xl text-deep-black md:text-5xl">We would love to craft with you</h1>
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-deep-black/70">
           Share your inspirations, schedule a bespoke consultation, or ask about an existing piece. <strong>We welcome all budgets</strong>—from heirloom resets to milestone commissions. Free no-pressure design call for everyone. Our concierge team replies within 24 hours.
         </p>
       </div>
 
       <div className="mt-14 grid gap-12 lg:grid-cols-[1fr_1.05fr]">
         {/* Contact Information */}
-        <div className="space-y-8 rounded-3xl border border-amber-mirage-200 bg-white/70 p-8 shadow-subtle">
+        <div className="space-y-8 rounded-2xl border border-metal-gold/10 bg-white/70 p-8 shadow-subtle">
           <div>
-            <h2 className="text-xs uppercase tracking-[0.3em] text-amber-mirage-600">Atelier details</h2>
-            <p className="mt-3 text-sm text-amber-mirage-700">
+            <h2 className="text-xs uppercase tracking-wider text-deep-black/40">Atelier details</h2>
+            <p className="mt-3 text-sm text-deep-black/70">
               143/5 Rainbow Park, Temple Road<br />
               Kengalla 20186, Sri Lanka
             </p>
           </div>
 
-          <div className="grid gap-6 text-sm text-amber-mirage-700">
+          <div className="grid gap-6 text-sm text-deep-black/70">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">Concierge</p>
+              <p className="text-xs uppercase tracking-wider text-deep-black/40">Concierge</p>
               <p className="mt-2">
-                <strong>Email:</strong> aralphayajewellery@gmail.com<br />
+                <strong>Email:</strong> info@aralphayajewellery.com<br />
                 <strong>Phone:</strong> +94 77 429 3406<br />
                 <strong>WhatsApp:</strong> +94 77 429 3406
               </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">Hours</p>
+              <p className="text-xs uppercase tracking-wider text-deep-black/40">Hours</p>
               <p className="mt-2">
                 Mon–Fri: 9:00 AM – 6:00 PM<br />
                 Saturday: 10:00 AM – 4:00 PM<br />
@@ -95,34 +95,34 @@ export default function ContactPage() {
               </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">Follow</p>
-              <div className="mt-3 flex gap-4 text-amber-mirage-700">
-                <a href="https://www.instagram.com/ar_alphaya_jewellery/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-amber-mirage-gold">Instagram</a>
-                <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-amber-mirage-gold">WhatsApp</a>
+              <p className="text-xs uppercase tracking-wider text-deep-black/40">Follow</p>
+              <div className="mt-3 flex gap-4 text-deep-black/70">
+                <a href="https://www.instagram.com/ar_alphaya_jewellery/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-metal-gold">Instagram</a>
+                <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-metal-gold">WhatsApp</a>
               </div>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-amber-mirage-gold/60 bg-amber-mirage-50/70 p-6 text-amber-mirage-700">
-            <p className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">Appointments</p>
+          <div className="rounded-2xl border border-metal-gold/20 bg-metal-gold/5 p-6 text-deep-black">
+            <p className="text-xs uppercase tracking-wider text-deep-black/40">Appointments</p>
             <p className="mt-3 text-sm leading-relaxed">
               In-person and virtual consultations are available by reservation. Share your availability and we&apos;ll curate gemstones in advance.
             </p>
-            <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center text-sm font-semibold text-nocturne-700 underline-offset-6 hover:underline">
+            <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center text-sm font-semibold text-deep-black underline-offset-6 hover:text-metal-gold hover:underline">
               Start a WhatsApp chat
             </a>
           </div>
         </div>
 
         {/* Contact Form */}
-        <div className="rounded-3xl border border-amber-mirage-200 bg-white/85 p-8 shadow-luxe">
-          <h2 className="text-xs uppercase tracking-[0.3em] text-amber-mirage-600">Message us</h2>
-          <p className="mt-2 font-serif text-2xl text-amber-mirage-brown">Tell us about your dream piece</p>
+        <div className="rounded-2xl border border-metal-gold/10 bg-white/85 p-8 shadow-luxe">
+          <h2 className="text-xs uppercase tracking-wider text-deep-black/40">Message us</h2>
+          <p className="mt-2 font-serif font-normal text-2xl text-deep-black">Tell us about your dream piece</p>
           
           <form onSubmit={handleSubmit} className="mt-6 space-y-5">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">
+                <label htmlFor="name" className="text-xs uppercase tracking-wider text-deep-black/40">
                   Name *
                 </label>
                 <input
@@ -133,12 +133,12 @@ export default function ContactPage() {
                   value={formData.name}
                   onChange={handleChange}
                   suppressHydrationWarning
-                  className="w-full rounded-lg border border-amber-mirage-200 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-amber-mirage-gold focus:outline-none focus:ring-2 focus:ring-amber-mirage-gold/30"
+                  className="w-full rounded-full border border-metal-gold/20 bg-white/70 px-4 py-3 text-sm text-deep-black placeholder:text-deep-black/30 focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20"
                 />
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="email" className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">
+                <label htmlFor="email" className="text-xs uppercase tracking-wider text-deep-black/40">
                   Email *
                 </label>
                 <input
@@ -149,13 +149,13 @@ export default function ContactPage() {
                   value={formData.email}
                   onChange={handleChange}
                   suppressHydrationWarning
-                  className="w-full rounded-lg border border-amber-mirage-200 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-amber-mirage-gold focus:outline-none focus:ring-2 focus:ring-amber-mirage-gold/30"
+                  className="w-full rounded-full border border-metal-gold/20 bg-white/70 px-4 py-3 text-sm text-deep-black placeholder:text-deep-black/30 focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="phone" className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">
+              <label htmlFor="phone" className="text-xs uppercase tracking-wider text-deep-black/40">
                 Phone
               </label>
               <input
@@ -165,12 +165,12 @@ export default function ContactPage() {
                 value={formData.phone}
                 onChange={handleChange}
                 suppressHydrationWarning
-                className="w-full rounded-lg border border-amber-mirage-200 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-amber-mirage-gold focus:outline-none focus:ring-2 focus:ring-amber-mirage-gold/30"
+                className="w-full rounded-full border border-metal-gold/20 bg-white/70 px-4 py-3 text-sm text-deep-black placeholder:text-deep-black/30 focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="subject" className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">
+              <label htmlFor="subject" className="text-xs uppercase tracking-wider text-deep-black/40">
                 Subject *
               </label>
               <select
@@ -180,7 +180,7 @@ export default function ContactPage() {
                 value={formData.subject}
                 onChange={handleChange}
                 suppressHydrationWarning
-                className="w-full rounded-lg border border-amber-mirage-200 bg-white/70 px-4 py-3 text-sm text-nocturne-700 focus:border-amber-mirage-gold focus:outline-none focus:ring-2 focus:ring-amber-mirage-gold/30"
+                className="w-full rounded-full border border-metal-gold/20 bg-white/70 px-4 py-3 text-sm text-deep-black focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20"
               >
                 <option value="">Select a subject</option>
                 <option value="general">General inquiry</option>
@@ -192,7 +192,7 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="message" className="text-xs uppercase tracking-[0.28em] text-amber-mirage-600">
+              <label htmlFor="message" className="text-xs uppercase tracking-wider text-deep-black/40">
                 Message *
               </label>
               <textarea
@@ -203,7 +203,7 @@ export default function ContactPage() {
                 value={formData.message}
                 onChange={handleChange}
                 suppressHydrationWarning
-                className="w-full rounded-3xl border border-amber-mirage-200 bg-white/70 px-4 py-3 text-sm text-nocturne-700 placeholder:text-nocturne-300 focus:border-amber-mirage-gold focus:outline-none focus:ring-2 focus:ring-amber-mirage-gold/30"
+                className="w-full rounded-2xl border border-metal-gold/20 bg-white/70 px-4 py-3 text-sm text-deep-black placeholder:text-deep-black/30 focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20"
                 placeholder="Share occasion dates, gemstones you love, or ideas you’ve collected."
               ></textarea>
             </div>
@@ -223,7 +223,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={isSubmitting || submitStatus === 'success'}
-              className="w-full rounded-full bg-amber-mirage-brown py-3 text-sm font-semibold tracking-[0.25em] text-amber-mirage-soft transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-amber-mirage-brown/90 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-deep-black py-3 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-deep-black"
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>

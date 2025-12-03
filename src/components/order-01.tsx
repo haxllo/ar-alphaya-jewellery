@@ -34,7 +34,7 @@ interface OrderOneProps {
 }
 
 const STATUS_COLORS = {
-	pending: "bg-amber-mirage-warm/20 text-amber-mirage-700",
+	pending: "bg-metal-gold/20 text-deep-black",
 	processing: "bg-blue-100 text-blue-700",
 	shipped: "bg-purple-100 text-purple-700",
 	delivered: "bg-green-100 text-green-700",
@@ -58,21 +58,21 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 	};
 
 	return (
-		<div className="w-full max-w-4xl mx-auto p-6 bg-amber-mirage-soft border border-amber-mirage-200 rounded-2xl shadow-amber">
+		<div className="w-full max-w-4xl mx-auto p-6 bg-white/80 border border-metal-gold/20 rounded-2xl shadow-subtle">
 			{/* Order Header */}
-			<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-amber-mirage-200">
+			<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-metal-gold/20">
 				<div>
-					<h2 className="text-2xl font-bold text-amber-mirage-brown">
+					<h2 className="text-2xl font-bold text-deep-black">
 						Order: {order.orderNumber}
 					</h2>
-					<p className="text-sm text-amber-mirage-600 mt-1">
+					<p className="text-sm text-deep-black/70 mt-1">
 						Order ID: {order.id}
 					</p>
 				</div>
 				<Button
 					variant="outline"
 					onClick={() => onDownloadInvoice?.(order.id)}
-					className="border-amber-mirage-300 text-amber-mirage-brown hover:bg-amber-mirage-warm/10"
+					className="border-metal-gold/20 text-deep-black hover:bg-metal-gold/10"
 				>
 					<Download className="w-4 h-4 mr-2" />
 					Download Invoice
@@ -81,8 +81,8 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 
 			{/* Order Details Grid */}
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-				<div className="p-4 bg-amber-mirage-100 rounded-lg border border-amber-mirage-200">
-					<p className="text-xs text-amber-mirage-600 uppercase tracking-wider mb-1">
+				<div className="p-4 bg-neutral-soft rounded-lg border border-metal-gold/20">
+					<p className="text-xs text-deep-black/70 uppercase tracking-wider mb-1">
 						Order Status:
 					</p>
 					<span
@@ -95,21 +95,21 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 					</span>
 				</div>
 
-				<div className="p-4 bg-amber-mirage-100 rounded-lg border border-amber-mirage-200">
-					<p className="text-xs text-amber-mirage-600 uppercase tracking-wider mb-1">
+				<div className="p-4 bg-neutral-soft rounded-lg border border-metal-gold/20">
+					<p className="text-xs text-deep-black/70 uppercase tracking-wider mb-1">
 						Order Date:
 					</p>
-					<p className="text-sm font-medium text-amber-mirage-brown">
+					<p className="text-sm font-medium text-deep-black">
 						{formatDate(order.orderDate)}
 					</p>
 				</div>
 
 				{order.deliveryDate && (
-					<div className="p-4 bg-amber-mirage-100 rounded-lg border border-amber-mirage-200">
-						<p className="text-xs text-amber-mirage-600 uppercase tracking-wider mb-1">
+					<div className="p-4 bg-neutral-soft rounded-lg border border-metal-gold/20">
+						<p className="text-xs text-deep-black/70 uppercase tracking-wider mb-1">
 							Delivery Date:
 						</p>
-						<p className="text-sm font-medium text-amber-mirage-brown">
+						<p className="text-sm font-medium text-deep-black">
 							{formatDate(order.deliveryDate)}
 						</p>
 					</div>
@@ -118,14 +118,14 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 
 			{/* Order Items */}
 			<div className="space-y-4 mb-6">
-				<h3 className="text-lg font-semibold text-amber-mirage-brown">Order Items</h3>
+				<h3 className="text-lg font-semibold text-deep-black">Order Items</h3>
 				{order.items.map((item) => (
 					<div
 						key={item.id}
-						className="flex gap-4 p-4 bg-amber-mirage-100 rounded-lg border border-amber-mirage-200 transition-colors hover:bg-amber-mirage-200/50"
+						className="flex gap-4 p-4 bg-neutral-soft rounded-lg border border-metal-gold/20 transition-colors hover:bg-metal-gold/5"
 					>
 						{/* Product Image */}
-						<div className="w-24 h-24 bg-amber-mirage-soft rounded-lg overflow-hidden border border-amber-mirage-300 flex-shrink-0">
+						<div className="w-24 h-24 bg-white rounded-lg overflow-hidden border border-metal-gold/20 flex-shrink-0">
 							{item.image ? (
 								<Image
 									src={fixUploadcareUrl(item.image)}
@@ -135,7 +135,7 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 									className="w-full h-full object-cover"
 								/>
 							) : (
-								<div className="w-full h-full flex items-center justify-center text-amber-mirage-400 text-xs">
+								<div className="w-full h-full flex items-center justify-center text-deep-black/20 text-xs">
 									No image
 								</div>
 							)}
@@ -143,19 +143,19 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 
 						{/* Product Details */}
 						<div className="flex-1 min-w-0">
-							<h4 className="font-semibold text-amber-mirage-brown text-lg mb-1">
+							<h4 className="font-semibold text-deep-black text-lg mb-1">
 								{item.name}
 							</h4>
 							{item.description && (
-								<p className="text-sm text-amber-mirage-700 mb-2">
+								<p className="text-sm text-deep-black/70 mb-2">
 									{item.description}
 								</p>
 							)}
 							<div className="flex items-center gap-4 text-sm">
-								<span className="text-amber-mirage-600">
-									Quantity: <span className="font-medium text-amber-mirage-brown">{item.quantity}</span>
+								<span className="text-deep-black/70">
+									Quantity: <span className="font-medium text-deep-black">{item.quantity}</span>
 								</span>
-								<span className="text-amber-mirage-gold font-bold text-lg">
+								<span className="text-metal-gold font-bold text-lg">
 									{formatPrice(item.price)}
 								</span>
 							</div>
@@ -165,16 +165,16 @@ export function OrderOne({ order, onDownloadInvoice }: OrderOneProps) {
 			</div>
 
 			{/* Order Summary */}
-			<div className="border-t border-amber-mirage-200 pt-6">
+			<div className="border-t border-metal-gold/20 pt-6">
 				<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-					<div className="p-4 bg-amber-mirage-100 rounded-lg border border-amber-mirage-200">
-						<p className="text-sm text-amber-mirage-600 mb-1">Paid via</p>
-						<p className="font-semibold text-amber-mirage-brown">{order.paymentMethod}</p>
+					<div className="p-4 bg-neutral-soft rounded-lg border border-metal-gold/20">
+						<p className="text-sm text-deep-black/70 mb-1">Paid via</p>
+						<p className="font-semibold text-deep-black">{order.paymentMethod}</p>
 					</div>
 
-					<div className="p-4 bg-amber-mirage-gold/10 rounded-lg border-2 border-amber-mirage-gold">
-						<p className="text-sm text-amber-mirage-700 mb-1">Total:</p>
-						<p className="text-3xl font-bold text-amber-mirage-brown">
+					<div className="p-4 bg-metal-gold/10 rounded-lg border-2 border-metal-gold">
+						<p className="text-sm text-deep-black/70 mb-1">Total:</p>
+						<p className="text-3xl font-bold text-deep-black">
 							{formatPrice(order.total)}
 						</p>
 					</div>

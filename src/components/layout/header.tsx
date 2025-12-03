@@ -119,10 +119,10 @@ export default function Header() {
               className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 object-contain"
             />
             <div className="leading-tight">
-              <span className="font-serif text-[0.55rem] sm:text-[0.7rem] md:text-sm uppercase tracking-[0.6em] sm:tracking-[0.85em] text-amber-mirage-brown">
+              <span className="font-serif text-[0.55rem] sm:text-[0.7rem] md:text-sm uppercase tracking-[0.6em] sm:tracking-[0.85em] text-deep-black">
                 AR ALPHAYA
               </span>
-              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-amber-mirage-600">
+              <span className="mt-0.5 sm:mt-1 block text-[0.45rem] sm:text-[0.55rem] tracking-[0.4em] sm:tracking-[0.55em] uppercase text-deep-black/50">
                 JEWELLERY
               </span>
             </div>
@@ -133,19 +133,19 @@ export default function Header() {
         <nav className="hidden md:flex items-center justify-center gap-8 flex-1">
           <Link
             href="/"
-            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
+            className="text-sm font-medium text-deep-black/70 hover:text-foreground transition-colors"
           >
             Home
           </Link>
           <Link
             href="/#process"
-            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
+            className="text-sm font-medium text-deep-black/70 hover:text-foreground transition-colors"
           >
             Custom
           </Link>
           <div className="relative group">
             <button
-              className="flex items-center text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
+              className="flex items-center text-sm font-medium text-deep-black/70 hover:text-foreground transition-colors"
               aria-label="Collections menu"
               aria-expanded="false"
               aria-haspopup="true"
@@ -171,7 +171,7 @@ export default function Header() {
                 <Link
                   key={collection.handle}
                   href={`/collections/${collection.handle}`}
-                  className="block px-4 py-3 text-sm font-medium text-amber-mirage-700 hover:bg-amber-mirage-100 hover:text-amber-mirage-brown transition-colors first:rounded-t-xl last:rounded-b-xl"
+                  className="block px-4 py-3 text-sm font-medium text-deep-black/70 hover:bg-metal-gold/10 hover:text-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
                 >
                   {collection.title}
                 </Link>
@@ -180,13 +180,13 @@ export default function Header() {
           </div>
           <Link
             href="/about"
-            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
+            className="text-sm font-medium text-deep-black/70 hover:text-foreground transition-colors"
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="text-sm font-medium text-amber-mirage-700 hover:text-amber-mirage-brown transition-colors"
+            className="text-sm font-medium text-deep-black/70 hover:text-foreground transition-colors"
           >
             Contact
           </Link>
@@ -206,7 +206,7 @@ export default function Header() {
               type="button"
               aria-label="Search products"
               aria-expanded={showSearch}
-              className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+              className="relative rounded-full border border-transparent p-1.5 sm:p-2 text-deep-black/70 transition-colors hover:border-border/80 hover:text-foreground"
               onClick={() => setShowSearch((v) => !v)}
             >
               <svg
@@ -255,11 +255,11 @@ export default function Header() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search jewelry..."
-                      className="w-full rounded-xl border border-border/70 bg-white/70 py-3 pl-12 pr-4 text-sm text-foreground placeholder:text-nocturne-400 focus:border-foreground/40 focus:outline-none focus:ring-2 focus:ring-gold-300/60"
+                      className="w-full rounded-xl border border-border/70 bg-white/70 py-3 pl-12 pr-4 text-sm text-foreground placeholder:text-deep-black/40 focus:border-foreground/40 focus:outline-none focus:ring-2 focus:ring-gold-300/60"
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="h-4 w-4 text-nocturne-400"
+                        className="h-4 w-4 text-deep-black/40"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -278,7 +278,7 @@ export default function Header() {
                 {(loadingSuggest || suggestions.length > 0) && (
                   <div className="mt-3 max-h-64 overflow-y-auto border-t border-border/60 pt-3">
                     {loadingSuggest && (
-                      <div className="px-2 py-2 text-xs text-nocturne-500">
+                      <div className="px-2 py-2 text-xs text-deep-black/50">
                         Searching…
                       </div>
                     )}
@@ -286,12 +286,12 @@ export default function Header() {
                       <Link
                         key={s.slug}
                         href={`/products/${s.slug}`}
-                        className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm ${highlighted === idx ? "bg-gold-50/80 text-foreground" : "text-nocturne-600 hover:bg-white/80 hover:text-foreground"}`}
+                        className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm ${highlighted === idx ? "bg-metal-gold/10 text-foreground" : "text-deep-black/70 hover:bg-white/80 hover:text-foreground"}`}
                         onMouseEnter={() => setHighlighted(idx)}
                         onClick={() => setShowSearch(false)}
                       >
                         <span className="truncate mr-2">{s.name}</span>
-                        <span className="whitespace-nowrap text-xs text-nocturne-400">
+                        <span className="whitespace-nowrap text-xs text-deep-black/40">
                           {formatPrice(s.price)}
                         </span>
                       </Link>
@@ -299,13 +299,13 @@ export default function Header() {
                     {!loadingSuggest &&
                       suggestions.length === 0 &&
                       searchQuery.length >= 2 && (
-                        <div className="px-2 py-2 text-xs text-nocturne-500">
+                        <div className="px-2 py-2 text-xs text-deep-black/50">
                           No results
                         </div>
                       )}
                     {!loadingSuggest && suggestions.length > 0 && (
                       <button
-                        className="mt-2 w-full px-2 py-1 text-left text-xs font-medium text-nocturne-500 underline-offset-4 hover:text-foreground"
+                        className="mt-2 w-full px-2 py-1 text-left text-xs font-medium text-deep-black/50 underline-offset-4 hover:text-foreground"
                         onClick={() => {
                           router.push(
                             `/search?q=${encodeURIComponent(searchQuery.trim())}`,
@@ -340,7 +340,7 @@ export default function Header() {
           {/* Wishlist - Desktop Only */}
           <Link
             href="/wishlist"
-            className="hidden md:flex items-center justify-center relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+            className="hidden md:flex items-center justify-center relative rounded-full border border-transparent p-1.5 sm:p-2 text-deep-black/70 transition-colors hover:border-border/80 hover:text-foreground"
             aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ""}`}
           >
             <svg
@@ -359,7 +359,7 @@ export default function Header() {
             </svg>
             {wishlistCount > 0 && (
               <span
-                className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-nocturne-900 text-[10px] sm:text-xs font-medium text-white"
+                className="absolute -top-1 -right-1 sm:top-0 sm:right-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-deep-black text-[10px] sm:text-xs font-medium text-white"
                 aria-hidden="true"
               >
                 {wishlistCount}
@@ -370,7 +370,7 @@ export default function Header() {
           {/* Cart - Desktop Only */}
           <Link
             href="/cart"
-            className="hidden md:flex items-center justify-center relative rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+            className="hidden md:flex items-center justify-center relative rounded-full border border-transparent p-1.5 sm:p-2 text-deep-black/70 transition-colors hover:border-border/80 hover:text-foreground"
             aria-label={`Shopping cart${cartCount > 0 ? ` (${cartCount} items)` : ""}`}
           >
             <svg
@@ -406,7 +406,7 @@ export default function Header() {
             <div className="relative user-dropdown-container">
               <button
                 onClick={() => setShowUserDropdown(!showUserDropdown)}
-                className="flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+                className="flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-deep-black/70 transition-colors hover:border-border/80 hover:text-foreground"
                 aria-label="User account menu"
                 aria-expanded={showUserDropdown}
                 aria-haspopup="true"
@@ -444,7 +444,7 @@ export default function Header() {
                   <Link
                     href="/profile"
                     onClick={() => setShowUserDropdown(false)}
-                    className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors first:rounded-t-xl hover:bg-gold-50/70 hover:text-foreground"
+                    className="block px-5 py-3 text-sm font-medium text-deep-black/70 transition-colors first:rounded-t-xl hover:bg-metal-gold/10 hover:text-foreground"
                   >
                     <div className="flex items-center gap-3">
                       <svg
@@ -466,7 +466,7 @@ export default function Header() {
                   <Link
                     href="/orders"
                     onClick={() => setShowUserDropdown(false)}
-                    className="block px-5 py-3 text-sm font-medium text-nocturne-600 transition-colors hover:bg-gold-50/70 hover:text-foreground"
+                    className="block px-5 py-3 text-sm font-medium text-deep-black/70 transition-colors hover:bg-metal-gold/10 hover:text-foreground"
                   >
                     <div className="flex items-center gap-3">
                       <svg
@@ -527,7 +527,7 @@ export default function Header() {
           ) : (
             <Link
               href="/auth/signin"
-              className="flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+              className="flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-deep-black/70 transition-colors hover:border-border/80 hover:text-foreground"
               aria-label="Sign in to your account"
               title="Sign In"
             >
@@ -550,7 +550,7 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-nocturne-600 transition-colors hover:border-border/80 hover:text-foreground"
+            className="md:hidden flex items-center justify-center rounded-full border border-transparent p-1.5 sm:p-2 text-deep-black/70 transition-colors hover:border-border/80 hover:text-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Open mobile menu"
             aria-expanded={mobileMenuOpen}
@@ -579,13 +579,13 @@ export default function Header() {
           {/* Currency Selector - Mobile */}
           {/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
           {/* <div className="mb-6 border-b border-border/60 pb-6">
-              <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Currency</div>
+              <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-deep-black/50">Currency</div>
               <CurrencySelector compact={true} showLabel={false} className="w-full" />
             </div> */}
 
           {/* Search Bar - Mobile */}
           <div className="mb-4 sm:mb-6 border-b border-border/60 pb-4 sm:pb-6">
-            <div className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">
+            <div className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-deep-black/50">
               Search
             </div>
             <form onSubmit={handleSearch}>
@@ -595,11 +595,11 @@ export default function Header() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search jewelry..."
-                  className="w-full rounded-xl border border-border/70 bg-white/80 py-2.5 sm:py-3 pl-10 sm:pl-11 pr-3 sm:pr-4 text-sm text-foreground placeholder:text-nocturne-400 focus:border-gold-400/60 focus:outline-none focus:ring-2 focus:ring-gold-200/70"
+                  className="w-full rounded-xl border border-border/70 bg-white/80 py-2.5 sm:py-3 pl-10 sm:pl-11 pr-3 sm:pr-4 text-sm text-foreground placeholder:text-deep-black/40 focus:border-gold-400/60 focus:outline-none focus:ring-2 focus:ring-gold-200/70"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
-                    className="h-4 w-4 text-nocturne-400"
+                    className="h-4 w-4 text-deep-black/40"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -620,19 +620,19 @@ export default function Header() {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
+              className="block px-3 py-2.5 text-sm font-medium text-deep-black/70 transition-colors hover:text-foreground hover:bg-metal-gold/5 rounded-lg"
             >
               Home
             </Link>
             <Link
               href="/#process"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
+              className="block px-3 py-2.5 text-sm font-medium text-deep-black/70 transition-colors hover:text-foreground hover:bg-metal-gold/5 rounded-lg"
             >
               Custom Commissions
             </Link>
             <div className="py-2">
-              <div className="px-3 text-xs font-semibold uppercase tracking-[0.2em] text-nocturne-500 mb-2">
+              <div className="px-3 text-xs font-semibold uppercase tracking-[0.2em] text-deep-black/50 mb-2">
                 Collections
               </div>
               <div className="space-y-1">
@@ -641,7 +641,7 @@ export default function Header() {
                     key={collection.handle}
                     href={`/collections/${collection.handle}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block px-6 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
+                    className="block px-6 py-2.5 text-sm font-medium text-deep-black/70 transition-colors hover:text-foreground hover:bg-metal-gold/5 rounded-lg"
                   >
                     {collection.title}
                   </Link>
@@ -651,38 +651,38 @@ export default function Header() {
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
+              className="block px-3 py-2.5 text-sm font-medium text-deep-black/70 transition-colors hover:text-foreground hover:bg-metal-gold/5 rounded-lg"
             >
               About
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
+              className="block px-3 py-2.5 text-sm font-medium text-deep-black/70 transition-colors hover:text-foreground hover:bg-metal-gold/5 rounded-lg"
             >
               Contact
             </Link>
             <Link
               href="/policies"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-nocturne-600 transition-colors hover:text-foreground hover:bg-gold-50/50 rounded-lg"
+              className="block px-3 py-2.5 text-sm font-medium text-deep-black/70 transition-colors hover:text-foreground hover:bg-metal-gold/5 rounded-lg"
             >
               Policies
             </Link>
 
             {/* Cart & Wishlist - Mobile Only */}
             <div className="mt-4 border-t border-border/60 pt-4 space-y-1">
-              <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-nocturne-500">
+              <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-deep-black/50">
                 Shopping
               </div>
               <Link
                 href="/cart"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-deep-black/80 transition-colors hover:bg-metal-gold/5 rounded-lg"
               >
                 <div className="flex items-center gap-3">
                   <svg
-                    className="w-5 h-5 text-nocturne-500"
+                    className="w-5 h-5 text-deep-black/50"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -705,11 +705,11 @@ export default function Header() {
               <Link
                 href="/wishlist"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-deep-black/80 transition-colors hover:bg-metal-gold/5 rounded-lg"
               >
                 <div className="flex items-center gap-3">
                   <svg
-                    className="w-5 h-5 text-nocturne-500"
+                    className="w-5 h-5 text-deep-black/50"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -724,7 +724,7 @@ export default function Header() {
                   <span>Wishlist</span>
                 </div>
                 {wishlistCount > 0 && (
-                  <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-nocturne-900 px-2 text-xs font-semibold text-white">
+                  <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-deep-black px-2 text-xs font-semibold text-white">
                     {wishlistCount}
                   </span>
                 )}
@@ -734,14 +734,14 @@ export default function Header() {
             {/* Mobile Authentication */}
             <div className="mt-4 border-t border-border/60 pt-4">
               {isLoading ? (
-                <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-50/30">
-                  <div className="w-8 h-8 animate-pulse bg-nocturne-200 rounded-full"></div>
-                  <div className="h-4 bg-nocturne-200 rounded w-32 animate-pulse"></div>
+                <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-metal-gold/5">
+                  <div className="w-8 h-8 animate-pulse bg-deep-black/10 rounded-full"></div>
+                  <div className="h-4 bg-deep-black/10 rounded w-32 animate-pulse"></div>
                 </div>
               ) : user ? (
                 <div className="space-y-1">
-                  <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-50/30 mb-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden bg-nocturne-100 flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-metal-gold/5 mb-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden bg-neutral-soft flex items-center justify-center flex-shrink-0">
                       {(user as any)?.picture ? (
                         <Image
                           src={(user as any).picture}
@@ -755,7 +755,7 @@ export default function Header() {
                         />
                       ) : (
                         <svg
-                          className="w-5 h-5 text-nocturne-500"
+                          className="w-5 h-5 text-deep-black/50"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -770,10 +770,10 @@ export default function Header() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-nocturne-900 truncate">
+                      <div className="text-sm font-semibold text-deep-black truncate">
                         {(user as any)?.name || "My Account"}
                       </div>
-                      <div className="text-xs text-nocturne-500 truncate">
+                      <div className="text-xs text-deep-black/50 truncate">
                         {(user as any)?.email}
                       </div>
                     </div>
@@ -781,10 +781,10 @@ export default function Header() {
                   <Link
                     href="/profile"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-deep-black/80 transition-colors hover:bg-metal-gold/5 rounded-lg"
                   >
                     <svg
-                      className="w-5 h-5 text-nocturne-500"
+                      className="w-5 h-5 text-deep-black/50"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -801,10 +801,10 @@ export default function Header() {
                   <Link
                     href="/orders"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-nocturne-700 transition-colors hover:bg-gold-50/50 rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-deep-black/80 transition-colors hover:bg-metal-gold/5 rounded-lg"
                   >
                     <svg
-                      className="w-5 h-5 text-nocturne-500"
+                      className="w-5 h-5 text-deep-black/50"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

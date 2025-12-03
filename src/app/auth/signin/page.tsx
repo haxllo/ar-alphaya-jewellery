@@ -4,10 +4,7 @@ import { useState, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 
 function SignInContent() {
   const router = useRouter()
@@ -17,7 +14,7 @@ function SignInContent() {
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -47,14 +44,11 @@ function SignInContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-gradient-to-br from-amber-mirage-50 via-white to-amber-mirage-soft">
+    <div className="min-h-screen flex items-center justify-center px-6 pt-4 pb-12 bg-neutral-soft">
       <div className="max-w-md w-full">
-        <div className="bg-white/90 backdrop-blur-sm shadow-luxe border border-amber-mirage-200 rounded-2xl p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-serif font-bold text-amber-mirage-brown mb-2">Sign In</h1>
-            <p className="text-amber-mirage-600">Welcome back to AR Alphaya</p>
-          </div>
+        <div className="bg-white shadow-subtle border border-metal-gold/20 rounded-2xl p-8">
+          <h1 className="text-3xl font-serif font-normal text-deep-black mb-2">Sign In</h1>
+          <p className="text-deep-black/70 mb-8">Sign in to your account to continue</p>
 
           {/* Success Message */}
           {message && (
@@ -70,24 +64,54 @@ function SignInContent() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email Field */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-amber-mirage-700">
-                Email
-              </Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-mirage-400" />
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 border-amber-mirage-200 focus:border-amber-mirage-gold focus:ring-amber-mirage-gold/30"
-                  placeholder="Enter your email"
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-deep-black/70 mb-1">
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-deep-black/70 mb-1">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="remember"
+                  checked={rememberMe}
+                  onCheckedChange={setRememberMe}
                 />
+                <label htmlFor="remember" className="text-sm text-deep-black/70 cursor-pointer">
+                  Remember me
+                </label>
               </div>
+              <Link
+                href="/auth/forgot-password"
+                className="text-sm text-deep-black/70 hover:text-metal-gold"
+              >
+                Forgot password?
+              </Link>
             </div>
 
             {/* Password Field */}
@@ -128,18 +152,17 @@ function SignInContent() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-amber-mirage-brown hover:bg-amber-mirage-brown/90 text-amber-mirage-soft py-6 text-base font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 mt-6"
+              className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Signing In...' : 'Sign In'}
             </Button>
           </form>
 
-          {/* Footer */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-amber-mirage-600">
+          <div className="mt-6 text-center">
+            <p className="text-sm text-deep-black/70">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="font-semibold text-amber-mirage-brown hover:text-amber-mirage-gold transition-colors underline underline-offset-2">
-                Sign Up
+              <Link href="/auth/signup" className="text-deep-black font-medium hover:text-metal-gold hover:underline">
+                Sign up
               </Link>
             </p>
           </div>
@@ -152,8 +175,8 @@ function SignInContent() {
 export default function SignInPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="min-h-screen flex items-center justify-center bg-neutral-soft">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-deep-black"></div>
       </div>
     }>
       <SignInContent />

@@ -139,7 +139,7 @@ async function readSiteSettings(): Promise<SiteSettings | null> {
     id: 1,
     title: 'AR Alphaya Jewellery',
     description: 'Bespoke Sri Lankan Jewellery',
-    email: 'contact@aralphayajewellery.com',
+    email: 'info@aralphayajewellery.com',
     phone: '+94-77-429-3406',
     whatsapp: '+94774293406',
     address: 'Kandy, Sri Lanka',

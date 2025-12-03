@@ -13,90 +13,68 @@ const config: Config = {
         serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       colors: {
-        // Amber Mirage Theme - Warm, radiant, and grounded
-        "amber-mirage": {
-          soft: "#FFF5E1",      // Soft cream - backgrounds
-          warm: "#EBC176",      // Warm gold - primary accent
-          gold: "#C48B28",      // Deep gold - secondary accent
-          brown: "#5A3C0B",     // Rich brown - text/dark elements
-          50: "#FFFBF5",
-          100: "#FFF5E1",
-          200: "#F9E8C5",
-          300: "#EBC176",
-          400: "#E0A84D",
-          500: "#C48B28",
-          600: "#A67420",
-          700: "#7D5718",
-          800: "#5A3C0B",
-          900: "#3D2807",
+        // NEW: Minimal Luxury Palette
+        // Primary Background
+        "neutral-soft": "#F9F9F9",
+        
+        // Text
+        "deep-black": "#111111",
+        
+        // Accent Metal (Gold)
+        "metal-gold": {
+          DEFAULT: "#D6C39E",
+          light: "#E8DCC4",
+          dark: "#C4B88C",
         },
-        primary: {
-          50: "#FFFBF5",
-          100: "#FFF5E1",
-          200: "#F9E8C5",
-          300: "#EBC176",
-          400: "#E0A84D",
-          500: "#C48B28",
-          600: "#A67420",
-          700: "#7D5718",
-          800: "#5A3C0B",
-          900: "#3D2807",
+        
+        // Deep Background
+        "forest-deep": {
+          DEFAULT: "#0D1505",
+          light: "#1A2810",
         },
-        // Semantic colors
-        background: "#FFF5E1",
-        foreground: "#5A3C0B",
+
+        // Semantic colors (mapped to new palette)
+        background: "#F9F9F9",
+        foreground: "#111111",
         muted: {
-          DEFAULT: "#A67420",
-          foreground: "#7D5718",
+          DEFAULT: "#C4B88C",
+          foreground: "#0D1505",
         },
-        border: "#EBC176",
+        border: "#D6C39E",
         accent: {
-          DEFAULT: "#C48B28",
-          foreground: "#FFF5E1",
+          DEFAULT: "#D6C39E",
+          foreground: "#111111",
         },
         button: {
-          DEFAULT: "#C48B28",
-          foreground: "#FFF5E1",
+          DEFAULT: "#111111",
+          foreground: "#F9F9F9",
         },
         secondary: {
-          DEFAULT: "#FFF5E1",
-          foreground: "#5A3C0B",
+          DEFAULT: "#0D1505",
+          foreground: "#F9F9F9",
+        },
+        
+        // Keep compatibility with old color names (will migrate gradually)
+        primary: {
+          DEFAULT: "#111111",
+          foreground: "#F9F9F9",
         },
         gold: {
-          50: "#FFFBF5",
-          100: "#FFF5E1",
-          200: "#F9E8C5",
-          300: "#EBC176",
-          400: "#E0A84D",
-          500: "#C48B28",
-          600: "#A67420",
-          700: "#7D5718",
-          800: "#5A3C0B",
-          900: "#3D2807",
-        },
-        nocturne: {
-          50: "#FFFBF5",
-          100: "#F9F5ED",
-          200: "#EDE6D9",
-          300: "#D9CCBA",
-          400: "#B8A48C",
-          500: "#8B7355",
-          600: "#6B5742",
-          700: "#5A3C0B",
-          800: "#3D2807",
-          900: "#2A1A05",
+          DEFAULT: "#D6C39E",
+          light: "#E8DCC4",
+          dark: "#C4B88C",
         },
       },
       boxShadow: {
-        luxe: "0 20px 45px -20px rgba(196, 139, 40, 0.35)",
-        subtle: "0 12px 30px -18px rgba(196, 139, 40, 0.25)",
-        amber: "0 10px 25px -5px rgba(235, 193, 118, 0.4)",
+        luxe: "0 20px 45px -20px rgba(17, 17, 17, 0.15)",
+        subtle: "0 12px 30px -18px rgba(17, 17, 17, 0.10)",
+        gold: "0 10px 25px -5px rgba(214, 195, 158, 0.3)",
       },
       backgroundImage: {
-        "hero-radial": "radial-gradient(circle at top right, rgba(235, 193, 118, 0.3), transparent 55%)",
-        "hero-linear": "linear-gradient(135deg, rgba(196, 139, 40, 0.92), rgba(90, 60, 11, 0.55))",
-        "amber-gradient": "linear-gradient(135deg, #FFF5E1 0%, #EBC176 100%)",
-        "amber-radial": "radial-gradient(circle at center, #EBC176, #C48B28)",
+        "hero-radial": "radial-gradient(circle at top right, rgba(214, 195, 158, 0.2), transparent 55%)",
+        "hero-linear": "linear-gradient(135deg, rgba(13, 21, 5, 0.95), rgba(26, 40, 16, 0.65))",
+        "gold-gradient": "linear-gradient(135deg, #F9F9F9 0%, #D6C39E 100%)",
+        "gold-radial": "radial-gradient(circle at center, #E8DCC4, #D6C39E)",
       },
       borderRadius: {
         xl: "1rem",

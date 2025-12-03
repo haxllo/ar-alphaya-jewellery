@@ -23,8 +23,8 @@ export default function ComparePage() {
     return (
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-8" />
-          <div className="h-96 bg-gray-100 rounded" />
+          <div className="h-8 bg-neutral-soft rounded w-1/4 mb-8" />
+          <div className="h-96 bg-white border border-metal-gold/20 rounded-2xl" />
         </div>
       </div>
     )
@@ -34,17 +34,17 @@ export default function ComparePage() {
     return (
       <main className="mx-auto max-w-4xl px-6 py-12">
         <div className="text-center">
-          <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-24 h-24 mx-auto mb-6 bg-neutral-soft rounded-full flex items-center justify-center">
+            <svg className="w-12 h-12 text-deep-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-semibold mb-4 text-black">No Products to Compare</h1>
-          <p className="text-gray-600 mb-8">Add products to comparison using the compare button on product pages.</p>
+          <h1 className="text-2xl font-serif font-normal mb-4 text-deep-black">No Products to Compare</h1>
+          <p className="text-deep-black/70 mb-8">Add products to comparison using the compare button on product pages.</p>
           
           <Link 
             href="/collections/rings" 
-            className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+            className="inline-block rounded-full bg-deep-black px-8 py-3 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep"
           >
             Browse Collections
           </Link>
@@ -61,10 +61,10 @@ export default function ComparePage() {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
       <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-black">Compare Products</h1>
+        <h1 className="text-2xl sm:text-3xl font-serif font-normal text-deep-black">Compare Products</h1>
         <button
           onClick={clearAll}
-          className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+          className="text-sm text-deep-black/50 hover:text-red-600 transition-colors"
         >
           Clear All
         </button>
@@ -72,10 +72,10 @@ export default function ComparePage() {
 
       {/* Comparison Table */}
       <div className="overflow-x-auto -mx-4 sm:mx-0">
-        <table className="w-full border-collapse bg-white rounded-lg shadow-sm">
+        <table className="w-full border-collapse bg-white rounded-2xl shadow-subtle border border-metal-gold/20 overflow-hidden">
           <thead>
-            <tr className="border-b border-gray-200">
-              <th className="p-3 sm:p-4 text-left bg-gray-50 font-semibold text-gray-900 sticky left-0 z-10 text-sm sm:text-base">
+            <tr className="border-b border-metal-gold/20">
+              <th className="p-3 sm:p-4 text-left bg-neutral-soft font-semibold text-deep-black sticky left-0 z-10 text-sm sm:text-base">
                 Specification
               </th>
               {items.map((item) => (
@@ -180,7 +180,7 @@ export default function ComparePage() {
       <div className="mt-12 text-center">
         <Link
           href="/collections/rings"
-          className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+          className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
         >
           Continue Shopping
         </Link>

@@ -26,7 +26,6 @@ export default function NewProductPage() {
     name: '',
     slug: '',
     description: '',
-    cardDescription: '',
     price: 0,
     currency: 'LKR',
     images: [],
@@ -406,7 +405,7 @@ export default function NewProductPage() {
                           }));
                         }
                       }}
-                      className="h-4 w-4 rounded border-gray-300 text-amber-mirage-gold focus:ring-amber-mirage-gold"
+                      className="h-4 w-4 rounded border-gray-300 text-metal-gold-gold focus:ring-metal-gold-gold"
                     />
                     <span className="font-medium">{plating.label}</span>
                   </div>

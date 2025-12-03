@@ -2,14 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Atelier Image Crossfade Animation */
+@keyframes crossfade {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .animate-crossfade {
+    animation: crossfade 8s ease-in-out infinite;
+  }
+  
+  .animate-crossfade-alt {
+    animation: crossfade 8s ease-in-out infinite;
+    animation-delay: 4s;
+  }
+  
+  /* Product Gallery Thumbnail Scrollbar */
+  .thumbnail-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .thumbnail-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .thumbnail-scroll::-webkit-scrollbar-thumb {
+    background: rgba(214, 195, 158, 0.3);
+    border-radius: 2px;
+  }
+  
+  .thumbnail-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(214, 195, 158, 0.5);
+  }
+}
+
 :root {
-  --foreground-rgb: 90, 60, 11;
-  --background-rgb: 255, 245, 225;
-  --border-rgb: 235, 193, 118;
-  --amber-soft: #FFF5E1;
-  --amber-warm: #EBC176;
-  --amber-gold: #C48B28;
-  --amber-brown: #5A3C0B;
+  /* New Minimal Luxury Palette */
+  --foreground-rgb: 17, 17, 17;
+  --background-rgb: 249, 249, 249;
+  --border-rgb: 214, 195, 158;
+  
+  /* Named colors */
+  --neutral-soft: #F9F9F9;
+  --deep-black: #111111;
+  --metal-gold: #D6C39E;
+  --metal-gold-light: #E8DCC4;
+  --metal-gold-dark: #C4B88C;
+  --forest-deep: #0D1505;
+  --forest-deep-light: #1A2810;
 }
 
 body {
@@ -17,6 +62,7 @@ body {
   background: rgb(var(--background-rgb));
   min-height: 100vh;
   letter-spacing: 0.01em;
+  font-weight: 300; /* Lighter for luxury feel */
 }
 
 h1, h2, h3, h4, h5, h6 {

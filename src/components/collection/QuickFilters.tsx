@@ -56,20 +56,19 @@ export default function QuickFilters({ activeFilter, onFilterChange }: QuickFilt
   ]
 
   return (
-    <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2">
+    <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
       {filters.map((filter) => (
         <button
           key={filter.value}
           onClick={() => onFilterChange(filter.value)}
-          className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
             activeFilter === filter.value
-              ? 'bg-amber-mirage-brown text-amber-mirage-soft shadow-md border-2 border-amber-mirage-brown'
-              : 'bg-white border-2 border-amber-mirage-200 text-amber-mirage-700 hover:border-amber-mirage-gold hover:bg-amber-mirage-50'
+              ? 'bg-deep-black text-white'
+              : 'bg-white border border-metal-gold/30 text-deep-black/70 hover:border-metal-gold hover:text-deep-black'
           }`}
         >
-          {filter.icon && <span className="w-3 h-3 sm:w-4 sm:h-4">{filter.icon}</span>}
-          <span className="hidden sm:inline">{filter.label}</span>
-          <span className="sm:hidden">{filter.label.split(' ')[0]}</span>
+          {filter.icon && <span className="w-4 h-4">{filter.icon}</span>}
+          <span>{filter.label}</span>
         </button>
       ))}
     </div>

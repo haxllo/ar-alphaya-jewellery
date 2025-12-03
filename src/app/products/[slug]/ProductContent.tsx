@@ -74,11 +74,11 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
       <section className="mx-auto max-w-7xl px-6 mt-16">
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between mb-8">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">Client impressions</p>
-            <h2 className="font-serif text-3xl text-nocturne-900">Reviews</h2>
+            <p className="text-xs uppercase tracking-wider text-deep-black/40">Client impressions</p>
+            <h2 className="font-serif font-normal text-3xl text-deep-black">Reviews</h2>
           </div>
           {(reviewSummary?.totalReviews ?? 0) > 0 && (
-            <div className="flex items-center gap-3 text-sm text-nocturne-600">
+            <div className="flex items-center gap-3 text-sm text-deep-black/70">
               <StarRating rating={reviewSummary?.averageRating ?? 0} size="sm" />
               <span>
                 {reviewSummary?.averageRating?.toFixed(1)} average • {reviewSummary?.totalReviews}{' '}
@@ -89,7 +89,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
         </div>
 
         {(reviewSummary?.totalReviews ?? 0) === 0 ? (
-          <div className="rounded-3xl border border-nocturne-100 bg-white/75 p-8 text-center text-nocturne-600">
+          <div className="rounded-2xl border border-metal-gold/20 bg-white/75 p-8 text-center text-deep-black/70">
             Be the first to share your story with this piece. Message us to arrange a design consultation or viewing.
           </div>
         ) : (
@@ -102,7 +102,7 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
       </section>
 
       {/* Related Products */}
-      <section className="mx-auto max-w-7xl px-6 mt-16">
+      <section className="mx-auto max-w-7xl px-6 mt-16 mb-16">
         <RelatedProducts product={product} />
       </section>
     </>

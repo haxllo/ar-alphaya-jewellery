@@ -91,8 +91,8 @@ export default function WishlistPage() {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
               />
             </svg>
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">Your Wishlist is Empty</h1>
-            <p className="text-gray-600 mb-8">
+            <h1 className="text-3xl font-semibold text-deep-black mb-2">Your Wishlist is Empty</h1>
+            <p className="text-deep-black/70 mb-8">
               Save items you love to your wishlist and shop them later
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function WishlistPage() {
           <div className="flex justify-center">
             <Link
               href="/collections/rings"
-              className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+              className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
             >
               View Collections
             </Link>
@@ -228,14 +228,14 @@ export default function WishlistPage() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleAddToCart(item)}
-                    className="flex-1 rounded-full bg-foreground py-2 px-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+                    className="flex-1 rounded-full bg-foreground py-2 px-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
                   >
                     Add to Cart
                   </button>
                   
                   <Link
                     href={`/products/${item.slug}`}
-                    className="flex-1 rounded-full border border-nocturne-200 py-2 px-3 text-sm font-semibold tracking-wide text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400 text-center"
+                    className="flex-1 rounded-full border border-deep-black-200 py-2 px-3 text-sm font-semibold tracking-wide text-deep-black-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-deep-black-400 text-center"
                   >
                     View Details
                   </Link>
@@ -258,25 +258,25 @@ export default function WishlistPage() {
         <div className="flex flex-wrap gap-4 justify-center">
           <Link
             href="/collections/rings"
-            className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold tracking-wide text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+            className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold tracking-wide text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
           >
             Rings
           </Link>
           <Link
             href="/collections/earrings"
-            className="rounded-full border border-nocturne-200 px-4 py-2 text-sm font-semibold tracking-wide text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
+            className="rounded-full border border-deep-black-200 px-4 py-2 text-sm font-semibold tracking-wide text-deep-black-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-deep-black-400"
           >
             Earrings
           </Link>
           <Link
             href="/collections/pendants"
-            className="rounded-full border border-nocturne-200 px-4 py-2 text-sm font-semibold tracking-wide text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
+            className="rounded-full border border-deep-black-200 px-4 py-2 text-sm font-semibold tracking-wide text-deep-black-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-deep-black-400"
           >
             Pendants
           </Link>
           <Link
             href="/collections/bracelets-bangles"
-            className="rounded-full border border-nocturne-200 px-4 py-2 text-sm font-semibold tracking-wide text-nocturne-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-nocturne-400"
+            className="rounded-full border border-deep-black-200 px-4 py-2 text-sm font-semibold tracking-wide text-deep-black-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-deep-black-400"
           >
             Bracelets & Bangles
           </Link>

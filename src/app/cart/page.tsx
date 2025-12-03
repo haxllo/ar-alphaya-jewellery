@@ -119,20 +119,20 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-24 h-24 mx-auto mb-6 bg-neutral-soft rounded-full flex items-center justify-center border border-metal-gold/10">
+            <svg className="w-12 h-12 text-deep-black/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H19M7 13v8a2 2 0 002 2h6a2 2 0 002-2v-8" />
             </svg>
           </div>
-          <h1 className="text-2xl font-semibold mb-4 text-black">Your cart is empty</h1>
-          <p className="text-gray-600 mb-8">Add some beautiful jewelry to your cart and they&apos;ll show up here.</p>
+          <h1 className="font-serif text-2xl font-normal mb-4 text-deep-black">Your cart is empty</h1>
+          <p className="text-deep-black/70 mb-8">Add some beautiful jewelry to your cart and they&apos;ll show up here.</p>
           
           <div className="space-y-4">
             <Link 
               href="/" 
-              className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+              className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
             >
               Continue Shopping
             </Link>
@@ -151,12 +151,12 @@ export default function CartPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-serif font-bold tracking-tight text-amber-mirage-brown">Your Selection</h1>
+    <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-between mb-14">
+        <h1 className="font-serif text-3xl font-normal text-deep-black">Shopping Cart</h1>
         <button
           onClick={handleClearCart}
-          className="text-xs text-amber-mirage-600 hover:text-red-600 transition-colors underline underline-offset-2"
+          className="text-sm text-deep-black/50 hover:text-red-600 transition-colors"
         >
           Clear cart
         </button>
@@ -187,12 +187,12 @@ export default function CartPage() {
         
         {/* Order Summary - Sticky on Desktop */}
         <div className="lg:sticky lg:top-24 lg:h-fit space-y-4">
-          <div className="border border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber rounded-lg p-6 space-y-4">
-            <h2 className="text-xl font-serif font-semibold text-amber-mirage-brown">Summary</h2>
+          <div className="border border-metal-gold/20 bg-white/80 shadow-luxe rounded-lg p-6 space-y-4">
+            <h2 className="text-xl font-medium text-deep-black">Order Summary</h2>
             
             <DeliveryEstimate />
             
-            <div className="border-t border-amber-mirage-200 pt-4">
+            <div className="border-t border-metal-gold-200 pt-4">
               <PromoCode onApply={handleApplyPromoCode} />
             </div>
             

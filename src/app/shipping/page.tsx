@@ -218,7 +218,7 @@ export default function ShippingPolicyPage() {
           </p>
           <div className="bg-gray-50 rounded-lg p-6">
             <ul className="space-y-3 text-gray-700">
-              <li><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></li>
+              <li><strong>Email:</strong> <a href="mailto:info@aralphayajewellery.com" className="text-black hover:underline">info@aralphayajewellery.com</a></li>
               <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></li>
               <li><strong>WhatsApp:</strong> Available for delivery updates and queries</li>
               <li><strong>Business Hours:</strong> Monday - Saturday, 9 AM - 6 PM</li>

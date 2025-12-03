@@ -91,7 +91,7 @@ export default function OrdersPage() {
       case 'refunded':
         return 'text-red-600'
       default:
-        return 'text-gray-600'
+        return 'text-deep-black/70'
     }
   }
 
@@ -99,7 +99,7 @@ export default function OrdersPage() {
     return (
       <main className="mx-auto max-w-4xl px-6 py-12 min-h-screen bg-gradient-to-br from-amber-mirage-50 via-white to-amber-mirage-soft">
         <div className="text-center py-12">
-          <p className="text-amber-mirage-600">Loading orders...</p>
+          <p className="text-deep-black/70">Loading orders...</p>
         </div>
       </main>
     )
@@ -110,28 +110,28 @@ export default function OrdersPage() {
       <div className="mb-6">
         <Link 
           href="/" 
-          className="inline-flex items-center text-amber-mirage-600 hover:text-amber-mirage-gold mb-4 transition-colors"
+          className="inline-flex items-center text-deep-black/70 hover:text-metal-gold mb-4"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Link>
-        <h1 className="text-3xl font-serif font-semibold text-amber-mirage-brown">Your Orders</h1>
+        <h1 className="text-3xl font-serif font-normal text-deep-black">Your Orders</h1>
       </div>
       
       {orders.length === 0 ? (
-        <div className="text-center py-12 bg-white/90 backdrop-blur-sm shadow-luxe border border-amber-mirage-200 rounded-2xl p-8">
-          <div className="w-16 h-16 mx-auto mb-6 bg-amber-mirage-50 rounded-full flex items-center justify-center">
-            <Package className="w-8 h-8 text-amber-mirage-400" />
+        <div className="text-center py-12">
+          <div className="w-16 h-16 mx-auto mb-6 bg-neutral-soft rounded-full flex items-center justify-center">
+            <Package className="w-8 h-8 text-deep-black/40" />
           </div>
           
-          <h2 className="text-xl font-serif font-medium text-amber-mirage-brown mb-4">No orders yet</h2>
-          <p className="text-amber-mirage-600 mb-8">
+          <h2 className="text-xl font-medium text-deep-black mb-4">No orders yet</h2>
+          <p className="text-deep-black/70 mb-8">
             When you place your first order, it will appear here.
           </p>
           
           <Link 
             href="/" 
-            className="inline-block bg-amber-mirage-brown text-amber-mirage-soft px-6 py-3 rounded-lg hover:bg-amber-mirage-brown/90 transition-all"
+            className="inline-block bg-deep-black text-white px-6 py-3 rounded-full hover:bg-forest-deep transition-colors"
           >
             Start Shopping
           </Link>
@@ -139,21 +139,21 @@ export default function OrdersPage() {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white/90 backdrop-blur-sm border border-amber-mirage-200 rounded-2xl p-6 shadow-amber hover:shadow-luxe transition-shadow">
+            <div key={order.id} className="border border-metal-gold/20 rounded-2xl p-6 bg-white">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="font-serif font-medium text-amber-mirage-brown">{order.order_number}</h3>
-                  <p className="text-sm text-amber-mirage-600">
+                  <h3 className="font-medium text-deep-black">{order.order_number}</h3>
+                  <p className="text-sm text-deep-black/70">
                     Placed on {formatDate(order.created_at)}
                   </p>
                   {order.paid_at && (
-                    <p className="text-sm text-amber-mirage-500">
+                    <p className="text-sm text-deep-black/50">
                       Paid on {formatDate(order.paid_at)}
                     </p>
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="font-medium text-amber-mirage-brown">
+                  <p className="font-medium text-deep-black">
                     {formatPrice(order.total, order.currency)}
                   </p>
                   <p className={`text-sm font-medium ${getStatusColor(order.status)}`}>
@@ -167,7 +167,7 @@ export default function OrdersPage() {
                 </div>
               </div>
               
-              <div className="space-y-3 mt-4 pt-4 border-t border-amber-mirage-100">
+              <div className="space-y-3 mt-4 pt-4 border-t border-metal-gold/10">
                 {order.order_items.map((item) => (
                   <div key={item.id} className="flex items-center">
                     {item.image && (
@@ -178,11 +178,11 @@ export default function OrdersPage() {
                       />
                     )}
                     {!item.image && (
-                      <div className="w-12 h-12 bg-amber-mirage-50 rounded mr-4 border border-amber-mirage-200"></div>
+                      <div className="w-12 h-12 bg-neutral-soft rounded mr-4"></div>
                     )}
                     <div className="flex-1">
-                      <p className="font-medium text-amber-mirage-brown">{item.name}</p>
-                      <div className="flex items-center gap-2 text-sm text-amber-mirage-600">
+                      <p className="font-medium text-deep-black">{item.name}</p>
+                      <div className="flex items-center gap-2 text-sm text-deep-black/70">
                         <span>Quantity: {item.quantity}</span>
                         {item.size && <span>• Size: {item.size}</span>}
                         {item.gemstone && <span>• {item.gemstone}</span>}

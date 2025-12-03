@@ -20,7 +20,6 @@ export type Product = {
   slug: string;
   name: string;
   description: string;
-  cardDescription?: string; // Short description for product cards only (not shown on detail page)
   price: number; // price in LKR cents / or integer
   currency?: string; // default LKR
   images: string[]; // image URLs or paths under /public/images
