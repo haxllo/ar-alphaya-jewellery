@@ -264,7 +264,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					</button>
 
 					{/* Additional info - badges/icons like your example */}
-					{(product.statusNote || product.inStock === false || product.customizable) && (
+					{(product.statusNote || product.inStock === false) && (
 						<div className="space-y-2 pt-6 border-t border-metal-gold/20">
 							{product.statusNote && (
 								<div className="flex items-start gap-2 text-sm text-deep-black/70">
@@ -278,16 +278,6 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 									<span>Made to order • {product.leadTime || "4-6 weeks production time"}</span>
 								</div>
 							)}
-							{product.customizable !== false && (
-								<div className="flex items-start gap-2 text-sm text-deep-black/70">
-									<span>🎨</span>
-									<span>Handcrafted with care</span>
-								</div>
-							)}
-							<div className="flex items-start gap-2 text-sm text-deep-black/70">
-								<span>♾️</span>
-								<span>Lifetime silver warranty</span>
-							</div>
 						</div>
 					)}
 				</div>
