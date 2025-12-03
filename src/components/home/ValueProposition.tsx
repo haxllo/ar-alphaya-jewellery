@@ -22,7 +22,7 @@ export default function ValueProposition() {
     <section className="mx-auto max-w-7xl px-6">
       <div className="rounded-2xl border border-metal-gold/20 bg-gradient-to-br from-metal-gold/5 to-white/80 p-10 shadow-luxe">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs uppercase tracking-wider text-deep-black/40">Our Promise</p>
+          <p className="text-xs uppercase tracking-wider text-deep-black/60">Our Promise</p>
           <h2 className="mt-3 font-serif font-normal text-3xl text-deep-black md:text-4xl">
             Why choose AR Alphaya?
           </h2>

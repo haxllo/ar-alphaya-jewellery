@@ -21,7 +21,7 @@ export default function Testimonials() {
     <section className="mx-auto max-w-7xl px-6">
       <div className="rounded-2xl bg-white/80 p-10 shadow-subtle">
         <div className="text-center">
-          <p className="text-xs uppercase tracking-wider text-deep-black/40">Client Stories</p>
+          <p className="text-xs uppercase tracking-wider text-deep-black/60">Client Stories</p>
           <h2 className="mt-3 font-serif font-normal text-3xl text-deep-black md:text-4xl">
             Affordable bespoke jewellery that exceeds expectations
           </h2>
