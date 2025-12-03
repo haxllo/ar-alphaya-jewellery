@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
           </p>
           <p className="text-gray-700 mb-4">
             <strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka<br />
-            Phone: +94 77 429 3406 | Email: aralphayajewellery@gmail.com
+            Phone: +94 77 429 3406 | Email: info@aralphayajewellery.com
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
             <p className="text-blue-800 mb-4">
@@ -217,7 +217,7 @@ export default function TermsOfServicePage() {
               <p><strong>AR Alphaya Jewellery</strong></p>
               <p><strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka</p>
               <p><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></p>
-              <p><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></p>
+              <p><strong>Email:</strong> <a href="mailto:info@aralphayajewellery.com" className="text-black hover:underline">info@aralphayajewellery.com</a></p>
             </div>
           </div>
         </section>

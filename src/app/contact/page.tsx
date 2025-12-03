@@ -81,7 +81,7 @@ export default function ContactPage() {
             <div>
               <p className="text-xs uppercase tracking-wider text-deep-black/40">Concierge</p>
               <p className="mt-2">
-                <strong>Email:</strong> aralphayajewellery@gmail.com<br />
+                <strong>Email:</strong> info@aralphayajewellery.com<br />
                 <strong>Phone:</strong> +94 77 429 3406<br />
                 <strong>WhatsApp:</strong> +94 77 429 3406
               </p>

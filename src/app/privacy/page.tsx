@@ -215,7 +215,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <div className="bg-gray-50 rounded-lg p-6">
             <ul className="space-y-3 text-gray-700">
-              <li><strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="text-black hover:underline">aralphayajewellery@gmail.com</a></li>
+              <li><strong>Email:</strong> <a href="mailto:info@aralphayajewellery.com" className="text-black hover:underline">info@aralphayajewellery.com</a></li>
               <li><strong>Phone:</strong> <a href="tel:+94774293406" className="text-black hover:underline">+94 77 429 3406</a></li>
               <li><strong>Contact:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy, Central 20186, Sri Lanka</li>
             </ul>

@@ -126,7 +126,7 @@ export default function PoliciesPage() {
                 <li>• Opt-out of marketing communications</li>
                 <li>• Object to data processing in certain circumstances</li>
               </ul>
-              <p className="mt-4 text-sm">To exercise these rights, contact us at <a href="mailto:aralphayajewellery@gmail.com" className="text-deep-black-900 underline">aralphayajewellery@gmail.com</a></p>
+              <p className="mt-4 text-sm">To exercise these rights, contact us at <a href="mailto:info@aralphayajewellery.com" className="text-deep-black-900 underline">info@aralphayajewellery.com</a></p>
             </div>
 
             <div className="my-6">
@@ -164,7 +164,7 @@ export default function PoliciesPage() {
               </p>
               <div className="mt-3 rounded-2xl bg-deep-black-50 p-4 text-sm">
                 <p><strong>Contact Address:</strong> 143/5 Rainbow Park, Temple Road, Kengalla, Kandy 20186, Sri Lanka</p>
-                <p className="mt-1"><strong>Phone:</strong> <a href="tel:+94774293406" className="underline">+94 77 429 3406</a> | <strong>Email:</strong> <a href="mailto:aralphayajewellery@gmail.com" className="underline">aralphayajewellery@gmail.com</a></p>
+                <p className="mt-1"><strong>Phone:</strong> <a href="tel:+94774293406" className="underline">+94 77 429 3406</a> | <strong>Email:</strong> <a href="mailto:info@aralphayajewellery.com" className="underline">info@aralphayajewellery.com</a></p>
               </div>
             </div>
 
@@ -241,7 +241,7 @@ export default function PoliciesPage() {
             WhatsApp Us
           </a>
           <a
-            href="mailto:aralphayajewellery@gmail.com"
+            href="mailto:info@aralphayajewellery.com"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-deep-black-200 bg-white px-6 py-3 text-sm font-semibold text-deep-black-700 transition-transform duration-300 hover:-translate-y-0.5 hover:border-deep-black-400"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

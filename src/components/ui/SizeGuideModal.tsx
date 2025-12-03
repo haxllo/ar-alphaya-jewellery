@@ -205,7 +205,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             Unsure after measuring? Our concierge team will assist via WhatsApp or email with bespoke guidance.
           </div>
           <div className="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-deep-black-500">
-            <a href="mailto:aralphayajewellery@gmail.com" className="rounded-full border border-deep-black-200 px-4 py-2 hover:border-gold-300 hover:text-deep-black-800">
+            <a href="mailto:info@aralphayajewellery.com" className="rounded-full border border-deep-black-200 px-4 py-2 hover:border-gold-300 hover:text-deep-black-800">
               Email Concierge
             </a>
             <a href="https://wa.me/94774293406" target="_blank" rel="noopener noreferrer" className="rounded-full border border-deep-black-200 px-4 py-2 hover:border-gold-300 hover:text-deep-black-800">

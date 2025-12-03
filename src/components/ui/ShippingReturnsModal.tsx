@@ -164,7 +164,7 @@ export default function ShippingReturnsModal({ isOpen, onClose }: ShippingReturn
           <div className="border-t pt-6">
             <h4 className="font-medium mb-3 text-primary-700">Questions about shipping or returns?</h4>
             <div className="space-y-2 text-sm text-primary-600">
-              <p>Contact us at: <span className="font-medium">aralphayajewellery@gmail.com</span></p>
+              <p>Contact us at: <span className="font-medium">info@aralphayajewellery.com</span></p>
               <p>WhatsApp: <span className="font-medium">+94 77 429 3406</span></p>
               <p>Visit our store: <span className="font-medium">143/5 Rainbow park, Temple road, Kengalla - 20186</span></p>
             </div>
