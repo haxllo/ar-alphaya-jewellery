@@ -84,10 +84,10 @@ export function CartItemOne({
           
           {/* Price */}
           <div className="text-right">
-            <p className="text-lg font-semibold text-amber-mirage-brown">
+            <p className="text-lg font-semibold text-metal-gold-brown">
               {formatPrice(item.price)}
             </p>
-            <p className="text-sm text-amber-mirage-500">
+            <p className="text-sm text-metal-gold-500">
               {formatPrice(item.price * quantity)} total
             </p>
           </div>
@@ -95,10 +95,10 @@ export function CartItemOne({
         
         {/* Quantity Controls & Remove */}
         <div className="mt-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 rounded-lg border border-amber-mirage-200 bg-white">
+          <div className="flex items-center gap-2 rounded-lg border border-metal-gold-200 bg-white">
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
-              className="flex h-9 w-9 items-center justify-center text-amber-mirage-600 transition-colors hover:bg-amber-mirage-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-9 w-9 items-center justify-center text-metal-gold-600 transition-colors hover:bg-metal-gold-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isRemoving || quantity <= 1}
               aria-label="Decrease quantity"
             >
@@ -107,13 +107,13 @@ export function CartItemOne({
               </svg>
             </button>
             
-            <span className="min-w-[2rem] text-center text-sm font-medium text-amber-mirage-brown">
+            <span className="min-w-[2rem] text-center text-sm font-medium text-metal-gold-brown">
               {quantity}
             </span>
             
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
-              className="flex h-9 w-9 items-center justify-center text-amber-mirage-600 transition-colors hover:bg-amber-mirage-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-9 w-9 items-center justify-center text-metal-gold-600 transition-colors hover:bg-metal-gold-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isRemoving || quantity >= 99}
               aria-label="Increase quantity"
             >

@@ -180,7 +180,7 @@ export default function ComparePage() {
       <div className="mt-12 text-center">
         <Link
           href="/collections/rings"
-          className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+          className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
         >
           Continue Shopping
         </Link>
