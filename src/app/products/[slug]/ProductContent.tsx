@@ -49,6 +49,8 @@ export default function ProductContent({ product, reviewSummary, reviews = [] }:
       gemstone: undefined,
       size: undefined,
       plating: options.plating?.type,
+      platingAdjustment: options.plating?.priceAdjustment,
+      platingLabel: options.plating?.label,
     })
     
     // Show success feedback

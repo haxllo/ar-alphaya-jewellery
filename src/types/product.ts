@@ -50,6 +50,8 @@ export type CartItem = {
   size?: string;
   gemstone?: string;
   plating?: string;
+  platingAdjustment?: number;
+  platingLabel?: string;
   image?: string;
 };
 

@@ -30,12 +30,6 @@ export function CartItemOne({
     }
   }
 
-  const platingLabel = item.plating === '24k-gold' 
-    ? '24K Gold Plated' 
-    : item.plating === '18k-rose-gold' 
-    ? '18K Rose Gold Plated' 
-    : '925 Sterling Silver'
-
   return (
     <div 
       className={`group flex gap-4 rounded-2xl border border-metal-gold/20 bg-white/80 p-4 transition-all duration-300 ${
@@ -65,32 +59,33 @@ export function CartItemOne({
       
       {/* Product Details */}
       <div className="flex flex-1 flex-col">
+        {/* Product Name and Total Price */}
         <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
-            <Link href={`/products/${item.slug}`}>
-              <h3 className="font-serif text-lg text-deep-black transition-colors hover:text-metal-gold">
-                {item.name}
-              </h3>
-            </Link>
-            <div className="mt-1 space-y-0.5">
-              {item.size && (
-                <p className="text-sm text-deep-black/70">Size: {item.size}</p>
-              )}
-              {item.plating && (
-                <p className="text-sm text-deep-black/70">Plating: {platingLabel}</p>
+          <Link href={`/products/${item.slug}`} className="flex-1">
+            <h3 className="font-serif text-lg text-deep-black transition-colors hover:text-metal-gold">
+              {item.name}
+            </h3>
+          </Link>
+          <p className="text-lg font-semibold text-metal-gold-brown whitespace-nowrap">
+            {formatPrice(item.price * quantity)}
+          </p>
+        </div>
+        
+        {/* Size and Plating Info */}
+        <div className="mt-1 space-y-0.5">
+          {item.size && (
+            <p className="text-sm text-deep-black/70">Size: {item.size}</p>
+          )}
+          {(item.platingLabel || item.plating) && (
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-deep-black/70">
+                Plating: {item.platingLabel || (item.plating === '24k-gold' ? '24K Gold Plated' : item.plating === '18k-rose-gold' ? '18K Rose Gold Plated' : '925 Sterling Silver')}
+              </p>
+              {item.platingAdjustment && item.platingAdjustment > 0 && (
+                <p className="text-sm text-deep-black/70">+{formatPrice(item.platingAdjustment)}</p>
               )}
             </div>
-          </div>
-          
-          {/* Price */}
-          <div className="text-right">
-            <p className="text-lg font-semibold text-metal-gold-brown">
-              {formatPrice(item.price)}
-            </p>
-            <p className="text-sm text-metal-gold-500">
-              {formatPrice(item.price * quantity)} total
-            </p>
-          </div>
+          )}
         </div>
         
         {/* Quantity Controls & Remove */}

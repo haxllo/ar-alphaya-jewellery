@@ -122,7 +122,7 @@ export default function MobileOrderSummary({
               </div>
             )}
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Shipping</span>
+              <span className="text-gray-600">Delivery</span>
               <span className={`tabular-nums ${shipping === 0 ? 'text-green-600 font-medium' : ''}`}>
                 {shipping === 0 ? 'FREE' : formatPrice(shipping)}
               </span>

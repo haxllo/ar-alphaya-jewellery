@@ -6,7 +6,6 @@ import { useCartStore } from '@/lib/store/cart'
 import { CartItemOne } from '@/components/cart-item-01'
 import CartSummary from '@/components/cart/cart-summary'
 import CartSkeleton from '@/components/ui/skeletons/CartSkeleton'
-import ShippingProgress from '@/components/cart/ShippingProgress'
 import DeliveryEstimate from '@/components/cart/DeliveryEstimate'
 import PromoCode from '@/components/cart/PromoCode'
 import TrustBadges from '@/components/cart/TrustBadges'
@@ -35,9 +34,8 @@ export default function CartPage() {
       : promoCode.discount
     : 0
   
-  // Free delivery within Sri Lanka for orders above Rs.5,000
-  const freeShippingThreshold = 5000
-  const shippingEstimate = subtotal >= freeShippingThreshold ? 0 : 1000
+  // Free shipping for all orders within Sri Lanka
+  const shippingEstimate = 0
   const total = subtotal - discount + shippingEstimate
 
   // Smart product recommendations: fetch contextual products from API (category/tags from cart)
@@ -164,25 +162,21 @@ export default function CartPage() {
       
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8">
         {/* Cart Items */}
-        <div>
-          <ShippingProgress subtotal={subtotal} freeShippingThreshold={freeShippingThreshold} />
-          
-          <div className="space-y-4">
-            {items.map((item) => {
-              const itemKey = `${item.productId}-${item.size}`
-              const isRemoving = removingItem === itemKey
-              
-              return (
-                <CartItemOne
-                  key={itemKey}
-                  item={item}
-                  isRemoving={isRemoving}
-                  onQuantityChange={handleQuantityChange}
-                  onRemove={handleRemoveItem}
-                />
-              )
-            })}
-          </div>
+        <div className="space-y-4">
+          {items.map((item) => {
+            const itemKey = `${item.productId}-${item.size}`
+            const isRemoving = removingItem === itemKey
+            
+            return (
+              <CartItemOne
+                key={itemKey}
+                item={item}
+                isRemoving={isRemoving}
+                onQuantityChange={handleQuantityChange}
+                onRemove={handleRemoveItem}
+              />
+            )
+          })}
         </div>
         
         {/* Order Summary - Sticky on Desktop */}

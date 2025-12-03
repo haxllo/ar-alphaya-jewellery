@@ -36,6 +36,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 	);
 	const [quantity, setQuantity] = useState(1);
 	const [showSizeGuide, setShowSizeGuide] = useState(false);
+	const [sizeGuideTab, setSizeGuideTab] = useState<'measure' | 'select'>('measure');
 	const [selectedSize, setSelectedSize] = useState<string>("7");
 
 	// Use product plating options if available, otherwise use standard
@@ -157,18 +158,18 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						{product.category.replace('-', ' ')}
 					</p>
 
-					{/* Title */}
-					<h1 className="font-serif text-3xl lg:text-4xl font-normal text-deep-black leading-tight">
-						{product.name}
-					</h1>
-
-					{/* Price & Wishlist */}
-					<div className="flex items-center justify-between">
-						<p className="text-3xl font-semibold text-deep-black">
-							{formatPrice(finalPrice)}
-						</p>
+					{/* Title & Wishlist */}
+					<div className="flex items-start justify-between gap-4">
+						<h1 className="font-serif text-3xl lg:text-4xl font-normal text-deep-black leading-tight">
+							{product.name}
+						</h1>
 						<WishlistButton product={product} />
 					</div>
+
+					{/* Price */}
+					<p className="text-3xl font-semibold text-deep-black">
+						{formatPrice(finalPrice)}
+					</p>
 
 					{/* Description */}
 					<p className="text-deep-black/70 leading-relaxed">
@@ -209,15 +210,21 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 							<div className="flex items-center justify-between mb-3">
 								<label className="block text-sm font-medium text-deep-black">Size</label>
 								<button
-									onClick={() => setShowSizeGuide(true)}
+									onClick={() => {
+										setSizeGuideTab('measure');
+										setShowSizeGuide(true);
+									}}
 									className="text-xs text-deep-black/60 hover:text-foreground underline underline-offset-2 transition-colors"
 								>
 									Size Guide
 								</button>
 							</div>
 							<button
-								onClick={() => setShowSizeGuide(true)}
-								className="w-full h-12 px-4 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium hover:border-metal-gold transition-all text-left flex items-center justify-between"
+								onClick={() => {
+									setSizeGuideTab('select');
+									setShowSizeGuide(true);
+								}}
+								className="w-full h-12 px-4 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium hover:border-metal-gold/40 focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all text-left flex items-center justify-between"
 							>
 								<span>US {selectedSize}</span>
 								<svg className="w-4 h-4 text-deep-black/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,6 +246,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 										const selected = platingOptions.find(p => p.type === e.target.value)
 										if (selected) setSelectedPlating(selected)
 									}}
+									style={{ backgroundColor: 'rgb(255, 255, 255)' }}
 									className="w-full h-12 px-4 pr-10 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
 								>
 									{platingOptions.map((plating) => (
@@ -284,23 +292,35 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						</button>
 					</div>
 
-					{/* Feature Badges - Like modal */}
+					{/* Feature Badges */}
 					<div className="grid grid-cols-2 gap-6 pt-8 border-t border-metal-gold/10">
-						<div className="flex items-center gap-2 text-sm text-deep-black/70">
-							<CheckCircle className="w-4 h-4 flex-shrink-0" />
-							<span>Authentic Gemstones</span>
+						<div className="flex items-start gap-3">
+							<CreditCard className="w-5 h-5 flex-shrink-0 text-metal-gold" />
+							<div>
+								<p className="text-sm font-medium text-deep-black">Secure Payment</p>
+								<p className="text-xs text-deep-black/60 mt-0.5">256-bit SSL encryption</p>
+							</div>
 						</div>
-						<div className="flex items-center gap-2 text-sm text-deep-black/70">
-							<CreditCard className="w-4 h-4 flex-shrink-0" />
-							<span>Secure Payment</span>
+						<div className="flex items-start gap-3">
+							<CheckCircle className="w-5 h-5 flex-shrink-0 text-metal-gold" />
+							<div>
+								<p className="text-sm font-medium text-deep-black">Certified Jewellery</p>
+								<p className="text-xs text-deep-black/60 mt-0.5">Authentic gemstones</p>
+							</div>
 						</div>
-						<div className="flex items-center gap-2 text-sm text-deep-black/70">
-							<Truck className="w-4 h-4 flex-shrink-0" />
-							<span>Free Shipping (SL)</span>
+						<div className="flex items-start gap-3">
+							<Truck className="w-5 h-5 flex-shrink-0 text-metal-gold" />
+							<div>
+								<p className="text-sm font-medium text-deep-black">Free Delivery</p>
+								<p className="text-xs text-deep-black/60 mt-0.5">Within Sri Lanka</p>
+							</div>
 						</div>
-						<div className="flex items-center gap-2 text-sm text-deep-black/70">
-							<RotateCcw className="w-4 h-4 flex-shrink-0" />
-							<span>Easy Returns</span>
+						<div className="flex items-start gap-3">
+							<RotateCcw className="w-5 h-5 flex-shrink-0 text-metal-gold" />
+							<div>
+								<p className="text-sm font-medium text-deep-black">Easy Returns</p>
+								<p className="text-xs text-deep-black/60 mt-0.5">7-day return policy</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -316,6 +336,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					setSelectedSize(size);
 					setShowSizeGuide(false);
 				}}
+				initialTab={sizeGuideTab}
 			/>
 		</div>
 	);

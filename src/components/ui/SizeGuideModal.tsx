@@ -10,28 +10,32 @@ interface SizeGuideModalProps {
   category?: string
   selectedSize?: string
   onSelectSize?: (size: string) => void
+  initialTab?: 'measure' | 'select'
 }
 
 const RING_SIZES = [
-  { tiffany: '3', us: '3', diameter: '14.1', circumference: '44.2' },
-  { tiffany: '3.5', us: '3.5', diameter: '14.5', circumference: '45.5' },
-  { tiffany: '4', us: '4', diameter: '14.9', circumference: '46.8' },
-  { tiffany: '4.5', us: '4.5', diameter: '15.3', circumference: '48.0' },
-  { tiffany: '5', us: '5', diameter: '15.7', circumference: '49.3' },
-  { tiffany: '5.5', us: '5.5', diameter: '16.1', circumference: '50.6' },
-  { tiffany: '6', us: '6', diameter: '16.5', circumference: '51.9' },
-  { tiffany: '6.5', us: '6.5', diameter: '16.9', circumference: '53.1' },
-  { tiffany: '7', us: '7', diameter: '17.3', circumference: '54.4' },
-  { tiffany: '7.5', us: '7.5', diameter: '17.7', circumference: '55.7' },
-  { tiffany: '8', us: '8', diameter: '18.1', circumference: '57' },
+  { usa: '3', uk: 'F', diameter: '14.1', circumference: '44.2' },
+  { usa: '3.5', uk: 'G½', diameter: '14.5', circumference: '45.5' },
+  { usa: '4', uk: 'H½', diameter: '14.9', circumference: '46.8' },
+  { usa: '4.5', uk: 'J', diameter: '15.3', circumference: '48.0' },
+  { usa: '5', uk: 'K½', diameter: '15.7', circumference: '49.3' },
+  { usa: '5.5', uk: 'L½', diameter: '16.1', circumference: '50.6' },
+  { usa: '6', uk: 'M½', diameter: '16.5', circumference: '51.9' },
+  { usa: '6.5', uk: 'O', diameter: '16.9', circumference: '53.1' },
+  { usa: '7', uk: 'P', diameter: '17.3', circumference: '54.4' },
+  { usa: '7.5', uk: 'Q½', diameter: '17.7', circumference: '55.7' },
+  { usa: '8', uk: 'R½', diameter: '18.1', circumference: '57' },
 ]
 
-export default function SizeGuideModal({ isOpen, onClose, category = 'rings', selectedSize, onSelectSize }: SizeGuideModalProps) {
-  const [activeTab, setActiveTab] = useState<'measure' | 'select'>('measure')
+export default function SizeGuideModal({ isOpen, onClose, category = 'rings', selectedSize, onSelectSize, initialTab = 'measure' }: SizeGuideModalProps) {
+  const [activeTab, setActiveTab] = useState<'measure' | 'select'>(initialTab)
   useEffect(() => {
     if (!isOpen) {
       return
     }
+
+    // Set active tab based on initialTab when modal opens
+    setActiveTab(initialTab)
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -46,7 +50,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings', se
       document.body.style.overflow = ''
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isOpen, onClose])
+  }, [isOpen, onClose, initialTab])
 
   if (!isOpen) {
     return null
@@ -201,9 +205,12 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings', se
                 <table className="w-full text-sm">
                   <thead className="bg-neutral-soft">
                     <tr className="border-b border-metal-gold/20">
-                      <th className="px-4 py-3 text-left font-semibold text-deep-black">Tiffany Size</th>
-                      <th className="px-4 py-3 text-left font-semibold text-deep-black">United States Size</th>
-                      <th className="px-4 py-3 text-left font-semibold text-deep-black">Interior Diameter / Inside Circumference</th>
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">USA Standard</th>
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">UK Standard</th>
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">
+                        <div>Interior Diameter /</div>
+                        <div>Inside Circumference</div>
+                      </th>
                       <th className="px-4 py-3 text-left font-semibold text-deep-black">Circumference (MM)</th>
                       <th className="px-4 py-3"></th>
                     </tr>
@@ -211,26 +218,26 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings', se
                   <tbody className="bg-white">
                     {RING_SIZES.map((size, index) => (
                       <tr 
-                        key={size.us} 
+                        key={size.usa} 
                         className={`border-b border-metal-gold/10 last:border-0 hover:bg-neutral-soft/50 transition-colors ${
-                          selectedSize === size.us ? 'bg-metal-gold/10' : ''
+                          selectedSize === size.usa ? 'bg-metal-gold/10' : ''
                         }`}
                       >
-                        <td className="px-4 py-3 text-deep-black">{size.tiffany}</td>
-                        <td className="px-4 py-3 text-deep-black">{size.us}</td>
+                        <td className="px-4 py-3 text-deep-black">{size.usa}</td>
+                        <td className="px-4 py-3 text-deep-black">{size.uk}</td>
                         <td className="px-4 py-3 text-deep-black">{size.diameter}</td>
                         <td className="px-4 py-3 text-deep-black">{size.circumference}</td>
                         <td className="px-4 py-3">
                           <button
-                            onClick={() => onSelectSize?.(size.us)}
+                            onClick={() => onSelectSize?.(size.usa)}
                             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                              selectedSize === size.us
+                              selectedSize === size.usa
                                 ? 'border-metal-gold bg-metal-gold'
                                 : 'border-metal-gold/30 hover:border-metal-gold'
                             }`}
-                            aria-label={`Select size ${size.us}`}
+                            aria-label={`Select size ${size.usa}`}
                           >
-                            {selectedSize === size.us && (
+                            {selectedSize === size.usa && (
                               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                               </svg>

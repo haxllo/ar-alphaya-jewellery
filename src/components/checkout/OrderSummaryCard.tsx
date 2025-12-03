@@ -156,7 +156,7 @@ export default function OrderSummaryCard({
           )}
           
           <div className="flex justify-between text-sm">
-            <span className="text-metal-gold-600">Shipping</span>
+            <span className="text-metal-gold-600">Delivery</span>
             <span className={`tabular-nums ${shipping === 0 ? 'text-green-600 font-medium' : 'text-metal-gold-brown'}`}>
               {shipping === 0 ? 'FREE' : formatPrice(shipping)}
             </span>

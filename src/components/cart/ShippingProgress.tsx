@@ -25,7 +25,7 @@ export default function ShippingProgress({
         <div className="flex-1">
           {hasQualified ? (
             <p className="text-sm font-medium text-deep-black">
-              🎉 You qualify for <strong>free shipping</strong> within Sri Lanka!
+              Free shipping within Sri Lanka
             </p>
           ) : (
             <p className="text-sm font-medium text-deep-black">

@@ -34,10 +34,10 @@ export default function CartSummary({
         </div>
       )}
       
-      <div className="flex justify-between text-xs sm:text-sm text-deep-black/70">
-        <span>Shipping</span>
-        <span className={shippingEstimate === 0 ? 'text-green-600 font-medium' : ''}>
-          {shippingEstimate === 0 ? 'FREE' : formatPrice(shippingEstimate)}
+      <div className="flex justify-between text-xs sm:text-sm">
+        <span className="text-deep-black/70">Delivery (within Sri Lanka)</span>
+        <span className="text-green-600 font-medium">
+          {shippingEstimate === 0 ? 'Free' : formatPrice(shippingEstimate)}
         </span>
       </div>
       
