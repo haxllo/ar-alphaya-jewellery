@@ -37,9 +37,6 @@ export default function DeliveryEstimate({ city }: DeliveryEstimateProps) {
           {getEstimatedDelivery()}
           {city && ` to ${city}`}
         </p>
-        <p className="text-xs text-deep-black/60 mt-1">
-          Orders placed before 2 PM ship same day
-        </p>
       </div>
     </div>
   )
