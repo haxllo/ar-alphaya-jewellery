@@ -45,7 +45,7 @@ export default function OrderSummaryCard({
     <Card className="lg:sticky lg:top-24 lg:h-fit border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-amber-mirage-brown">
-          <Package className="h-5 w-5 text-amber-mirage-gold" />
+          <Package className="h-5 w-5 text-metal-gold" />
           Order Summary
         </CardTitle>
       </CardHeader>
@@ -112,7 +112,7 @@ export default function OrderSummaryCard({
         {/* Promo Code */}
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-medium text-amber-mirage-700">
-            <Tag className="h-4 w-4 text-amber-mirage-gold" />
+            <Tag className="h-4 w-4 text-metal-gold" />
             Have a promo code?
           </label>
           <div className="flex gap-2">
@@ -121,7 +121,7 @@ export default function OrderSummaryCard({
               value={promoCodeInput}
               onChange={(e) => setPromoCodeInput(e.target.value.toUpperCase())}
               placeholder="PROMO CODE"
-              className="flex-1 uppercase border-amber-mirage-200 focus:border-amber-mirage-gold"
+              className="flex-1 uppercase border-amber-mirage-200 focus:border-metal-gold"
               disabled={isApplying}
             />
             <Button
@@ -129,7 +129,7 @@ export default function OrderSummaryCard({
               variant="outline"
               onClick={handleApplyPromo}
               disabled={!promoCodeInput.trim() || isApplying}
-              className="border-amber-mirage-200 hover:bg-amber-mirage-100 hover:text-amber-mirage-gold"
+              className="border-amber-mirage-200 hover:bg-amber-mirage-100 hover:text-metal-gold"
             >
               {isApplying ? 'Applying...' : 'Apply'}
             </Button>
@@ -175,7 +175,7 @@ export default function OrderSummaryCard({
         {/* Trust Badges */}
         <div className="space-y-2 text-center">
           <div className="flex items-center justify-center gap-2 text-sm text-amber-mirage-600">
-            <Lock className="h-4 w-4 text-amber-mirage-gold" />
+            <Lock className="h-4 w-4 text-metal-gold" />
             <span>Secure checkout • SSL encrypted</span>
           </div>
           
