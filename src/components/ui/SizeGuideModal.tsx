@@ -49,11 +49,11 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
       <div
         role="dialog"
         aria-modal="true"
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-metal-gold/20 bg-neutral-soft/98 shadow-[0_20px_60px_rgba(0,0,0,0.3)] mx-auto my-auto"
+        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-metal-gold/20 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.3)] mx-auto my-auto"
         onClick={(event) => event.stopPropagation()}
       >
         {/* Header */}
-        <header className="flex items-center justify-between border-b border-metal-gold/20 bg-white/60 px-6 sm:px-8 py-5">
+        <header className="flex items-center justify-between border-b border-metal-gold/20 bg-neutral-soft px-6 sm:px-8 py-5">
           <div>
             <h2 className="font-serif text-2xl sm:text-3xl text-deep-black">Find Your Ring Size</h2>
           </div>
@@ -73,7 +73,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             <h3 className="font-serif text-xl sm:text-2xl text-deep-black">Measure Your Finger</h3>
             
             {/* Image */}
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-neutral-soft border border-metal-gold/10">
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-white border border-metal-gold/20">
               <Image
                 src="/images/2024_SIZEGUIDE-Ring2-16x9.jpg"
                 alt="How to measure your finger for ring size"
@@ -105,7 +105,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             <h3 className="font-serif text-xl sm:text-2xl text-deep-black">Measure an Existing Ring</h3>
             
             {/* Image */}
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-neutral-soft border border-metal-gold/10">
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-white border border-metal-gold/20">
               <Image
                 src="/images/2024_SIZEGUIDE-Ring1-16x9.jpg"
                 alt="How to measure an existing ring for size"
@@ -133,7 +133,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
           </section>
 
           {/* Help Notice */}
-          <div className="rounded-xl border border-metal-gold/30 bg-white/70 px-5 py-4 text-sm text-deep-black/80 leading-relaxed">
+          <div className="rounded-xl border border-metal-gold/30 bg-neutral-soft px-5 py-4 text-sm text-deep-black leading-relaxed">
             <p>
               <strong className="text-deep-black font-semibold">Need help?</strong> Our team is here to assist you with finding the perfect size. 
               Contact us via WhatsApp, phone, or email for personalized guidance.
@@ -142,7 +142,7 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
         </main>
 
         {/* Footer */}
-        <footer className="flex flex-col sm:flex-row gap-3 items-center justify-center border-t border-metal-gold/20 bg-white/60 px-6 sm:px-8 py-5">
+        <footer className="flex flex-col sm:flex-row gap-3 items-center justify-center border-t border-metal-gold/20 bg-neutral-soft px-6 sm:px-8 py-5">
           <a 
             href="mailto:info@aralphayajewellery.com" 
             className="w-full sm:w-auto text-center px-6 py-2.5 rounded-lg border border-metal-gold/30 text-sm font-medium text-deep-black hover:bg-white hover:border-metal-gold transition-colors"
