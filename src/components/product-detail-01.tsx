@@ -3,16 +3,18 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon, Heart, CheckCircle, Truck, RotateCcw, CreditCard } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, Heart, CheckCircle, Truck, RotateCcw, CreditCard } from "lucide-react";
 import { usePriceFormatter } from "@/hooks/useCurrency";
 import type { Product, PlatingOption } from "@/types/product";
 import { fixUploadcareUrl } from "@/lib/fix-uploadcare-url";
+import WishlistButton from "@/components/wishlist/WishlistButton";
+import { useRouter } from "next/navigation";
 
 // Standard plating options for jewelry (925 Sterling Silver base)
 const STANDARD_PLATING_OPTIONS: PlatingOption[] = [
-	{ type: "925-silver", label: "925 Silver", priceAdjustment: 0, available: true },
-	{ type: "24k-gold", label: "24K Gold", priceAdjustment: 5000, available: true },
-	{ type: "18k-rose-gold", label: "18K Rose Gold", priceAdjustment: 3000, available: true },
+	{ type: "none", label: "Sterling Silver (925)", priceAdjustment: 0, available: true },
+	{ type: "24k-gold", label: "24K Gold Plated", priceAdjustment: 5000, available: true },
+	{ type: "18k-rose-gold", label: "18K Rose Gold Plated", priceAdjustment: 3000, available: true },
 ];
 
 interface ProductDetailOneProps {
@@ -22,6 +24,7 @@ interface ProductDetailOneProps {
 
 export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps) {
 	const { formatPrice } = usePriceFormatter() as any;
+	const router = useRouter();
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [selectedPlating, setSelectedPlating] = useState<PlatingOption>(
 		product.plating?.[0] || STANDARD_PLATING_OPTIONS[0]
@@ -57,11 +60,21 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 		onAddToCart?.(product, { plating: selectedPlating, quantity });
 	};
 
-	// Get short plating label for button display
-	const getShortPlatingLabel = (plating: PlatingOption) => {
-		const label = plating.label || plating.type;
-		// Extract the key part (e.g., "925 Silver", "24K Gold", "18K Rose Gold")
-		return label.replace(/None \(|\)| Plated/g, '').trim();
+	const handleBuyNow = () => {
+		onAddToCart?.(product, { plating: selectedPlating, quantity });
+		router.push('/checkout');
+	};
+
+	// Get plating label - if it's "none", use product's base material or default
+	const getPlatingLabel = (plating: PlatingOption) => {
+		if (plating.type === "none") {
+			// Use product's material if available, otherwise use label
+			if (product.materials && product.materials.length > 0) {
+				return product.materials.join(", ");
+			}
+			return plating.label || "Sterling Silver (925)";
+		}
+		return plating.label || plating.type;
 	};
 
 	return (
@@ -142,12 +155,12 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						{product.name}
 					</h1>
 
-					{/* Price */}
-					<div className="flex items-center gap-3">
+					{/* Price & Wishlist */}
+					<div className="flex items-center justify-between">
 						<p className="text-3xl font-semibold text-deep-black">
 							{formatPrice(finalPrice)}
 						</p>
-						<Heart className="w-5 h-5 text-deep-black/40 hover:text-metal-gold cursor-pointer transition-colors" />
+						<WishlistButton product={product} />
 					</div>
 
 					{/* Description */}
@@ -176,7 +189,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 										value={plating.type}
 										disabled={!plating.available}
 									>
-										{getShortPlatingLabel(plating)}
+										{getPlatingLabel(plating)}
 										{plating.priceAdjustment > 0 && ` (+${formatPrice(plating.priceAdjustment)})`}
 									</option>
 								))}
@@ -193,21 +206,26 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 					{/* Quantity */}
 					<div>
 						<h3 className="text-sm font-medium mb-3 text-deep-black">Quantity</h3>
-						<div className="flex items-center border border-metal-gold/20 rounded-lg w-fit">
+						<div className="flex items-center gap-2 sm:gap-3">
 							<button
 								onClick={decrementQuantity}
-								className="h-12 w-12 hover:bg-neutral-soft transition-colors flex items-center justify-center"
+								disabled={quantity <= 1}
+								className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 								aria-label="Decrease quantity"
 							>
-								<MinusIcon className="w-4 h-4 text-deep-black" />
+								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+								</svg>
 							</button>
-							<span className="w-16 text-center font-medium text-deep-black">{quantity}</span>
+							<span className="w-12 text-center font-medium">{quantity}</span>
 							<button
 								onClick={incrementQuantity}
-								className="h-12 w-12 hover:bg-neutral-soft transition-colors flex items-center justify-center"
+								className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
 								aria-label="Increase quantity"
 							>
-								<PlusIcon className="w-4 h-4 text-deep-black" />
+								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+								</svg>
 							</button>
 						</div>
 					</div>
@@ -223,11 +241,12 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						Add to Cart
 					</button>
 
-					{/* View Full Details Button */}
+					{/* Buy Now Button */}
 					<button
-						className="w-full rounded-full border border-deep-black/20 py-3.5 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:border-deep-black"
+						onClick={handleBuyNow}
+						className="w-full rounded-full border-2 border-deep-black py-3.5 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:bg-deep-black hover:text-white"
 					>
-						View Full Details
+						Buy Now
 					</button>
 
 					{/* Feature Badges - Like modal */}
