@@ -93,7 +93,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 								src={fixUploadcareUrl(images[currentImageIndex])}
 								alt={product.name}
 								fill
-								className="object-contain p-6"
+								className="object-contain"
 								sizes="(max-width: 768px) 100vw, 50vw"
 								priority
 							/>
