@@ -11,12 +11,18 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    if (!agreedToTerms) {
+      setError('Please agree to the Terms & Conditions and Privacy Policy')
+      return
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match')
@@ -136,9 +142,39 @@ export default function SignUpPage() {
               />
             </div>
 
+            {/* Terms & Conditions Agreement */}
+            <div className="space-y-3">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 rounded border-metal-gold/20 text-metal-gold focus:ring-2 focus:ring-metal-gold/20 cursor-pointer"
+                />
+                <span className="text-sm text-deep-black/70">
+                  I agree to the{' '}
+                  <Link 
+                    href="/terms" 
+                    target="_blank"
+                    className="text-metal-gold hover:text-forest-deep underline"
+                  >
+                    Terms & Conditions
+                  </Link>
+                  {' '}and{' '}
+                  <Link 
+                    href="/privacy" 
+                    target="_blank"
+                    className="text-metal-gold hover:text-forest-deep underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                </span>
+              </label>
+            </div>
+
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !agreedToTerms}
               className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Creating account...' : 'Create Account'}
