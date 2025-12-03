@@ -84,17 +84,17 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             </div>
 
             {/* Instructions */}
-            <ol className="space-y-4 text-deep-black/80 leading-relaxed">
+            <ol className="space-y-4 text-deep-black leading-relaxed">
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-metal-gold/20 text-deep-black font-medium text-sm">1</span>
+                <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-metal-gold text-white font-semibold text-sm">1</span>
                 <span>Use a flexible measuring tape or length of string.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-metal-gold/20 text-deep-black font-medium text-sm">2</span>
+                <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-metal-gold text-white font-semibold text-sm">2</span>
                 <span>Wrap it around the finger you'll wear your ring on, if you're creating a ring stack, consider where on your finger the ring will sit. If using string, mark the point on the string where the ends meet with a pen.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-metal-gold/20 text-deep-black font-medium text-sm">3</span>
+                <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-metal-gold text-white font-semibold text-sm">3</span>
                 <span>Lay the string on a flat surface and use a ruler to measure the length (in inches or millimeters) up to the mark. Compare your measurement to the size chart to determine your ring size. If you are between sizes, opt for the larger size.</span>
               </li>
             </ol>
@@ -116,27 +116,27 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             </div>
 
             {/* Instructions */}
-            <ol className="space-y-4 text-deep-black/80 leading-relaxed">
+            <ol className="space-y-4 text-deep-black leading-relaxed">
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-metal-gold/20 text-deep-black font-medium text-sm">1</span>
+                <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-metal-gold text-white font-semibold text-sm">1</span>
                 <span>Choose a ring that already fits your finger well.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-metal-gold/20 text-deep-black font-medium text-sm">2</span>
+                <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-metal-gold text-white font-semibold text-sm">2</span>
                 <span>Measure the interior diameter of the ring in millimeters (mm).</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-metal-gold/20 text-deep-black font-medium text-sm">3</span>
+                <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-metal-gold text-white font-semibold text-sm">3</span>
                 <span>Use the measurement chart to match the size of your ring to the closest size in mm. The interior of the ring should align with the outer edge of the circle.</span>
               </li>
             </ol>
           </section>
 
           {/* Help Notice */}
-          <div className="rounded-xl border border-metal-gold/30 bg-white/60 px-5 py-4 text-sm text-deep-black/70 leading-relaxed">
+          <div className="rounded-xl border border-metal-gold/30 bg-white/70 px-5 py-4 text-sm text-deep-black/80 leading-relaxed">
             <p>
-              <strong className="text-deep-black">Need help?</strong> Our team is here to assist you with finding the perfect size. 
-              Contact us via WhatsApp or email for personalized guidance.
+              <strong className="text-deep-black font-semibold">Need help?</strong> Our team is here to assist you with finding the perfect size. 
+              Contact us via WhatsApp, phone, or email for personalized guidance.
             </p>
           </div>
         </main>
@@ -148,6 +148,12 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
             className="w-full sm:w-auto text-center px-6 py-2.5 rounded-lg border border-metal-gold/30 text-sm font-medium text-deep-black hover:bg-white hover:border-metal-gold transition-colors"
           >
             Email Us
+          </a>
+          <a 
+            href="tel:+94774293406" 
+            className="w-full sm:w-auto text-center px-6 py-2.5 rounded-lg border border-metal-gold/30 text-sm font-medium text-deep-black hover:bg-white hover:border-metal-gold transition-colors"
+          >
+            Call Us
           </a>
           <a 
             href="https://wa.me/94774293406" 
