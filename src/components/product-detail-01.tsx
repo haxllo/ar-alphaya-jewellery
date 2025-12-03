@@ -175,42 +175,34 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						{product.description}
 					</p>
 
-					{/* Plating Options - Dropdown */}
+					{/* Quantity */}
 					<div>
-						<label htmlFor="plating-select" className="block text-sm font-medium mb-3 text-deep-black">
-							Materials
-						</label>
-						<div className="relative">
-							<select
-								id="plating-select"
-								value={selectedPlating.type}
-								onChange={(e) => {
-									const selected = platingOptions.find(p => p.type === e.target.value)
-									if (selected) setSelectedPlating(selected)
-								}}
-								className="w-full h-12 px-4 pr-10 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
+						<label className="block text-sm font-medium mb-3 text-deep-black">Quantity</label>
+						<div className="flex items-center gap-3">
+							<button
+								onClick={decrementQuantity}
+								disabled={quantity <= 1}
+								className="h-12 w-12 rounded-xl border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+								aria-label="Decrease quantity"
 							>
-								{platingOptions.map((plating) => (
-									<option 
-										key={plating.type} 
-										value={plating.type}
-										disabled={!plating.available}
-									>
-										{getPlatingLabel(plating)}
-										{plating.priceAdjustment > 0 && ` (+${formatPrice(plating.priceAdjustment)})`}
-									</option>
-								))}
-							</select>
-							{/* Custom Dropdown Arrow */}
-							<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-deep-black/50">
 								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
 								</svg>
-							</div>
+							</button>
+							<span className="w-12 text-center font-medium">{quantity}</span>
+							<button
+								onClick={incrementQuantity}
+								className="h-12 w-12 rounded-xl border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
+								aria-label="Increase quantity"
+							>
+								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+								</svg>
+							</button>
 						</div>
 					</div>
 
-					{/* Size and Quantity Row */}
+					{/* Size and Materials Row */}
 					<div className="grid grid-cols-2 gap-6">
 						{/* Size Selection */}
 						<div>
@@ -234,30 +226,38 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 							</button>
 						</div>
 
-						{/* Quantity */}
+						{/* Materials Selection */}
 						<div>
-							<label className="block text-sm font-medium mb-3 text-deep-black">Quantity</label>
-							<div className="flex items-center gap-3">
-								<button
-									onClick={decrementQuantity}
-									disabled={quantity <= 1}
-									className="h-12 w-12 rounded-xl border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-									aria-label="Decrease quantity"
+							<label htmlFor="plating-select" className="block text-sm font-medium mb-3 text-deep-black">
+								Materials
+							</label>
+							<div className="relative">
+								<select
+									id="plating-select"
+									value={selectedPlating.type}
+									onChange={(e) => {
+										const selected = platingOptions.find(p => p.type === e.target.value)
+										if (selected) setSelectedPlating(selected)
+									}}
+									className="w-full h-12 px-4 pr-10 rounded-xl border border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
 								>
+									{platingOptions.map((plating) => (
+										<option 
+											key={plating.type} 
+											value={plating.type}
+											disabled={!plating.available}
+										>
+											{getPlatingLabel(plating)}
+											{plating.priceAdjustment > 0 && ` (+${formatPrice(plating.priceAdjustment)})`}
+										</option>
+									))}
+								</select>
+								{/* Custom Dropdown Arrow */}
+								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-deep-black/50">
 									<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 									</svg>
-								</button>
-								<span className="w-12 text-center font-medium">{quantity}</span>
-								<button
-									onClick={incrementQuantity}
-									className="h-12 w-12 rounded-xl border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
-									aria-label="Increase quantity"
-								>
-									<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-									</svg>
-								</button>
+								</div>
 							</div>
 						</div>
 					</div>
