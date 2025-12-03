@@ -28,7 +28,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   return (
     <section className="mx-auto max-w-7xl px-8">
       <div className="mb-12 text-center space-y-4">
-        <p className="text-xs uppercase tracking-wider text-deep-black/40">Studio Collection</p>
+        <p className="text-xs uppercase tracking-wider text-deep-black/60">Studio Collection</p>
         <h2 className="font-serif font-normal text-4xl md:text-5xl text-deep-black">Available Pieces</h2>
         <p className="text-base text-deep-black/60 max-w-2xl mx-auto">
           Ready to wear or customise to your preference

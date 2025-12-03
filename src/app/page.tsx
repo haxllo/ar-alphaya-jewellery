@@ -133,7 +133,7 @@ export default async function Home() {
       {/* Process Section - Compact */}
       <section id="process" className="mx-auto max-w-7xl px-8 scroll-mt-24">
         <div className="text-center space-y-4 mb-16">
-          <p className="text-xs uppercase tracking-wider text-deep-black/40">Custom Process</p>
+          <p className="text-xs uppercase tracking-wider text-deep-black/60">Custom Process</p>
           <h2 className="font-serif font-normal text-4xl text-deep-black">Four steps to your piece</h2>
         </div>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -156,7 +156,7 @@ export default async function Home() {
 
       <section id="faq" className="mx-auto max-w-7xl px-8 scroll-mt-24">
         <div className="text-center space-y-4 mb-16">
-          <p className="text-xs uppercase tracking-wider text-deep-black/40">FAQ</p>
+          <p className="text-xs uppercase tracking-wider text-deep-black/60">FAQ</p>
           <h2 className="font-serif font-normal text-4xl text-deep-black">Common Questions</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
