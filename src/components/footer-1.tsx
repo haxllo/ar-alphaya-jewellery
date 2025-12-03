@@ -133,7 +133,7 @@ export function FooterOne() {
             </h3>
             <div className="space-y-3">
               <a 
-                href="mailto:aralphayajewellery@gmail.com"
+                href="mailto:info@aralphayajewellery.com"
                 className="flex items-center gap-2 text-sm text-deep-black/70 hover:text-deep-black transition-colors"
               >
                 <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
