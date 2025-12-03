@@ -36,6 +36,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 	);
 	const [quantity, setQuantity] = useState(1);
 	const [showSizeGuide, setShowSizeGuide] = useState(false);
+	const [selectedSize, setSelectedSize] = useState<string>("7");
 
 	// Use product plating options if available, otherwise use standard
 	const platingOptions = product.plating && product.plating.length > 0 
@@ -221,30 +222,53 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						</div>
 					</div>
 
-					{/* Quantity */}
-					<div>
-						<label className="block text-sm font-medium mb-3 text-deep-black">Quantity</label>
-						<div className="flex items-center gap-2 sm:gap-3">
+					{/* Size and Quantity Row */}
+					<div className="grid grid-cols-2 gap-4">
+						{/* Size Selection */}
+						<div>
+							<label className="block text-sm font-medium mb-3 text-deep-black">Size</label>
 							<button
-								onClick={decrementQuantity}
-								disabled={quantity <= 1}
-								className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-								aria-label="Decrease quantity"
+								onClick={() => setShowSizeGuide(true)}
+								className="w-full px-4 py-3 rounded-lg border border-metal-gold/20 bg-white text-deep-black font-medium hover:border-metal-gold transition-all text-left flex items-center justify-between"
 							>
-								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+								<span>US {selectedSize}</span>
+								<svg className="w-4 h-4 text-deep-black/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 								</svg>
 							</button>
-							<span className="w-12 text-center font-medium">{quantity}</span>
 							<button
-								onClick={incrementQuantity}
-								className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
-								aria-label="Increase quantity"
+								onClick={() => setShowSizeGuide(true)}
+								className="mt-2 text-xs text-deep-black/60 hover:text-foreground underline underline-offset-2 transition-colors"
 							>
-								<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-								</svg>
+								Size Guide
 							</button>
+						</div>
+
+						{/* Quantity */}
+						<div>
+							<label className="block text-sm font-medium mb-3 text-deep-black">Quantity</label>
+							<div className="flex items-center gap-2 sm:gap-3">
+								<button
+									onClick={decrementQuantity}
+									disabled={quantity <= 1}
+									className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+									aria-label="Decrease quantity"
+								>
+									<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+									</svg>
+								</button>
+								<span className="w-12 text-center font-medium">{quantity}</span>
+								<button
+									onClick={incrementQuantity}
+									className="w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors"
+									aria-label="Increase quantity"
+								>
+									<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+									</svg>
+								</button>
+							</div>
 						</div>
 					</div>
 
@@ -297,6 +321,11 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 				isOpen={showSizeGuide}
 				onClose={() => setShowSizeGuide(false)}
 				category={product.category}
+				selectedSize={selectedSize}
+				onSelectSize={(size) => {
+					setSelectedSize(size);
+					setShowSizeGuide(false);
+				}}
 			/>
 		</div>
 	);

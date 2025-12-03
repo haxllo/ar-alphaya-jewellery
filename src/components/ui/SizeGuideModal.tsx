@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 
@@ -8,9 +8,26 @@ interface SizeGuideModalProps {
   isOpen: boolean
   onClose: () => void
   category?: string
+  selectedSize?: string
+  onSelectSize?: (size: string) => void
 }
 
-export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: SizeGuideModalProps) {
+const RING_SIZES = [
+  { tiffany: '3', us: '3', diameter: '14.1', circumference: '44.2' },
+  { tiffany: '3.5', us: '3.5', diameter: '14.5', circumference: '45.5' },
+  { tiffany: '4', us: '4', diameter: '14.9', circumference: '46.8' },
+  { tiffany: '4.5', us: '4.5', diameter: '15.3', circumference: '48.0' },
+  { tiffany: '5', us: '5', diameter: '15.7', circumference: '49.3' },
+  { tiffany: '5.5', us: '5.5', diameter: '16.1', circumference: '50.6' },
+  { tiffany: '6', us: '6', diameter: '16.5', circumference: '51.9' },
+  { tiffany: '6.5', us: '6.5', diameter: '16.9', circumference: '53.1' },
+  { tiffany: '7', us: '7', diameter: '17.3', circumference: '54.4' },
+  { tiffany: '7.5', us: '7.5', diameter: '17.7', circumference: '55.7' },
+  { tiffany: '8', us: '8', diameter: '18.1', circumference: '57' },
+]
+
+export default function SizeGuideModal({ isOpen, onClose, category = 'rings', selectedSize, onSelectSize }: SizeGuideModalProps) {
+  const [activeTab, setActiveTab] = useState<'measure' | 'select'>('measure')
   useEffect(() => {
     if (!isOpen) {
       return
@@ -57,21 +74,49 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
         }}
       >
         {/* Header */}
-        <header className="flex items-center justify-between border-b border-metal-gold/20 bg-neutral-soft px-6 sm:px-8 py-5">
-          <div>
-            <h2 className="font-serif text-2xl sm:text-3xl text-deep-black">Find Your Ring Size</h2>
+        <header className="border-b border-metal-gold/20 bg-neutral-soft">
+          <div className="flex items-center justify-between px-6 sm:px-8 py-5">
+            <div>
+              <h2 className="font-serif text-2xl sm:text-3xl text-deep-black">Find Your Ring Size</h2>
+            </div>
+            <button
+              onClick={onClose}
+              className="rounded-full border border-metal-gold/30 p-2 text-deep-black/70 transition-colors hover:border-metal-gold hover:text-deep-black hover:bg-white"
+              aria-label="Close size guide"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="rounded-full border border-metal-gold/30 p-2 text-deep-black/70 transition-colors hover:border-metal-gold hover:text-deep-black hover:bg-white"
-            aria-label="Close size guide"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          
+          {/* Tabs */}
+          <div className="flex border-t border-metal-gold/10">
+            <button
+              onClick={() => setActiveTab('measure')}
+              className={`flex-1 px-6 py-3 text-sm font-medium transition-colors ${
+                activeTab === 'measure'
+                  ? 'text-deep-black border-b-2 border-metal-gold bg-white/50'
+                  : 'text-deep-black/60 hover:text-deep-black hover:bg-white/30'
+              }`}
+            >
+              How to Measure
+            </button>
+            <button
+              onClick={() => setActiveTab('select')}
+              className={`flex-1 px-6 py-3 text-sm font-medium transition-colors ${
+                activeTab === 'select'
+                  ? 'text-deep-black border-b-2 border-metal-gold bg-white/50'
+                  : 'text-deep-black/60 hover:text-deep-black hover:bg-white/30'
+              }`}
+            >
+              Select Your Size
+            </button>
+          </div>
         </header>
 
         {/* Main Content */}
-        <main className="space-y-8 sm:space-y-12 px-6 sm:px-8 py-8">
+        <main className="px-6 sm:px-8 py-8">
+          {activeTab === 'measure' ? (
+            <div className="space-y-8 sm:space-y-12">
           {/* Measure Your Finger Section */}
           <section className="space-y-5">
             <h3 className="font-serif text-xl sm:text-2xl text-deep-black">Measure Your Finger</h3>
@@ -143,6 +188,62 @@ export default function SizeGuideModal({ isOpen, onClose, category = 'rings' }: 
               Contact us via WhatsApp, phone, or email for personalized guidance.
             </p>
           </div>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-serif text-xl sm:text-2xl text-deep-black mb-2">Select Your Size</h3>
+                <p className="text-sm text-deep-black/70">Choose your ring size from the chart below</p>
+              </div>
+              
+              {/* Size Chart Table */}
+              <div className="overflow-x-auto rounded-xl border border-metal-gold/20">
+                <table className="w-full text-sm">
+                  <thead className="bg-neutral-soft">
+                    <tr className="border-b border-metal-gold/20">
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">Tiffany Size</th>
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">United States Size</th>
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">Interior Diameter / Inside Circumference</th>
+                      <th className="px-4 py-3 text-left font-semibold text-deep-black">Circumference (MM)</th>
+                      <th className="px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white">
+                    {RING_SIZES.map((size, index) => (
+                      <tr 
+                        key={size.us} 
+                        className={`border-b border-metal-gold/10 last:border-0 hover:bg-neutral-soft/50 transition-colors ${
+                          selectedSize === size.us ? 'bg-metal-gold/10' : ''
+                        }`}
+                      >
+                        <td className="px-4 py-3 text-deep-black">{size.tiffany}</td>
+                        <td className="px-4 py-3 text-deep-black">{size.us}</td>
+                        <td className="px-4 py-3 text-deep-black">{size.diameter}</td>
+                        <td className="px-4 py-3 text-deep-black">{size.circumference}</td>
+                        <td className="px-4 py-3">
+                          <button
+                            onClick={() => onSelectSize?.(size.us)}
+                            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                              selectedSize === size.us
+                                ? 'border-metal-gold bg-metal-gold'
+                                : 'border-metal-gold/30 hover:border-metal-gold'
+                            }`}
+                            aria-label={`Select size ${size.us}`}
+                          >
+                            {selectedSize === size.us && (
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </main>
 
         {/* Footer */}
