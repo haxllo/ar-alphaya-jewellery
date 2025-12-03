@@ -17,27 +17,27 @@ export default function ShippingProgress({
   const hasQualified = subtotal >= freeShippingThreshold
 
   return (
-    <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+    <div className="bg-green-50/50 border border-metal-gold/20 rounded-lg p-4 mb-4">
       <div className="flex items-start gap-3">
-        <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-metal-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
         <div className="flex-1">
           {hasQualified ? (
-            <p className="text-sm font-medium text-blue-900">
+            <p className="text-sm font-medium text-deep-black">
               🎉 You qualify for <strong>free shipping</strong> within Sri Lanka!
             </p>
           ) : (
-            <p className="text-sm font-medium text-blue-900">
+            <p className="text-sm font-medium text-deep-black">
               Spend <strong>{formatPrice(remaining)}</strong> more to get <strong>free shipping</strong> within Sri Lanka
             </p>
           )}
           
           {/* Progress Bar */}
           <div className="mt-2">
-            <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
+            <div className="h-2 bg-metal-gold/20 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-blue-600 transition-all duration-300 ease-out"
+                className="h-full bg-metal-gold rounded-full transition-all duration-300 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>

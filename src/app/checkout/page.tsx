@@ -228,7 +228,7 @@ function CheckoutPage() {
             size="lg"
             disabled={isProcessing}
             onClick={handleSubmit}
-            className="hidden w-full lg:flex bg-black hover:bg-gray-800 text-white font-semibold text-base h-12 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="hidden w-full lg:flex bg-deep-black hover:bg-forest-deep text-white font-semibold text-base h-12 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isProcessing ? (
               <>

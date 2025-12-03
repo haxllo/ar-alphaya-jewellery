@@ -42,7 +42,7 @@ export default function OrderSummaryCard({
   }
 
   return (
-    <Card className="lg:sticky lg:top-24 lg:h-fit border-metal-gold-200 bg-metal-gold-soft/80 shadow-amber">
+    <Card className="lg:sticky lg:top-24 lg:h-fit border-metal-gold/20 bg-white/80 shadow-luxe">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-metal-gold-brown">
           <Package className="h-5 w-5 text-metal-gold" />
