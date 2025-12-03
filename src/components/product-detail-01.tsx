@@ -1,19 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon, Share2 } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon, Heart, CheckCircle, Truck, RotateCcw, CreditCard } from "lucide-react";
 import { usePriceFormatter } from "@/hooks/useCurrency";
 import type { Product, PlatingOption } from "@/types/product";
 import { fixUploadcareUrl } from "@/lib/fix-uploadcare-url";
 
 // Standard plating options for jewelry (925 Sterling Silver base)
 const STANDARD_PLATING_OPTIONS: PlatingOption[] = [
-	{ type: "925-silver", label: "None (925 Sterling Silver)", priceAdjustment: 0, available: true },
-	{ type: "24k-gold", label: "24K Gold Plated", priceAdjustment: 5000, available: true },
-	{ type: "18k-rose-gold", label: "18K Rose Gold Plated", priceAdjustment: 3000, available: true },
+	{ type: "925-silver", label: "925 Silver", priceAdjustment: 0, available: true },
+	{ type: "24k-gold", label: "24K Gold", priceAdjustment: 5000, available: true },
+	{ type: "18k-rose-gold", label: "18K Rose Gold", priceAdjustment: 3000, available: true },
 ];
 
 interface ProductDetailOneProps {
@@ -58,32 +57,16 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 		onAddToCart?.(product, { plating: selectedPlating, quantity });
 	};
 
-	const handleShare = async () => {
-		if (navigator.share) {
-			try {
-				await navigator.share({
-					title: product.name,
-					text: product.description,
-					url: window.location.href,
-				});
-			} catch (err) {
-				console.log('Share cancelled');
-			}
-		} else {
-			// Fallback: copy to clipboard
-			navigator.clipboard.writeText(window.location.href);
-			alert('Link copied to clipboard!');
-		}
-	};
-
-	// Helper function to format plating option text
-	const getPlatingLabel = (plating: PlatingOption) => {
-		return plating.label || plating.type;
+	// Get short plating label for button display
+	const getShortPlatingLabel = (plating: PlatingOption) => {
+		const label = plating.label || plating.type;
+		// Extract the key part (e.g., "925 Silver", "24K Gold", "18K Rose Gold")
+		return label.replace(/None \(|\)| Plated/g, '').trim();
 	};
 
 	return (
-		<div className="w-full max-w-6xl mx-auto px-6 pt-8 pb-14 not-prose">
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+		<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 not-prose">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 				{/* Image Section */}
 				<div className="space-y-4">
 					{/* Main image */}
@@ -149,36 +132,33 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 				{/* Product Info Section */}
 				<div className="space-y-6">
-					{/* Category & Title */}
-					<div>
-						<a
-							href={`/collections/${product.category}`}
-							className="text-deep-black/40 hover:text-metal-gold inline-block mb-2 text-xs uppercase tracking-wider transition-colors"
-						>
-							{product.category.replace('-', ' ')}
-						</a>
-						<h1 className="font-serif text-3xl font-normal mb-3 text-deep-black">{product.name}</h1>
-						
-						{/* Description at top */}
-						<p className="text-deep-black/70 leading-relaxed">{product.description}</p>
-					</div>
+					{/* Category */}
+					<p className="text-xs uppercase tracking-wider text-deep-black/60">
+						{product.category.replace('-', ' ')}
+					</p>
+
+					{/* Title */}
+					<h1 className="font-serif text-3xl lg:text-4xl font-normal text-deep-black leading-tight">
+						{product.name}
+					</h1>
 
 					{/* Price */}
-					<div className="flex items-end gap-3">
+					<div className="flex items-center gap-3">
 						<p className="text-3xl font-semibold text-deep-black">
 							{formatPrice(finalPrice)}
 						</p>
-						{selectedPlating.priceAdjustment > 0 && (
-							<p className="text-deep-black/50 line-through text-xl mb-1">
-								{formatPrice(product.price)}
-							</p>
-						)}
+						<Heart className="w-5 h-5 text-deep-black/40 hover:text-metal-gold cursor-pointer transition-colors" />
 					</div>
 
-					{/* Plating Options */}
+					{/* Description */}
+					<p className="text-deep-black/70 leading-relaxed">
+						{product.description}
+					</p>
+
+					{/* Plating Options - Dropdown */}
 					<div>
 						<label htmlFor="plating-select" className="block text-sm font-medium mb-3 text-deep-black">
-							Plating Options
+							Materials
 						</label>
 						<div className="relative">
 							<select
@@ -188,7 +168,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 									const selected = platingOptions.find(p => p.type === e.target.value)
 									if (selected) setSelectedPlating(selected)
 								}}
-								className="w-full px-4 py-3 pr-10 rounded-xl border-2 border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
+								className="w-full px-4 py-3 pr-10 rounded-lg border border-metal-gold/20 bg-white text-deep-black font-medium focus:border-metal-gold focus:outline-none focus:ring-2 focus:ring-metal-gold/20 transition-all cursor-pointer hover:border-metal-gold/40 appearance-none"
 							>
 								{platingOptions.map((plating) => (
 									<option 
@@ -196,7 +176,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 										value={plating.type}
 										disabled={!plating.available}
 									>
-										{getPlatingLabel(plating)}
+										{getShortPlatingLabel(plating)}
 										{plating.priceAdjustment > 0 && ` (+${formatPrice(plating.priceAdjustment)})`}
 									</option>
 								))}
@@ -210,76 +190,65 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						</div>
 					</div>
 
-					{/* Materials - if available */}
-					{product.materials && product.materials.length > 0 && (
-						<div>
-							<h3 className="text-sm font-medium mb-2 text-deep-black">Metal</h3>
-							<p className="text-sm text-deep-black/70">{product.materials.join(", ")}</p>
-						</div>
-					)}
-
-					{/* Quantity & Add to Cart */}
-					<div className="space-y-3">
-						<h3 className="text-sm font-medium text-deep-black">Quantity</h3>
-						<div className="flex items-center gap-4">
-							<div className="flex items-center border border-metal-gold/20 rounded-xl">
-								<button
-									onClick={decrementQuantity}
-									className="h-10 w-10 rounded-xl hover:bg-neutral-soft transition-colors flex items-center justify-center"
-								>
-									<MinusIcon className="w-4 h-4 text-deep-black" />
-								</button>
-								<span className="w-12 text-center font-medium text-deep-black">{quantity}</span>
-								<button
-									onClick={incrementQuantity}
-									className="h-10 w-10 rounded-xl hover:bg-neutral-soft transition-colors flex items-center justify-center"
-								>
-									<PlusIcon className="w-4 h-4 text-deep-black" />
-								</button>
-							</div>
+					{/* Quantity */}
+					<div>
+						<h3 className="text-sm font-medium mb-3 text-deep-black">Quantity</h3>
+						<div className="flex items-center border border-metal-gold/20 rounded-lg w-fit">
 							<button
-								onClick={handleAddToCart}
-								className="flex-1 rounded-full bg-metal-gold py-3 px-6 text-sm font-semibold tracking-wider text-neutral-soft transition-all duration-300 hover:bg-forest-deep hover:-translate-y-0.5"
+								onClick={decrementQuantity}
+								className="h-12 w-12 hover:bg-neutral-soft transition-colors flex items-center justify-center"
+								aria-label="Decrease quantity"
 							>
-								Add to cart
+								<MinusIcon className="w-4 h-4 text-deep-black" />
+							</button>
+							<span className="w-16 text-center font-medium text-deep-black">{quantity}</span>
+							<button
+								onClick={incrementQuantity}
+								className="h-12 w-12 hover:bg-neutral-soft transition-colors flex items-center justify-center"
+								aria-label="Increase quantity"
+							>
+								<PlusIcon className="w-4 h-4 text-deep-black" />
 							</button>
 						</div>
 					</div>
 
-					{/* Buy it now button - optional */}
+					{/* Add to Cart Button */}
 					<button
 						onClick={handleAddToCart}
-						className="w-full rounded-full border border-metal-gold/20 py-3 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:border-metal-gold hover:-translate-y-0.5"
+						className="w-full rounded-full bg-deep-black py-3.5 px-6 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep flex items-center justify-center gap-2"
 					>
-						Buy it now
+						<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+						</svg>
+						Add to Cart
 					</button>
 
-					{/* Share button */}
+					{/* View Full Details Button */}
 					<button
-						onClick={handleShare}
-						className="flex items-center gap-2 text-sm text-deep-black/50 hover:text-metal-gold transition-colors"
+						className="w-full rounded-full border border-deep-black/20 py-3.5 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:border-deep-black"
 					>
-						<Share2 className="w-4 h-4" />
-						Share
+						View Full Details
 					</button>
 
-					{/* Additional info - badges/icons like your example */}
-					{(product.statusNote || product.inStock === false) && (
-						<div className="space-y-2 pt-6 border-t border-metal-gold/20">
-							{product.statusNote && (
-								<div className="flex items-start gap-2 text-sm text-deep-black/70">
-									<span>✨</span>
-									<span>{product.statusNote}</span>
-								</div>
-							)}
-							{product.inStock === false && (
-								<div className="flex items-start gap-2 text-sm text-deep-black/70">
-									<span>💎</span>
-									<span>Made to order • {product.leadTime || "4-6 weeks production time"}</span>
-								</div>
-							)}
+					{/* Feature Badges - Like modal */}
+					<div className="grid grid-cols-2 gap-4 pt-6 border-t border-metal-gold/10">
+						<div className="flex items-center gap-2 text-sm text-deep-black/70">
+							<CheckCircle className="w-4 h-4 flex-shrink-0" />
+							<span>Authentic Gemstones</span>
 						</div>
-					)}
+						<div className="flex items-center gap-2 text-sm text-deep-black/70">
+							<CreditCard className="w-4 h-4 flex-shrink-0" />
+							<span>Secure Payment</span>
+						</div>
+						<div className="flex items-center gap-2 text-sm text-deep-black/70">
+							<Truck className="w-4 h-4 flex-shrink-0" />
+							<span>Free Shipping (SL)</span>
+						</div>
+						<div className="flex items-center gap-2 text-sm text-deep-black/70">
+							<RotateCcw className="w-4 h-4 flex-shrink-0" />
+							<span>Easy Returns</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
