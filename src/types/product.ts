@@ -9,7 +9,7 @@ export type GemstoneOption = {
 };
 
 export type PlatingOption = {
-  type: '925-silver' | '24k-gold' | '18k-rose-gold';
+  type: 'none' | '925-silver' | '24k-gold' | '18k-rose-gold';
   label: string;
   priceAdjustment: number; // 0, 5000, 3000
   available: boolean;
