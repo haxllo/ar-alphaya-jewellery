@@ -82,12 +82,12 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 	};
 
 	return (
-		<div className="w-full max-w-6xl mx-auto px-6 py-14 not-prose">
+		<div className="w-full max-w-6xl mx-auto px-6 pt-8 pb-14 not-prose">
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				{/* Image Section */}
 				<div className="space-y-4">
 					{/* Main image */}
-					<div className="relative aspect-[4/5] bg-white border border-metal-gold/10 rounded-2xl overflow-hidden shadow-subtle">
+					<div className="relative aspect-square bg-white border border-metal-gold/10 rounded-2xl overflow-hidden shadow-subtle">
 						{images.length > 0 ? (
 							<Image
 								src={fixUploadcareUrl(images[currentImageIndex])}
