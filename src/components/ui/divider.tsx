@@ -8,7 +8,7 @@ export function Divider({ className }: DividerProps) {
   return (
     <div 
       className={cn(
-        "absolute inset-x-0 h-px w-full bg-amber-mirage-200",
+        "absolute inset-x-0 h-px w-full bg-metal-gold/20",
         className
       )} 
     />
