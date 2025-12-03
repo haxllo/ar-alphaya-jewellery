@@ -105,7 +105,7 @@ export default function Header() {
   }, [searchQuery, showSearch, fetchSuggestions]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-amber-mirage-200/50 bg-amber-mirage-soft/90 backdrop-blur-xl supports-backdrop:bg-amber-mirage-soft/80 shadow-[0_1px_0_rgba(196,139,40,0.1)]">
+    <header className="sticky top-0 z-50 border-t border-b border-amber-mirage-200/50 bg-amber-mirage-soft/90 backdrop-blur-xl supports-backdrop:bg-amber-mirage-soft/80 shadow-[0_1px_0_rgba(196,139,40,0.1)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 py-2 sm:py-3 gap-2 sm:gap-4 md:gap-6">
         {/* Left: Logo */}
         <div className="flex-1">
