@@ -93,10 +93,10 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 								key={index}
 								onClick={() => setCurrentImageIndex(index)}
 								className={cn(
-									"aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-colors",
+									"aspect-square bg-neutral-soft rounded-lg overflow-hidden border-2 transition-colors",
 									currentImageIndex === index
-										? "border-gray-900"
-										: "border-transparent hover:border-gray-300",
+										? "border-metal-gold"
+										: "border-transparent hover:border-metal-gold/30",
 								)}
 							>
 								<Image
@@ -104,25 +104,25 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 									alt={`${product.name} ${index + 1}`}
 									width={112}
 									height={112}
-									className="w-full h-full object-cover"
+									className="w-full h-full object-contain"
 								/>
 							</button>
 						))}
 					</div>
 
 					{/* Main image */}
-					<div className="flex-1 relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
+					<div className="flex-1 relative aspect-square bg-neutral-soft rounded-lg overflow-hidden">
 						{images.length > 0 ? (
 							<Image
 								src={fixUploadcareUrl(images[currentImageIndex])}
 								alt={product.name}
 								fill
-								className="object-cover"
+								className="object-contain"
 								sizes="(max-width: 768px) 100vw, 50vw"
 								priority
 							/>
 						) : (
-							<div className="flex items-center justify-center h-full text-gray-400">
+							<div className="flex items-center justify-center h-full text-deep-black/30">
 								No image available
 							</div>
 						)}
