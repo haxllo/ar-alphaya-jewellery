@@ -85,33 +85,9 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 		<div className="w-full max-w-6xl mx-auto px-6 py-14 not-prose">
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				{/* Image Section */}
-				<div className="flex gap-3">
-					{/* Thumbnail column */}
-					<div className="flex flex-col w-32 gap-3">
-						{images.slice(0, 4).map((image, index) => (
-							<button
-								key={index}
-								onClick={() => setCurrentImageIndex(index)}
-								className={cn(
-									"aspect-square bg-white rounded-xl overflow-hidden border-2 transition-colors shadow-subtle",
-									currentImageIndex === index
-										? "border-metal-gold"
-										: "border-metal-gold/10 hover:border-metal-gold/30",
-								)}
-							>
-								<Image
-									src={fixUploadcareUrl(image)}
-									alt={`${product.name} ${index + 1}`}
-									width={128}
-									height={128}
-									className="w-full h-full object-contain p-2"
-								/>
-							</button>
-						))}
-					</div>
-
+				<div className="space-y-4">
 					{/* Main image */}
-					<div className="flex-1 relative aspect-[4/5] bg-white border border-metal-gold/10 rounded-2xl overflow-hidden shadow-subtle">
+					<div className="relative aspect-[4/5] bg-white border border-metal-gold/10 rounded-2xl overflow-hidden shadow-subtle">
 						{images.length > 0 ? (
 							<Image
 								src={fixUploadcareUrl(images[currentImageIndex])}
@@ -144,6 +120,30 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 								</button>
 							</>
 						)}
+					</div>
+
+					{/* Thumbnail Row */}
+					<div className="flex gap-3 overflow-x-auto pb-2 thumbnail-scroll">
+						{images.map((image, index) => (
+							<button
+								key={index}
+								onClick={() => setCurrentImageIndex(index)}
+								className={cn(
+									"flex-shrink-0 aspect-square w-20 bg-white rounded-xl overflow-hidden border-2 transition-colors shadow-subtle",
+									currentImageIndex === index
+										? "border-metal-gold"
+										: "border-metal-gold/10 hover:border-metal-gold/30",
+								)}
+							>
+								<Image
+									src={fixUploadcareUrl(image)}
+									alt={`${product.name} ${index + 1}`}
+									width={80}
+									height={80}
+									className="w-full h-full object-contain p-1"
+								/>
+							</button>
+						))}
 					</div>
 				</div>
 

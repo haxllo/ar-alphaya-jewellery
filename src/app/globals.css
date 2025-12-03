@@ -21,6 +21,24 @@
     animation: crossfade 8s ease-in-out infinite;
     animation-delay: 4s;
   }
+  
+  /* Product Gallery Thumbnail Scrollbar */
+  .thumbnail-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .thumbnail-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .thumbnail-scroll::-webkit-scrollbar-thumb {
+    background: rgba(214, 195, 158, 0.3);
+    border-radius: 2px;
+  }
+  
+  .thumbnail-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(214, 195, 158, 0.5);
+  }
 }
 
 :root {
