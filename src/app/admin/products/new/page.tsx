@@ -26,7 +26,6 @@ export default function NewProductPage() {
     name: '',
     slug: '',
     description: '',
-    cardDescription: '',
     price: 0,
     currency: 'LKR',
     images: [],

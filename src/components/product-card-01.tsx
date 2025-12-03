@@ -31,9 +31,9 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 
 	return (
 		// Border Radius Formula: Inner + Padding = Outer
-		// Card outer: 24px (rounded-2xl) | Padding: 16px (p-4) | Image inner: 8px (rounded-lg)
+		// Card outer: 24px (rounded-2xl) | Padding: 20px (p-5) | Image inner: 8px (rounded-lg)
 		<Card className="w-full max-w-[320px] border-metal-gold/20 bg-white/80 shadow-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe hover:scale-[1.02] rounded-2xl">
-			<CardContent className="p-4">
+			<CardContent className="p-5">
 				{/* Product Image */}
 				<Link href={`/products/${product.slug}`} className="block relative mb-4">
 					<div className="bg-neutral-soft rounded-lg flex items-center justify-center h-[280px] relative overflow-hidden border border-metal-gold/10">
@@ -78,17 +78,14 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 				</Link>
 
 				{/* Product Info */}
-				<div className="mb-4">
+				<div className="mb-4 space-y-2">
 					<Link href={`/products/${product.slug}`}>
-						<CardTitle className="text-lg leading-tight mb-2 text-deep-black hover:text-metal-gold transition-colors line-clamp-2 font-serif font-normal">
+						<CardTitle className="text-lg leading-tight text-deep-black hover:text-metal-gold transition-colors line-clamp-2 font-serif font-normal">
 							{product.name}
 						</CardTitle>
 					</Link>
-					<CardDescription className="text-sm text-deep-black/60 line-clamp-2">
-						{product.cardDescription || product.description}
-					</CardDescription>
 					{product.materials && product.materials.length > 0 && (
-						<p className="text-xs text-deep-black/40 mt-1">
+						<p className="text-xs text-deep-black/40">
 							{product.materials.slice(0, 2).join(", ")}
 						</p>
 					)}
