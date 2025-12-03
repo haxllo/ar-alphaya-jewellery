@@ -62,7 +62,7 @@ export default async function Home() {
     },
   ]
   return (
-    <div className="min-h-screen space-y-32 md:space-y-40 pb-40 pt-10 bg-neutral-soft">
+    <div className="min-h-screen space-y-32 md:space-y-40 pb-40 bg-neutral-soft">
       {/* Hero Section - Minimal */}
       <section className="relative overflow-hidden min-h-[50vh] flex items-center">
         <div className="absolute inset-0">
