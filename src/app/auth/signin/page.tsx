@@ -18,6 +18,12 @@ function SignInContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    if (!agreedToTerms) {
+      setError('Please agree to the Terms & Conditions and Privacy Policy')
+      return
+    }
+
     setIsLoading(true)
 
     try {
