@@ -161,9 +161,9 @@ export default async function Home() {
         </div>
         <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.35em] text-nocturne-500">FAQ</p>
-            <h2 className="font-serif text-3xl text-nocturne-900 md:text-4xl">Answers to the questions I’m asked most</h2>
-            <p className="text-sm leading-relaxed text-nocturne-600">
+            <p className="text-xs uppercase tracking-[0.35em] text-deep-black-500">FAQ</p>
+            <h2 className="font-serif text-3xl text-deep-black-900 md:text-4xl">Answers to the questions I’m asked most</h2>
+            <p className="text-sm leading-relaxed text-deep-black-600">
               Every project starts with clarity. If you need details beyond what’s here, send a message and I’ll respond within two business days.
             </p>
             <Link href="/contact" className="inline-flex w-full sm:w-fit items-center justify-center rounded-full bg-foreground px-6 sm:px-7 py-3 text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.28em] text-white transition-all duration-300 hover:-translate-y-0.5">

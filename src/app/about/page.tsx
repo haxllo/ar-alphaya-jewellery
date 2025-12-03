@@ -68,7 +68,7 @@ export default function AboutPage() {
         <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-metal-gold/20 bg-metal-gold/5 p-8 text-deep-black md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs uppercase tracking-wider text-deep-black/40">Ready to begin</p>
-            <p className="mt-2 font-serif text-2xl text-nocturne-900">Let’s craft your next chapter</p>
+            <p className="mt-2 font-serif text-2xl text-deep-black-900">Let’s craft your next chapter</p>
           </div>
           <a href="/contact" className="inline-flex items-center justify-center rounded-full bg-deep-black px-8 py-3 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep">
             Book a consultation

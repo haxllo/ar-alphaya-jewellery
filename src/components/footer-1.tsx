@@ -53,14 +53,14 @@ export function FooterOne() {
   ];
 
   return (
-    <footer className="relative bg-amber-mirage-soft">
+    <footer className="relative bg-metal-gold-soft">
       <div
         className={cn(
-          "mx-auto max-w-7xl lg:border-x border-amber-mirage-200",
+          "mx-auto max-w-7xl lg:border-x border-metal-gold-200",
           "bg-[radial-gradient(35%_80%_at_30%_0%,rgb(196,139,40,0.1),transparent)]"
         )}
       >
-        <div className="absolute inset-x-0 h-px w-full bg-amber-mirage-200" />
+        <div className="absolute inset-x-0 h-px w-full bg-metal-gold-200" />
         <div className="grid max-w-7xl grid-cols-6 gap-6 p-4">
           <div className="col-span-6 flex flex-col gap-4 pt-5 md:col-span-4">
             <Link className="w-max inline-flex items-center gap-3" href="/">
@@ -71,11 +71,11 @@ export function FooterOne() {
                 height={32}
                 className="object-contain"
               />
-              <span className="font-serif text-lg text-amber-mirage-brown">
+              <span className="font-serif text-lg text-metal-gold-brown">
                 AR Alphaya
               </span>
             </Link>
-            <p className="max-w-sm text-balance text-amber-mirage-700 text-sm leading-relaxed">
+            <p className="max-w-sm text-balance text-metal-gold-700 text-sm leading-relaxed">
               Bespoke jewellery crafted by hand in Kandy, Sri Lanka. Custom pieces at everyday prices—affordable, personal, and made just for you.
             </p>
             <div className="flex gap-2">
@@ -86,7 +86,7 @@ export function FooterOne() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={item.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-md border border-amber-mirage-200 bg-transparent text-amber-mirage-brown transition-colors hover:bg-amber-mirage-100 hover:text-amber-mirage-gold hover:border-amber-mirage-gold"
+                  className="flex h-9 w-9 items-center justify-center rounded-md border border-metal-gold-200 bg-transparent text-metal-gold-brown transition-colors hover:bg-metal-gold-100 hover:text-metal-gold-gold hover:border-metal-gold-gold"
                 >
                   <item.icon className="size-4" />
                 </a>
@@ -94,11 +94,11 @@ export function FooterOne() {
             </div>
           </div>
           <div className="col-span-3 w-full md:col-span-1">
-            <span className="text-amber-mirage-600 text-xs">Resources</span>
+            <span className="text-metal-gold-600 text-xs">Resources</span>
             <div className="mt-2 flex flex-col gap-2">
               {resources.map(({ href, title }) => (
                 <Link
-                  className="w-max text-sm text-amber-mirage-brown hover:underline hover:text-amber-mirage-gold"
+                  className="w-max text-sm text-metal-gold-brown hover:underline hover:text-metal-gold-gold"
                   href={href}
                   key={title}
                 >
@@ -108,11 +108,11 @@ export function FooterOne() {
             </div>
           </div>
           <div className="col-span-3 w-full md:col-span-1">
-            <span className="text-amber-mirage-600 text-xs">Company</span>
+            <span className="text-metal-gold-600 text-xs">Company</span>
             <div className="mt-2 flex flex-col gap-2">
               {company.map(({ href, title }) => (
                 <Link
-                  className="w-max text-sm text-amber-mirage-brown hover:underline hover:text-amber-mirage-gold"
+                  className="w-max text-sm text-metal-gold-brown hover:underline hover:text-metal-gold-gold"
                   href={href}
                   key={title}
                 >
@@ -122,9 +122,9 @@ export function FooterOne() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-x-0 h-px w-full bg-amber-mirage-200" />
+        <div className="absolute inset-x-0 h-px w-full bg-metal-gold-200" />
         <div className="flex max-w-4xl flex-col justify-between gap-2 py-4">
-          <p className="text-center font-light text-amber-mirage-600 text-sm">
+          <p className="text-center font-light text-metal-gold-600 text-sm">
             &copy; {new Date().getFullYear()} AR Alphaya Jewellery. All rights reserved.
           </p>
         </div>

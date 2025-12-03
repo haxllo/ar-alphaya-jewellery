@@ -132,7 +132,7 @@ export default function CartPage() {
           <div className="space-y-4">
             <Link 
               href="/" 
-              className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-nocturne-900"
+              className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
             >
               Continue Shopping
             </Link>
@@ -187,12 +187,12 @@ export default function CartPage() {
         
         {/* Order Summary - Sticky on Desktop */}
         <div className="lg:sticky lg:top-24 lg:h-fit space-y-4">
-          <div className="border border-amber-mirage-200 bg-amber-mirage-soft/80 shadow-amber rounded-lg p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-amber-mirage-brown">Order Summary</h2>
+          <div className="border border-metal-gold-200 bg-metal-gold-soft/80 shadow-amber rounded-lg p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-metal-gold-brown">Order Summary</h2>
             
             <DeliveryEstimate />
             
-            <div className="border-t border-amber-mirage-200 pt-4">
+            <div className="border-t border-metal-gold-200 pt-4">
               <PromoCode onApply={handleApplyPromoCode} />
             </div>
             
