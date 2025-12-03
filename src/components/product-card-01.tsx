@@ -30,11 +30,13 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 	};
 
 	return (
-		<Card className="w-full max-w-[320px] border-metal-gold/20 bg-white/80 shadow-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe hover:scale-[1.02]">
+		// Border Radius Formula: Inner + Padding = Outer
+		// Card outer: 24px (rounded-2xl) | Padding: 16px (p-4) | Image inner: 8px (rounded-lg)
+		<Card className="w-full max-w-[320px] border-metal-gold/20 bg-white/80 shadow-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe hover:scale-[1.02] rounded-2xl">
 			<CardContent className="p-4">
 				{/* Product Image */}
 				<Link href={`/products/${product.slug}`} className="block relative mb-4">
-					<div className="bg-neutral-soft rounded-2xl flex items-center justify-center h-[280px] relative overflow-hidden border border-metal-gold/10">
+					<div className="bg-neutral-soft rounded-lg flex items-center justify-center h-[280px] relative overflow-hidden border border-metal-gold/10">
 						{product.images && product.images[0] ? (
 							<Image
 								src={fixUploadcareUrl(product.images[0])}
@@ -68,7 +70,7 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 						</Button>
 
 						{product.featured && (
-							<div className="absolute top-2 left-2 bg-metal-gold text-deep-black px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider">
+							<div className="absolute top-2 left-2 bg-metal-gold text-deep-black px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider">
 								Featured
 							</div>
 						)}
