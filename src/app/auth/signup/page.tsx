@@ -61,11 +61,11 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-neutral-soft">
       <div className="max-w-md w-full">
-        <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-          <p className="text-gray-600 mb-8">Sign up to get started</p>
+        <div className="bg-white shadow-subtle border border-metal-gold/20 rounded-2xl p-8">
+          <h1 className="text-3xl font-serif font-normal text-deep-black mb-2">Create Account</h1>
+          <p className="text-deep-black/70 mb-8">Sign up to get started</p>
 
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -75,7 +75,7 @@ export default function SignUpPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="name" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Full Name
               </label>
               <input
@@ -84,13 +84,13 @@ export default function SignUpPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="John Doe"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Email Address
               </label>
               <input
@@ -99,13 +99,13 @@ export default function SignUpPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Password
               </label>
               <input
@@ -114,14 +114,14 @@ export default function SignUpPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="At least 6 characters"
                 minLength={6}
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Confirm Password
               </label>
               <input
@@ -130,7 +130,7 @@ export default function SignUpPage() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="Confirm your password"
                 minLength={6}
               />
@@ -139,16 +139,16 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-deep-black/70">
               Already have an account?{' '}
-              <Link href="/auth/signin" className="text-black font-medium hover:underline">
+              <Link href="/auth/signin" className="text-deep-black font-medium hover:text-metal-gold hover:underline">
                 Sign in
               </Link>
             </p>

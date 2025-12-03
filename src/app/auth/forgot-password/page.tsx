@@ -36,21 +36,21 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-6 py-12">
+      <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-neutral-soft">
         <div className="max-w-md w-full">
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-8 text-center">
+          <div className="bg-white shadow-subtle border border-metal-gold/20 rounded-2xl p-8 text-center">
             <div className="mb-4">
               <svg className="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="text-2xl font-serif font-normal text-deep-black mb-2">Check your email</h1>
+            <p className="text-deep-black/70 mb-6">
               We've sent a password reset link to {email}
             </p>
             <Link
               href="/auth/signin"
-              className="text-black font-medium hover:underline"
+              className="text-deep-black font-medium hover:text-metal-gold hover:underline"
             >
               Back to sign in
             </Link>
@@ -61,11 +61,11 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-neutral-soft">
       <div className="max-w-md w-full">
-        <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Reset Password</h1>
-          <p className="text-gray-600 mb-8">Enter your email to receive a password reset link</p>
+        <div className="bg-white shadow-subtle border border-metal-gold/20 rounded-2xl p-8">
+          <h1 className="text-3xl font-serif font-normal text-deep-black mb-2">Reset Password</h1>
+          <p className="text-deep-black/70 mb-8">Enter your email to receive a password reset link</p>
 
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Email Address
               </label>
               <input
@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="you@example.com"
               />
             </div>
@@ -92,7 +92,7 @@ export default function ForgotPasswordPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Sending...' : 'Send Reset Link'}
             </button>
@@ -101,7 +101,7 @@ export default function ForgotPasswordPage() {
           <div className="mt-6 text-center">
             <Link
               href="/auth/signin"
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm text-deep-black/70 hover:text-metal-gold"
             >
               Back to sign in
             </Link>

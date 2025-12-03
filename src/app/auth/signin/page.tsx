@@ -41,11 +41,11 @@ function SignInContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-neutral-soft">
       <div className="max-w-md w-full">
-        <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign In</h1>
-          <p className="text-gray-600 mb-8">Sign in to your account to continue</p>
+        <div className="bg-white shadow-subtle border border-metal-gold/20 rounded-2xl p-8">
+          <h1 className="text-3xl font-serif font-normal text-deep-black mb-2">Sign In</h1>
+          <p className="text-deep-black/70 mb-8">Sign in to your account to continue</p>
 
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -55,7 +55,7 @@ function SignInContent() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Email Address
               </label>
               <input
@@ -64,13 +64,13 @@ function SignInContent() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-deep-black/70 mb-1">
                 Password
               </label>
               <input
@@ -79,7 +79,7 @@ function SignInContent() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full border border-metal-gold/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-metal-gold focus:border-metal-gold"
                 placeholder="Enter your password"
               />
             </div>
@@ -89,15 +89,15 @@ function SignInContent() {
                 <input
                   id="remember"
                   type="checkbox"
-                  className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"
+                  className="h-4 w-4 text-deep-black focus:ring-metal-gold border-metal-gold/20 rounded"
                 />
-                <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
+                <label htmlFor="remember" className="ml-2 block text-sm text-deep-black/70">
                   Remember me
                 </label>
               </div>
               <Link
                 href="/auth/forgot-password"
-                className="text-sm text-gray-600 hover:text-gray-900"
+                className="text-sm text-deep-black/70 hover:text-metal-gold"
               >
                 Forgot password?
               </Link>
@@ -106,16 +106,16 @@ function SignInContent() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-deep-black/70">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="text-black font-medium hover:underline">
+              <Link href="/auth/signup" className="text-deep-black font-medium hover:text-metal-gold hover:underline">
                 Sign up
               </Link>
             </p>
@@ -129,8 +129,8 @@ function SignInContent() {
 export default function SignInPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="min-h-screen flex items-center justify-center bg-neutral-soft">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-deep-black"></div>
       </div>
     }>
       <SignInContent />
