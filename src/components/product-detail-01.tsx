@@ -52,7 +52,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 	const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
 
 	// Calculate final price including plating adjustment
-	const finalPrice = product.price + (selectedPlating.priceAdjustment || 0);
+	const finalPrice = product.price + selectedPlating.priceAdjustment;
 
 	const handleAddToCart = () => {
 		onAddToCart?.(product, { plating: selectedPlating, quantity });
