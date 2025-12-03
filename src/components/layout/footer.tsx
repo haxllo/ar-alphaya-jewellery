@@ -9,9 +9,9 @@ export default function Footer() {
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   
   return (
-    <footer className="relative overflow-hidden bg-nocturne-900 text-white/90">
-      <div className="pointer-events-none absolute inset-0 opacity-60" aria-hidden="true">
-        <div className="absolute -left-24 top-[-10%] h-72 w-72 rounded-full bg-gold-500/20 blur-3xl" />
+    <footer className="relative overflow-hidden bg-forest-deep text-white/90">
+      <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true">
+        <div className="absolute -left-24 top-[-10%] h-72 w-72 rounded-full bg-metal-gold/20 blur-3xl" />
         <div className="absolute bottom-[-30%] right-[-10%] h-96 w-96 rounded-full bg-white/10 blur-3xl" />
       </div>
       <div className="relative mx-auto max-w-7xl px-6 py-16 lg:py-20">
