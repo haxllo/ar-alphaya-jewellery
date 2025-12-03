@@ -57,7 +57,7 @@ function ResetPasswordContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-8">
+    <div className="min-h-screen flex items-center justify-center px-6 pt-4 pb-12">
       <div className="max-w-md w-full">
         <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Reset Password</h1>
