@@ -205,7 +205,7 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 
 					{/* Quantity */}
 					<div>
-						<h3 className="text-sm font-medium mb-3 text-deep-black">Quantity</h3>
+						<label className="block text-sm font-medium mb-3 text-deep-black">Quantity</label>
 						<div className="flex items-center gap-2 sm:gap-3">
 							<button
 								onClick={decrementQuantity}
