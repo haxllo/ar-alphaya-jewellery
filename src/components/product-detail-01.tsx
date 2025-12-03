@@ -230,24 +230,27 @@ export function ProductDetailOne({ product, onAddToCart }: ProductDetailOneProps
 						</div>
 					</div>
 
-					{/* Add to Cart Button */}
-					<button
-						onClick={handleAddToCart}
-						className="w-full rounded-full bg-deep-black py-3.5 px-6 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep flex items-center justify-center gap-2"
-					>
-						<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-						</svg>
-						Add to Cart
-					</button>
+					{/* Action Buttons - Side by Side */}
+					<div className="flex gap-3">
+						{/* Add to Cart Button */}
+						<button
+							onClick={handleAddToCart}
+							className="flex-1 rounded-full bg-deep-black py-3.5 px-6 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep flex items-center justify-center gap-2"
+						>
+							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+							</svg>
+							Add to Cart
+						</button>
 
-					{/* Buy Now Button */}
-					<button
-						onClick={handleBuyNow}
-						className="w-full rounded-full border-2 border-deep-black py-3.5 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:bg-deep-black hover:text-white"
-					>
-						Buy Now
-					</button>
+						{/* Buy Now Button */}
+						<button
+							onClick={handleBuyNow}
+							className="flex-1 rounded-full border-2 border-deep-black py-3.5 px-6 text-sm font-semibold tracking-wider text-deep-black transition-all duration-300 hover:bg-deep-black hover:text-white"
+						>
+							Buy Now
+						</button>
+					</div>
 
 					{/* Feature Badges - Like modal */}
 					<div className="grid grid-cols-2 gap-4 pt-6 border-t border-metal-gold/10">
