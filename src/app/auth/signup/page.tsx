@@ -176,8 +176,8 @@ export default function SignUpPage() {
               disabled={isLoading || !agreedToTerms}
               className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Creating Account...' : 'Create Account'}
-            </Button>
+              {isLoading ? 'Creating account...' : 'Create Account'}
+            </button>
           </form>
 
           <div className="mt-6 text-center">

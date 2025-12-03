@@ -10,7 +10,6 @@ function SignInContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/profile'
-  const message = searchParams.get('message')
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -50,14 +49,6 @@ function SignInContent() {
           <h1 className="text-3xl font-serif font-normal text-deep-black mb-2">Sign In</h1>
           <p className="text-deep-black/70 mb-8">Sign in to your account to continue</p>
 
-          {/* Success Message */}
-          {message && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
-              {message}
-            </div>
-          )}
-
-          {/* Error Message */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
               {error}
@@ -114,48 +105,13 @@ function SignInContent() {
               </Link>
             </div>
 
-            {/* Password Field */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium text-amber-mirage-700">
-                  Password
-                </Label>
-                <Link
-                  href="/auth/forgot-password"
-                  className="text-xs text-amber-mirage-600 hover:text-amber-mirage-gold transition-colors font-medium"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-mirage-400" />
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 pr-10 border-amber-mirage-200 focus:border-amber-mirage-gold focus:ring-amber-mirage-gold/30"
-                  placeholder="Enter your password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-amber-mirage-400 hover:text-amber-mirage-600 transition-colors"
-                >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                </button>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <Button
+            <button
               type="submit"
               disabled={isLoading}
               className="w-full bg-deep-black text-white py-3 px-4 rounded-full font-medium hover:bg-forest-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Signing In...' : 'Sign In'}
-            </Button>
+              {isLoading ? 'Signing in...' : 'Sign In'}
+            </button>
           </form>
 
           <div className="mt-6 text-center">
