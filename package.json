@@ -44,7 +44,7 @@
     "helmet": "^7.1.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.542.0",
-    "next": "^16.0.3",
+    "next": "^16.0.10",
     "next-auth": "^5.0.0-beta.30",
     "next-seo": "^6.8.0",
     "react": "^19.0.0",
