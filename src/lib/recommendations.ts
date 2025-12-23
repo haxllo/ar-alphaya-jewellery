@@ -4,6 +4,7 @@ import type { Product, CartItem } from '@/types/product'
 const mockProducts: Product[] = [
   {
     id: 'demo-001',
+    productId: 'demo-001',
     slug: 'sample-blue-sapphire-ring',
     name: 'Sample Blue Sapphire Ring',
     description: 'Elegant blue sapphire ring with diamond accents',
@@ -17,6 +18,7 @@ const mockProducts: Product[] = [
   },
   {
     id: 'demo-002',
+    productId: 'demo-002',
     slug: 'sample-diamond-earrings',
     name: 'Sample Diamond Stud Earrings',
     description: 'Classic diamond stud earrings in 18k gold',
@@ -29,6 +31,7 @@ const mockProducts: Product[] = [
   },
   {
     id: 'demo-003',
+    productId: 'demo-003',
     slug: 'sample-ruby-pendant',
     name: 'Sample Ruby Heart Pendant',
     description: 'Beautiful ruby heart pendant on gold chain',
@@ -40,6 +43,7 @@ const mockProducts: Product[] = [
   },
   {
     id: 'demo-004',
+    productId: 'demo-004',
     slug: 'sample-emerald-bracelet',
     name: 'Sample Emerald Tennis Bracelet',
     description: 'Stunning emerald tennis bracelet in white gold',
@@ -52,6 +56,7 @@ const mockProducts: Product[] = [
   },
   {
     id: 'demo-005',
+    productId: 'demo-005',
     slug: 'sample-pearl-necklace',
     name: 'Sample Pearl Strand Necklace',
     description: 'Classic pearl strand necklace with gold clasp',
@@ -63,6 +68,7 @@ const mockProducts: Product[] = [
   },
   {
     id: 'demo-006',
+    productId: 'demo-006',
     slug: 'sample-gold-hoops',
     name: 'Sample Gold Hoop Earrings',
     description: 'Medium size gold hoop earrings',

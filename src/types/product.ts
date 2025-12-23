@@ -17,6 +17,7 @@ export type PlatingOption = {
 
 export type Product = {
   id: string;
+  productId: string; // Added to match CMS type
   slug: string;
   name: string;
   description: string;

@@ -5,7 +5,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useWishlistStore } from '@/lib/store/wishlist'
 import { usePriceFormatter } from '@/hooks/useCurrency'
+import { useCartStore } from '@/lib/store/cart'
 import { ProductCardOne } from '@/components/product-card-01'
+import { Share2, ShoppingBag } from 'lucide-react'
 
 export default function WishlistPage() {
   const { items, clearWishlist } = useWishlistStore()
@@ -32,8 +34,6 @@ export default function WishlistPage() {
       image: product.images?.[0],
     })
   }
-
-  // ... (rest of the functions: handleClearWishlist, handleShareWishlist, handleAddAllToCart) ...
 
   const handleClearWishlist = () => {
     if (window.confirm('Are you sure you want to clear your wishlist?')) {
@@ -80,7 +80,6 @@ export default function WishlistPage() {
   }
 
   if (items.length === 0) {
-     // ... (empty state remains the same)
     return (
       <main className="mx-auto max-w-7xl px-6 py-12">
         <div className="text-center">
@@ -161,6 +160,7 @@ export default function WishlistPage() {
           // Adapt wishlist item to Product interface expected by ProductCardOne
           const product = {
             id: item.productId,
+            productId: item.productId, // Added to satisfy Product interface
             slug: item.slug,
             name: item.name,
             price: item.price,
