@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { usePriceFormatter } from "@/hooks/useCurrency";
 import { useWishlistStore } from "@/lib/store/wishlist";
@@ -36,16 +36,14 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 			<CardContent className="p-5">
 				{/* Product Image */}
 				<Link href={`/products/${product.slug}`} className="block relative mb-4">
-					{/* Responsive heights: smaller on small devices to avoid overly tall cards */}
-					<div className="bg-neutral-soft rounded-lg flex items-center justify-center relative overflow-hidden border border-metal-gold/10 h-[220px] sm:h-[280px]">
+					<div className="bg-neutral-soft rounded-lg flex items-center justify-center h-[280px] relative overflow-hidden border border-metal-gold/10">
 						{product.images && product.images[0] ? (
 							<Image
 								src={fixUploadcareUrl(product.images[0])}
 								alt={product.name}
 								fill
-								className="object-cover object-center transition-transform duration-200 hover:scale-105 active:scale-100"
-								// sizes: prefer viewport-aware choices so narrow containers don't force full-viewport assets
-								sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 320px"
+								className="object-cover transition-transform duration-300 hover:scale-105"
+								sizes="(max-width: 768px) 100vw, 320px"
 							/>
 						) : (
 							<div className="text-deep-black/30 text-sm">No image</div>
@@ -58,8 +56,7 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 								e.preventDefault();
 								handleWishlistToggle();
 							}}
-							// larger hit area for touch devices
-							className="absolute top-2 right-2 bg-white/90 hover:bg-white transition-all p-2 w-10 h-10 flex items-center justify-center rounded"
+							className="absolute top-2 right-2 bg-white/90 hover:bg-white transition-all"
 							aria-label={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
 						>
 							<Heart
@@ -99,15 +96,15 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 						{formatPrice(product.price)}
 					</p>
 
-					<Button
+					<Button 
 						onClick={() => onAddToCart?.(product)}
 						size="icon"
-						className="bg-deep-black hover:bg-forest-deep text-white shrink-0 transition-all p-2 w-10 h-10"
+						className="bg-deep-black hover:bg-forest-deep text-white shrink-0 transition-all"
 						aria-label="Add to cart"
 						title="Add to cart"
 					>
 						<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z" />
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
 						</svg>
 					</Button>
 				</div>
