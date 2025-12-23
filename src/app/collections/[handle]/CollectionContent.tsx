@@ -80,7 +80,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
   }
   
   return (
-    <main className="mx-auto max-w-7xl px-8 py-20 bg-neutral-soft">
+    <main className="mx-auto max-w-7xl px-4 sm:px-8 py-20 bg-neutral-soft">
       {/* Header */}
       <div className="mb-16 space-y-8">
         <Breadcrumbs
@@ -103,12 +103,12 @@ export default function CollectionContent({ handle, products }: CollectionConten
         </div>
 
         {/* Filters & Sort Row */}
-        <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between pt-6 border-t border-metal-gold/20">
-          <QuickFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-deep-black/40">
-              {filteredAndSortedProducts.length} {filteredAndSortedProducts.length === 1 ? 'product' : 'products'}
-            </span>
+        <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between pt-6 border-t border-metal-gold/20">
+          <span className="text-sm text-deep-black/40">
+            {filteredAndSortedProducts.length} {filteredAndSortedProducts.length === 1 ? 'product' : 'products'}
+          </span>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <QuickFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
             <SortDropdown value={sortBy} onChange={setSortBy} />
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
           </p>
         </div>
       ) : (
-        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 scroll-mt-24">
+        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 lg:gap-8 scroll-mt-24">
           {filteredAndSortedProducts.map((p) => (
             <ProductCardOne key={p.id} product={p} onAddToCart={handleAddToCart} />
           ))}

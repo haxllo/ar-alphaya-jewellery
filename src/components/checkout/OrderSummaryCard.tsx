@@ -109,7 +109,7 @@ export default function OrderSummaryCard({
 
         <Separator />
 
-        {/* Promo Code */}
+        {/* Promo Code - Hidden for now
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-medium text-metal-gold-700">
             <Tag className="h-4 w-4 text-metal-gold" />
@@ -140,6 +140,7 @@ export default function OrderSummaryCard({
         </div>
 
         <Separator />
+        */}
 
         {/* Price Breakdown */}
         <div className="space-y-2">

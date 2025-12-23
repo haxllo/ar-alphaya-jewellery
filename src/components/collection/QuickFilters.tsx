@@ -1,5 +1,7 @@
 'use client'
 
+import { useState, useRef, useEffect } from 'react'
+
 interface QuickFilter {
   label: string
   value: string
@@ -12,6 +14,9 @@ interface QuickFiltersProps {
 }
 
 export default function QuickFilters({ activeFilter, onFilterChange }: QuickFiltersProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
   const filters: QuickFilter[] = [
     {
       label: 'All',
@@ -55,22 +60,59 @@ export default function QuickFilters({ activeFilter, onFilterChange }: QuickFilt
     },
   ]
 
+  const currentLabel = filters.find(f => f.value === activeFilter)?.label || 'All'
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
-      {filters.map((filter) => (
-        <button
-          key={filter.value}
-          onClick={() => onFilterChange(filter.value)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
-            activeFilter === filter.value
-              ? 'bg-deep-black text-white'
-              : 'bg-white border border-metal-gold/30 text-deep-black/70 hover:border-metal-gold hover:text-deep-black'
-          }`}
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-metal-gold/30 bg-white text-sm font-medium text-deep-black hover:border-metal-gold transition-colors whitespace-nowrap"
+      >
+        <span>Filter: {currentLabel}</span>
+        <svg 
+          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
         >
-          {filter.icon && <span className="w-4 h-4">{filter.icon}</span>}
-          <span>{filter.label}</span>
-        </button>
-      ))}
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 sm:left-0 sm:right-auto mt-2 w-56 rounded-2xl border border-metal-gold/20 bg-white shadow-luxe z-50">
+          <div className="py-2">
+            {filters.map((filter) => (
+              <button
+                key={filter.value}
+                onClick={() => {
+                  onFilterChange(filter.value)
+                  setIsOpen(false)
+                }}
+                className={`w-full flex items-center gap-2 px-4 py-2.5 text-left text-sm transition-colors ${
+                  activeFilter === filter.value
+                    ? 'bg-metal-gold/10 text-deep-black font-medium'
+                    : 'text-deep-black/70 hover:bg-metal-gold/5'
+                }`}
+              >
+                {filter.icon && <span className="w-4 h-4">{filter.icon}</span>}
+                {filter.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

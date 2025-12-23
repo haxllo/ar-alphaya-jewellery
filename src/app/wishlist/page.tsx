@@ -5,9 +5,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useWishlistStore } from '@/lib/store/wishlist'
 import { usePriceFormatter } from '@/hooks/useCurrency'
-import WishlistButton from '@/components/wishlist/WishlistButton'
-import { useCartStore } from '@/lib/store/cart'
-import { Share2, ShoppingBag } from 'lucide-react'
+import { ProductCardOne } from '@/components/product-card-01'
 
 export default function WishlistPage() {
   const { items, clearWishlist } = useWishlistStore()
@@ -16,18 +14,26 @@ export default function WishlistPage() {
   const [shareSuccess, setShareSuccess] = useState(false)
   const [addingAllToCart, setAddingAllToCart] = useState(false)
 
-  const handleAddToCart = (item: any) => {
-    // Create CartItem from wishlist item data
-    const cartItem = {
-      productId: item.productId,
-      slug: item.slug,
-      name: item.name,
-      price: item.price,
+  const handleAddToCart = (product: any) => {
+    // This function is now passed to ProductCardOne which expects a Product type
+    // We can just use the store's addItem directly if needed, but ProductCardOne handles the click event
+    // The ProductCardOne component takes an onAddToCart prop.
+    
+    // However, ProductCardOne expects a full Product object. 
+    // The wishlist item might be a subset. Let's ensure compatibility.
+    
+    // Re-construct the product object for the cart store
+     addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
       quantity: 1,
-      image: item.image,
-    }
-    addItem(cartItem)
+      image: product.images?.[0],
+    })
   }
+
+  // ... (rest of the functions: handleClearWishlist, handleShareWishlist, handleAddAllToCart) ...
 
   const handleClearWishlist = () => {
     if (window.confirm('Are you sure you want to clear your wishlist?')) {
@@ -74,6 +80,7 @@ export default function WishlistPage() {
   }
 
   if (items.length === 0) {
+     // ... (empty state remains the same)
     return (
       <main className="mx-auto max-w-7xl px-6 py-12">
         <div className="text-center">
@@ -111,7 +118,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-12">
+    <main className="mx-auto max-w-7xl px-4 sm:px-8 py-12">
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
@@ -149,9 +156,9 @@ export default function WishlistPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
         {items.map((item) => {
-          // Create product object from wishlist item for WishlistButton
+          // Adapt wishlist item to Product interface expected by ProductCardOne
           const product = {
             id: item.productId,
             slug: item.slug,
@@ -169,83 +176,11 @@ export default function WishlistPage() {
           }
 
           return (
-            <div key={item.productId} className="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all">
-              <div className="relative">
-                <Link href={`/products/${item.slug}`}>
-                  <div className="relative aspect-square bg-gray-100 overflow-hidden">
-                    {item.image ? (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        className="object-cover hover:scale-105 transition-transform duration-300"
-                        placeholder="blur"
-                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full">
-                        <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                </Link>
-                
-                <div className="absolute top-3 right-3">
-                  <WishlistButton 
-                    product={product}
-                    size="sm"
-                    className="bg-white rounded-full shadow-sm"
-                  />
-                </div>
-              </div>
-              
-              <div className="p-4">
-                <Link href={`/products/${item.slug}`}>
-                  <h3 className="font-medium text-black group-hover:text-gray-600 transition-colors mb-1 truncate">
-                    {item.name}
-                  </h3>
-                </Link>
-                
-                <p className="text-sm text-gray-500 capitalize mb-2">
-                  {item.category.replace('-', ' ')}
-                </p>
-                
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-lg font-semibold text-black">
-                    {formatPrice(item.price)}
-                  </span>
-                </div>
-                
-                {item.materials && item.materials.length > 0 && (
-                  <p className="text-xs text-gray-500 mb-3 truncate">
-                    {item.materials.join(', ')}
-                  </p>
-                )}
-                
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleAddToCart(item)}
-                    className="flex-1 rounded-full bg-foreground py-2 px-3 text-sm font-semibold tracking-wide text-white transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:bg-deep-black-900"
-                  >
-                    Add to Cart
-                  </button>
-                  
-                  <Link
-                    href={`/products/${item.slug}`}
-                    className="flex-1 rounded-full border border-deep-black-200 py-2 px-3 text-sm font-semibold tracking-wide text-deep-black-700 transition-all duration-300 ease-luxe hover:-translate-y-0.5 hover:border-deep-black-400 text-center"
-                  >
-                    View Details
-                  </Link>
-                </div>
-                
-                <p className="text-xs text-gray-500 mt-2">
-                  Added {new Date(item.addedAt).toLocaleDateString()}
-                </p>
-              </div>
-            </div>
+            <ProductCardOne 
+              key={item.productId} 
+              product={product} 
+              onAddToCart={() => handleAddToCart(product)} 
+            />
           )
         })}
       </div>

@@ -29,6 +29,7 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
                 "flex items-center",
                 index < steps.length - 1 && "flex-1"
               )}
+              aria-current={isCurrent ? "step" : undefined}
             >
               <div className="flex items-center gap-3">
                 {/* Step Icon/Number */}
@@ -40,14 +41,17 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
                     isCurrent &&
                       "bg-black text-white ring-4 ring-black/10",
                     !isCompleted && !isCurrent &&
-                      "bg-gray-200 text-gray-600"
+                      "bg-gray-200 text-gray-500" // Improved contrast from text-gray-600 to 500/700 logic if needed, but 500 is standard
                   )}
                 >
                   {isCompleted ? (
-                    <Check className="h-5 w-5" />
+                    <Check className="h-5 w-5" aria-hidden="true" />
                   ) : (
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-5 w-5" aria-hidden="true" />
                   )}
+                  <span className="sr-only">
+                    {isCompleted ? `Step ${step.id} completed` : `Step ${step.id}`}
+                  </span>
                 </div>
 
                 {/* Step Label */}
@@ -65,7 +69,7 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
 
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="mx-4 flex-1">
+                <div className="mx-2 sm:mx-4 flex-1">
                   <div
                     className={cn(
                       "h-[2px] w-full transition-all duration-300",
@@ -79,9 +83,12 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
         })}
       </ol>
 
-      {/* Mobile: Show only active step label */}
+      {/* Mobile: Show only active step label with context */}
       <div className="mt-3 text-center sm:hidden">
         <p className="text-sm font-medium text-black">
+          <span className="text-gray-500 font-normal mr-2">
+            Step {currentStep} of {steps.length}:
+          </span>
           {steps.find((s) => s.id === currentStep)?.label}
         </p>
       </div>

@@ -25,7 +25,8 @@ function CheckoutPage() {
   const router = useRouter()
   const user = session?.user
   const isLoading = status === 'loading'
-  const error = status === 'unauthenticated' ? new Error('Not authenticated') : null
+  // Guest checkout allowed, so unauthenticated is not an error
+  const error = null
   
   const items = useCartStore((state) => state.items)
   const clear = useCartStore((state) => state.clear)

@@ -11,6 +11,9 @@ import { useWishlistStore } from "@/lib/store/wishlist";
 import type { Product } from "@/types/product";
 import { fixUploadcareUrl } from "@/lib/fix-uploadcare-url";
 
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 interface ProductCardOneProps {
 	product: Product;
 	onAddToCart?: (product: Product) => void;
@@ -19,9 +22,16 @@ interface ProductCardOneProps {
 export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 	const { formatPrice } = usePriceFormatter() as any;
 	const { addItem, removeItem, isInWishlist } = useWishlistStore();
+	const { data: session } = useSession();
+	const router = useRouter();
 	const isFavorited = isInWishlist(product.id);
 
 	const handleWishlistToggle = () => {
+		if (!session) {
+			router.push("/auth/signin");
+			return;
+		}
+
 		if (isFavorited) {
 			removeItem(product.id);
 		} else {
@@ -32,67 +42,67 @@ export function ProductCardOne({ product, onAddToCart }: ProductCardOneProps) {
 	return (
 		// Border Radius Formula: Inner + Padding = Outer
 		// Card outer: 24px (rounded-2xl) | Padding: 20px (p-5) | Image inner: 8px (rounded-lg)
-		<Card className="w-full border-metal-gold/20 bg-white/80 shadow-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe hover:scale-[1.02] rounded-2xl">
+		<Card className="w-full border-metal-gold/20 bg-white/80 shadow-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-luxe hover:scale-[1.02] rounded-xl sm:rounded-2xl overflow-hidden">
+			{/* Product Image - Moved outside CardContent to touch edges */}
+			<Link href={`/products/${product.slug}`} className="block relative">
+				<div className="bg-neutral-soft flex items-center justify-center aspect-square w-full relative overflow-hidden border-b border-metal-gold/10">
+					{product.images && product.images[0] ? (
+						<Image
+							src={fixUploadcareUrl(product.images[0])}
+							alt={product.name}
+							fill
+							className="object-cover transition-transform duration-300 hover:scale-105"
+							sizes="(max-width: 640px) 50vw, 320px"
+						/>
+					) : (
+						<div className="text-deep-black/30 text-sm">No image</div>
+					)}
+
+					<Button
+						variant="ghost"
+						size="icon"
+						onClick={(e) => {
+							e.preventDefault();
+							handleWishlistToggle();
+						}}
+						className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-white/90 hover:bg-white transition-all h-7 w-7 sm:h-10 sm:w-10"
+						aria-label={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
+					>
+						<Heart
+							className={cn(
+								"w-3.5 h-3.5 sm:w-5 sm:h-5 transition-all",
+								isFavorited
+									? "fill-metal-gold text-metal-gold scale-110"
+									: "text-deep-black/60 hover:text-metal-gold hover:scale-110",
+							)}
+						/>
+					</Button>
+
+					{product.featured && (
+						<div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-metal-gold text-deep-black px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-semibold uppercase tracking-wider">
+							Featured
+						</div>
+					)}
+				</div>
+			</Link>
+
 			<CardContent className="p-3 sm:p-5">
-				{/* Product Image */}
-				<Link href={`/products/${product.slug}`} className="block relative mb-3 sm:mb-4">
-					<div className="bg-neutral-soft rounded-lg flex items-center justify-center h-[180px] sm:h-[280px] relative overflow-hidden border border-metal-gold/10">
-						{product.images && product.images[0] ? (
-							<Image
-								src={fixUploadcareUrl(product.images[0])}
-								alt={product.name}
-								fill
-								className="object-cover transition-transform duration-300 hover:scale-105"
-								sizes="(max-width: 640px) 50vw, 320px"
-							/>
-						) : (
-							<div className="text-deep-black/30 text-sm">No image</div>
-						)}
-
-						<Button
-							variant="ghost"
-							size="icon"
-							onClick={(e) => {
-								e.preventDefault();
-								handleWishlistToggle();
-							}}
-							className="absolute top-2 right-2 bg-white/90 hover:bg-white transition-all h-8 w-8 sm:h-10 sm:w-10"
-							aria-label={isFavorited ? "Remove from wishlist" : "Add to wishlist"}
-						>
-							<Heart
-								className={cn(
-									"w-4 h-4 sm:w-5 sm:h-5 transition-all",
-									isFavorited
-										? "fill-metal-gold text-metal-gold scale-110"
-										: "text-deep-black/60 hover:text-metal-gold hover:scale-110",
-								)}
-							/>
-						</Button>
-
-						{product.featured && (
-							<div className="absolute top-2 left-2 bg-metal-gold text-deep-black px-2 sm:px-3 py-1 rounded-full text-[8px] sm:text-[10px] font-semibold uppercase tracking-wider">
-								Featured
-							</div>
-						)}
-					</div>
-				</Link>
-
 				{/* Product Info */}
 				<div className="mb-2 sm:mb-4 space-y-1 sm:space-y-2">
 					<Link href={`/products/${product.slug}`}>
-						<CardTitle className="text-sm sm:text-lg leading-tight text-deep-black hover:text-metal-gold transition-colors line-clamp-2 font-serif font-normal">
+						<CardTitle className="text-sm sm:text-lg leading-tight text-deep-black hover:text-metal-gold transition-colors line-clamp-1 sm:line-clamp-2 font-serif font-normal">
 							{product.name}
 						</CardTitle>
 					</Link>
 					{product.materials && product.materials.length > 0 && (
-						<p className="text-[10px] sm:text-xs text-deep-black/40">
+						<p className="text-[10px] sm:text-xs text-deep-black/40 line-clamp-1">
 							{product.materials.slice(0, 2).join(", ")}
 						</p>
 					)}
 				</div>
 
 				<div className="flex items-center justify-between gap-2">
-					<p className="text-base sm:text-2xl font-semibold text-deep-black">
+					<p className="text-sm sm:text-2xl font-semibold text-deep-black truncate">
 						{formatPrice(product.price)}
 					</p>
 

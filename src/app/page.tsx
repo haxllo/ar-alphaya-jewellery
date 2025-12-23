@@ -75,7 +75,7 @@ export default async function Home() {
           />
           <div className="absolute inset-0 bg-hero-linear" />
         </div>
-        <div className="relative z-10 mx-auto max-w-7xl px-8 py-24 text-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 py-24 text-center">
           <p className="inline-block text-sm uppercase tracking-wider text-metal-gold mb-8">
             Bespoke Jewellery Atelier
           </p>
@@ -84,13 +84,13 @@ export default async function Home() {
           </h1>
           <div className="flex flex-col sm:flex-row gap-5 justify-center mt-14">
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-deep-black px-8 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep"
+              className="inline-flex items-center justify-center rounded-full bg-deep-black px-4 sm:px-8 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep"
               href="/collections/rings"
             >
               Browse Jewellery
             </Link>
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-forest-deep px-8 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep-light"
+              className="inline-flex items-center justify-center rounded-full bg-forest-deep px-4 sm:px-8 py-4 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep-light"
               href="/contact"
             >
               Custom Design
@@ -105,7 +105,7 @@ export default async function Home() {
       <SectionDivider />
 
       {/* Value Props - 3 Column */}
-      <section className="mx-auto max-w-7xl px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-8">
         <div className="grid gap-10 md:grid-cols-3">
           <div className="text-center space-y-5 p-10">
             <h3 className="font-serif font-medium text-2xl text-deep-black">Handcrafted</h3>
@@ -131,7 +131,7 @@ export default async function Home() {
       <SectionDivider />
 
       {/* Process Section - Compact */}
-      <section id="process" className="mx-auto max-w-7xl px-8 scroll-mt-24">
+      <section id="process" className="mx-auto max-w-7xl px-4 sm:px-8 scroll-mt-24">
         <div className="text-center space-y-4 mb-16">
           <p className="text-xs uppercase tracking-wider text-deep-black/60">Custom Process</p>
           <h2 className="font-serif font-normal text-4xl text-deep-black">Four steps to your piece</h2>
@@ -154,7 +154,7 @@ export default async function Home() {
 
       <SectionDivider />
 
-      <section id="faq" className="mx-auto max-w-7xl px-8 scroll-mt-24">
+      <section id="faq" className="mx-auto max-w-7xl px-4 sm:px-8 scroll-mt-24">
         <div className="text-center space-y-4 mb-16">
           <p className="text-xs uppercase tracking-wider text-deep-black/60">FAQ</p>
           <h2 className="font-serif font-normal text-4xl text-deep-black">Common Questions</h2>
@@ -184,7 +184,7 @@ export default async function Home() {
       <SectionDivider />
 
       {/* Commission Process CTA */}
-      <section className="mx-auto max-w-7xl px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-8">
         <div className="grid gap-10 rounded-2xl bg-forest-deep p-10 lg:p-16 text-white/90 shadow-luxe lg:grid-cols-[1fr_1.2fr]">
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-wider text-metal-gold-light">Personal Process</p>

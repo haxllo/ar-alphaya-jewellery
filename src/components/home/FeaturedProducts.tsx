@@ -26,7 +26,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-8">
+    <section className="mx-auto max-w-7xl px-4 sm:px-8">
       <div className="mb-12 text-center space-y-4">
         <p className="text-xs uppercase tracking-wider text-deep-black/60">Studio Collection</p>
         <h2 className="font-serif font-normal text-4xl md:text-5xl text-deep-black">Available Pieces</h2>
@@ -34,7 +34,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
           Ready to wear or customise to your preference
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 sm:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => (
           <ProductCardOne key={product.id} product={product} onAddToCart={handleAddToCart} />
         ))}

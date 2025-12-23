@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, Suspense } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, useRouter, ReadonlyURLSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { SearchFilters, Product } from '@/lib/cms'
@@ -33,23 +33,32 @@ function SearchContent() {
   const router = useRouter()
   const { formatPrice } = useCurrency()
   
+  // Helper to parse filters from URL params
+  const parseFiltersFromParams = useCallback((params: ReadonlyURLSearchParams | null): SearchFilters => {
+    if (!params) return { limit: 20, page: 1, sortBy: 'createdAt', sortOrder: 'desc' }
+    
+    return {
+      query: params.get('q') || '',
+      category: params.get('category') || undefined,
+      minPrice: params.get('minPrice') ? Number(params.get('minPrice')) : undefined,
+      maxPrice: params.get('maxPrice') ? Number(params.get('maxPrice')) : undefined,
+      materials: params.get('materials')?.split(',').filter(Boolean) || undefined,
+      inStock: params.get('inStock') === 'true' ? true : params.get('inStock') === 'false' ? false : undefined,
+      featured: params.get('featured') === 'true' ? true : params.get('featured') === 'false' ? false : undefined,
+      tags: params.get('tags')?.split(',').filter(Boolean) || undefined,
+      limit: 20,
+      page: params.get('page') ? Number(params.get('page')) : 1,
+      sortBy: (params.get('sortBy') as 'name' | 'price' | 'createdAt') || 'createdAt',
+      sortOrder: (params.get('sortOrder') as 'asc' | 'desc') || 'desc'
+    }
+  }, [])
+
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [filters, setFilters] = useState<SearchFilters>({
-    query: searchParams.get('q') || '',
-    category: searchParams.get('category') || undefined,
-    minPrice: searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : undefined,
-    maxPrice: searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : undefined,
-    materials: searchParams.get('materials')?.split(',').filter(Boolean) || undefined,
-    inStock: searchParams.get('inStock') === 'true' ? true : searchParams.get('inStock') === 'false' ? false : undefined,
-    featured: searchParams.get('featured') === 'true' ? true : searchParams.get('featured') === 'false' ? false : undefined,
-    tags: searchParams.get('tags')?.split(',').filter(Boolean) || undefined,
-    limit: 20,
-    page: searchParams.get('page') ? Number(searchParams.get('page')) : 1,
-    sortBy: (searchParams.get('sortBy') as 'name' | 'price' | 'createdAt') || 'createdAt',
-    sortOrder: (searchParams.get('sortOrder') as 'asc' | 'desc') || 'desc'
-  })
+  
+  // Derived state from URL params - Single Source of Truth
+  const filters = useMemo(() => parseFiltersFromParams(searchParams), [searchParams, parseFiltersFromParams])
 
   const performSearch = useCallback(async (searchFilters: SearchFilters) => {
     setLoading(true)
@@ -92,8 +101,8 @@ function SearchContent() {
   }, [])
 
   const updateFilters = useCallback((newFilters: Partial<SearchFilters>) => {
+    // Merge new filters with current derived filters
     const updatedFilters = { ...filters, ...newFilters, page: 1 } // Reset to page 1 when filters change
-    setFilters(updatedFilters)
     
     // Update URL
     const params = new URLSearchParams()
@@ -114,7 +123,6 @@ function SearchContent() {
 
   const handlePageChange = useCallback((page: number) => {
     const updatedFilters = { ...filters, page }
-    setFilters(updatedFilters)
     
     // Update URL
     const params = new URLSearchParams()
@@ -133,7 +141,7 @@ function SearchContent() {
     router.push(`/search?${params.toString()}`, { scroll: false })
   }, [filters, router])
 
-  // Perform search when filters change
+  // Perform search when filters change (URL changes)
   useEffect(() => {
     performSearch(filters)
   }, [filters, performSearch])
