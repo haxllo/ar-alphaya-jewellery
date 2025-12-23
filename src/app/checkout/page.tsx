@@ -37,23 +37,7 @@ function CheckoutPage() {
     )
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-6">
-        <div className="max-w-md w-full border border-primary-200 rounded-lg p-6 text-center">
-          <h1 className="text-2xl font-bold text-primary-800 mb-2">Sign in to continue</h1>
-          <p className="text-primary-600 mb-4">You need to be logged in to proceed to checkout.</p>
-          <Link
-            href="/auth/signin?callbackUrl=/checkout"
-            prefetch={false}
-            className="inline-block rounded-full bg-deep-black px-6 py-3 text-sm font-semibold tracking-wider text-white transition-all duration-300 hover:bg-forest-deep"
-          >
-            Sign In
-          </Link>
-        </div>
-      </div>
-    )
-  }
+  // Guest checkout allowed - removing the blocking check
   
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
@@ -209,6 +193,30 @@ function CheckoutPage() {
       <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
         {/* Left Column: Form Sections */}
         <div className="space-y-6 pb-24 lg:pb-0">
+          
+          {!user && (
+            <div className="mb-6 rounded-lg border border-metal-gold/20 bg-neutral-soft p-4 sm:p-6 text-center">
+              <h2 className="text-lg font-semibold text-deep-black mb-2">Have an account?</h2>
+              <p className="text-deep-black/60 mb-4 text-sm">
+                Sign in for a faster checkout experience, or continue as a guest.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/auth/signin?callbackUrl=/checkout"
+                  className="inline-flex items-center justify-center rounded-full bg-deep-black px-6 py-2 text-sm font-semibold text-white transition-all hover:bg-forest-deep"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/auth/signup?callbackUrl=/checkout"
+                   className="inline-flex items-center justify-center rounded-full border border-deep-black px-6 py-2 text-sm font-semibold text-deep-black transition-all hover:bg-deep-black hover:text-white"
+                >
+                  Create Account
+                </Link>
+              </div>
+            </div>
+          )}
+
           <BillingInfoCard
             customerInfo={customerInfo}
             errors={errors}

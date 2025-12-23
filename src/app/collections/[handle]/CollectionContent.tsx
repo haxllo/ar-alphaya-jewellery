@@ -124,7 +124,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
           </p>
         </div>
       ) : (
-        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 scroll-mt-24">
+        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 scroll-mt-24">
           {filteredAndSortedProducts.map((p) => (
             <ProductCardOne key={p.id} product={p} onAddToCart={handleAddToCart} />
           ))}
