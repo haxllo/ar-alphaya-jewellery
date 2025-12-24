@@ -117,8 +117,8 @@ export default function WishlistPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 sm:px-8 py-12">
-      <div className="mb-8">
+    <main className="mx-auto max-w-7xl px-0 min-[376px]:px-4 sm:px-8 py-12">
+      <div className="mb-8 px-4 min-[376px]:px-0">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-semibold text-black mb-2">Your Wishlist</h1>
@@ -155,7 +155,7 @@ export default function WishlistPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 px-0">
         {items.map((item) => {
           // Adapt wishlist item to Product interface expected by ProductCardOne
           const product = {
@@ -186,7 +186,7 @@ export default function WishlistPage() {
       </div>
       
       {/* Continue Shopping Section */}
-      <div className="mt-12 pt-8 border-t border-gray-200 text-center">
+      <div className="mt-12 pt-8 border-t border-gray-200 text-center px-4 min-[376px]:px-0">
         <h2 className="text-xl font-semibold text-black mb-4">Continue Shopping</h2>
         <p className="text-gray-600 mb-6">Discover more beautiful jewelry pieces</p>
         

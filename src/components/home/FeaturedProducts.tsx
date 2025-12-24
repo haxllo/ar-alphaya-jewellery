@@ -26,8 +26,8 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-8">
-      <div className="mb-12 text-center space-y-4">
+    <section className="mx-auto max-w-7xl px-0 min-[376px]:px-4 sm:px-8">
+      <div className="mb-12 text-center space-y-4 px-4 min-[376px]:px-0">
         <p className="text-xs uppercase tracking-wider text-deep-black/60">Studio Collection</p>
         <h2 className="font-serif font-normal text-4xl md:text-5xl text-deep-black">Available Pieces</h2>
         <p className="text-base text-deep-black/60 max-w-2xl mx-auto">
@@ -39,7 +39,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
           <ProductCardOne key={product.id} product={product} onAddToCart={handleAddToCart} />
         ))}
       </div>
-      <div className="text-center mt-12">
+      <div className="text-center mt-12 px-4 min-[376px]:px-0">
         <Link href="/collections/rings" className="inline-block text-sm font-semibold text-deep-black underline-offset-8 hover:underline">
           View All Pieces
         </Link>

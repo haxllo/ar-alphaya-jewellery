@@ -80,9 +80,9 @@ export default function CollectionContent({ handle, products }: CollectionConten
   }
   
   return (
-    <main className="mx-auto max-w-7xl px-4 sm:px-8 py-20 bg-neutral-soft">
+    <main className="mx-auto max-w-7xl px-0 min-[376px]:px-4 sm:px-8 py-20 bg-neutral-soft">
       {/* Header */}
-      <div className="mb-16 space-y-8">
+      <div className="mb-16 space-y-8 px-4 min-[376px]:px-0">
         <Breadcrumbs
           items={[{ label: 'Home', href: '/' }]}
           currentPage={title}
@@ -116,7 +116,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
 
       {/* Products Grid */}
       {filteredAndSortedProducts.length === 0 ? (
-        <div className="rounded-2xl border border-metal-gold/20 bg-white/50 p-16 text-center">
+        <div className="mx-4 min-[376px]:mx-0 rounded-2xl border border-metal-gold/20 bg-white/50 p-16 text-center">
           <p className="text-base text-deep-black/60">
             {products.length === 0 
               ? 'We are crafting new pieces for this collection.'
@@ -124,7 +124,7 @@ export default function CollectionContent({ handle, products }: CollectionConten
           </p>
         </div>
       ) : (
-        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 lg:gap-8 scroll-mt-24">
+        <div id="collection-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 lg:gap-8 scroll-mt-24 px-0">
           {filteredAndSortedProducts.map((p) => (
             <ProductCardOne key={p.id} product={p} onAddToCart={handleAddToCart} />
           ))}

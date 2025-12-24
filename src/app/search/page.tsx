@@ -148,20 +148,20 @@ function SearchContent() {
 
   if (loading && !searchResult) {
     return (
-      <main className="mx-auto max-w-7xl px-6 py-12">
-        <div className="mb-8">
+      <main className="mx-auto max-w-7xl px-0 min-[376px]:px-6 py-12">
+        <div className="mb-8 px-6 min-[376px]:px-0">
           <div className="h-8 bg-gray-200 rounded w-1/3 mb-2 animate-pulse" />
           <div className="h-4 bg-gray-100 rounded w-1/4 animate-pulse" />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 px-0">
+          <div className="lg:col-span-1 px-6 min-[376px]:px-0">
             <div className="space-y-4 animate-pulse">
               <div className="h-10 bg-gray-200 rounded" />
               <div className="h-10 bg-gray-200 rounded" />
               <div className="h-10 bg-gray-200 rounded" />
             </div>
           </div>
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 px-0">
             <ProductGridSkeleton count={12} />
           </div>
         </div>
@@ -206,9 +206,9 @@ function SearchContent() {
   const { products, pagination, filters: availableFilters } = searchResult
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-12">
+    <main className="mx-auto max-w-7xl px-0 min-[376px]:px-6 py-12">
       {/* Search Header */}
-      <div className="mb-8">
+      <div className="mb-8 px-6 min-[376px]:px-0">
         <h1 className="text-3xl font-semibold text-black mb-2">
           {filters.query ? `Search Results for "${filters.query}"` : 'All Products'}
         </h1>
@@ -220,9 +220,9 @@ function SearchContent() {
         <ActiveFilterChips filters={filters} onChange={updateFilters} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 px-0">
         {/* Filters Sidebar */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 px-6 min-[376px]:px-0">
           <SearchFiltersComponent
             filters={filters}
             availableFilters={availableFilters}
@@ -231,9 +231,9 @@ function SearchContent() {
         </div>
 
         {/* Results */}
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3 px-0">
           {products.length > 0 && (
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between px-6 min-[376px]:px-0">
               <div className="text-sm text-primary-600">
                 {searchResult.pagination.total} products found
               </div>
@@ -250,15 +250,17 @@ function SearchContent() {
               
               {/* Pagination */}
               {pagination.totalPages > 1 && (
-                <SearchPagination
-                  currentPage={pagination.page}
-                  totalPages={pagination.totalPages}
-                  onPageChange={handlePageChange}
-                />
+                <div className="px-6 min-[376px]:px-0">
+                  <SearchPagination
+                    currentPage={pagination.page}
+                    totalPages={pagination.totalPages}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
               )}
             </>
           ) : (
-            <div className="text-center py-12">
+            <div className="text-center py-12 px-6 min-[376px]:px-0">
               <h2 className="text-xl font-semibold text-gray-900 mb-2">No products found</h2>
               <p className="text-gray-600 mb-6">
                 {filters.query ? (
@@ -363,9 +365,9 @@ function ActiveFilterChips({
 export default function SearchPage() {
   return (
     <Suspense fallback={
-      <main className="mx-auto max-w-7xl px-6 py-12">
+      <main className="mx-auto max-w-7xl px-0 min-[376px]:px-6 py-12">
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
+          <div className="text-center px-6 min-[376px]:px-0">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
             <p className="text-gray-600">Loading search...</p>
           </div>

@@ -38,8 +38,8 @@ export default function ProductRecommendations({
 
   return (
     <div className={`${className}`}>
-      <h2 className="text-2xl font-serif mb-6 text-metal-gold-brown">{title}</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <h2 className="text-2xl font-serif mb-6 text-metal-gold-brown px-4 min-[376px]:px-0">{title}</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 px-0">
         {products.map((product) => (
           <ProductCardOne key={product.id} product={product} onAddToCart={handleAddToCart} />
         ))}
