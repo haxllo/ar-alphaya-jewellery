@@ -162,6 +162,35 @@ function CheckoutPage() {
     }
   }
 
+  const handleBankTransferPayment = async () => {
+    setIsProcessing(true)
+    try {
+      const response = await fetch('/api/checkout/bank-transfer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer: customerInfo,
+          items,
+          total,
+          orderId: `ORDER-${Date.now()}`
+        })
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || 'Failed to place order')
+      }
+
+      try { analytics.purchase('bank_transfer_' + Date.now(), items, total) } catch {}
+      clear() // Clear cart
+      router.push('/checkout/success?payment_method=bank_transfer')
+    } catch (error) {
+      console.error('Bank transfer error:', error)
+      alert('Failed to place order. Please try again.')
+      setIsProcessing(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validate()) return
@@ -170,9 +199,7 @@ function CheckoutPage() {
       try { analytics.beginCheckout(items, total) } catch {}
       await handlePayHerePayment()
     } else if (paymentMethod === 'bank_transfer') {
-      alert('Bank transfer instructions will be sent to your email.')
-      try { analytics.purchase('bank_transfer_' + Date.now(), items, total) } catch {}
-      clear()
+      await handleBankTransferPayment()
     }
   }
 

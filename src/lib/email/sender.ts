@@ -114,3 +114,56 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationEmailDat
     html,
   })
 }
+
+export interface BankTransferEmailData {
+  orderId: string
+  customerEmail: string
+  customerName: string
+  orderDate: string
+  items: Array<{
+    name: string
+    price: number
+    quantity: number
+    size?: string
+    gemstone?: string
+    image?: string
+  }>
+  subtotal: number
+  shipping: number
+  total: number
+}
+
+export async function sendBankTransferInstructions(data: BankTransferEmailData) {
+  const { renderBankTransferEmail } = await import('./bankTransferTemplate')
+  
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-LK', {
+      style: 'currency',
+      currency: 'LKR',
+    }).format(price)
+  }
+  
+  const html = renderBankTransferEmail({
+    orderNumber: data.orderId,
+    customerName: data.customerName,
+    orderDate: data.orderDate,
+    items: data.items.map(item => ({
+      name: item.name,
+      price: formatPrice(item.price * item.quantity),
+      quantity: item.quantity,
+      size: item.size,
+      gemstone: item.gemstone,
+      image: item.image,
+    })),
+    subtotal: formatPrice(data.subtotal),
+    shipping: formatPrice(data.shipping),
+    total: formatPrice(data.total),
+    supportEmail: process.env.EMAIL_FROM || 'info@aralphayajewellery.com',
+  })
+
+  return sendEmail({
+    to: data.customerEmail,
+    subject: `Bank Transfer Instructions for Order #${data.orderId} - AR Alphaya Jewellery`,
+    html,
+  })
+}

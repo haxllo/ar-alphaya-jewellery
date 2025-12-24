@@ -1,16 +1,32 @@
+'use client'
+
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { CheckCircle2, Package, Mail, ArrowRight } from 'lucide-react'
+import { CheckCircle2, Package, Mail, ArrowRight, Wallet } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 
 function SuccessContent() {
+  const searchParams = useSearchParams()
+  const isBankTransfer = searchParams.get('payment_method') === 'bank_transfer'
+
   return (
     <div className="mx-auto max-w-2xl px-6 py-12">
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-          <CheckCircle2 className="w-10 h-10 text-green-600" />
+        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${isBankTransfer ? 'bg-amber-100' : 'bg-green-100'} mb-4`}>
+          {isBankTransfer ? (
+            <Wallet className="w-10 h-10 text-amber-600" />
+          ) : (
+            <CheckCircle2 className="w-10 h-10 text-green-600" />
+          )}
         </div>
-        <h1 className="text-3xl font-bold mb-2">Payment Successful!</h1>
-        <p className="text-gray-600">Thank you for your purchase</p>
+        <h1 className="text-3xl font-bold mb-2">
+          {isBankTransfer ? 'Order Placed Successfully!' : 'Payment Successful!'}
+        </h1>
+        <p className="text-gray-600">
+          {isBankTransfer 
+            ? 'Thank you for your order. Payment is pending.' 
+            : 'Thank you for your purchase'}
+        </p>
       </div>
 
       <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
@@ -21,9 +37,13 @@ function SuccessContent() {
               <Mail className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h3 className="font-medium text-sm">Order Confirmation Email</h3>
+              <h3 className="font-medium text-sm">
+                {isBankTransfer ? 'Bank Transfer Instructions' : 'Order Confirmation Email'}
+              </h3>
               <p className="text-sm text-gray-600">
-                We've sent a confirmation email with your order details and receipt.
+                {isBankTransfer 
+                  ? 'We have sent an email with our bank account details. Please proceed with the payment to confirm your order.'
+                  : "We've sent a confirmation email with your order details and receipt."}
               </p>
             </div>
           </div>
@@ -35,7 +55,9 @@ function SuccessContent() {
             <div>
               <h3 className="font-medium text-sm">Order Processing</h3>
               <p className="text-sm text-gray-600">
-                Your order is being prepared and will be shipped within 2-3 business days.
+                {isBankTransfer
+                  ? 'Your order will be processed and shipped once we receive your payment.'
+                  : 'Your order is being prepared and will be shipped within 2-3 business days.'}
               </p>
             </div>
           </div>
