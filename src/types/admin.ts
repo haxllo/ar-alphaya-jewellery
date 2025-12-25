@@ -51,7 +51,6 @@ export interface ProductFormData {
   name: string
   slug: string
   description: string
-  cardDescription?: string
   price: number
   currency: string
   images: string[]

@@ -18,7 +18,6 @@ export const productSchema = z.object({
     .max(255, 'Slug too long')
     .regex(/^[a-z0-9-]+$/, 'Slug must be lowercase letters, numbers, and hyphens only'),
   description: z.string().max(5000, 'Description too long').optional().nullable(),
-  cardDescription: z.string().max(150, 'Card description too long').optional().nullable(),
   price: z.number().min(0, 'Price must be 0 or greater'),
   currency: z.string().default('LKR'),
   images: z.array(z.string().url('Invalid image URL')).min(1, 'At least one image is required'),
