@@ -6,21 +6,36 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { CreditCard, Building2, Check, Info } from 'lucide-react'
 import Image from 'next/image'
-import type { PaymentMethod } from './checkout-types'
+import type { PaymentMethod, BillingInfo } from './checkout-types'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import PayPalButton from './PayPalButton'
 
 interface PaymentMethodSelectorProps {
   selected: PaymentMethod
   onChange: (method: PaymentMethod) => void
+  billingSameAsDelivery: boolean
+  setBillingSameAsDelivery: (value: boolean) => void
+  billingInfo: BillingInfo
+  onBillingChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  // PayPal Props
+  payPalAmount: number
+  payPalOrderId: string
+  onPayPalSuccess: () => void
+  onPayPalError: (err: string) => void
 }
 
 export default function PaymentMethodSelector({
   selected,
   onChange,
+  billingSameAsDelivery,
+  setBillingSameAsDelivery,
+  billingInfo,
+  onBillingChange,
+  payPalAmount,
+  payPalOrderId,
+  onPayPalSuccess,
+  onPayPalError
 }: PaymentMethodSelectorProps) {
-  const [billingSameAsDelivery, setBillingSameAsDelivery] = useState(true)
-
   return (
     <div className="space-y-6">
       <Card className="border-none shadow-none bg-transparent">
@@ -167,9 +182,13 @@ export default function PaymentMethodSelector({
                <p className="text-sm text-blue-800 mb-4">
                  You will be redirected to PayPal to complete your purchase securely.
                </p>
-               {/* PayPal SDK Button Placeholder */}
-               <div className="max-w-[300px] mx-auto h-[45px] bg-yellow-400 rounded-md flex items-center justify-center font-bold text-[#003087]">
-                 PayPal
+               <div className="max-w-[300px] mx-auto">
+                 <PayPalButton 
+                    amount={payPalAmount}
+                    orderId={payPalOrderId}
+                    onSuccess={onPayPalSuccess}
+                    onError={onPayPalError}
+                 />
                </div>
             </div>
           )}
@@ -211,13 +230,38 @@ export default function PaymentMethodSelector({
              {!billingSameAsDelivery && (
                <div className="mt-4 p-4 border rounded-md bg-gray-50 space-y-4 animate-in slide-in-from-top-2 duration-300">
                   <div className="grid grid-cols-2 gap-4">
-                     <Input placeholder="First Name*" />
-                     <Input placeholder="Last Name*" />
+                     <Input 
+                       placeholder="First Name*" 
+                       name="firstName"
+                       value={billingInfo.firstName}
+                       onChange={onBillingChange}
+                     />
+                     <Input 
+                       placeholder="Last Name*" 
+                       name="lastName"
+                       value={billingInfo.lastName}
+                       onChange={onBillingChange}
+                     />
                   </div>
-                  <Input placeholder="Address*" />
+                  <Input 
+                    placeholder="Address*" 
+                    name="address"
+                    value={billingInfo.address}
+                    onChange={onBillingChange}
+                  />
                   <div className="grid grid-cols-2 gap-4">
-                     <Input placeholder="City*" />
-                     <Input placeholder="Postal Code*" />
+                     <Input 
+                       placeholder="City*" 
+                       name="city"
+                       value={billingInfo.city}
+                       onChange={onBillingChange}
+                     />
+                     <Input 
+                       placeholder="Postal Code*" 
+                       name="postalCode"
+                       value={billingInfo.postalCode}
+                       onChange={onBillingChange}
+                     />
                   </div>
                </div>
              )}

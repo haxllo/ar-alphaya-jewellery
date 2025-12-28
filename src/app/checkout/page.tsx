@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { usePriceFormatter } from '@/hooks/useCurrency'
 import { useSession } from 'next-auth/react'
 import { useCartStore } from '@/lib/store/cart'
@@ -16,8 +16,7 @@ import OrderSummaryCard from '@/components/checkout/OrderSummaryCard'
 import MobileOrderSummary from '@/components/checkout/MobileOrderSummary'
 import MobileCheckoutFooter from '@/components/checkout/MobileCheckoutFooter'
 import { Button } from '@/components/ui/button'
-import type { PaymentMethod } from '@/components/checkout/checkout-types'
-import PayPalButton from '@/components/checkout/PayPalButton'
+import type { PaymentMethod, BillingInfo } from '@/components/checkout/checkout-types'
 
 function CheckoutPage() {
   const { data: session, status } = useSession()
@@ -30,6 +29,14 @@ function CheckoutPage() {
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const { formatPrice } = usePriceFormatter()
+
+  // Generate a stable Order ID for the session to prevent PayPal button re-renders
+  const orderIdRef = useRef<string>('')
+  useEffect(() => {
+    if (!orderIdRef.current) {
+      orderIdRef.current = `ORDER-${Date.now()}`
+    }
+  }, [])
   
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
@@ -41,6 +48,16 @@ function CheckoutPage() {
     postalCode: ''
   })
   
+  // Billing Address State
+  const [billingSameAsDelivery, setBillingSameAsDelivery] = useState(true)
+  const [billingInfo, setBillingInfo] = useState<BillingInfo>({
+    firstName: '',
+    lastName: '',
+    address: '',
+    city: '',
+    postalCode: ''
+  })
+
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card')
   const [isProcessing, setIsProcessing] = useState(false)
   const [touched, setTouched] = useState<Record<string, boolean>>({})
@@ -85,6 +102,10 @@ function CheckoutPage() {
     setTouched(prev => ({ ...prev, [e.target.name]: true }))
   }
 
+  const handleBillingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBillingInfo(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
   const validate = () => {
     const newErrors: Record<string, string> = {}
     if (!customerInfo.firstName.trim()) newErrors.firstName = 'First name is required'
@@ -93,21 +114,45 @@ function CheckoutPage() {
     if (!customerInfo.phone.trim()) newErrors.phone = 'Phone is required'
     if (!customerInfo.address.trim()) newErrors.address = 'Address is required'
     if (!customerInfo.city.trim()) newErrors.city = 'City is required'
+    
+    // Validate Billing if not same as delivery
+    if (!billingSameAsDelivery) {
+       // Ideally add validation for billing fields too
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
+  // Helper to get effective billing address
+  const getEffectiveCustomerInfo = () => {
+    if (billingSameAsDelivery) {
+      return customerInfo
+    }
+    return {
+      ...customerInfo,
+      firstName: billingInfo.firstName || customerInfo.firstName,
+      lastName: billingInfo.lastName || customerInfo.lastName,
+      address: billingInfo.address || customerInfo.address,
+      city: billingInfo.city || customerInfo.city,
+      postalCode: billingInfo.postalCode || customerInfo.postalCode,
+    }
+  }
+
   const handleBankTransferPayment = async () => {
     setIsProcessing(true)
+    const effectiveCustomer = getEffectiveCustomerInfo()
+    const currentOrderId = orderIdRef.current || `ORDER-${Date.now()}`
+
     try {
       const response = await fetch('/api/checkout/bank-transfer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          customer: customerInfo,
+          customer: effectiveCustomer,
           items,
           total,
-          orderId: `ORDER-${Date.now()}`
+          orderId: currentOrderId
         })
       })
 
@@ -128,15 +173,18 @@ function CheckoutPage() {
 
   const handlePayzyPayment = async () => {
     setIsProcessing(true)
+    const effectiveCustomer = getEffectiveCustomerInfo()
+    const currentOrderId = orderIdRef.current || `ORDER-${Date.now()}`
+
     try {
       const response = await fetch('/api/checkout/payzy/init', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          customer: { ...customerInfo, country: 'Sri Lanka' },
+          customer: { ...effectiveCustomer, country: 'Sri Lanka' },
           items,
           total,
-          orderId: `ORDER-${Date.now()}`
+          orderId: currentOrderId
         })
       })
 
@@ -236,18 +284,16 @@ function CheckoutPage() {
           <PaymentMethodSelector
             selected={paymentMethod}
             onChange={setPaymentMethod}
+            billingSameAsDelivery={billingSameAsDelivery}
+            setBillingSameAsDelivery={setBillingSameAsDelivery}
+            billingInfo={billingInfo}
+            onBillingChange={handleBillingChange}
+            // PayPal Props
+            payPalAmount={total}
+            payPalOrderId={orderIdRef.current || `ORDER-${Date.now()}`}
+            onPayPalSuccess={handlePayPalSuccess}
+            onPayPalError={handlePayPalError}
           />
-
-          {paymentMethod === 'paypal' && (
-            <div className="mt-6">
-               <PayPalButton 
-                  amount={total}
-                  orderId={`ORDER-${Date.now()}`}
-                  onSuccess={handlePayPalSuccess}
-                  onError={handlePayPalError}
-               />
-            </div>
-          )}
 
           {paymentMethod !== 'paypal' && (
             <Button

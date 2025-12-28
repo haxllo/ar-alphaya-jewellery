@@ -10,6 +10,14 @@ export interface CustomerInfo {
   postalCode?: string
 }
 
+export interface BillingInfo {
+  firstName: string
+  lastName: string
+  address: string
+  city: string
+  postalCode: string
+}
+
 export interface ValidationErrors {
   [key: string]: string
 }
