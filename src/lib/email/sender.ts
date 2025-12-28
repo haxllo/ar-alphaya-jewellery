@@ -103,7 +103,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationEmailDat
     subtotal: formatPrice(data.subtotal),
     shipping: formatPrice(data.shipping),
     total: formatPrice(data.total),
-    paymentMethod: data.paymentId ? `PayHere (${data.paymentId})` : 'PayHere',
+    paymentMethod: data.paymentId || 'Online Payment',
     trackingUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/account/orders`,
     supportEmail: process.env.EMAIL_FROM || 'info@aralphayajewellery.com',
   })

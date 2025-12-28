@@ -29,7 +29,7 @@ export interface CartItem {
   image?: string
 }
 
-export type PaymentMethod = 'payhere' | 'bank_transfer'
+export type PaymentMethod = 'bank_transfer'
 
 export interface CheckoutStep {
   id: number

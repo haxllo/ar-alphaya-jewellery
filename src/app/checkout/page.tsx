@@ -8,7 +8,6 @@ import SizeGuideModal from '@/components/ui/SizeGuideModal'
 import Link from 'next/link'
 import { analytics } from '@/lib/analytics'
 import { useRouter } from 'next/navigation'
-import PayHereCheckout from '@/components/checkout/PayHereCheckout'
 import CheckoutContainer from '@/components/checkout/CheckoutContainer'
 import CheckoutProgress from '@/components/checkout/CheckoutProgress'
 import BillingInfoCard from '@/components/checkout/BillingInfoCard'
@@ -17,7 +16,6 @@ import OrderSummaryCard from '@/components/checkout/OrderSummaryCard'
 import MobileOrderSummary from '@/components/checkout/MobileOrderSummary'
 import MobileCheckoutFooter from '@/components/checkout/MobileCheckoutFooter'
 import { Button } from '@/components/ui/button'
-import type { PayHerePayment } from '@/types/payhere'
 import type { PaymentMethod } from '@/components/checkout/checkout-types'
 
 function CheckoutPage() {
@@ -32,13 +30,6 @@ function CheckoutPage() {
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const { formatPrice } = usePriceFormatter()
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-primary-700">Loading…</div>
-    )
-  }
-
-  // Guest checkout allowed - removing the blocking check
   
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
@@ -50,11 +41,10 @@ function CheckoutPage() {
     postalCode: ''
   })
   
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('payhere')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('bank_transfer')
   const [isProcessing, setIsProcessing] = useState(false)
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [paymentData, setPaymentData] = useState<PayHerePayment | null>(null)
   
   // Pre-fill form with user data
   useEffect(() => {
@@ -84,13 +74,10 @@ function CheckoutPage() {
     : 0
   
   const total = subtotal - discount + shipping
-  
+
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-2xl px-6 py-12 text-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Loading checkout...</p>
-      </div>
+      <div className="min-h-screen flex items-center justify-center text-primary-700">Loading…</div>
     )
   }
   
@@ -131,37 +118,6 @@ function CheckoutPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handlePayHerePayment = async () => {
-    setIsProcessing(true)
-    
-    try {
-      // Create payment request
-      const response = await fetch('/api/checkout/payhere', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer: customerInfo,
-          items,
-          total,
-          orderId: `ORDER-${Date.now()}`
-        })
-      })
-      
-      if (!response.ok) {
-        throw new Error('Failed to create payment')
-      }
-      
-      const { paymentData: payment } = await response.json()
-      
-      // Set payment data - PayHereCheckout component will handle the rest
-      setPaymentData(payment)
-    } catch (error) {
-      console.error('Payment error:', error)
-      alert('Payment failed. Please try again.')
-      setIsProcessing(false)
-    }
-  }
-
   const handleBankTransferPayment = async () => {
     setIsProcessing(true)
     try {
@@ -195,10 +151,7 @@ function CheckoutPage() {
     e.preventDefault()
     if (!validate()) return
     
-    if (paymentMethod === 'payhere') {
-      try { analytics.beginCheckout(items, total) } catch {}
-      await handlePayHerePayment()
-    } else if (paymentMethod === 'bank_transfer') {
+    if (paymentMethod === 'bank_transfer') {
       await handleBankTransferPayment()
     }
   }
@@ -272,14 +225,14 @@ function CheckoutPage() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Initializing secure payment...
+                Processing...
               </>
             ) : (
               <>
                 <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
-                Secure Checkout
+                Complete Order
               </>
             )}
           </Button>
@@ -305,27 +258,6 @@ function CheckoutPage() {
         formatPrice={formatPrice}
         isProcessing={isProcessing}
         onSubmit={handleSubmit}
-      />
-
-      {/* PayHere Checkout Component - Hidden until payment initiated */}
-      <PayHereCheckout
-        paymentData={paymentData}
-        onSuccess={(orderId) => {
-          console.log('Payment successful:', orderId)
-          clear() // Clear cart on success
-        }}
-        onCancel={() => {
-          setIsProcessing(false)
-          setPaymentData(null)
-        }}
-        onError={(error) => {
-          console.error('Payment error:', error)
-          setIsProcessing(false)
-          setPaymentData(null)
-          
-          // Show user-friendly error message
-          alert('Payment initialization failed. Please check your information and try again.')
-        }}
       />
 
       <SizeGuideModal

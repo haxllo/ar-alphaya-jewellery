@@ -146,11 +146,4 @@ html {
   }
 }
 
-/* ============================================
-   PayHere Modal Enhancements
-   ============================================ */
 
-/* Prevent body scroll when PayHere payment modal is active */
-body.payhere-payment-active {
-  overflow: hidden;
-}

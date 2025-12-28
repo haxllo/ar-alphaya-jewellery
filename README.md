@@ -19,7 +19,6 @@ A modern, customizable jewelry e-commerce website built with Next.js, TypeScript
 - **Content Management**: Decap CMS (formerly Netlify CMS) for easy product management
 - **Authentication**: Complete Auth0 integration with user profiles and protected pages
 - **Shopping Cart**: Advanced cart functionality with recommendations and size selection
-- **Payment Integration**: PayHere payment gateway for Sri Lankan customers
 - **User Reviews**: Complete review and rating system with verified purchases
 - **Multi-Currency**: Support for 9 international currencies with live conversion
 - **Product Recommendations**: Smart AI-powered product suggestions
@@ -38,7 +37,7 @@ src/
 │   ├── products/           # Individual product pages
 │   ├── profile/           # User profile page (protected)
 │   ├── cart/              # Advanced shopping cart
-│   ├── checkout/          # PayHere checkout integration
+│   ├── checkout/          # Checkout integration
 │   ├── about/             # About page
 │   ├── contact/           # Contact page
 │   └── globals.css        # Global styles
@@ -172,7 +171,6 @@ Custom fonts can be added in `app/layout.tsx` and configured in the Tailwind con
 2. Set build command: `npm run build`
 3. Set publish directory: `out`
 4. Enable Netlify Identity for admin access
-5. Configure PayHere integration
 
 ### Environment Variables
 
@@ -188,11 +186,6 @@ AUTH0_ISSUER_BASE_URL="https://your-tenant.auth0.com"
 AUTH0_CLIENT_ID="your-client-id"
 AUTH0_CLIENT_SECRET="your-client-secret"
 AUTH0_SCOPE="openid profile email"
-
-# PayHere Payment Gateway
-NEXT_PUBLIC_PAYHERE_MERCHANT_ID=your-merchant-id
-PAYHERE_MERCHANT_SECRET=your-merchant-secret
-NEXT_PUBLIC_PAYHERE_SANDBOX=true
 ```
 
 ## 💱 Currency Selector (Temporarily Disabled)
@@ -282,7 +275,6 @@ The multi-currency selector is currently disabled. To re-enable it:
 - ✅ Professional review and rating system
 - ✅ Newsletter subscription system
 - ✅ Comprehensive size guide modal
-- ✅ PayHere payment gateway integration
 - ✅ Professional black/white design theme
 - ✅ Complete brand integration and optimization
 

@@ -29,64 +29,6 @@ export default function PaymentMethodSelector({
           onValueChange={(value) => onChange(value as PaymentMethod)}
           className="space-y-3"
         >
-          {/* PayHere Option */}
-          <RadioGroupItem value="payhere">
-            <div className="flex w-full items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  {/* Checkmark for selected */}
-                  <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-black">
-                    {selected === 'payhere' && (
-                      <div className="h-3 w-3 rounded-full bg-black" />
-                    )}
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold">PayHere</span>
-                      <Image
-                        src="/payment-logos/payhere.svg"
-                        alt="PayHere"
-                        width={80}
-                        height={25}
-                        className="h-auto"
-                      />
-                    </div>
-                    
-                    {/* Payment Logos */}
-                    <div className="mt-2 flex items-center gap-2">
-                      <Image
-                        src="/payment-logos/visa.svg"
-                        alt="Visa"
-                        width={40}
-                        height={25}
-                        className="h-auto"
-                      />
-                      <Image
-                        src="/payment-logos/mastercard.svg"
-                        alt="Mastercard"
-                        width={40}
-                        height={25}
-                        className="h-auto"
-                      />
-                      <Image
-                        src="/payment-logos/amex.svg"
-                        alt="American Express"
-                        width={40}
-                        height={25}
-                        className="h-auto"
-                      />
-                    </div>
-                    
-                    <p className="mt-2 text-sm text-gray-600">
-                      Credit/Debit Cards • Online Banking • Mobile Wallets
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </RadioGroupItem>
-
           {/* Bank Transfer Option */}
           <RadioGroupItem value="bank_transfer">
             <div className="flex w-full items-start justify-between">

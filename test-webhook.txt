@@ -1,1 +1,0 @@
-fetch('https://www.aralphayajewellery.com/api/checkout/payhere/notify', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: 'merchant_id=1232859&order_id=ORDER-1763151847081&payhere_amount=1000.00&payhere_currency=LKR&status_code=2&md5sig=XXXXX'}).then(r => r.text()).then(d => console.log(d)).catch(e => console.error(e))

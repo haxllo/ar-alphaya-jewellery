@@ -92,8 +92,6 @@ export default defineConfig({
       AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID || 'test-client-id',
       AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET || 'test-client-secret',
       AUTH0_COOKIE_SECURE: process.env.AUTH0_COOKIE_SECURE || 'false',
-      NEXT_PUBLIC_PAYHERE_SANDBOX: process.env.NEXT_PUBLIC_PAYHERE_SANDBOX || 'true',
-      NEXT_PUBLIC_PAYHERE_MERCHANT_ID: process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID || 'test-merchant-id',
     },
   },
 
