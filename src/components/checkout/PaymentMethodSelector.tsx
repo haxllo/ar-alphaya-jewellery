@@ -1,7 +1,6 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { CreditCard, Building2, Check, Info } from 'lucide-react'
@@ -54,12 +53,8 @@ export default function PaymentMethodSelector({
              <span className="font-bold text-sm uppercase tracking-tight">Choose your payment method</span>
           </div>
 
-          {/* HORIZONTAL BOXES */}
-          <RadioGroup
-            value={selected}
-            onValueChange={(value) => onChange(value as PaymentMethod)}
-            className="grid grid-cols-1 md:grid-cols-4 gap-3"
-          >
+          {/* HORIZONTAL BOXES - REPLACED RadioGroup with simple DIV grid to avoid issues */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
             {/* CARD */}
             <div className={cn(
               "relative flex items-center justify-between border-2 rounded-md p-3 cursor-pointer transition-all",
@@ -124,7 +119,7 @@ export default function PaymentMethodSelector({
                  <span className="text-sm font-semibold">Bank Transfer</span>
               </div>
             </div>
-          </RadioGroup>
+          </div>
 
           {/* DYNAMIC CONTENT PER METHOD */}
           {selected === 'card' && (
