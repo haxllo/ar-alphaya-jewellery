@@ -1,4 +1,4 @@
-import { getProducts } from '@/lib/cms'
+import { getProducts, getProductCategories } from '@/lib/cms'
 
 export default async function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
@@ -7,19 +7,28 @@ export default async function sitemap() {
     '',
     '/about',
     '/contact',
+    '/policies',
     '/privacy',
     '/returns',
     '/shipping',
     '/terms',
     '/search',
-  ].map((path) => ({ url: `${baseUrl}${path}`, lastModified: new Date().toISOString() }))
+    '/wishlist',
+    '/compare',
+  ].map((path) => ({ 
+    url: `${baseUrl}${path}`, 
+    lastModified: new Date().toISOString() 
+  }))
 
-  const collections = [
-    'rings',
-    'earrings',
-    'pendants',
-    'bracelets-bangles',
-  ].map((handle) => ({ url: `${baseUrl}/collections/${handle}`, lastModified: new Date().toISOString() }))
+  // Get categories from products and merge with default collections
+  const productCategories = await getProductCategories()
+  const defaultCollections = ['rings', 'earrings', 'pendants', 'bracelets-bangles']
+  const uniqueCategories = Array.from(new Set([...productCategories, ...defaultCollections]))
+
+  const collections = uniqueCategories.map((handle) => ({ 
+    url: `${baseUrl}/collections/${handle}`, 
+    lastModified: new Date().toISOString() 
+  }))
 
   const products = await getProducts()
   const productRoutes = products.map((p) => ({
