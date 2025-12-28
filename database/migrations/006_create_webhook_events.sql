@@ -1,6 +1,6 @@
 -- Migration: Create webhook_events audit table
 -- Date: 2025-11-16
--- Purpose: Persist PayHere webhook payloads and processing state for auditing
+-- Purpose: Persist payment webhook payloads and processing state for auditing
 
 CREATE TABLE IF NOT EXISTS webhook_events (
   id BIGSERIAL PRIMARY KEY,

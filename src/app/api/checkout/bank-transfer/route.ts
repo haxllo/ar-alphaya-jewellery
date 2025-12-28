@@ -7,7 +7,7 @@ import { createServerClient } from '@/lib/supabase'
 import { sanitizeString } from '@/lib/validation'
 import { sendBankTransferInstructions } from '@/lib/email/sender'
 
-// Validation schema for checkout request (same as PayHere)
+// Validation schema for checkout request
 const checkoutSchema = z.object({
   customer: z.object({
     firstName: z.string().min(1),

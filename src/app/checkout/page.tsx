@@ -29,6 +29,9 @@ function CheckoutPage() {
   const clear = useCartStore((state) => state.clear)
   const [showSizeGuide, setShowSizeGuide] = useState(false)
   const { formatPrice } = usePriceFormatter()
+  
+  // Multi-step checkout: 2 = Information, 3 = Payment
+  const [currentStep, setCurrentStep] = useState(2)
 
   // Generate a stable Order ID for the session to prevent PayPal button re-renders
   const orderIdRef = useRef<string>('')
@@ -140,6 +143,11 @@ function CheckoutPage() {
   }
 
   const handleBankTransferPayment = async () => {
+    if (!validate()) {
+      alert('Please fill in all required fields before completing your order.')
+      return
+    }
+    
     setIsProcessing(true)
     const effectiveCustomer = getEffectiveCustomerInfo()
     const currentOrderId = orderIdRef.current || `ORDER-${Date.now()}`
@@ -164,14 +172,19 @@ function CheckoutPage() {
       try { analytics.purchase('bank_transfer_' + Date.now(), items, total) } catch {}
       clear()
       router.push('/checkout/success?payment_method=bank_transfer')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Bank transfer error:', error)
-      alert('Failed to place order. Please try again.')
+      alert(error.message || 'Failed to place order. Please try again.')
       setIsProcessing(false)
     }
   }
 
   const handlePayzyPayment = async () => {
+    if (!validate()) {
+      alert('Please fill in all required fields before completing your order.')
+      return
+    }
+    
     setIsProcessing(true)
     const effectiveCustomer = getEffectiveCustomerInfo()
     const currentOrderId = orderIdRef.current || `ORDER-${Date.now()}`
@@ -200,14 +213,25 @@ function CheckoutPage() {
     }
   }
 
-  const handleCardPayment = async () => {
-    setIsProcessing(true)
-    try {
-      alert('Redirecting to secure card payment gateway...')
-      // Card logic integration here
-    } catch (error) {
-      setIsProcessing(false)
+  const handleCardSuccess = () => {
+    try { analytics.purchase('card_' + Date.now(), items, total) } catch {}
+    clear()
+    router.push('/checkout/success?payment_method=card')
+  }
+
+  const handleCardError = (err: string) => {
+    alert(err)
+    setIsProcessing(false)
+  }
+  
+  const handleCardBeforeCreate = () => {
+    // Validate before allowing card order creation
+    if (!validate()) {
+      alert('Please fill in all required fields before continuing with card payment.')
+      return false
     }
+    setIsProcessing(true)
+    return true
   }
 
   const handlePayPalSuccess = () => {
@@ -220,6 +244,41 @@ function CheckoutPage() {
     alert(err)
     setIsProcessing(false)
   }
+  
+  const handlePayPalBeforeCreate = () => {
+    // Validate before allowing PayPal order creation
+    if (!validate()) {
+      alert('Please fill in all required fields before continuing with PayPal.')
+      return false
+    }
+    setIsProcessing(true)
+    return true
+  }
+
+  // Continue from Information to Payment step
+  const handleContinueToPayment = () => {
+    if (!validate()) {
+      // Mark all fields as touched to show errors
+      setTouched({
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+        address: true,
+        city: true,
+        postalCode: true
+      })
+      return
+    }
+    setCurrentStep(3)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  
+  // Go back to Information step
+  const handleBackToInformation = () => {
+    setCurrentStep(2)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -229,14 +288,13 @@ function CheckoutPage() {
       await handleBankTransferPayment()
     } else if (paymentMethod === 'payzy') {
       await handlePayzyPayment()
-    } else if (paymentMethod === 'card') {
-      await handleCardPayment()
     }
+    // Note: 'card' and 'paypal' are handled by their respective components
   }
 
   return (
     <CheckoutContainer>
-      <CheckoutProgress currentStep={2} />
+      <CheckoutProgress currentStep={currentStep} />
       
       <MobileOrderSummary
         items={items}
@@ -273,53 +331,115 @@ function CheckoutPage() {
             </div>
           )}
 
-          <BillingInfoCard
-            customerInfo={customerInfo}
-            errors={errors}
-            touched={touched}
-            onChange={handleInputChange}
-            onBlur={validate}
-          />
+          {/* Step 2: Information */}
+          {currentStep === 2 && (
+            <>
+              <BillingInfoCard
+                customerInfo={customerInfo}
+                errors={errors}
+                touched={touched}
+                onChange={handleInputChange}
+                onBlur={validate}
+              />
+              
+              {/* Continue to Payment Button */}
+              <Button
+                type="button"
+                size="lg"
+                onClick={handleContinueToPayment}
+                className="w-full bg-deep-black hover:bg-forest-deep text-white font-semibold text-base h-12 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+              >
+                Continue to Payment
+                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Button>
+            </>
+          )}
 
-          <PaymentMethodSelector
-            selected={paymentMethod}
-            onChange={setPaymentMethod}
-            billingSameAsDelivery={billingSameAsDelivery}
-            setBillingSameAsDelivery={setBillingSameAsDelivery}
-            billingInfo={billingInfo}
-            onBillingChange={handleBillingChange}
-            // PayPal Props
-            payPalAmount={total}
-            payPalOrderId={orderIdRef.current || `ORDER-${Date.now()}`}
-            onPayPalSuccess={handlePayPalSuccess}
-            onPayPalError={handlePayPalError}
-          />
+          {/* Step 3: Payment */}
+          {currentStep === 3 && (
+            <>
+              {/* Back to Information Link */}
+              <button
+                type="button"
+                onClick={handleBackToInformation}
+                className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors mb-4"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Information
+              </button>
+              
+              {/* Customer Info Summary */}
+              <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-medium text-sm text-gray-900">Shipping to</h3>
+                  <button
+                    type="button"
+                    onClick={handleBackToInformation}
+                    className="text-xs text-blue-600 hover:text-blue-800"
+                  >
+                    Edit
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600">
+                  {customerInfo.firstName} {customerInfo.lastName}<br />
+                  {customerInfo.address}<br />
+                  {customerInfo.city}{customerInfo.postalCode ? `, ${customerInfo.postalCode}` : ''}<br />
+                  {customerInfo.email} • {customerInfo.phone}
+                </p>
+              </div>
 
-          {paymentMethod !== 'paypal' && (
-            <Button
-              type="submit"
-              size="lg"
-              disabled={isProcessing}
-              onClick={handleSubmit}
-              className="hidden w-full lg:flex bg-deep-black hover:bg-forest-deep text-white font-semibold text-base h-12 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            >
-              {isProcessing ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  Complete Order
-                </>
+              <PaymentMethodSelector
+                selected={paymentMethod}
+                onChange={setPaymentMethod}
+                billingSameAsDelivery={billingSameAsDelivery}
+                setBillingSameAsDelivery={setBillingSameAsDelivery}
+                billingInfo={billingInfo}
+                onBillingChange={handleBillingChange}
+                // PayPal Props
+                payPalAmount={total}
+                payPalOrderId={orderIdRef.current || `ORDER-${Date.now()}`}
+                onPayPalSuccess={handlePayPalSuccess}
+                onPayPalError={handlePayPalError}
+                onPayPalBeforeCreate={handlePayPalBeforeCreate}
+                // Card Props
+                cardAmount={total}
+                cardOrderId={orderIdRef.current || `ORDER-${Date.now()}`}
+                onCardSuccess={handleCardSuccess}
+                onCardError={handleCardError}
+                onCardBeforeCreate={handleCardBeforeCreate}
+              />
+
+              {paymentMethod !== 'paypal' && paymentMethod !== 'card' && (
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isProcessing}
+                  onClick={handleSubmit}
+                  className="w-full bg-deep-black hover:bg-forest-deep text-white font-semibold text-base h-12 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                >
+                  {isProcessing ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                      Complete Order
+                    </>
+                  )}
+                </Button>
               )}
-            </Button>
+            </>
           )}
         </div>
 
@@ -340,6 +460,9 @@ function CheckoutPage() {
         formatPrice={formatPrice}
         isProcessing={isProcessing}
         onSubmit={handleSubmit}
+        currentStep={currentStep}
+        onContinueToPayment={handleContinueToPayment}
+        paymentMethod={paymentMethod}
       />
 
       <SizeGuideModal

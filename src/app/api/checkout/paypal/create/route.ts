@@ -17,6 +17,8 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
   const amountInUSD = CurrencyService.convertBetweenCurrencies(amount, 'LKR', 'USD')
   const formattedAmount = amountInUSD.toFixed(2)
   
+  console.log(`[PayPal API] Creating order: ${orderId}, LKR ${amount} → USD ${formattedAmount}`)
+  
   const paypalOrder = await createPayPalOrder(formattedAmount, orderId)
   
   return NextResponse.json(paypalOrder)
