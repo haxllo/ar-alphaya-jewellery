@@ -29,6 +29,38 @@ export default function PaymentMethodSelector({
           onValueChange={(value) => onChange(value as PaymentMethod)}
           className="space-y-3"
         >
+          {/* Payzy BNPL Option */}
+          <RadioGroupItem value="payzy">
+            <div className="flex w-full items-start justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-black">
+                    {selected === 'payzy' && (
+                      <div className="h-3 w-3 rounded-full bg-black" />
+                    )}
+                  </div>
+                  
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <CreditCard className="h-5 w-5 text-gray-600" />
+                      <span className="font-semibold">Payzy (Buy Now, Pay Later)</span>
+                    </div>
+                    
+                    <p className="mt-2 text-sm text-gray-600">
+                      Pay in installments securely via Payzy.
+                    </p>
+                    
+                    <div className="mt-2 flex gap-2">
+                       {/* Placeholder for Payzy logos if any, or just text badges */}
+                       <span className="rounded border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-600">Visa</span>
+                       <span className="rounded border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-600">Mastercard</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </RadioGroupItem>
+
           {/* Bank Transfer Option */}
           <RadioGroupItem value="bank_transfer">
             <div className="flex w-full items-start justify-between">

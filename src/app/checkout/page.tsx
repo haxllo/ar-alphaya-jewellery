@@ -142,12 +142,53 @@ function CheckoutPage() {
     }
   }
 
+  const handlePayzyPayment = async () => {
+    setIsProcessing(true)
+    try {
+      const response = await fetch('/api/checkout/payzy/init', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer: {
+             ...customerInfo,
+             country: 'Sri Lanka', // Defaulting country
+          },
+          items,
+          total,
+          orderId: `ORDER-${Date.now()}`
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success || !data.url) {
+        throw new Error(data.message || 'Failed to initiate Payzy payment')
+      }
+
+      // Clear cart before redirecting? 
+      // Usually better to clear AFTER success to avoid data loss if they go back.
+      // But we can clear it here if we assume the order is created.
+      // However, if they hit back, cart is empty.
+      // Better: Don't clear here. Clear in success page or verify route.
+      // But Checkout page state relies on cart. 
+      // Let's keep cart for now.
+      
+      window.location.href = data.url
+    } catch (error: any) {
+      console.error('Payzy error:', error)
+      alert(error.message || 'Failed to initiate payment. Please try again.')
+      setIsProcessing(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validate()) return
     
     if (paymentMethod === 'bank_transfer') {
       await handleBankTransferPayment()
+    } else if (paymentMethod === 'payzy') {
+      await handlePayzyPayment()
     }
   }
 
