@@ -65,13 +65,8 @@ function CheckoutPage() {
   const freeShippingThreshold = 5000
   const shipping = subtotal >= freeShippingThreshold ? 0 : 1000
   
-  // Get discount from cart store (if promo code applied)
-  const promoCode = useCartStore((state) => state.promoCode)
-  const discount = promoCode
-    ? promoCode.type === 'percentage'
-      ? Math.round((subtotal * promoCode.discount) / 100)
-      : promoCode.discount
-    : 0
+  // No discount applied at checkout (apply promo codes in cart)
+  const discount = 0
   
   const total = subtotal - discount + shipping
 
@@ -168,7 +163,6 @@ function CheckoutPage() {
         shipping={shipping}
         total={total}
         formatPrice={formatPrice}
-        promoCode={promoCode}
       />
       
       <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
@@ -247,7 +241,6 @@ function CheckoutPage() {
             shipping={shipping}
             total={total}
             formatPrice={formatPrice}
-            promoCode={promoCode}
           />
         </div>
       </div>

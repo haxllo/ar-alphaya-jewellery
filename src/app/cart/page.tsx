@@ -7,7 +7,6 @@ import { CartItemOne } from '@/components/cart-item-01'
 import CartSummary from '@/components/cart/cart-summary'
 import CartSkeleton from '@/components/ui/skeletons/CartSkeleton'
 import DeliveryEstimate from '@/components/cart/DeliveryEstimate'
-import PromoCode from '@/components/cart/PromoCode'
 import TrustBadges from '@/components/cart/TrustBadges'
 import dynamic from 'next/dynamic'
 const ProductRecommendations = dynamic(() => import('@/components/recommendations/ProductRecommendations'), { ssr: false })
@@ -16,52 +15,20 @@ import type { CartItem } from '@/types/product'
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items) as CartItem[]
-  const promoCode = useCartStore((state) => state.promoCode)
   const addItem = useCartStore((state) => state.addItem)
   const removeItem = useCartStore((state) => state.removeItem)
   const setQuantity = useCartStore((state) => state.setQuantity)
   const clearImmediate = useCartStore((state) => state.clearImmediate)
-  const applyPromoCode = useCartStore((state) => state.applyPromoCode)
-  const removePromoCodeFromStore = useCartStore((state) => state.removePromoCode)
   const [removingItem, setRemovingItem] = useState<string | null>(null)
   
   const subtotal = items.reduce((acc, i) => acc + i.price * i.quantity, 0)
   
-  // Calculate discount
-  const discount = promoCode
-    ? promoCode.type === 'percentage'
-      ? Math.round((subtotal * promoCode.discount) / 100)
-      : promoCode.discount
-    : 0
-  
   // Free shipping for all orders within Sri Lanka
   const shippingEstimate = 0
-  const total = subtotal - discount + shippingEstimate
+  const total = subtotal + shippingEstimate
 
   // Smart product recommendations: fetch contextual products from API (category/tags from cart)
   const [suggestedProducts, setSuggestedProducts] = useState<any[]>([])
-
-  // Promo code validation
-  const handleApplyPromoCode = async (code: string): Promise<{ success: boolean; message: string; discount?: number }> => {
-    // Simulated promo codes - in production, this would call an API
-    const validCodes: Record<string, { discount: number; type: 'percentage' | 'fixed'; message: string }> = {
-      'WELCOME10': { discount: 10, type: 'percentage', message: '10% discount applied!' },
-      'SAVE500': { discount: 500, type: 'fixed', message: 'Rs.500 discount applied!' },
-      'FREESHIP': { discount: 1000, type: 'fixed', message: 'Free shipping applied!' },
-    }
-
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500))
-
-    const promoData = validCodes[code]
-    
-    if (promoData) {
-      applyPromoCode(code, promoData.discount, promoData.type)
-      return { success: true, message: promoData.message, discount: promoData.discount }
-    }
-    
-    return { success: false, message: 'Invalid promo code. Please try again.' }
-  }
 
   async function fetchRecommendations() {
     try {
@@ -186,27 +153,8 @@ export default function CartPage() {
             
             <DeliveryEstimate />
             
-            <div className="border-t border-metal-gold-200 pt-4">
-              <PromoCode onApply={handleApplyPromoCode} />
-            </div>
-            
-            {promoCode && (
-              <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3 text-sm">
-                <span className="text-green-800 font-medium">
-                  {promoCode.code} Applied
-                </span>
-                <button
-                  onClick={removePromoCodeFromStore}
-                  className="text-green-600 hover:text-green-800 underline"
-                >
-                  Remove
-                </button>
-              </div>
-            )}
-            
             <CartSummary 
               subtotal={subtotal}
-              discount={discount}
               shippingEstimate={shippingEstimate}
               total={total}
               itemCount={items.reduce((acc, i) => acc + i.quantity, 0)}

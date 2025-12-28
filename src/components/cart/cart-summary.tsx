@@ -5,7 +5,6 @@ import { usePriceFormatter } from '@/hooks/useCurrency'
 
 interface CartSummaryProps {
   subtotal: number
-  discount?: number
   shippingEstimate: number
   total: number
   itemCount: number
@@ -13,7 +12,6 @@ interface CartSummaryProps {
 
 export default function CartSummary({ 
   subtotal, 
-  discount = 0,
   shippingEstimate, 
   total, 
   itemCount 
@@ -26,13 +24,6 @@ export default function CartSummary({
         <span>Subtotal ({itemCount} {itemCount === 1 ? 'item' : 'items'})</span>
         <span>{formatPrice(subtotal)}</span>
       </div>
-      
-      {discount > 0 && (
-        <div className="flex justify-between text-xs sm:text-sm text-green-600 font-medium">
-          <span>Discount</span>
-          <span>-{formatPrice(discount)}</span>
-        </div>
-      )}
       
       <div className="flex justify-between text-xs sm:text-sm">
         <span className="text-deep-black/70">Delivery (within Sri Lanka)</span>

@@ -15,7 +15,6 @@ interface MobileOrderSummaryProps {
   shipping: number
   total: number
   formatPrice: (price: number) => string
-  promoCode?: { code: string; discount: number; type: 'percentage' | 'fixed' } | null
 }
 
 export default function MobileOrderSummary({
@@ -25,7 +24,6 @@ export default function MobileOrderSummary({
   shipping,
   total,
   formatPrice,
-  promoCode,
 }: MobileOrderSummaryProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -115,12 +113,6 @@ export default function MobileOrderSummary({
               <span className="text-gray-600">Subtotal</span>
               <span className="tabular-nums">{formatPrice(subtotal)}</span>
             </div>
-            {discount > 0 && promoCode && (
-              <div className="flex justify-between text-sm text-green-600 font-medium">
-                <span>Discount ({promoCode.code})</span>
-                <span className="tabular-nums">-{formatPrice(discount)}</span>
-              </div>
-            )}
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Delivery</span>
               <span className={`tabular-nums ${shipping === 0 ? 'text-green-600 font-medium' : ''}`}>

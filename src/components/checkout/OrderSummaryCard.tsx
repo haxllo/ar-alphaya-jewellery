@@ -16,7 +16,6 @@ interface OrderSummaryCardProps {
   shipping: number
   total: number
   formatPrice: (price: number) => string
-  promoCode?: { code: string; discount: number; type: 'percentage' | 'fixed' } | null
 }
 
 export default function OrderSummaryCard({
@@ -26,7 +25,6 @@ export default function OrderSummaryCard({
   shipping,
   total,
   formatPrice,
-  promoCode,
 }: OrderSummaryCardProps) {
   const [promoCodeInput, setPromoCodeInput] = useState('')
   const [isApplying, setIsApplying] = useState(false)
@@ -148,13 +146,6 @@ export default function OrderSummaryCard({
             <span className="text-metal-gold-600">Subtotal</span>
             <span className="tabular-nums text-metal-gold-brown">{formatPrice(subtotal)}</span>
           </div>
-          
-          {discount > 0 && promoCode && (
-            <div className="flex justify-between text-sm text-green-600 font-medium">
-              <span>Discount ({promoCode.code})</span>
-              <span className="tabular-nums">-{formatPrice(discount)}</span>
-            </div>
-          )}
           
           <div className="flex justify-between text-sm">
             <span className="text-metal-gold-600">Delivery</span>
