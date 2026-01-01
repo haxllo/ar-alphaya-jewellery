@@ -138,37 +138,35 @@ Each product card shows:
 
    **Basic Information:**
    - **Name:** Product title (e.g., "Sapphire & Gold Ring")
-   - **Description:** Full description (supports markdown)
-   - **Short Description:** Brief summary for listings
-   - **Price:** Base price in LKR (e.g., 25000)
+   - **Slug:** URL-friendly identifier (e.g., "sapphire-gold-ring"). This is auto-generated from the name but can be customized.
+   - **Description:** Full product description (supports markdown).
+   - **Price:** Base price in LKR (e.g., 25000).
 
-   **Product Status:**
-   - **Status:** Choose "published" to make live, "draft" to hide
-   - **Featured:** Toggle to feature on homepage
-   - **In Stock:** Toggle availability
+   **Product Status & Visibility:**
+   - **Status:** Choose "published" to make the product live, or "draft" to keep it hidden.
+   - **Featured:** Toggle to feature the product on the homepage.
+   - **In Stock:** Toggle availability.
+   - **Availability:** A short note on availability (e.g., "Made to order").
+   - **Lead Time:** The time it takes to create the product (e.g., "2-3 weeks").
+   - **Status Note:** An optional note about the product's status.
 
-   **Categorization:**
-   - **Collection:** Select one or more collections
-     - Rings
-     - Necklaces
-     - Earrings
-     - Bracelets
-     - Pendants
-     - Brooches
-   - **Gemstone Types:** Select gemstones used
-   - **Metal Types:** Select metal(s) used
+   **Categorization & Details:**
+   - **Category:** The primary category of the product (e.g., "rings", "earrings").
+   - **Gemstones:** A list of gemstones used in the product.
+   - **Materials:** A list of materials used (e.g., "22K Gold").
+   - **Tags:** A list of tags for searching and filtering.
 
    **Specifications:**
-   - **SKU:** Unique product code (optional)
-   - **Weight:** Weight in grams
-   - **Dimensions:** Length, Width, Height
-   - **Size Options:** Available sizes (if applicable)
+   - **SKU:** Unique product code (optional).
+   - **Weight:** Weight in grams.
+   - **Dimensions:** Length, Width, Height.
+   - **Sizes:** Available sizes (if applicable).
+   - **Customizable:** Whether the product can be customized.
 
    **Images:**
-   - **Primary Image:** Main product photo
-   - **Additional Images:** Multiple angles, detail shots
-   - Recommended: 1200x1200px, white background
-   - Format: JPG or PNG
+   - **Images:** Upload one or more images for the product.
+   - Recommended: 1200x1200px, white background.
+   - Format: JPG or PNG.
 
 3. **Save Product:**
    - Click **"Create Product"** to publish immediately

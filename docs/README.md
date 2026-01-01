@@ -1,27 +1,20 @@
-# Documentation
+# Documentation Index
 
-This folder contains all project documentation organized by category.
+Welcome to the **AR Alphaya Jewellery** project documentation.
 
-## 📁 Structure
+## 🚀 Quick Start
+*   **[Project Overview & Setup](../GEMINI.md)** - **Start Here!** Project context, build commands, and architecture.
+*   **[Admin Portal Guide](ADMIN_PORTAL_GUIDE.md)** - Manual for the current Supabase-backed Admin System.
 
-### Setup & Configuration
-- **VERCEL_MIGRATION_GUIDE.md** - Guide for migrating from Netlify to Vercel
-- **NETLIFY_ENV_VARIABLES.md** - Environment variables reference (legacy)
-- **NETLIFY_DNS_RESEND_SETUP.md** - DNS setup for Resend email service
+## 🏗️ Architecture & Development
+*   **[Payload CMS Migration Analysis](PAYLOAD_MIGRATION_ANALYSIS.md)** - **NEW** Analysis of migrating to Payload CMS.
+*   **[Database Schema](../database/README.md)** - Structure of the Supabase PostgreSQL database.
+*   **[Environment Variables](NETLIFY_ENV_VARIABLES.md)** - Required keys for Auth0, Supabase, PayPal, etc.
 
-### Database & Supabase
-- **SUPABASE_SECURITY_GUIDE.md** - Security fixes and RLS policies guide
-- **COMMERCE_MIGRATION_GUIDE.md** - Guide for migrating commerce features to Supabase
-- **MIGRATION_GUIDE.md** - General migration guide
+## 💳 Integrations
+*   **[PayPal Implementation](PAYPAL_IMPLEMENTATION_COMPLETE.md)** - Details on the live PayPal integration.
+*   **[Payzy Integration](../src/lib/payzy.ts)** - (Code) In-progress local payment gateway integration.
 
-### Development
-- **NEXTJS_16_UPGRADE.md** - Next.js 16 upgrade summary
-- **TROUBLESHOOTING.md** - Common issues and solutions
-- **AUDIT_REPORT.md** - Security audit report
-- **BACKLOG.md** - Project backlog and future tasks
-
-## 📂 Related Files
-
-- **Database schemas**: See `../database/` folder for SQL files
-- **Main README**: See `../README.md` for project overview
-
+## 📚 Historical / Legacy
+*   *Note: Any documentation referencing "Decap CMS" or "Netlify CMS" is deprecated.*
+*   [Migration Guide (Legacy)](MIGRATION_GUIDE.md) - Reference for previous system changes.

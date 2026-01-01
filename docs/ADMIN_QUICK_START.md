@@ -18,11 +18,12 @@
 
 ### Add New Product
 1. Click **"Add Product"**
-2. Fill in name, price, description
-3. Upload images (1200x1200px)
-4. Select collection(s)
-5. Set status to "published"
-6. Click **"Create Product"**
+2. Fill in **Name**, **Slug**, **Description**, and **Price**
+3. Upload **Images** (1200x1200px)
+4. Select **Category**, **Materials**, and **Tags**
+5. Set **Status** to "published"
+6. Set **In Stock**, **Availability**, and **Lead Time**
+7. Click **"Create Product"**
 
 ### Edit Product
 1. Find product in grid

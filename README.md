@@ -16,7 +16,7 @@ A modern, customizable jewelry e-commerce website built with Next.js, TypeScript
 ## 🚀 Features
 
 - **Modern Tech Stack**: Next.js 15 with App Router, TypeScript, Tailwind CSS
-- **Content Management**: Decap CMS (formerly Netlify CMS) for easy product management
+- **Content Management**: Supabase for headless content management.
 - **Authentication**: Complete Auth0 integration with user profiles and protected pages
 - **Shopping Cart**: Advanced cart functionality with recommendations and size selection
 - **User Reviews**: Complete review and rating system with verified purchases
@@ -51,16 +51,15 @@ src/
 │   └── marketing/        # Newsletter and marketing components
 ├── lib/                  # Utility functions and configurations
 │   ├── store/            # Zustand store for state management
-│   ├── cms/              # CMS utility functions
+│   ├── cms.ts              # Supabase client and data fetching
 │   ├── recommendations.ts# Smart product recommendations
 │   ├── reviews.ts        # Review system service
 │   ├── newsletter.ts     # Newsletter management
 │   ├── currency.ts       # Multi-currency support
 │   └── utils.ts          # General utilities
 ├── types/                # TypeScript type definitions
-├── data/                 # Sample data and CMS content
 └── public/               # Static assets
-    ├── admin/            # Decap CMS admin interface
+    ├── admin/            # Admin dashboard
     └── images/           # Product images and assets
 ```
 
@@ -99,23 +98,34 @@ npm run dev
 
 ## 📝 Content Management
 
-### Adding Products
-
-1. Navigate to `/admin` after deployment
-2. Login with Netlify Identity
-3. Add products through the visual interface
-4. Images will be automatically optimized
+Products are managed in a headless CMS setup using Supabase. You can edit products directly in the Supabase database dashboard.
 
 ### Product Fields
 
-- Name
-- Description
-- Price
-- Images
-- Category
-- Sizes available
-- Materials
-- SKU
+- `id`: Unique identifier (string)
+- `productId`: Product ID (string)
+- `name`: Product name (string)
+- `slug`: URL-friendly slug (string)
+- `description`: Product description (string)
+- `price`: Price of the product (number)
+- `currency`: Currency code (string, e.g., "LKR")
+- `images`: Array of image URLs (string[])
+- `category`: Product category (string)
+- `sku`: Stock Keeping Unit (string)
+- `materials`: Array of materials (string[])
+- `weight`: Weight of the product in grams (number)
+- `dimensions`: Dimensions of the product (string)
+- `sizes`: Available sizes (Size[])
+- `gemstones`: Available gemstones (Gemstone[])
+- `inStock`: Whether the product is in stock (boolean)
+- `featured`: Whether the product is a featured product (boolean)
+- `tags`: Array of tags (string[])
+- `createdAt`: Date of creation (string)
+- `updatedAt`: Date of last update (string)
+- `availability`: Availability status (string)
+- `leadTime`: Lead time for the product (string)
+- `customizable`: Whether the product is customizable (boolean)
+- `statusNote`: A note about the product's status (string)
 
 ## 🛒 Shopping Cart
 
@@ -290,5 +300,4 @@ For support, email info@aralphayajewellery.com or create an issue in this reposi
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Decap CMS Documentation](https://decapcms.org/docs)
 - [Netlify Identity Documentation](https://docs.netlify.com/visitor-access/identity)
