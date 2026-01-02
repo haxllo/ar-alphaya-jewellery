@@ -19,7 +19,7 @@ export default function TermsOfServicePage() {
             We are AR Alphaya Jewellery ("Company", "we", "us", or "our"), operating in Sri Lanka.
           </p>
           <p className="text-gray-700 mb-4">
-            We operate the website https://aralphaya.netlify.app (the "Site"), as well as any other related products and services that refer or link to these legal terms (the "Legal Terms") (collectively, the "Services").
+            We operate the website https://aralphayajewellery.com (the "Site"), as well as any other related products and services that refer or link to these legal terms (the "Legal Terms") (collectively, the "Services").
           </p>
           <p className="text-gray-700 mb-4">
             AR Alphaya Jewellery offers a curated collection of elegant and modern jewellery pieces. Discover unique necklaces, bracelets, rings, and earrings designed to add a touch of sophistication to any style.

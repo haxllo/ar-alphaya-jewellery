@@ -1,66 +1,54 @@
 # AR Alphaya Jewellery
 
-A modern, customizable jewelry e-commerce website built with Next.js, TypeScript, and Tailwind CSS. This project is designed to allow easy product management without coding through a headless CMS system.
+A modern, high-end jewelry e-commerce platform built with Next.js, TypeScript, and Tailwind CSS. The platform features a powerful administrative interface powered by Payload CMS, allowing for seamless product and content management.
 
 ## 📚 Documentation
 
 ### For Administrators
-- **[Admin Portal Guide](docs/ADMIN_PORTAL_GUIDE.md)** - Complete guide for managing products, uploading images, and using the admin panel
-- **[Quick Start Card](docs/ADMIN_QUICK_START.md)** - Printable quick reference for daily tasks
+- **[Admin Portal Guide](docs/ADMIN_PORTAL_GUIDE.md)** - Complete guide for managing products and media using Payload CMS.
+- **[Quick Start Card](docs/ADMIN_QUICK_START.md)** - Quick reference for daily management tasks.
 
 ### For Developers
-- [Environment Variables Setup](docs/NETLIFY_ENV_VARIABLES.md)
-- [Database Schema](database/)
-- [Admin Roles Extension](docs/ADMIN_ROLES_EXTENSION_GUIDE.md)
+- **[Environment Variables](docs/ENVIRONMENT_VARIABLES.md)** - Required keys for Payload, Supabase, PayPal, etc.
+- **[Database Schema](database/README.md)** - Structure of the PostgreSQL database.
+- **[Payload CMS Migration](docs/PAYLOAD_MIGRATION_ANALYSIS.md)** - Details on the architecture move to Payload.
 
 ## 🚀 Features
 
-- **Modern Tech Stack**: Next.js 15 with App Router, TypeScript, Tailwind CSS
-- **Content Management**: Supabase for headless content management.
-- **Authentication**: Complete Auth0 integration with user profiles and protected pages
-- **Shopping Cart**: Advanced cart functionality with recommendations and size selection
-- **User Reviews**: Complete review and rating system with verified purchases
-- **Multi-Currency**: Support for 9 international currencies with live conversion
-- **Product Recommendations**: Smart AI-powered product suggestions
-- **Newsletter System**: Advanced email subscription with preferences
-- **Size Guide**: Professional jewelry sizing guide with international standards
-- **Responsive Design**: Mobile-first design optimized for all devices
-- **SEO Optimized**: Complete SEO with meta tags and structured data
+- **Modern Tech Stack**: Next.js 15/16 with App Router, TypeScript, Tailwind CSS.
+- **Payload CMS**: Integrated headless CMS for managing products, users, and media.
+- **Authentication**: Secure authentication via NextAuth.js.
+- **Shopping Cart**: Advanced cart functionality with persistent state and size selection.
+- **Image Hosting**: Cloud-powered image delivery via Uploadcare CDN.
+- **Multi-Currency**: Support for international currencies with live conversion.
+- **Responsive Design**: Mobile-first design optimized for a premium experience.
+- **SEO Optimized**: Complete SEO with dynamic meta tags and structured data.
 
 ## 📁 Project Structure
 
 ```
 src/
-├── app/                    # Next.js App Router pages
-│   ├── api/auth/[auth0]/   # Auth0 authentication routes
-│   ├── collections/        # Product collections pages
-│   ├── products/           # Individual product pages
-│   ├── profile/           # User profile page (protected)
-│   ├── cart/              # Advanced shopping cart
-│   ├── checkout/          # Checkout integration
-│   ├── about/             # About page
-│   ├── contact/           # Contact page
-│   └── globals.css        # Global styles
+├── app/                    # Next.js App Router
+│   ├── (app)/             # Customer-facing website routes
+│   │   ├── collections/   # Product listing pages
+│   │   ├── products/      # Individual product detail pages
+│   │   ├── cart/         # Shopping cart
+│   │   └── checkout/     # Checkout flow
+│   ├── (payload)/         # Payload CMS admin and API routes
+│   └── api/               # Shared backend API routes
+├── collections/           # Payload CMS Collection definitions
 ├── components/            # Reusable React components
-│   ├── ui/               # Basic UI components
-│   ├── layout/           # Layout components (Header, Footer)
-│   ├── product/          # Product-related components
-│   ├── cart/             # Cart-related components
-│   ├── reviews/          # Review and rating components
-│   ├── recommendations/  # Product recommendation components
-│   └── marketing/        # Newsletter and marketing components
-├── lib/                  # Utility functions and configurations
-│   ├── store/            # Zustand store for state management
-│   ├── cms.ts              # Supabase client and data fetching
-│   ├── recommendations.ts# Smart product recommendations
-│   ├── reviews.ts        # Review system service
-│   ├── newsletter.ts     # Newsletter management
-│   ├── currency.ts       # Multi-currency support
-│   └── utils.ts          # General utilities
-├── types/                # TypeScript type definitions
-└── public/               # Static assets
-    ├── admin/            # Admin dashboard
-    └── images/           # Product images and assets
+│   ├── ui/               # Base UI components (Radix UI)
+│   ├── layout/           # Structural components (Header, Footer)
+│   ├── product/          # Product-related UI
+│   ├── cart/             # Cart-related UI
+│   └── admin/            # Admin-specific components
+├── lib/                  # Utilities, hooks, and services
+│   ├── cms.ts            # Data fetching logic
+│   ├── paypal.ts         # PayPal integration
+│   └── store/            # Zustand state management
+├── types/                # TypeScript definitions
+└── public/               # Static assets and media
 ```
 
 ## 🛠️ Getting Started
@@ -68,7 +56,8 @@ src/
 ### Prerequisites
 
 - Node.js 18.x or higher
-- npm or yarn
+- npm (preferred) or yarn
+- A PostgreSQL database (e.g., Supabase or local)
 
 ### Installation
 
@@ -83,221 +72,35 @@ cd ar-alphaya-jewellery
 npm install
 ```
 
-3. Create environment variables:
-```bash
-# Create .env.local with Auth0 credentials
-touch .env.local
-```
+3. Configure Environment:
+Copy `.env.example` to `.env.local` and fill in the required values (see `docs/ENVIRONMENT_VARIABLES.md`).
 
 4. Run the development server:
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 📝 Content Management
-
-Products are managed in a headless CMS setup using Supabase. You can edit products directly in the Supabase database dashboard.
-
-### Product Fields
-
-- `id`: Unique identifier (string)
-- `productId`: Product ID (string)
-- `name`: Product name (string)
-- `slug`: URL-friendly slug (string)
-- `description`: Product description (string)
-- `price`: Price of the product (number)
-- `currency`: Currency code (string, e.g., "LKR")
-- `images`: Array of image URLs (string[])
-- `category`: Product category (string)
-- `sku`: Stock Keeping Unit (string)
-- `materials`: Array of materials (string[])
-- `weight`: Weight of the product in grams (number)
-- `dimensions`: Dimensions of the product (string)
-- `sizes`: Available sizes (Size[])
-- `gemstones`: Available gemstones (Gemstone[])
-- `inStock`: Whether the product is in stock (boolean)
-- `featured`: Whether the product is a featured product (boolean)
-- `tags`: Array of tags (string[])
-- `createdAt`: Date of creation (string)
-- `updatedAt`: Date of last update (string)
-- `availability`: Availability status (string)
-- `leadTime`: Lead time for the product (string)
-- `customizable`: Whether the product is customizable (boolean)
-- `statusNote`: A note about the product's status (string)
-
-## 🛒 Shopping Cart
-
-The cart functionality includes:
-- Add/remove products
-- Size selection
-- Quantity management
-- Persistent across pages
-- Local storage backup
-
-## 🎨 Customization
-
-### Colors and Themes
-
-**Current Color Scheme: Professional Black & White**  
-*Updated September 4, 2025 to match original website aesthetics*
-
-The website uses a clean, professional black and white theme:
-
-**AR Alphaya Brand Colors:**
-- **Background**: #ffffff (Pure white)
-- **Foreground**: #121212 (Near black)  
-- **Border**: #e5e7eb (Light gray)
-- **Accent**: #121212 (Black)
-- **Button**: #121212 background, #ffffff text
-- **Hover States**: #1f2937 (Dark gray)
-- **Links**: #374151 normal, #121212 hover
-
-**Legacy Colors (replaced):**
-- Previous grayscale palette with gradient backgrounds has been updated to the clean black/white theme
-
-To customize colors, update `tailwind.config.ts`:
-
-```typescript
-colors: {
-  primary: {
-    50: "#your-lightest-color",
-    // ... update other shades
-    800: "#your-darkest-color",
-  }
-}
-```
-
-### Typography
-
-Custom fonts can be added in `app/layout.tsx` and configured in the Tailwind config.
+5. Open [http://localhost:3000](http://localhost:3000) for the website or [/admin](http://localhost:3000/admin) for the CMS.
 
 ## 🚀 Deployment
 
-### Netlify (Recommended)
+The project is optimized for deployment on **Vercel**.
 
-1. Connect your repository to Netlify
-2. Set build command: `npm run build`
-3. Set publish directory: `out`
-4. Enable Netlify Identity for admin access
-
-### Environment Variables
-
-```bash
-# Site Configuration
-NEXT_PUBLIC_SITE_URL=https://aralphaya.netlify.app
-NEXT_PUBLIC_SITE_NAME="AR Alphaya Jewellery"
-
-# Auth0 Authentication
-AUTH0_SECRET="your-secret-key"
-AUTH0_BASE_URL="https://aralphaya.netlify.app"
-AUTH0_ISSUER_BASE_URL="https://your-tenant.auth0.com"
-AUTH0_CLIENT_ID="your-client-id"
-AUTH0_CLIENT_SECRET="your-client-secret"
-AUTH0_SCOPE="openid profile email"
-```
-
-## 💱 Currency Selector (Temporarily Disabled)
-
-The multi-currency selector is currently disabled. To re-enable it:
-
-### Re-enabling Currency Selector
-
-1. Open `src/components/layout/header.tsx`
-2. Find the two commented sections marked with `TEMPORARILY DISABLED`:
-   - **Desktop Currency Selector** (around line 143-147)
-   - **Mobile Currency Selector** (around line 405-410)
-3. Uncomment both sections by removing `{/* */}` wrapper:
-
-**Desktop (before):**
-```tsx
-{/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
-{/* <div className="hidden md:block">
-  <CurrencySelector compact={true} showLabel={false} />
-</div> */}
-```
-
-**Desktop (after):**
-```tsx
-<div className="hidden md:block">
-  <CurrencySelector compact={true} showLabel={false} />
-</div>
-```
-
-**Mobile (before):**
-```tsx
-{/* TEMPORARILY DISABLED - See README.md for re-enabling instructions */}
-{/* <div className="mb-6 border-b border-border/60 pb-6">
-  <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Currency</div>
-  <CurrencySelector compact={true} showLabel={false} className="w-full" />
-</div> */}
-```
-
-**Mobile (after):**
-```tsx
-<div className="mb-6 border-b border-border/60 pb-6">
-  <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nocturne-500">Currency</div>
-  <CurrencySelector compact={true} showLabel={false} className="w-full" />
-</div>
-```
-
-4. Save the file and the currency selector will be re-enabled for both desktop and mobile views.
-
-**Note:** The currency functionality (`useCurrency` hook, exchange rate API, etc.) remains fully functional in the background.
-
-## 🔧 Development Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript check
-
-## 📱 Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Connect your repository to Vercel.
+2. Set the build command: `npm run build`.
+3. Configure all environment variables in the Vercel dashboard.
+4. Ensure your PostgreSQL database is accessible from the production environment.
 
 ## 📋 Project Status
 
-**Current Version:** Production Ready with Auth0  
-**Last Updated:** September 4, 2025  
-**Development Status:** ✅ Complete with full authentication  
-**Live Site:** https://aralphaya.netlify.app  
-**GitHub Repository:** https://github.com/haxllo/ar-alphaya-jewellery
-
-### Recent Updates:
-- ✅ Complete Auth0 authentication integration
-- ✅ Protected user profiles and checkout pages
-- ✅ Advanced shopping cart with recommendations
-- ✅ Multi-currency support system
-- ✅ Professional review and rating system
-- ✅ Newsletter subscription system
-- ✅ Comprehensive size guide modal
-- ✅ Professional black/white design theme
-- ✅ Complete brand integration and optimization
+**Current Version:** 2.0 (Payload CMS Integrated)  
+**Development Status:** ✅ Active  
+**Live Site:** [aralphayajewellery.com](https://aralphayajewellery.com)
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
 
 ## 📞 Support
 
 For support, email info@aralphayajewellery.com or create an issue in this repository.
-
-## 🔗 Links
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Netlify Identity Documentation](https://docs.netlify.com/visitor-access/identity)

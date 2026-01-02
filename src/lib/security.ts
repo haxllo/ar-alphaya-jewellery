@@ -58,15 +58,14 @@ export function generateSiteCSP(): string {
 }
 
 export function generateAdminCSP(): string {
-  // Mirrors /admin/* CSP in netlify.toml
   return [
     "default-src 'self' https: data: blob:",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://unpkg.com https://identity.netlify.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://unpkg.com",
     "style-src 'self' 'unsafe-inline' https:",
     "img-src 'self' https: data: blob: https://ucarecdn.com https://flagcdn.com",
-    "connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com https://identity.netlify.com",
+    "connect-src 'self' https: wss: https://upload.uploadcare.com https://api.uploadcare.com",
     "font-src 'self' https: data:",
-    "frame-src 'self' https: https://identity.netlify.com",
+    "frame-src 'self' https:",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -75,8 +74,6 @@ export function generateAdminCSP(): string {
 
 // Security headers with dynamic CSP
 export function getSecurityHeaders(nonce: string, pathname?: string) {
-  // Use Netlify's CSP defined in netlify.toml as the single source of truth.
-  // To avoid conflicting/double CSP headers in production, we DO NOT emit CSP here when running on Netlify.
   const headers: Record<string, string> = {
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
@@ -86,12 +83,8 @@ export function getSecurityHeaders(nonce: string, pathname?: string) {
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   };
 
-  // Only add CSP from middleware when NOT running on Netlify (e.g., local dev or other hosts).
-  // Netlify sets CSP via netlify.toml and should be the only CSP in production.
-  if (!process.env.NETLIFY) {
-    const isAdmin = pathname?.startsWith('/admin');
-    headers['Content-Security-Policy'] = isAdmin ? generateAdminCSP() : generateSiteCSP();
-  }
+  const isAdmin = pathname?.startsWith('/admin');
+  headers['Content-Security-Policy'] = isAdmin ? generateAdminCSP() : generateSiteCSP();
 
   return headers;
 }

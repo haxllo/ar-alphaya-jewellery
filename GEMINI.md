@@ -27,8 +27,8 @@
 
 ### Environment Setup
 
-1.  Copy `.env.example` to `.env.local` (if available, otherwise refer to `docs/NETLIFY_ENV_VARIABLES.md` or existing `.env` files).
-2.  Configure Auth0, Supabase, and other service credentials.
+1.  Copy `.env.example` to `.env.local` (if available, otherwise refer to `docs/ENVIRONMENT_VARIABLES.md` or existing `.env` files).
+2.  Configure Payload, Supabase, and other service credentials.
 
 ### Key Commands
 
