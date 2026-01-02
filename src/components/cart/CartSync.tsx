@@ -24,7 +24,7 @@ export default function CartSync() {
         }
       })
     }
-  }, [session?.user?.email]) // Only run when user logs in
+  }, [session?.user?.email, loadFromServer, syncToServer, localItems]) // Added localItems to dependencies
 
   return null // This component doesn't render anything
 }

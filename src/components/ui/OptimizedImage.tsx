@@ -118,7 +118,7 @@ export default function OptimizedImage({
 
   return (
     <>
-      <Image {...imageProps} />
+      <Image {...imageProps} alt={alt} />
       {isLoading && (
         <div className="absolute inset-0 bg-gray-100 animate-pulse" />
       )}
