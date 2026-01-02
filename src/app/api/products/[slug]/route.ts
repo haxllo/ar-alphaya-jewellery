@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import { getProductBySlug } from '@/lib/cms'
 
 /**
  * GET /api/products/[slug]
- * Public API - Get single product by slug
+ * Public API - Get single product by slug using Payload CMS
  */
 export async function GET(
   request: NextRequest,
@@ -11,16 +11,9 @@ export async function GET(
 ) {
   try {
     const { slug } = await params
-    const supabase = createServerClient()
+    const product = await getProductBySlug(slug)
     
-    const { data: product, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('slug', slug)
-      .eq('status', 'published')
-      .single()
-    
-    if (error || !product) {
+    if (!product) {
       return NextResponse.json(
         { error: 'Product not found' },
         { status: 404 }

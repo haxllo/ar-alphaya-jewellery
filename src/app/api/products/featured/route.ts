@@ -1,29 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import { getFeaturedProducts } from '@/lib/cms'
 
 /**
  * GET /api/products/featured
- * Public API - Get featured products
+ * Public API - Get featured products using Payload CMS
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const limit = searchParams.get('limit') || '4'
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 4
     
-    const supabase = createServerClient()
-    
-    const { data: products, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('status', 'published')
-      .eq('featured', true)
-      .eq('in_stock', true)
-      .order('created_at', { ascending: false })
-      .limit(parseInt(limit))
-    
-    if (error) {
-      throw error
-    }
+    const products = await getFeaturedProducts(limit)
     
     return NextResponse.json({ products: products || [] })
   } catch (error) {

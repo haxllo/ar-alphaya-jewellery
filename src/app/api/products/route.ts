@@ -1,49 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import { searchProducts } from '@/lib/cms'
 
 /**
  * GET /api/products
- * Public API - Get published products
+ * Public API - Get published products using Payload CMS
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const category = searchParams.get('category')
-    const featured = searchParams.get('featured')
-    const limit = searchParams.get('limit')
-    const search = searchParams.get('search')
+    const category = searchParams.get('category') || undefined
+    const featured = searchParams.get('featured') === 'true'
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 20
+    const search = searchParams.get('search') || undefined
+    const page = searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1
     
-    const supabase = createServerClient()
-    let query = supabase
-      .from('products')
-      .select('*')
-      .eq('status', 'published')
-      .order('created_at', { ascending: false })
+    const result = await searchProducts({
+      category,
+      featured: searchParams.get('featured') === 'true' ? true : undefined,
+      limit,
+      query: search,
+      page
+    })
     
-    // Apply filters
-    if (category) {
-      query = query.eq('category', category)
-    }
-    
-    if (featured === 'true') {
-      query = query.eq('featured', true)
-    }
-    
-    if (search) {
-      query = query.or(`name.ilike.%${search}%,description.ilike.%${search}%`)
-    }
-    
-    if (limit) {
-      query = query.limit(parseInt(limit))
-    }
-    
-    const { data: products, error } = await query
-    
-    if (error) {
-      throw error
-    }
-    
-    return NextResponse.json({ products: products || [] })
+    return NextResponse.json({ 
+      products: result.products,
+      total: result.total,
+      page: result.page,
+      totalPages: result.totalPages
+    })
   } catch (error) {
     console.error('Error in GET /api/products:', error)
     return NextResponse.json(
@@ -54,4 +38,4 @@ export async function GET(request: NextRequest) {
 }
 
 // Enable caching
-export const revalidate = 60 // Revalidate every 60 seconds
+export const revalidate = 60
