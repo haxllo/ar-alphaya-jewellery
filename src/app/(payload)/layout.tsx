@@ -3,7 +3,7 @@ import '@payloadcms/next/css'
 import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import React from 'react'
 
-import { importMap } from './admin/importMap'
+import { importMap } from './payload-admin/importMap'
 import './custom.css'
 
 type Args = {

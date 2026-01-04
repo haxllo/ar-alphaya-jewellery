@@ -195,7 +195,7 @@ export function getMediaUrl(url: string | undefined | null): string {
 }
 
 export function getOptimizedImageUrl(media: MediaFile | PayloadMedia, size: 'thumbnail' | 'small' | 'medium' | 'large' | 'original' = 'medium'): string {
-  // Handle Payload Media type
+  // Handle Payload Media type (Standard Upload Collection)
   if ('sizes' in media && 'url' in media && !('attributes' in media)) {
      const pm = media as PayloadMedia
      if (size === 'original') return getMediaUrl(pm.url)
@@ -213,14 +213,40 @@ export function getOptimizedImageUrl(media: MediaFile | PayloadMedia, size: 'thu
      return getMediaUrl(pm.url)
   }
 
+  // Handle Payload Media type (Custom Uploadcare Collection)
+  if ('url' in media && !('attributes' in media)) {
+      const pm = media as any; // Typed as PayloadMedia but structure changed
+      const url = pm.url;
+      if (!url) return '';
+      
+      // If it's Uploadcare, we can resize
+      if (url.includes('ucarecdn.com') || url.includes('ucarecd.net')) {
+          if (size === 'original') return url;
+          
+          let resize = '';
+          if (size === 'thumbnail') resize = '-/resize/400x/';
+          else if (size === 'small') resize = '-/resize/600x/';
+          else if (size === 'medium') resize = '-/resize/800x/';
+          else if (size === 'large') resize = '-/resize/1200x/';
+          
+          return url.endsWith('/') ? `${url}${resize}` : `${url}/${resize}`;
+      }
+      
+      return url;
+  }
+
   // Handle Legacy MediaFile type
   const legacy = media as MediaFile
-  if (size === 'original') {
-    return getMediaUrl(legacy.attributes.url);
+  if (legacy.attributes) {
+      if (size === 'original') {
+        return getMediaUrl(legacy.attributes.url);
+      }
+      
+      const format = legacy.attributes.formats?.[size];
+      return format ? getMediaUrl(format.url) : getMediaUrl(legacy.attributes.url);
   }
   
-  const format = legacy.attributes.formats?.[size];
-  return format ? getMediaUrl(format.url) : getMediaUrl(legacy.attributes.url);
+  return '';
 }
 
 export const getProducts = cache(async (options?: {

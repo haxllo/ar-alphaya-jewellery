@@ -1,39 +1,30 @@
-
 import { createClient } from '@supabase/supabase-js'
 import { getPayload } from 'payload'
-import config from '../src/payload.config'
+import config from './payload-migration.config'
 import path from 'path'
-import fs from 'fs'
-import https from 'https'
 import { fileURLToPath } from 'url'
-import 'dotenv/config'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: '.env.local' })
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 // Supabase setup
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
-const supabase = createClient(supabaseUrl, supabaseServiceKey)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-async function downloadImage(url: string, dest: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(dest)
-    https.get(url, (response) => {
-      response.pipe(file)
-      file.on('finish', () => {
-        file.close(() => resolve(dest))
-      })
-    }).on('error', (err) => {
-      fs.unlink(dest, () => reject(err))
-    })
-  })
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('Missing Supabase credentials')
+  process.exit(1)
 }
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
 async function migrate() {
   const payload = await getPayload({ config })
   
-  console.log('Fetching products from Supabase...')
+  console.log('Fetching products from Legacy Supabase...')
   const { data: products, error } = await supabase
     .from('products')
     .select('*')
@@ -48,47 +39,31 @@ async function migrate() {
   for (const product of products) {
     console.log(`Migrating product: ${product.name}`)
     
-    // Handle images
+    // Handle images (Uploadcare URLs)
     const imageIds = []
     if (product.images && product.images.length > 0) {
       for (let i = 0; i < product.images.length; i++) {
         const imageUrl = product.images[i]
-        const imageName = `${product.slug}-${i}.jpg`
-        const tempPath = path.join(dirname, 'temp', imageName)
         
-        // Ensure temp directory exists
-        if (!fs.existsSync(path.join(dirname, 'temp'))) {
-          fs.mkdirSync(path.join(dirname, 'temp'))
-        }
-
         try {
-          await downloadImage(imageUrl, tempPath)
-          const fileBuffer = fs.readFileSync(tempPath)
-          
+          // Create Media item with URL directly
+          // We don't need 'file' because it's an external URL now
           const media = await payload.create({
             collection: 'media',
             data: {
               alt: product.name,
-            },
-            file: {
-              data: fileBuffer,
-              name: imageName,
-              mimetype: 'image/jpeg',
-              size: fs.statSync(tempPath).size,
+              url: imageUrl, // Directly setting the URL
             },
           })
           
           imageIds.push(media.id)
-          
-          // Cleanup temp file
-          fs.unlinkSync(tempPath)
         } catch (err) {
           console.error(`Failed to migrate image for ${product.name}:`, err)
         }
       }
     }
 
-    // Map materials to valid option values
+    // Map materials
     const mapMaterial = (m: string) => {
       const lower = m.toLowerCase()
       if (lower.includes('silver')) return 'silver'
@@ -104,44 +79,38 @@ async function migrate() {
       .filter(Boolean)
 
     // Map product data
-    try {
-      // Basic rich text structure for description
-      const descriptionRichText = {
-        root: {
-          children: [
-            {
+    const productData = {
+          name: product.name,
+          slug: product.slug,
+          description: {
+            root: {
               children: [
                 {
-                  detail: 0,
-                  format: 0,
-                  mode: 'normal',
-                  style: '',
-                  text: product.description || '',
-                  type: 'text',
+                  children: [
+                    {
+                      detail: 0,
+                      format: 0,
+                      mode: 'normal',
+                      style: '',
+                      text: product.description || '',
+                      type: 'text',
+                      version: 1,
+                    },
+                  ],
+                  direction: 'ltr',
+                  format: '',
+                  indent: 0,
+                  type: 'paragraph',
                   version: 1,
                 },
               ],
               direction: 'ltr',
               format: '',
               indent: 0,
-              type: 'paragraph',
+              type: 'root',
               version: 1,
             },
-          ],
-          direction: 'ltr',
-          format: '',
-          indent: 0,
-          type: 'root',
-          version: 1,
-        },
-      }
-
-      await payload.create({
-        collection: 'products',
-        data: {
-          name: product.name,
-          slug: product.slug,
-          description: descriptionRichText as any,
+          } as any,
           price: Number(product.price),
           currency: product.currency || 'LKR',
           category: product.category || 'rings',
@@ -162,11 +131,37 @@ async function migrate() {
             description: g.description,
             available: g.available
           })) : [],
-        },
+    }
+
+    try {
+      // Check if product exists
+      const existing = await payload.find({
+          collection: 'products',
+          where: {
+              slug: { equals: product.slug }
+          },
+          limit: 1
       })
-      console.log(`Successfully migrated: ${product.name}`)
+
+      if (existing.docs.length > 0) {
+          // Update
+          await payload.update({
+              collection: 'products',
+              id: existing.docs[0].id,
+              data: productData as any
+          })
+          console.log(`Updated existing product: ${product.name}`)
+      } else {
+          // Create
+          await payload.create({
+            collection: 'products',
+            data: productData as any,
+          })
+          console.log(`Created new product: ${product.name}`)
+      }
+
     } catch (err) {
-      console.error(`Failed to create product ${product.name}:`, err)
+      console.error(`Failed to upsert product ${product.name}:`, err)
     }
   }
 

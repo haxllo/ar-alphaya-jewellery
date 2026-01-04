@@ -1,35 +1,25 @@
 import type { CollectionConfig } from 'payload'
+import { UploadcareField } from '@/components/admin/UploadcareField'
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  upload: {
-    staticDir: 'public/media',
-    imageSizes: [
-      {
-        name: 'thumbnail',
-        width: 400,
-        height: 300,
-        position: 'centre',
-      },
-      {
-        name: 'card',
-        width: 768,
-        height: 1024,
-        position: 'centre',
-      },
-      {
-        name: 'tablet',
-        width: 1024,
-        height: undefined,
-        position: 'centre',
-      },
-    ],
-    mimeTypes: ['image/*'],
+  admin: {
+    useAsTitle: 'alt',
   },
   access: {
     read: () => true,
   },
   fields: [
+    {
+      name: 'url',
+      type: 'text',
+      required: false,
+      admin: {
+        components: {
+          Field: UploadcareField as any,
+        },
+      },
+    },
     {
       name: 'alt',
       type: 'text',
