@@ -18,7 +18,7 @@ if (!process.env.PAYLOAD_SECRET) {
 
 export default buildConfig({
   routes: {
-    admin: '/payload-admin',
+    admin: '/admin',
   },
   admin: {
     user: Users.slug,

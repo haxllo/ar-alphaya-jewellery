@@ -83,7 +83,7 @@ export function getSecurityHeaders(nonce: string, pathname?: string) {
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   };
 
-  const isAdmin = pathname?.startsWith('/admin') || pathname?.startsWith('/payload-admin');
+  const isAdmin = pathname?.startsWith('/admin');
   headers['Content-Security-Policy'] = isAdmin ? generateAdminCSP() : generateSiteCSP();
 
   return headers;
