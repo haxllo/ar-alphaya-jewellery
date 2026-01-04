@@ -14,6 +14,7 @@ const Media = {
   fields: [
     { name: 'url', type: 'text' },
     { name: 'alt', type: 'text' },
+    { name: 'caption', type: 'textarea' },
   ],
 }
 
