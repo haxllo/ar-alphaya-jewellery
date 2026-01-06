@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from '@/lib/auth'
+import { checkIsAdmin } from '@/lib/admin-auth'
 import { getProducts, createProduct } from '@/lib/admin/products'
 import type { ProductFilters } from '@/types/admin'
 
@@ -10,8 +11,13 @@ import type { ProductFilters } from '@/types/admin'
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession()
-    if (!session || !session.user) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const isAdmin = await checkIsAdmin(session.user.id)
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
     
     const searchParams = request.nextUrl.searchParams
@@ -46,8 +52,13 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession()
-    if (!session || !session.user || !session.user.id) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const isAdmin = await checkIsAdmin(session.user.id)
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
     
     const body = await request.json()

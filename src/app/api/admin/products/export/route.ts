@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from '@/lib/auth';
+import { checkIsAdmin } from '@/lib/admin-auth';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -49,8 +51,18 @@ function convertPriceToShopify(priceInCents: number): string {
   return (priceInCents / 100).toFixed(2);
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const isAdmin = await checkIsAdmin(session.user.id)
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     
     // Get query parameters for selected product IDs

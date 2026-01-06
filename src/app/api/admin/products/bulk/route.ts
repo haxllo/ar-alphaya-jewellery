@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from '@/lib/auth'
+import { checkIsAdmin } from '@/lib/admin-auth'
 import { bulkDeleteProducts, bulkUpdateStatus } from '@/lib/admin/products'
 
 /**
@@ -11,6 +12,11 @@ export async function POST(request: NextRequest) {
     const session = await getServerSession()
     if (!session || !session.user || !session.user.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const isAdmin = await checkIsAdmin(session.user.id)
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
     
     const body = await request.json()
