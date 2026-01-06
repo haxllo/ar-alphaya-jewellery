@@ -90,22 +90,25 @@ function normalizeProductFromPayload(doc: PayloadProduct): Product {
     return (item.image as PayloadMedia).url || ''
   }).filter(Boolean)
 
-  // Extract text from Lexical RichText
+  // Extract text from Lexical RichText and ensure it's a safe plain string (XSS Mitigation)
   let description = ''
   try {
-    if (doc.description && doc.description.root) {
-        const root = doc.description.root;
-        if (root.children) {
+    if (doc.description && typeof doc.description === 'object' && 'root' in doc.description) {
+        const root = (doc.description as any).root;
+        if (root && root.children) {
             description = root.children.map((child: any) => {
                 if (child.children) {
-                    return child.children.map((c: any) => c.text).join(' ')
+                    return child.children.map((c: any) => c.text || '').join(' ')
                 }
                 return ''
-            }).join('\n')
+            }).join('\n').trim()
         }
+    } else if (typeof doc.description === 'string') {
+        description = doc.description;
     }
   } catch (e) {
     console.error('Error parsing description', e)
+    description = '' // Fallback to empty string on error
   }
 
   return {

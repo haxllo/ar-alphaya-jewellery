@@ -85,24 +85,5 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
-  if (!process.env.ENABLE_ABANDONED_CART || process.env.ENABLE_ABANDONED_CART === 'false') {
-    return NextResponse.json({ error: 'Abandoned cart disabled' }, { status: 503 })
-  }
-  // For debugging only; do not expose in production
-  const supabase = createServerClient()
-  const { data: carts, error } = await supabase
-    .from('abandoned_carts')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(100)
-
-  if (error) {
-    console.error('Error fetching abandoned carts:', error)
-    return NextResponse.json({ error: 'Failed to fetch carts' }, { status: 500 })
-  }
-
-  return NextResponse.json({ carts: carts || [] })
-}
 
 

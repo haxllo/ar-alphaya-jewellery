@@ -152,11 +152,14 @@ CREATE POLICY "Anyone can subscribe to newsletter"
   FOR INSERT
   WITH CHECK (true);
 
--- Anyone can check if email exists (for duplicate prevention)
-CREATE POLICY "Anyone can check newsletter subscription"
+-- Users can only view their own subscription
+CREATE POLICY "Users can view own newsletter subscription"
   ON public.newsletter_subscriptions
   FOR SELECT
-  USING (true);
+  USING (
+    auth.role() = 'authenticated' AND
+    email = (SELECT email FROM auth.users WHERE id = auth.uid())
+  );
 
 -- Users can update their own subscription
 CREATE POLICY "Users can update own newsletter subscription"

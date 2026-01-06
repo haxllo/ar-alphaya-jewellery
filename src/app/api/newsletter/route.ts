@@ -130,48 +130,4 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('email');
-
-    if (!email) {
-      return NextResponse.json(
-        { success: false, message: 'Email parameter is required' },
-        { status: 400 }
-      );
-    }
-
-    const supabase = createServerClient();
-    
-    const { data, error } = await supabase
-      .from('newsletter_subscriptions')
-      .select('id, email, is_active, subscribed_at')
-      .eq('email', email.toLowerCase().trim())
-      .single();
-
-    if (error || !data) {
-      return NextResponse.json(
-        { success: false, subscribed: false },
-        { status: 200 }
-      );
-    }
-
-    return NextResponse.json(
-      { 
-        success: true, 
-        subscribed: data.is_active,
-        subscriptionId: data.id,
-        subscribedAt: data.subscribed_at 
-      },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Newsletter check error:', error);
-    return NextResponse.json(
-      { success: false, message: 'Failed to check subscription status' },
-      { status: 500 }
-    );
-  }
-}
 

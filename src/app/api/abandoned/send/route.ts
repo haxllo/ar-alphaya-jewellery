@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase'
 import { sendAbandonedCartEmail } from '@/lib/email/sender'
+import { getServerSession } from '@/lib/auth'
+import { checkIsAdmin } from '@/lib/admin-auth'
 
 type AbandonedCartItem = {
   name: string
@@ -14,6 +16,18 @@ export async function POST(req: NextRequest) {
     if (!process.env.ENABLE_ABANDONED_CART || process.env.ENABLE_ABANDONED_CART === 'false') {
       return NextResponse.json({ error: 'Abandoned cart disabled' }, { status: 503 })
     }
+
+    // Require admin authentication for manual trigger
+    const session = await getServerSession()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const isAdmin = await checkIsAdmin(session.user.id)
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const body = await req.json()
     const cartId = body.cartId
 
